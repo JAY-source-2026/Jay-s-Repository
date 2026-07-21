@@ -6,7 +6,7 @@
     <title>주식회사 디오이엔씨 (DOENC) | 화재차단 전문기업 · 내화채움구조 · 내화구조 · 셔터</title>
     <meta name="description" content="주식회사 디오이엔씨(DOENC)는 화재차단 전문기업입니다. 내화채움구조·내화구조·셔터·설계소프트웨어를 자체기술로 국산화하여 건축물 및 지하구의 화재차단 장치를 제조·시공합니다.">
     <meta name="keywords" content="디오이엔씨, DOENC, 내화채움구조, 내화구조, 방화셔터, 스크린셔터, 화재차단, 지하구, 관통부 방화, 파이어스탑, firestop">
-    <meta name="theme-color" content="#0a2540">
+    <meta name="theme-color" content="#101013">
     <link rel="canonical" href="https://jay-source-2026.github.io/Jay-s-Repository/company-site/">
 
     <!-- Open Graph -->
@@ -59,301 +59,346 @@
       })(window, document, "clarity", "script", "x3i9uwv132");
     </script>
 
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
     <link rel="stylesheet" href="assets/css/style.css">
-    <noscript><style>.section{opacity:1!important;transform:none!important}</style></noscript>
+    <noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
 </head>
 <body>
     <a href="#main" class="skip-link">본문 바로가기</a>
+
     <!-- ===== Header ===== -->
-    <header class="site-header" id="siteHeader">
-        <div class="container header-inner">
-            <a class="brand" href="#home" aria-label="디오이엔씨 홈">
-                <img src="assets/images/doenc_logo.png" alt="DOENC 로고" class="brand-logo" width="240" height="240">
-                <span class="brand-name">DOENC</span>
+    <header class="hd" id="siteHeader">
+        <div class="hd-inner">
+            <a class="hd-brand" href="#home" aria-label="디오이엔씨 홈">
+                <img src="assets/images/doenc_logo.png" alt="" width="240" height="240">
+                <span>DOENC</span>
             </a>
-            <nav class="nav" aria-label="주요 메뉴">
-                <a href="#about">회사소개</a>
-                <a href="#business">제품소개</a>
+            <nav class="hd-nav" aria-label="주요 메뉴">
+                <a href="#business">사업영역</a>
                 <a href="#firestop">내화채움구조</a>
                 <a href="#shutter">셔터</a>
-                <a href="#tech">기술·시공</a>
-                <a href="#cert">인정·특허</a>
-                <a href="#contact">문의</a>
+                <a href="#tech">기술력</a>
+                <a href="#about">회사소개</a>
             </nav>
-            <a href="#contact" class="btn btn-sm btn-primary nav-cta">견적·상담</a>
-            <button class="nav-toggle" id="navToggle" aria-label="메뉴 열기" aria-expanded="false">
-                <span></span><span></span><span></span>
+            <div class="hd-side">
+                <a class="hd-tel" href="tel:0299252992">02-925-2992</a>
+                <a class="hd-cta" href="#contact">문의하기</a>
+            </div>
+            <button class="hd-toggle" id="navToggle" aria-label="메뉴 열기" aria-expanded="false" aria-controls="mobileNav">
+                <span></span><span></span>
             </button>
         </div>
-        <nav class="mobile-nav" id="mobileNav" aria-label="모바일 메뉴">
-            <a href="#about">회사소개</a>
-            <a href="#business">제품소개</a>
-            <a href="#firestop">내화채움구조</a>
-            <a href="#shutter">셔터</a>
-            <a href="#tech">기술·시공</a>
-            <a href="#cert">인정·특허</a>
-            <a href="#contact">문의</a>
+        <nav class="mnav" id="mobileNav" aria-label="모바일 메뉴">
+            <a href="#business"><em>01</em>사업영역</a>
+            <a href="#firestop"><em>02</em>내화채움구조</a>
+            <a href="#shutter"><em>03</em>셔터</a>
+            <a href="#tech"><em>04</em>기술력</a>
+            <a href="#about"><em>05</em>회사소개</a>
+            <a href="#contact"><em>06</em>문의하기</a>
+            <div class="mnav-foot">
+                <a href="tel:0299252992">02-925-2992</a>
+                <span>평일 09:00 – 18:00</span>
+            </div>
         </nav>
     </header>
 
     <main id="main">
-        <!-- ===== Hero ===== -->
+        <!-- ===== 1. Hero ===== -->
         <section class="hero" id="home">
-            <div class="hero-bg" aria-hidden="true"></div>
-            <div class="container hero-inner">
-                <p class="eyebrow">CREATIVE DOENC · 화재차단 전문기업</p>
-                <h1 class="hero-title">디오이엔씨는 화재로부터의<br><span>안전</span>을 위하여 최선을 다합니다</h1>
-                <p class="hero-sub">
-                    기술력을 바탕으로 고객과 함께하는 <strong>(주)디오이엔씨</strong>입니다.<br class="br-mobile">
-                    내화채움구조 · 내화구조 · 셔터를 자체기술로 국산화하여
-                    건축물 및 지하구의 화재차단 장치를 제조·시공합니다.
+            <div class="hero-art" aria-hidden="true">
+                <div class="ha-glow"></div>
+                <div class="ha-grid"></div>
+                <svg class="ha-line" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice" fill="none">
+                    <path d="M-50 620 C 260 620, 300 300, 620 300 S 980 560, 1250 470" stroke="rgba(255,255,255,.10)" stroke-width="1"/>
+                    <path d="M-50 690 C 300 690, 340 380, 660 380 S 1000 620, 1250 540" stroke="rgba(255,255,255,.07)" stroke-width="1"/>
+                    <path d="M-50 550 C 220 550, 260 230, 580 230 S 960 500, 1250 400" stroke="rgba(105,182,250,.18)" stroke-width="1"/>
+                </svg>
+            </div>
+            <div class="hero-body">
+                <p class="hero-eyebrow"><span></span>CREATIVE DOENC</p>
+                <h1 class="hero-title">화재로부터 안전한<br>공간을 만듭니다</h1>
+                <p class="hero-desc">
+                    내화채움구조 · 내화구조 · 셔터를 자체기술로 국산화하여<br class="only-pc">
+                    건축물과 지하구의 화재차단 장치를 제조·시공합니다.
                 </p>
-                <div class="hero-actions">
-                    <a href="#business" class="btn btn-primary">제품소개 보기</a>
-                    <a href="#contact" class="btn btn-ghost">제품 및 견적 문의</a>
-                </div>
-                <dl class="hero-stats">
-                    <div><dt>자체기술 국산화</dt><dd>제품 4개 분야</dd></div>
-                    <div><dt>특허 다수 보유</dt><dd>내화채움구조 · 스크린셔터</dd></div>
-                    <div><dt>ONE-STOP SYSTEM</dt><dd>자재생산 · 설계 · 시공</dd></div>
-                </dl>
+                <a class="more more-lg" href="#business">VIEW MORE <i aria-hidden="true">+</i></a>
+            </div>
+            <div class="hero-meta" aria-hidden="true">
+                <span class="hero-scroll">SCROLL</span>
             </div>
         </section>
 
-        <!-- ===== About ===== -->
-        <section class="section" id="about">
-            <div class="container">
-                <div class="section-head">
-                    <p class="section-eyebrow">ABOUT US</p>
-                    <h2>회사소개</h2>
+        <!-- ===== 2. Business ===== -->
+        <section class="sec sec-business" id="business">
+            <div class="wrap">
+                <div class="sec-head reveal">
+                    <p class="label">사업영역</p>
+                    <h2 class="sec-title">자체기술 국산화로<br>화재 확산을 차단합니다</h2>
                 </div>
-                <div class="about-grid">
-                    <div class="about-lead">
-                        <p class="lead-text">
-                            <strong>(주)디오이엔씨</strong>는 화재차단 전문기업으로 특화된 기술로
-                            내화채움구조, 스크린셔터 등의 특허를 다수 보유하고 있습니다.
-                        </p>
-                        <p class="muted">
-                            이러한 기술을 바탕으로 <strong>건축물 및 지하구의 화재차단 장치</strong>를 제조·시공하고 있습니다.
-                            방화 내화구조 소방시설 전문기업으로서 특화된 기술개발로 다수의 특허를 보유하고 있으며,
-                            차별화된 방화 성능으로 지하구 및 건축물의 화재 차단장치를 주기술로 하는 기업입니다.
-                        </p>
-                        <p class="muted">
-                            디오인의 열정과 창의력이 새로운 기술을 만듭니다.
-                            우리는 기술을 만들고, 기술은 미래를 만듭니다.
-                        </p>
-                    </div>
-                    <ul class="value-cards">
-                        <li>
-                            <div class="value-icon" aria-hidden="true">🛡️</div>
-                            <h3>특허 다수 보유</h3>
-                            <p>내화채움구조·스크린셔터 등 특화된 기술개발로 다수의 특허를 확보했습니다.</p>
-                        </li>
-                        <li>
-                            <div class="value-icon" aria-hidden="true">🔧</div>
-                            <h3>ONE-STOP SYSTEM</h3>
-                            <p>자체기술 국산화로 자재 생산·설계·시공을 일괄 수행합니다.</p>
-                        </li>
-                        <li>
-                            <div class="value-icon" aria-hidden="true">🌱</div>
-                            <h3>불연성 친환경</h3>
-                            <p>불연성 친환경 무기 화합물로 구성되어 유독가스 발생을 최소화합니다.</p>
-                        </li>
-                    </ul>
-                </div>
+
+                <ul class="biz">
+                    <li class="biz-item reveal">
+                        <a href="#firestop" class="biz-link">
+                            <span class="biz-media">
+                                <svg viewBox="0 0 320 400" fill="none" aria-hidden="true">
+                                    <rect x="118" y="30" width="84" height="340" stroke="rgba(255,255,255,.22)"/>
+                                    <path d="M118 30 v340 M202 30 v340" stroke="rgba(255,255,255,.22)"/>
+                                    <path d="M0 186 h118 M202 186 h120 M0 214 h118 M202 214 h120" stroke="rgba(255,255,255,.5)"/>
+                                    <rect class="ac-fill" x="118" y="160" width="84" height="80" stroke="#69b6fa"/>
+                                    <path d="M126 168 l68 64 M126 200 l68 32 M126 232 l36 -64" stroke="rgba(105,182,250,.45)"/>
+                                    <path d="M40 130 q14 -26 0 -46 M62 130 q14 -26 0 -46" stroke="rgba(255,255,255,.28)"/>
+                                </svg>
+                            </span>
+                            <span class="biz-body">
+                                <em class="biz-num">01</em>
+                                <h3>내화채움구조</h3>
+                                <p>벽·바닥 관통부를 밀실하게 채워 화염과 유독가스의 이동 경로를 차단합니다.</p>
+                                <span class="more">VIEW MORE <i aria-hidden="true">+</i></span>
+                            </span>
+                        </a>
+                    </li>
+                    <li class="biz-item reveal">
+                        <a href="#contact" class="biz-link" data-product="내화구조">
+                            <span class="biz-media">
+                                <svg viewBox="0 0 320 400" fill="none" aria-hidden="true">
+                                    <path d="M96 90 h128 M96 310 h128 M160 90 v220" stroke="rgba(255,255,255,.5)"/>
+                                    <rect x="76" y="70" width="168" height="260" stroke="rgba(255,255,255,.22)"/>
+                                    <rect class="ac-fill" x="60" y="54" width="200" height="292" stroke="#69b6fa"/>
+                                    <path d="M0 346 h320" stroke="rgba(255,255,255,.22)"/>
+                                    <path d="M40 380 v-24 M280 380 v-24" stroke="rgba(255,255,255,.18)"/>
+                                </svg>
+                            </span>
+                            <span class="biz-body">
+                                <em class="biz-num">02</em>
+                                <h3>내화구조</h3>
+                                <p>기둥·보·벽체 등 주요 구조부의 내화성능을 확보해 화재 시 구조적 붕괴를 막습니다.</p>
+                                <span class="more">문의하기 <i aria-hidden="true">+</i></span>
+                            </span>
+                        </a>
+                    </li>
+                    <li class="biz-item reveal">
+                        <a href="#shutter" class="biz-link">
+                            <span class="biz-media">
+                                <svg viewBox="0 0 320 400" fill="none" aria-hidden="true">
+                                    <rect x="46" y="40" width="228" height="26" stroke="rgba(255,255,255,.5)"/>
+                                    <path d="M46 86 h228 M46 118 h228 M46 150 h228 M46 182 h228" stroke="rgba(255,255,255,.28)"/>
+                                    <path class="ac-fill" d="M46 214 h228" stroke="#69b6fa"/>
+                                    <path d="M46 40 v300 M274 40 v300" stroke="rgba(255,255,255,.22)"/>
+                                    <path d="M160 250 v66 M146 302 l14 14 14 -14" stroke="rgba(105,182,250,.6)"/>
+                                    <path d="M20 340 h280" stroke="rgba(255,255,255,.22)"/>
+                                </svg>
+                            </span>
+                            <span class="biz-body">
+                                <em class="biz-num">03</em>
+                                <h3>셔터</h3>
+                                <p>방화셔터·스크린셔터로 대공간을 구획해 화재 확산을 막고 피난 시간을 확보합니다.</p>
+                                <span class="more">VIEW MORE <i aria-hidden="true">+</i></span>
+                            </span>
+                        </a>
+                    </li>
+                    <li class="biz-item reveal">
+                        <a href="#contact" class="biz-link" data-product="설계소프트웨어">
+                            <span class="biz-media">
+                                <svg viewBox="0 0 320 400" fill="none" aria-hidden="true">
+                                    <path d="M40 60 h240 M40 120 h240 M40 180 h240 M40 240 h240 M40 300 h240" stroke="rgba(255,255,255,.08)"/>
+                                    <path d="M60 40 v320 M120 40 v320 M180 40 v320 M240 40 v320" stroke="rgba(255,255,255,.08)"/>
+                                    <rect class="ac-fill" x="80" y="110" width="120" height="140" stroke="#69b6fa"/>
+                                    <path d="M200 150 h60 v100 h-60" stroke="rgba(255,255,255,.5)"/>
+                                    <path d="M80 280 h180 M80 274 v12 M260 274 v12" stroke="rgba(255,255,255,.3)"/>
+                                    <circle cx="200" cy="110" r="5" stroke="rgba(105,182,250,.8)"/>
+                                </svg>
+                            </span>
+                            <span class="biz-body">
+                                <em class="biz-num">04</em>
+                                <h3>설계소프트웨어</h3>
+                                <p>현장 조건에 맞는 인정구조 선정과 물량 산출을 지원하는 자체 개발 소프트웨어입니다.</p>
+                                <span class="more">문의하기 <i aria-hidden="true">+</i></span>
+                            </span>
+                        </a>
+                    </li>
+                </ul>
             </div>
         </section>
 
-        <!-- ===== Business ===== -->
-        <section class="section section-alt" id="business">
-            <div class="container">
-                <div class="section-head">
-                    <p class="section-eyebrow">DOENC PRODUCTS</p>
-                    <h2>제품소개</h2>
-                    <p class="section-desc">기술력을 바탕으로 고객과 함께하는 기업, (주)디오이엔씨의 다양한 제품을 소개합니다.</p>
-                </div>
-                <div class="cards-3">
-                    <article class="card">
-                        <div class="card-num">01</div>
-                        <h3>내화채움구조</h3>
-                        <p>불연성 친환경 무기 화합물로 구성되어 화재 시 발포로 탄화층을 생성하여 화염 및 유독가스 차단에 탁월합니다.</p>
-                        <a href="#firestop" class="card-link">자세히 보기 →</a>
-                    </article>
-                    <article class="card">
-                        <div class="card-num">02</div>
-                        <h3>내화구조</h3>
-                        <p>건축물의 기둥·보·벽체 등 주요 구조부의 내화성능을 확보하여 화재 시 구조적 붕괴를 방지합니다.</p>
-                        <a href="#contact" class="card-link" data-product="내화구조">문의하기 →</a>
-                    </article>
-                    <article class="card">
-                        <div class="card-num">03</div>
-                        <h3>셔터</h3>
-                        <p>방화셔터·스크린셔터로 대공간을 방화구획으로 분리하여 화재 확산을 차단하고 피난 시간을 확보합니다.</p>
-                        <a href="#shutter" class="card-link">자세히 보기 →</a>
-                    </article>
-                    <article class="card">
-                        <div class="card-num">04</div>
-                        <h3>설계소프트웨어</h3>
-                        <p>현장 조건에 맞는 인정구조 선정과 물량 산출을 지원하는 자체 개발 설계 지원 소프트웨어입니다.</p>
-                        <a href="#contact" class="card-link" data-product="설계소프트웨어">문의하기 →</a>
-                    </article>
-                </div>
+        <!-- ===== 3. Figures ===== -->
+        <section class="sec-figures" aria-label="회사 강점">
+            <div class="wrap">
+                <ul class="figures">
+                    <li class="reveal"><strong>다수</strong><span>내화채움구조 · 스크린셔터 특허 보유</span></li>
+                    <li class="reveal"><strong>4</strong><span>자체기술로 국산화한 제품 분야</span></li>
+                    <li class="reveal"><strong>ONE-STOP</strong><span>자재생산 · 설계 · 시공 일괄 수행</span></li>
+                    <li class="reveal"><strong>불연</strong><span>무기 화합물 기반 친환경 소재</span></li>
+                </ul>
             </div>
         </section>
 
-        <!-- ===== Firestop 내화채움구조 ===== -->
-        <section class="section" id="firestop">
-            <div class="container">
-                <div class="feature">
-                    <div class="feature-text">
-                        <span class="badge">내화채움구조 · Firestop</span>
-                        <h3>관통부를 완벽하게 채워 화재 확산을 막습니다</h3>
-                        <p>
-                            벽·바닥을 관통하는 배관, 케이블, 덕트 사이의 빈틈은 화재 시 화염과
-                            유독가스가 퍼지는 통로가 됩니다. 디오이엔씨의 내화채움구조는 이 관통부를
-                            빈틈없이 밀실하게 채워 방화구획의 성능을 유지합니다. 건축물은 물론
-                            <strong>지하구</strong>의 화재차단에도 적용됩니다.
-                        </p>
-                        <ul class="check-list">
-                            <li>화재 시 <strong>발포하여 탄화층 생성</strong> → 화염·유독가스 차단</li>
-                            <li>불연성 친환경 무기 화합물로 유해가스 최소화</li>
-                            <li>배관·케이블·복합관통 등 현장 조건별 인정구조 보유</li>
-                            <li>관련 <strong>특허 다수 보유</strong>, 자체기술 국산화 제품</li>
-                        </ul>
-                        <a href="#contact" class="btn btn-primary btn-sm" data-product="내화채움구조">적용 문의</a>
-                    </div>
-                    <div class="feature-visual" aria-hidden="true">
-                        <div class="firestop-viz">
-                            <div class="fv-wall"></div>
-                            <div class="fv-pipe"></div>
-                            <div class="fv-fill"></div>
-                            <div class="fv-flame">🔥</div>
-                            <div class="fv-label">화염 차단 ✓</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ===== Shutter 방화셔터 ===== -->
-        <section class="section section-alt" id="shutter">
-            <div class="container">
-                <div class="feature reverse">
-                    <div class="feature-visual" aria-hidden="true">
-                        <div class="shutter-viz">
-                            <div class="sv-frame">
-                                <div class="sv-slat"></div>
-                                <div class="sv-slat"></div>
-                                <div class="sv-slat"></div>
-                                <div class="sv-slat"></div>
-                                <div class="sv-slat"></div>
-                            </div>
-                            <div class="sv-label">방화구획</div>
-                        </div>
-                    </div>
-                    <div class="feature-text">
-                        <span class="badge">셔터 · Fire &amp; Screen Shutter</span>
-                        <h3>넓은 공간을 안전하게 구획합니다</h3>
-                        <p>
-                            대형 매장, 물류창고, 주차장처럼 넓은 공간은 화재가 빠르게 번질 수 있습니다.
-                            방화셔터와 스크린셔터는 화재 감지 시 자동으로 내려와 공간을 방화구획으로 분리하고,
-                            피난 시간과 안전을 확보합니다.
-                        </p>
-                        <ul class="check-list">
-                            <li><strong>스크린셔터 특허 보유</strong> — 대공간 구획 대응</li>
-                            <li>화재 감지 연동 자동 폐쇄</li>
-                            <li>피난 동선을 고려한 설계·시공</li>
-                            <li>현장 규격별 자체 생산 맞춤 제작</li>
-                        </ul>
-                        <a href="#contact" class="btn btn-primary btn-sm" data-product="셔터">제품 문의</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ===== Technology / Construction ===== -->
-        <section class="section" id="tech">
-            <div class="container">
-                <div class="section-head center">
-                    <p class="section-eyebrow">DOENC TECHNOLOGY</p>
-                    <h2>기술 · 시공</h2>
-                    <p class="section-desc">
-                        내화채움구조, 내화구조, 셔터, 설계소프트웨어 등 자체기술로 국산화하여
-                        자재 생산 · 설계 · 시공 <strong>ONE-STOP SYSTEM</strong>을 구축했습니다.
+        <!-- ===== 4. Firestop ===== -->
+        <section class="sec detail" id="firestop">
+            <div class="wrap detail-inner">
+                <div class="detail-text reveal">
+                    <p class="label">01 &nbsp;내화채움구조</p>
+                    <h2 class="sec-title">관통부의 빈틈이<br>화재의 통로가 됩니다</h2>
+                    <p class="detail-lead">
+                        벽과 바닥을 지나는 배관·케이블·덕트 주변의 틈은 화염과 유독가스가
+                        퍼지는 길이 됩니다. 디오이엔씨의 내화채움구조는 이 관통부를 빈틈없이
+                        채워 방화구획의 성능을 유지합니다.
                     </p>
+                    <dl class="spec">
+                        <div><dt>차단 원리</dt><dd>화재 시 발포하여 탄화층을 생성, 화염과 유독가스를 차단</dd></div>
+                        <div><dt>소재</dt><dd>불연성 친환경 무기 화합물 — 유해가스 발생 최소화</dd></div>
+                        <div><dt>적용</dt><dd>배관 · 케이블 · 복합관통 등 현장 조건별 인정구조 보유</dd></div>
+                        <div><dt>기술</dt><dd>관련 특허 다수 보유, 자체기술 국산화 제품</dd></div>
+                    </dl>
+                    <a class="more" href="#contact" data-product="내화채움구조">적용 문의 <i aria-hidden="true">+</i></a>
                 </div>
-                <ol class="onestop">
-                    <li><span class="os-num">01</span><h3>기술개발</h3><p>자체 연구개발로 화재차단 기술을 국산화하고 특허를 확보합니다.</p></li>
-                    <li><span class="os-num">02</span><h3>자재생산</h3><p>불연성 친환경 무기 화합물 기반 자재를 직접 생산합니다.</p></li>
-                    <li><span class="os-num">03</span><h3>설계</h3><p>설계소프트웨어로 현장 조건에 맞는 인정구조를 선정합니다.</p></li>
-                    <li><span class="os-num">04</span><h3>시공</h3><p>건축물 및 지하구 현장에 직접 시공하여 성능을 완성합니다.</p></li>
+                <div class="detail-visual reveal" aria-hidden="true">
+                    <svg viewBox="0 0 520 520" fill="none">
+                        <rect x="196" y="0" width="128" height="520" fill="rgba(255,255,255,.03)"/>
+                        <path d="M196 0 v520 M324 0 v520" stroke="rgba(255,255,255,.2)"/>
+                        <path d="M0 232 h196 M324 232 h196 M0 288 h196 M324 288 h196" stroke="rgba(255,255,255,.45)"/>
+                        <path d="M0 232 v56 M520 232 v56" stroke="rgba(255,255,255,.25)"/>
+                        <rect class="pulse" x="196" y="196" width="128" height="128" stroke="#69b6fa" stroke-width="1.5"/>
+                        <path d="M206 206 l108 108 M206 250 l108 64 M206 294 l64 20 M250 206 l64 64" stroke="rgba(105,182,250,.35)"/>
+                        <g stroke="rgba(255,255,255,.3)">
+                            <path d="M60 150 q18 -32 0 -58 M92 150 q18 -32 0 -58 M124 150 q18 -32 0 -58"/>
+                        </g>
+                        <text x="60" y="404" fill="rgba(255,255,255,.45)" font-size="15" letter-spacing="2">FIRE SIDE</text>
+                        <text x="360" y="404" fill="rgba(105,182,250,.9)" font-size="15" letter-spacing="2">PROTECTED</text>
+                    </svg>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== 5. Shutter ===== -->
+        <section class="sec detail detail-alt" id="shutter">
+            <div class="wrap detail-inner">
+                <div class="detail-visual reveal" aria-hidden="true">
+                    <svg viewBox="0 0 520 520" fill="none">
+                        <rect x="70" y="40" width="380" height="40" stroke="rgba(255,255,255,.45)"/>
+                        <path d="M70 40 v420 M450 40 v420" stroke="rgba(255,255,255,.2)"/>
+                        <g stroke="rgba(255,255,255,.28)">
+                            <path d="M70 108 h380 M70 148 h380 M70 188 h380 M70 228 h380"/>
+                        </g>
+                        <path class="pulse" d="M70 268 h380" stroke="#69b6fa" stroke-width="1.5"/>
+                        <path d="M260 316 v100 M236 396 l24 24 24 -24" stroke="rgba(105,182,250,.65)"/>
+                        <path d="M30 460 h460" stroke="rgba(255,255,255,.25)"/>
+                        <text x="70" y="500" fill="rgba(255,255,255,.45)" font-size="15" letter-spacing="2">FIRE COMPARTMENT</text>
+                    </svg>
+                </div>
+                <div class="detail-text reveal">
+                    <p class="label">03 &nbsp;셔터</p>
+                    <h2 class="sec-title">넓은 공간일수록<br>구획이 필요합니다</h2>
+                    <p class="detail-lead">
+                        대형 매장, 물류창고, 주차장처럼 트인 공간은 화재가 빠르게 번집니다.
+                        방화셔터와 스크린셔터는 화재 감지 시 자동으로 내려와 공간을
+                        방화구획으로 나누고 피난 시간을 확보합니다.
+                    </p>
+                    <dl class="spec">
+                        <div><dt>특허</dt><dd>스크린셔터 특허 보유 — 대공간 구획 대응</dd></div>
+                        <div><dt>작동</dt><dd>화재 감지 설비와 연동한 자동 폐쇄</dd></div>
+                        <div><dt>설계</dt><dd>피난 동선을 고려한 설계 및 시공</dd></div>
+                        <div><dt>제작</dt><dd>현장 규격에 맞춘 자체 생산 맞춤 제작</dd></div>
+                    </dl>
+                    <a class="more" href="#contact" data-product="셔터">제품 문의 <i aria-hidden="true">+</i></a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== 6. Technology ===== -->
+        <section class="sec sec-tech" id="tech">
+            <div class="wrap">
+                <div class="sec-head reveal">
+                    <p class="label">기술력</p>
+                    <h2 class="sec-title">기술개발부터 시공까지<br>한 번에 책임집니다</h2>
+                </div>
+                <p class="tech-lead reveal">
+                    자재를 사오는 회사가 아닙니다. 기술을 직접 개발하고, 자재를 직접 만들고,
+                    설계하고, 현장에 직접 시공합니다. <strong>ONE-STOP SYSTEM</strong>이 성능의 편차를 없앱니다.
+                </p>
+                <ol class="steps">
+                    <li class="reveal"><em>01</em><h3>기술개발</h3><p>자체 연구개발로 화재차단 기술을 국산화하고 특허를 확보합니다.</p></li>
+                    <li class="reveal"><em>02</em><h3>자재생산</h3><p>불연성 친환경 무기 화합물 기반 자재를 직접 생산합니다.</p></li>
+                    <li class="reveal"><em>03</em><h3>설계</h3><p>설계소프트웨어로 현장 조건에 맞는 인정구조를 선정합니다.</p></li>
+                    <li class="reveal"><em>04</em><h3>시공</h3><p>건축물과 지하구 현장에 직접 시공하여 성능을 완성합니다.</p></li>
                 </ol>
             </div>
         </section>
 
-        <!-- ===== Certifications ===== -->
-        <section class="section section-alt" id="cert">
-            <div class="container">
-                <div class="section-head center">
-                    <p class="section-eyebrow">CERTIFICATION &amp; PATENT</p>
-                    <h2>인정 · 특허</h2>
-                    <p class="section-desc">디오이엔씨의 다양한 인정서와 특허로 성능을 증명합니다.</p>
+        <!-- ===== 7. About ===== -->
+        <section class="sec sec-about" id="about">
+            <div class="wrap">
+                <div class="sec-head reveal">
+                    <p class="label">회사소개</p>
+                    <h2 class="sec-title">기술을 만들고,<br>기술은 미래를 만듭니다</h2>
                 </div>
-                <div class="cert-grid">
-                    <div class="cert-item">
-                        <div class="cert-num">특허</div>
-                        <p>내화채움구조 · 스크린셔터<br><strong>특허 다수 보유</strong></p>
+                <div class="about-grid">
+                    <div class="about-text reveal">
+                        <p class="about-lead">
+                            (주)디오이엔씨는 방화 · 내화구조 · 소방시설 전문기업입니다.
+                            특화된 기술개발로 내화채움구조와 스크린셔터 등 다수의 특허를 보유하고 있으며,
+                            차별화된 방화 성능으로 건축물과 지하구의 화재 차단장치를 주기술로 합니다.
+                        </p>
+                        <p class="about-sub">디오인의 열정과 창의력이 새로운 기술을 만듭니다.</p>
                     </div>
-                    <div class="cert-item">
-                        <div class="cert-num">인정</div>
-                        <p>내화채움구조<br><strong>구조 인정 · 시험성적서</strong></p>
-                    </div>
-                    <div class="cert-item">
-                        <div class="cert-num">국산화</div>
-                        <p>자체기술 개발로<br><strong>제품 4개 분야 국산화</strong></p>
-                    </div>
-                    <div class="cert-item">
-                        <div class="cert-num">실적</div>
-                        <p>건축물 · 지하구<br><strong>시공실적 보유</strong></p>
-                    </div>
+                    <table class="info reveal">
+                        <caption class="sr-only">회사 기본 정보</caption>
+                        <tbody>
+                            <tr><th scope="row">상호</th><td>주식회사 디오이엔씨 (DOENC Co., Ltd.)</td></tr>
+                            <tr><th scope="row">사업분야</th><td>내화채움구조 · 내화구조 · 셔터 · 설계소프트웨어</td></tr>
+                            <tr><th scope="row">사업자번호</th><td>111-81-32572</td></tr>
+                            <tr><th scope="row">주소</th><td>경기 화성시 정남면 안념길 121-12 (내리)</td></tr>
+                            <tr><th scope="row">전화</th><td><a href="tel:0299252992">02-925-2992</a></td></tr>
+                            <tr><th scope="row">팩스</th><td>02-929-5927</td></tr>
+                        </tbody>
+                    </table>
                 </div>
-                <p class="cert-note">※ 세부 인정번호·시험성적서·시공 실적은 <a href="#contact">문의</a> 시 제공해 드립니다.</p>
             </div>
         </section>
 
-        <!-- ===== Contact ===== -->
-        <section class="section section-dark" id="contact">
-            <div class="container">
-                <div class="section-head center">
-                    <p class="section-eyebrow light">CONTACT</p>
-                    <h2>견적·상담 문의</h2>
-                    <p class="section-desc light">프로젝트 도면과 현장 조건을 알려주시면 최적의 방화 솔루션을 제안드립니다.</p>
+        <!-- ===== 8. Marquee ===== -->
+        <div class="marquee" aria-hidden="true">
+            <div class="marquee-track">
+                <span>FIRE SAFETY SOLUTION <b>·</b> DOENC <b>·</b></span>
+                <span>FIRE SAFETY SOLUTION <b>·</b> DOENC <b>·</b></span>
+            </div>
+        </div>
+
+        <!-- ===== 9. Contact ===== -->
+        <section class="sec sec-contact" id="contact">
+            <div class="wrap">
+                <div class="sec-head reveal">
+                    <p class="label">문의하기</p>
+                    <h2 class="sec-title">도면과 현장 조건을<br>알려주세요</h2>
                 </div>
-                <div class="contact-grid">
-                    <div class="contact-side">
-                        <div class="call-card">
-                            <p class="call-eyebrow">전화 문의가 가장 빠릅니다</p>
-                            <a class="call-number" href="tel:0299252992">02-925-2992</a>
-                            <a class="btn btn-primary call-btn" href="tel:0299252992">전화 걸기</a>
-                            <p class="call-hours">평일 09:00 – 18:00 (주말·공휴일 휴무)</p>
-                        </div>
-                        <ul class="contact-info">
-                            <li>
-                                <span class="ci-label">내화채움구조 사업부</span>
-                                <span class="ci-value"><a href="mailto:firestop@doenc.com">firestop@doenc.com</a></span>
-                            </li>
-                            <li>
-                                <span class="ci-label">셔터 사업부</span>
-                                <span class="ci-value"><a href="mailto:firescreen@doenc.com">firescreen@doenc.com</a></span>
-                            </li>
-                            <li><span class="ci-label">팩스</span><span class="ci-value">02-929-5927</span></li>
-                            <li><span class="ci-label">주소</span><span class="ci-value">경기 화성시 정남면 안념길 121-12 (내리)</span></li>
-                            <li><span class="ci-label">사업자번호</span><span class="ci-value">111-81-32572</span></li>
-                        </ul>
+                <div class="ct-grid">
+                    <div class="ct-side reveal">
+                        <a class="ct-call" href="tel:0299252992">
+                            <span class="ct-call-label">전화 문의가 가장 빠릅니다</span>
+                            <strong>02-925-2992</strong>
+                            <span class="ct-call-more">전화 걸기 <i aria-hidden="true">+</i></span>
+                        </a>
+                        <dl class="ct-info">
+                            <div>
+                                <dt>내화채움구조 사업부</dt>
+                                <dd><a href="mailto:firestop@doenc.com">firestop@doenc.com</a></dd>
+                            </div>
+                            <div>
+                                <dt>셔터 사업부</dt>
+                                <dd><a href="mailto:firescreen@doenc.com">firescreen@doenc.com</a></dd>
+                            </div>
+                            <div><dt>운영시간</dt><dd>평일 09:00 – 18:00</dd></div>
+                            <div><dt>팩스</dt><dd>02-929-5927</dd></div>
+                            <div><dt>주소</dt><dd>경기 화성시 정남면 안념길 121-12 (내리)</dd></div>
+                        </dl>
                     </div>
-                    <form class="contact-form" id="contactForm" novalidate>
-                        <p class="form-lead">아래를 작성하고 <strong>메일 보내기</strong>를 누르면 내용이 채워진 채로 메일 앱이 열립니다. 선택하신 분야의 담당 사업부로 발송됩니다.</p>
-                        <div class="field">
+
+                    <form class="ct-form reveal" id="contactForm" novalidate>
+                        <p class="ct-form-lead">
+                            작성 후 <strong>메일 보내기</strong>를 누르면 내용이 채워진 채로 메일 앱이 열립니다.
+                            선택하신 분야의 담당 사업부로 발송됩니다.
+                        </p>
+                        <div class="fld">
                             <label for="cf-product">문의 분야</label>
                             <select id="cf-product" name="product" required>
                                 <option value="">문의하실 제품을 선택해 주세요</option>
@@ -363,23 +408,23 @@
                                 <option value="설계소프트웨어" data-team="firestop">설계소프트웨어</option>
                                 <option value="기타" data-team="firestop">기타 문의</option>
                             </select>
-                            <p class="field-hint" id="deptHint" role="status"></p>
+                            <p class="fld-hint" id="deptHint" role="status"></p>
                         </div>
-                        <div class="field">
+                        <div class="fld">
                             <label for="cf-name">이름 / 회사</label>
                             <input id="cf-name" name="name" type="text" required placeholder="성함 또는 회사명">
                         </div>
-                        <div class="field">
+                        <div class="fld">
                             <label for="cf-contact">연락처</label>
                             <input id="cf-contact" name="contact" type="text" required placeholder="전화 또는 이메일">
                         </div>
-                        <div class="field">
+                        <div class="fld">
                             <label for="cf-message">문의 내용</label>
-                            <textarea id="cf-message" name="message" rows="4" required placeholder="현장 위치, 적용 제품(내화채움구조/내화구조/셔터 등), 규모 등을 남겨주세요."></textarea>
+                            <textarea id="cf-message" name="message" rows="5" required placeholder="현장 위치, 적용 제품, 규모, 일정 등을 남겨주세요."></textarea>
                         </div>
-                        <button type="submit" class="btn btn-primary">메일 보내기</button>
-                        <p class="form-note" id="formNote" role="status"></p>
-                        <p class="form-fallback">메일 앱이 열리지 않으면 <a href="tel:0299252992">02-925-2992</a>로 전화 주세요.</p>
+                        <button type="submit" class="btn-send">메일 보내기 <i aria-hidden="true">+</i></button>
+                        <p class="fld-note" id="formNote" role="status"></p>
+                        <p class="fld-fallback">메일 앱이 열리지 않으면 <a href="tel:0299252992">02-925-2992</a>로 전화 주세요.</p>
                     </form>
                 </div>
             </div>
@@ -387,18 +432,26 @@
     </main>
 
     <!-- ===== Footer ===== -->
-    <footer class="site-footer">
-        <div class="container footer-inner">
-            <div class="footer-brand">
-                <img src="assets/images/doenc_logo.png" alt="DOENC 로고" class="footer-logo" width="240" height="240">
-                <div>
-                    <span class="footer-name">주식회사 디오이엔씨 (DOENC)</span>
-                    <span class="footer-addr">경기 화성시 정남면 안념길 121-12 (내리) | 사업자번호 111-81-32572</span>
-                    <span class="footer-addr">TEL. 02-925-2992 | FAX. 02-929-5927</span>
-                </div>
+    <footer class="ft">
+        <div class="wrap ft-inner">
+            <div class="ft-brand">
+                <img src="assets/images/doenc_logo.png" alt="" width="240" height="240">
+                <span>DOENC</span>
             </div>
-            <p class="footer-copy">COPYRIGHT ⓒ <span id="year"></span> DOENC Co., Ltd. ALL RIGHTS RESERVED.</p>
+            <nav class="ft-nav" aria-label="푸터 메뉴">
+                <a href="#business">사업영역</a>
+                <a href="#tech">기술력</a>
+                <a href="#about">회사소개</a>
+                <a href="#contact">문의하기</a>
+            </nav>
+            <address class="ft-info">
+                주식회사 디오이엔씨 &nbsp;|&nbsp; 사업자번호 111-81-32572<br>
+                경기 화성시 정남면 안념길 121-12 (내리)<br>
+                TEL. <a href="tel:0299252992">02-925-2992</a> &nbsp;|&nbsp; FAX. 02-929-5927
+            </address>
+            <p class="ft-copy">© <span id="year"></span> DOENC Co., Ltd. All rights reserved.</p>
         </div>
+        <a class="to-top" href="#home" aria-label="맨 위로">↑</a>
     </footer>
 
     <script src="assets/js/main.js"></script>
