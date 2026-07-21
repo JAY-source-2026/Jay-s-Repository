@@ -13,23 +13,22 @@
   var navToggle = document.getElementById("navToggle");
   var mobileNav = document.getElementById("mobileNav");
 
-  // Header background on scroll
+  // ----- Header background on scroll -----
   function onScroll() {
-    if (window.scrollY > 20) header.classList.add("scrolled");
-    else header.classList.remove("scrolled");
+    if (window.scrollY > 40) header.classList.add("solid");
+    else header.classList.remove("solid");
   }
   window.addEventListener("scroll", onScroll, { passive: true });
   onScroll();
 
-  // Mobile menu toggle
+  // ----- Mobile menu -----
   if (navToggle && mobileNav) {
     var setMenu = function (open) {
       mobileNav.classList.toggle("open", open);
-      navToggle.classList.toggle("open", open);
+      navToggle.classList.toggle("on", open);
       navToggle.setAttribute("aria-expanded", open ? "true" : "false");
       navToggle.setAttribute("aria-label", open ? "메뉴 닫기" : "메뉴 열기");
-      // keep header solid while menu open
-      if (open) header.classList.add("scrolled");
+      if (open) header.classList.add("solid");
       else onScroll();
     };
     navToggle.addEventListener("click", function () {
@@ -48,29 +47,67 @@
     });
   }
 
-  // Reveal sections on scroll
+  // ----- Reveal on scroll -----
+  var revealables = document.querySelectorAll(".reveal");
   if ("IntersectionObserver" in window) {
     var io = new IntersectionObserver(
       function (entries) {
         entries.forEach(function (entry) {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-            io.unobserve(entry.target);
-          }
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add("shown");
+          io.unobserve(entry.target);
         });
       },
       { threshold: 0, rootMargin: "0px 0px -12% 0px" }
     );
-    document.querySelectorAll(".section").forEach(function (s) {
-      io.observe(s);
+    revealables.forEach(function (el, i) {
+      // 같은 그룹은 살짝 시차를 두고 등장
+      el.style.transitionDelay = (i % 4) * 90 + "ms";
+      io.observe(el);
     });
   } else {
-    document.querySelectorAll(".section").forEach(function (s) {
-      s.classList.add("visible");
+    revealables.forEach(function (el) {
+      el.classList.add("shown");
     });
   }
 
-  // Contact form → 방문자의 메일 앱을 내용이 채워진 상태로 실행
+  // ----- Nav current-section highlight -----
+  var navLinks = Array.prototype.slice.call(
+    document.querySelectorAll(".hd-nav a")
+  );
+  var sections = navLinks
+    .map(function (a) {
+      return document.querySelector(a.getAttribute("href"));
+    })
+    .filter(Boolean);
+
+  if (sections.length && "IntersectionObserver" in window) {
+    var active = {};
+    var spy = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          active[entry.target.id] = entry.isIntersecting;
+        });
+        // 화면에 걸린 섹션 중 문서상 첫 번째를 현재 위치로 본다.
+        // 히어로·문의처럼 메뉴에 없는 구간에서는 표시를 모두 지운다.
+        var current = sections.filter(function (s) {
+          return active[s.id];
+        })[0];
+        navLinks.forEach(function (a) {
+          a.classList.toggle(
+            "current",
+            !!current && a.getAttribute("href") === "#" + current.id
+          );
+        });
+      },
+      { rootMargin: "-45% 0px -50% 0px" }
+    );
+    sections.forEach(function (s) {
+      spy.observe(s);
+    });
+  }
+
+  // ----- Contact form → 방문자의 메일 앱을 내용이 채워진 상태로 실행 -----
   var form = document.getElementById("contactForm");
   var note = document.getElementById("formNote");
   if (form) {
@@ -95,7 +132,7 @@
     productSel.addEventListener("change", updateHint);
     updateHint();
 
-    // 제품 카드·상세 CTA에서 넘어오면 해당 분야를 미리 선택
+    // 사업영역 카드·상세 CTA에서 넘어오면 해당 분야를 미리 선택
     document.querySelectorAll("[data-product]").forEach(function (el) {
       el.addEventListener("click", function () {
         productSel.value = el.getAttribute("data-product");
@@ -143,7 +180,7 @@
     });
   }
 
-  // Footer year
+  // ----- Footer year -----
   var yearEl = document.getElementById("year");
   if (yearEl) yearEl.textContent = String(new Date().getFullYear());
 })();
