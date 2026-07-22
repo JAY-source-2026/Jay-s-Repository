@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>DOENC 디자인 시안 비교</title>
+<style>
+  :root {
+    --ink: #101013;
+    --paper: #f4f4f2;
+    --line: #d2d2cc;
+    --dim: #6c6c68;
+    --accent: #ff8a3c;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: system-ui, -apple-system, "Segoe UI", "Apple SD Gothic Neo",
+                 "Malgun Gothic", sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  header {
+    padding: 64px 40px 32px;
+    border-bottom: 1px solid var(--line);
+  }
+  .kicker {
+    font-size: 12px; letter-spacing: .18em; text-transform: uppercase;
+    color: var(--dim); margin: 0 0 14px;
+  }
+  h1 { font-size: clamp(28px, 4vw, 44px); margin: 0 0 16px; letter-spacing: -.02em; }
+  .lede { max-width: 62ch; margin: 0; color: #3a3a38; line-height: 1.75; font-size: 15px; }
+  .lede strong { font-weight: 600; }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(430px, 1fr));
+    gap: 1px;
+    background: var(--line);
+    border-bottom: 1px solid var(--line);
+  }
+  .card { background: var(--paper); padding: 28px 32px 32px; display: flex; flex-direction: column; }
+  .card-head { display: flex; align-items: baseline; gap: 12px; margin-bottom: 4px; }
+  .tag {
+    font-size: 11px; font-weight: 700; letter-spacing: .1em;
+    border: 1px solid var(--ink); padding: 3px 8px; border-radius: 2px;
+  }
+  .card h2 { font-size: 21px; margin: 0; letter-spacing: -.01em; }
+  .card p { color: #3a3a38; line-height: 1.7; font-size: 14px; margin: 12px 0 20px; }
+  .card p.note { color: var(--dim); font-size: 13px; margin-top: -8px; }
+
+  .frame {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    border: 1px solid var(--line);
+    background: #fff;
+    overflow: hidden;
+    margin-bottom: 18px;
+  }
+  .frame iframe {
+    position: absolute; top: 0; left: 0;
+    width: 1440px; height: 900px;
+    border: 0;
+    transform-origin: 0 0;
+    pointer-events: none;
+  }
+  .frame .veil {
+    position: absolute; inset: 0;
+    display: grid; place-items: center;
+    background: rgba(244,244,242,.72);
+    font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--dim);
+    opacity: 0; transition: opacity .2s;
+  }
+  .frame:hover .veil { opacity: 1; }
+
+  .actions { margin-top: auto; display: flex; gap: 10px; }
+  .btn {
+    display: inline-block; text-decoration: none; font-size: 13px; font-weight: 600;
+    padding: 11px 18px; border: 1px solid var(--ink); color: var(--ink); border-radius: 2px;
+  }
+  .btn.primary { background: var(--ink); color: var(--paper); }
+  .btn:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+  footer { padding: 40px; color: var(--dim); font-size: 13px; line-height: 1.8; }
+  @media (max-width: 600px) {
+    header { padding: 40px 20px 24px; }
+    .card { padding: 22px 20px 26px; }
+    footer { padding: 28px 20px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <p class="kicker">DOENC · Design Directions</p>
+  <h1>디자인 시안 5안</h1>
+  <p class="lede">
+    현재 사이트가 평범한 이유는 세 가지입니다 — 참고 사이트가 하나뿐이었고,
+    실사 사진이 없어 도면으로 메웠고, 섹션을 위아래로 쌓는 관습적 구조를 따랐습니다.
+    아래 5안은 <strong>그 구조 자체를 각각 다른 방식으로 깬 것</strong>입니다.
+    설명을 읽기보다 <strong>전체화면으로 열어 스크롤해 보세요.</strong>
+    마음에 드는 방향 하나(또는 섞고 싶은 조합)를 골라주시면 그 방향으로 본 사이트를 다시 만듭니다.
+  </p>
+</header>
+
+<div class="grid" id="grid"></div>
+
+<footer>
+  모든 시안은 실사 사진 없이 SVG · CSS · Canvas만으로 만들었습니다.
+  실제 시공현장 사진이 확보되면 어느 방향이든 완성도가 한 단계 더 올라갑니다.<br>
+  현재 운영 중인 사이트: <a href="../index.html" style="color:inherit">../index.html</a>
+</footer>
+
+<script>
+  var CONCEPTS = [
+    {
+      tag: "A", file: "a-crosssection.html", title: "단면 관통",
+      desc: "페이지 전체가 하나의 벽체 단면. 스크롤하면 카메라가 벽 표면에서 관통부 안쪽, 충전재 내부, 화재 시나리오까지 파고듭니다. 스크롤이라는 행위 자체가 '벽을 뚫는' 은유가 되어 주제와 정확히 맞물립니다.",
+      note: "섹션을 쌓지 않는 구조. 가장 실험적."
+    },
+    {
+      tag: "B", file: "b-fire.html", title: "화염",
+      desc: "점잖은 검정 모노톤을 정면으로 배신합니다. 앰버·주홍이 주인공이고 헤드라인은 화면 폭을 꽉 채웁니다. 화재의 위험을 미화하지 않고 보여준 뒤, 그것이 끊기는 순간을 연출합니다.",
+      note: "인상은 가장 강함. 보수적인 발주처에는 부담일 수 있음."
+    },
+    {
+      tag: "C", file: "c-index.html", title: "기술자료 인덱스",
+      desc: "사진이 없다는 결핍을 무기로 바꿉니다. 큰 사진 자리를 내화시간·시험성적서·규격 매트릭스가 차지하고, 얇은 격자선과 모노스페이스 숫자가 화면을 지배합니다. 인쇄된 기술 카탈로그의 신뢰감.",
+      note: "사진 없이도 완성되는 유일한 안. 지금 당장 실현 가능."
+    },
+    {
+      tag: "D", file: "d-showcase.html", title: "수평 쇼케이스",
+      desc: "세로 스크롤을 가로 이동으로 바꿉니다. 제품 하나당 한 화면, 좌우로 흘러갑니다. 산업재를 소비재 브랜드처럼 다루는 문법 — 조사한 해외 우수 사례(Hajster, iCOMAT)의 공통점입니다.",
+      note: "고급스러움 최상. 정보량이 많은 페이지에는 불리."
+    },
+    {
+      tag: "E", file: "e-white3d.html", title: "화이트 · 3D",
+      desc: "다른 안이 전부 어두운 가운데 홀로 밝습니다. 흰 배경과 압도적 여백 위에 관통부 시스템 3D가 떠 있고, 스크롤에 따라 회전하며 부위별로 분해됩니다. 큰 목소리 대신 정밀함으로 신뢰를 얻는 화면.",
+      note: "의료기기·항공 계열의 미니멀리즘. 기존 톤과 가장 다름."
+    }
+  ];
+
+  var grid = document.getElementById("grid");
+
+  CONCEPTS.forEach(function (c) {
+    var card = document.createElement("article");
+    card.className = "card";
+    card.innerHTML =
+      '<div class="card-head"><span class="tag">' + c.tag + '</span>' +
+      '<h2>' + c.title + '</h2></div>' +
+      '<p>' + c.desc + '</p>' +
+      '<p class="note">' + c.note + '</p>' +
+      '<div class="frame">' +
+        '<iframe src="' + c.file + '" loading="lazy" title="' + c.title + ' 미리보기" tabindex="-1" scrolling="no"></iframe>' +
+        '<div class="veil">전체화면으로 열어 보세요</div>' +
+      '</div>' +
+      '<div class="actions">' +
+        '<a class="btn primary" href="' + c.file + '" target="_blank" rel="noopener">전체화면으로 열기</a>' +
+      '</div>';
+    grid.appendChild(card);
+  });
+
+  // 미리보기 iframe(1440×900)을 카드 폭에 맞춰 축소한다
+  function scaleFrames() {
+    document.querySelectorAll(".frame").forEach(function (f) {
+      var iframe = f.querySelector("iframe");
+      if (!iframe) return;
+      iframe.style.transform = "scale(" + (f.clientWidth / 1440) + ")";
+    });
+  }
+  window.addEventListener("resize", scaleFrames);
+  window.addEventListener("load", scaleFrames);
+  scaleFrames();
+</script>
+
+</body>
+</html>

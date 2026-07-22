@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DOENC — 시안 E · 화이트 · 3D</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="주식회사 디오이엔씨(DOENC) 홈페이지 디자인 시안 E — 화이트 스페이스와 3D 관통부 분해도.">
+<meta name="color-scheme" content="light">
+<style>
+/* ============================================================
+   시안 E — 화이트 스페이스 + 3D 오브젝트
+   외부 리소스 없음. CSS 3D transform 기반 관통부 분해도.
+   ============================================================ */
+
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;padding:0}
+
+:root{
+  --bg:#fafaf9;
+  --paper:#ffffff;
+  --ink:#111318;
+  --ink-2:#4a4d55;
+  --ink-3:#8a8d95;
+  --line:rgba(17,19,24,.11);
+  --line-2:rgba(17,19,24,.22);
+  --acc:#d6350b;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,"Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif;
+  --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,"Liberation Mono",monospace;
+  --pad:clamp(20px,5vw,88px);
+  --e:0;           /* 분해 진행도 0→1 (JS가 갱신) */
+  --s:.62;         /* 3D 스케일 (JS가 갱신) */
+}
+
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-size:15px;
+  line-height:1.75;
+  letter-spacing:-.005em;
+  word-break:keep-all;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+img,svg{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+h1,h2,h3,h4,p,figure,dl,dd,ol,ul{margin:0}
+ol,ul{list-style:none;padding:0}
+button,input,select,textarea{font:inherit;color:inherit}
+::selection{background:var(--ink);color:var(--bg)}
+
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.skip{position:absolute;left:-9999px;top:0;background:var(--ink);color:#fff;padding:10px 16px;z-index:200}
+.skip:focus{left:8px;top:34px}
+
+/* ---------- 시안 라벨 ---------- */
+.flag{
+  position:fixed;inset:0 0 auto 0;height:24px;z-index:120;
+  background:var(--ink);color:#fff;
+  display:flex;align-items:center;gap:10px;
+  padding:0 var(--pad);
+  font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;
+}
+.flag i{width:5px;height:5px;background:var(--acc);border-radius:50%;display:block;font-style:normal}
+.flag em{font-style:normal;color:rgba(255,255,255,.45);margin-left:auto;letter-spacing:.14em}
+
+/* ---------- 헤더 ---------- */
+.hd{
+  position:fixed;top:24px;left:0;right:0;z-index:110;
+  height:62px;display:flex;align-items:center;
+  padding:0 var(--pad);
+  background:rgba(250,250,249,.82);
+  -webkit-backdrop-filter:saturate(180%) blur(14px);
+  backdrop-filter:saturate(180%) blur(14px);
+  border-bottom:1px solid transparent;
+  transition:border-color .3s ease,background .3s ease;
+}
+.hd.is-stuck{border-bottom-color:var(--line)}
+.brand{display:flex;align-items:baseline;gap:11px;margin-right:auto}
+.brand b{font-size:15px;font-weight:600;letter-spacing:.24em}
+.brand span{font-size:10.5px;color:var(--ink-3);letter-spacing:.06em}
+.nav{display:flex;gap:30px}
+.nav a{font-size:12px;color:var(--ink-2);letter-spacing:.02em;position:relative;padding:4px 0}
+.nav a::after{content:"";position:absolute;left:0;right:100%;bottom:0;height:1px;background:var(--ink);transition:right .35s cubic-bezier(.2,.7,.2,1)}
+.nav a:hover{color:var(--ink)}
+.nav a:hover::after{right:0}
+.hd-tel{margin-left:34px;font-family:var(--mono);font-size:11.5px;letter-spacing:.06em;color:var(--ink)}
+.hd-tel::before{content:"";display:inline-block;width:14px;height:1px;background:var(--line-2);vertical-align:middle;margin-right:9px}
+@media(max-width:860px){.nav{display:none}.hd{height:54px}}
+
+/* ---------- 3D 스테이지 ---------- */
+.stage{position:relative;height:460vh}
+.stage-pin{
+  position:sticky;top:0;height:100vh;min-height:560px;
+  overflow:hidden;
+}
+.scene{
+  position:absolute;inset:0;
+  perspective:2200px;
+  perspective-origin:50% 47%;
+}
+.float{
+  position:absolute;left:50%;top:47%;width:0;height:0;
+  transform-style:preserve-3d;
+  animation:drift 13s ease-in-out infinite;
+}
+@keyframes drift{0%,100%{transform:translate3d(0,-8px,0)}50%{transform:translate3d(0,10px,0)}}
+.asm{
+  position:absolute;left:0;top:0;width:0;height:0;
+  transform-style:preserve-3d;
+  transform:scale(var(--s)) rotateX(-15deg) rotateY(-40deg);
+  will-change:transform;
+}
+.part{
+  position:absolute;left:0;top:0;width:0;height:0;
+  transform-style:preserve-3d;
+  --tx:0;--ty:0;--tz:0;--ex:0;--ey:0;--ez:0;
+  transform:translate3d(
+    calc((var(--tx) + var(--ex)*var(--e))*1px),
+    calc((var(--ty) + var(--ey)*var(--e))*1px),
+    calc((var(--tz) + var(--ez)*var(--e))*1px));
+}
+.box{position:absolute;left:0;top:0;transform-style:preserve-3d}
+.face{position:absolute;left:0;top:0;background:rgba(255,255,255,.78);border:1px solid rgba(17,19,24,.26)}
+.face.y{background:rgba(17,19,24,.045)}
+.face.x{background:rgba(17,19,24,.075)}
+
+/* 벽체 단면 — 해칭 */
+.wall .face.z{
+  background:
+    repeating-linear-gradient(45deg,rgba(17,19,24,.075) 0 1px,transparent 1px 9px),
+    rgba(255,255,255,.72);
+}
+.wall .face.x{
+  background:
+    repeating-linear-gradient(45deg,rgba(17,19,24,.09) 0 1px,transparent 1px 8px),
+    rgba(17,19,24,.05);
+}
+/* 강재 */
+.steel .face{background:rgba(17,19,24,.06);border-color:rgba(17,19,24,.3)}
+.steel .face.y{background:rgba(17,19,24,.1)}
+/* 내화채움구조 — 유일한 강조색 */
+.seal .face{
+  background:rgba(214,53,11,.055);
+  border-color:rgba(214,53,11,.5);
+}
+.seal .face.z{
+  background:
+    repeating-linear-gradient(45deg,rgba(214,53,11,.2) 0 1px,transparent 1px 7px),
+    rgba(214,53,11,.05);
+}
+.seal .face.x,.seal .face.y{background:rgba(214,53,11,.11)}
+/* 파이프·케이블 프리즘 */
+.prism .face{border:0;border-left:1px solid rgba(17,19,24,.2);background:rgba(17,19,24,.05)}
+.cable .face{border-left-color:rgba(17,19,24,.26);background:rgba(17,19,24,.1)}
+/* 지반 그리드 */
+.ground{
+  position:absolute;left:0;top:0;
+  width:2000px;height:1200px;margin:-600px 0 0 -1000px;
+  transform:rotateX(90deg);
+  background:
+    repeating-linear-gradient(0deg,rgba(17,19,24,.055) 0 1px,transparent 1px 60px),
+    repeating-linear-gradient(90deg,rgba(17,19,24,.055) 0 1px,transparent 1px 60px);
+  -webkit-mask-image:radial-gradient(ellipse 46% 40% at 50% 50%,#000 8%,transparent 72%);
+  mask-image:radial-gradient(ellipse 46% 40% at 50% 50%,#000 8%,transparent 72%);
+}
+
+/* ---------- 스테이지 오버레이 ---------- */
+.ov{position:absolute;inset:0;pointer-events:none}
+.ov > *{pointer-events:auto}
+
+.hero-t{
+  position:absolute;left:var(--pad);top:min(26vh,220px);max-width:min(560px,54vw);
+  transition:opacity .6s ease,transform .6s ease;
+}
+.hero-t.hide{opacity:0;transform:translateY(-14px);pointer-events:none}
+.eyebrow{
+  font-family:var(--mono);font-size:10.5px;letter-spacing:.24em;text-transform:uppercase;
+  color:var(--ink-3);display:flex;align-items:center;gap:12px;margin-bottom:26px;
+}
+.eyebrow::before{content:"";width:34px;height:1px;background:var(--line-2)}
+h1{
+  font-size:clamp(27px,3.1vw,42px);font-weight:350;line-height:1.34;letter-spacing:-.028em;
+}
+h1 em{font-style:normal;color:var(--ink-3)}
+.hero-d{margin-top:24px;font-size:14px;color:var(--ink-2);line-height:1.85;max-width:38ch}
+.hero-cue{
+  margin-top:44px;font-family:var(--mono);font-size:10px;letter-spacing:.2em;color:var(--ink-3);
+  display:flex;align-items:center;gap:10px;
+}
+.hero-cue span{display:block;width:1px;height:26px;background:linear-gradient(var(--line-2),transparent);animation:cue 2.4s ease-in-out infinite}
+@keyframes cue{0%,100%{opacity:.25;transform:scaleY(.5);transform-origin:top}50%{opacity:1;transform:scaleY(1)}}
+
+/* 지시선 라벨 */
+.lab{position:absolute;opacity:0;transform:translateY(8px);transition:opacity .7s ease,transform .7s ease;max-width:220px}
+.lab.on{opacity:1;transform:none}
+.lab b{font-family:var(--mono);font-size:10px;letter-spacing:.16em;color:var(--ink-3);display:block;margin-bottom:5px}
+.lab i{font-style:normal;font-size:12.5px;letter-spacing:-.01em;display:block;line-height:1.5}
+.lab u{text-decoration:none;font-size:11px;color:var(--ink-3);display:block;margin-top:5px;line-height:1.6}
+.lab .ln{position:absolute;top:9px;height:1px;background:var(--line-2);width:var(--len,120px)}
+.lab .ln::after{content:"";position:absolute;top:-2px;width:5px;height:5px;border-radius:50%;border:1px solid var(--line-2);background:var(--bg)}
+.lab.r{text-align:right}
+.lab.l .ln{left:calc(100% + 16px);transform-origin:0 50%;transform:rotate(var(--ang,0deg))}
+.lab.l .ln::after{right:-3px}
+.lab.r .ln{right:calc(100% + 16px);transform-origin:100% 50%;transform:rotate(var(--ang,0deg))}
+.lab.r .ln::after{left:-3px}
+.lab.acc b{color:var(--acc)}
+.lab.acc .ln{background:rgba(214,53,11,.5)}
+.lab.acc .ln::after{border-color:var(--acc);background:var(--acc)}
+
+.lab-1{left:var(--pad);top:64%;--len:130px;--ang:-14deg}
+.lab-2{left:var(--pad);top:31%;--len:150px;--ang:16deg}
+.lab-3{right:var(--pad);top:44%;--len:140px;--ang:6deg}
+.lab-4{right:var(--pad);top:70%;--len:120px;--ang:-16deg}
+
+/* 계기 표시 */
+.readout{
+  position:absolute;left:var(--pad);bottom:34px;
+  font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--ink-3);
+  display:flex;gap:22px;flex-wrap:wrap;
+}
+.readout span{color:var(--ink)}
+.rail{position:absolute;right:var(--pad);bottom:34px;display:flex;align-items:center;gap:8px}
+.rail i{display:block;width:22px;height:1px;background:var(--line-2);transition:background .3s,transform .3s}
+.rail i.on{background:var(--ink);transform:scaleY(2)}
+.caption{
+  position:absolute;left:50%;transform:translateX(-50%);bottom:78px;
+  font-size:12px;color:var(--ink-2);letter-spacing:.01em;text-align:center;
+  transition:opacity .4s ease;max-width:80vw;
+}
+@media(max-width:900px){
+  .stage-pin{min-height:520px}
+  .hero-t{top:16vh;max-width:none;right:var(--pad)}
+  .lab{max-width:150px}
+  .lab-1{top:70%}.lab-2{top:22%}.lab-3{top:44%}.lab-4{top:78%}
+  .lab .ln{display:none}
+  .lab u{display:none}
+  .caption{display:none}
+}
+
+/* ---------- 공통 섹션 ---------- */
+.sec{padding:clamp(96px,13vw,190px) var(--pad);border-top:1px solid var(--line);position:relative}
+.sec.plain{border-top:0}
+.inner{max-width:1264px;margin:0 auto}
+.head{display:grid;grid-template-columns:210px 1fr;gap:40px;margin-bottom:clamp(56px,7vw,96px)}
+.tag{font-family:var(--mono);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-3);padding-top:9px}
+.tag::before{content:"";display:block;width:28px;height:1px;background:var(--ink);margin-bottom:14px}
+h2{font-size:clamp(22px,2.3vw,31px);font-weight:350;line-height:1.45;letter-spacing:-.028em;max-width:20ch}
+.lead{margin-top:26px;font-size:14px;color:var(--ink-2);line-height:1.9;max-width:56ch}
+.lead strong{font-weight:500;color:var(--ink)}
+@media(max-width:820px){.head{grid-template-columns:1fr;gap:20px}.tag{padding-top:0}}
+
+/* 사업영역 */
+.biz{border-top:1px solid var(--line)}
+.biz li{border-bottom:1px solid var(--line)}
+.biz a{
+  display:grid;grid-template-columns:88px 1fr 148px 150px;gap:36px;align-items:center;
+  padding:30px 0;transition:padding .5s cubic-bezier(.2,.7,.2,1),color .3s;
+}
+.biz a:hover{padding-left:16px}
+.biz .n{font-family:var(--mono);font-size:11px;letter-spacing:.16em;color:var(--ink-3)}
+.biz h3{font-size:17px;font-weight:450;letter-spacing:-.02em}
+.biz h3 + p{margin-top:9px;font-size:13px;color:var(--ink-2);line-height:1.75;max-width:46ch}
+.biz .dg{width:148px;height:96px;opacity:.85;transition:opacity .3s}
+.biz a:hover .dg{opacity:1}
+.biz .go{
+  font-family:var(--mono);font-size:10px;letter-spacing:.18em;color:var(--ink-3);
+  display:flex;align-items:center;gap:10px;justify-self:end;
+}
+.biz .go::after{content:"";width:26px;height:1px;background:var(--line-2);transition:width .4s cubic-bezier(.2,.7,.2,1)}
+.biz a:hover .go{color:var(--ink)}
+.biz a:hover .go::after{width:44px;background:var(--ink)}
+@media(max-width:1040px){
+  .biz a{grid-template-columns:60px 1fr;gap:18px 24px;padding:26px 0}
+  .biz .dg{grid-column:2;width:130px;height:84px;order:3}
+  .biz .go{grid-column:2;justify-self:start;order:4}
+}
+
+/* 지표 */
+.figs{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line)}
+.figs li{background:var(--bg);padding:38px 26px 34px}
+.figs strong{display:block;font-size:clamp(22px,2.4vw,30px);font-weight:300;letter-spacing:-.03em;line-height:1.2}
+.figs span{display:block;margin-top:14px;font-size:12px;color:var(--ink-2);line-height:1.7}
+@media(max-width:760px){.figs{grid-template-columns:repeat(2,1fr)}}
+
+/* 제품 상세 */
+.detail{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,6vw,96px);align-items:start}
+.detail.rev .d-fig{order:-1}
+.d-fig{border:1px solid var(--line);background:var(--paper);padding:26px}
+.d-fig svg{width:100%;height:auto}
+.d-cap{margin-top:18px;font-family:var(--mono);font-size:10px;letter-spacing:.14em;color:var(--ink-3);display:flex;justify-content:space-between;gap:12px}
+.spec{border-top:1px solid var(--line);margin-top:34px}
+.spec > div{display:grid;grid-template-columns:110px 1fr;gap:20px;padding:15px 0;border-bottom:1px solid var(--line)}
+.spec dt{font-size:12px;color:var(--ink-3);letter-spacing:.02em}
+.spec dd{font-size:13px;color:var(--ink-2);line-height:1.7}
+.steps{margin-top:44px;display:grid;gap:1px;background:var(--line);grid-template-columns:repeat(4,1fr)}
+.steps li{background:var(--bg);padding:22px 18px 24px}
+.steps em{font-family:var(--mono);font-style:normal;font-size:10px;letter-spacing:.16em;color:var(--ink-3)}
+.steps b{display:block;margin:12px 0 8px;font-size:13.5px;font-weight:500;letter-spacing:-.01em}
+.steps span{display:block;font-size:12px;color:var(--ink-2);line-height:1.7}
+.steps li:last-child b{color:var(--acc)}
+@media(max-width:900px){
+  .detail{grid-template-columns:1fr}
+  .detail.rev .d-fig{order:0}
+  .steps{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:520px){.steps{grid-template-columns:1fr}}
+
+/* 기술력 */
+.flow{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:1px solid var(--line)}
+.flow li{padding:34px 26px 40px 0;position:relative}
+.flow li::before{content:"";position:absolute;left:0;top:-1px;width:0;height:1px;background:var(--ink);transition:width 1.1s cubic-bezier(.2,.7,.2,1)}
+.flow li.in::before{width:calc(100% - 26px)}
+.flow em{font-family:var(--mono);font-style:normal;font-size:10px;letter-spacing:.18em;color:var(--ink-3)}
+.flow h3{margin:16px 0 10px;font-size:15px;font-weight:450;letter-spacing:-.01em}
+.flow p{font-size:12.5px;color:var(--ink-2);line-height:1.75}
+@media(max-width:820px){.flow{grid-template-columns:1fr}.flow li{padding:24px 0 28px}.flow li.in::before{width:100%}}
+
+/* 회사소개 */
+.about{display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,6vw,96px);align-items:start}
+.stmt{font-size:clamp(16px,1.7vw,21px);font-weight:350;line-height:1.75;letter-spacing:-.024em}
+.stmt-sub{margin-top:26px;font-size:13px;color:var(--ink-3);letter-spacing:.01em}
+.info{width:100%;border-collapse:collapse;border-top:1px solid var(--line)}
+.info th,.info td{text-align:left;padding:15px 0;border-bottom:1px solid var(--line);font-weight:400;vertical-align:top}
+.info th{width:110px;font-size:12px;color:var(--ink-3)}
+.info td{font-size:13px;color:var(--ink-2)}
+@media(max-width:900px){.about{grid-template-columns:1fr}}
+
+/* 마퀴 */
+.mq{overflow:hidden;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:20px 0}
+.mq-t{display:flex;width:max-content;animation:mq 34s linear infinite}
+.mq-t span{
+  font-family:var(--mono);font-size:11px;letter-spacing:.34em;color:var(--ink-3);
+  padding-right:30px;white-space:nowrap;text-transform:uppercase;
+}
+.mq-t span b{color:var(--line-2);font-weight:400}
+@keyframes mq{to{transform:translateX(-50%)}}
+
+/* 문의 */
+.ct{display:grid;grid-template-columns:1fr 1.15fr;gap:clamp(40px,6vw,96px);align-items:start}
+.call{display:block;border:1px solid var(--line-2);padding:26px 28px 24px;transition:background .3s,color .3s}
+.call small{font-size:11px;color:var(--ink-3);letter-spacing:.02em}
+.call strong{display:block;margin-top:12px;font-family:var(--mono);font-size:clamp(21px,2.3vw,28px);font-weight:400;letter-spacing:.02em}
+.call:hover{background:var(--ink);color:#fff}
+.call:hover small{color:rgba(255,255,255,.55)}
+.ct-info{margin-top:30px}
+.ct-info > div{display:grid;grid-template-columns:130px 1fr;gap:18px;padding:13px 0;border-bottom:1px solid var(--line)}
+.ct-info dt{font-size:12px;color:var(--ink-3)}
+.ct-info dd{font-size:13px;color:var(--ink-2)}
+.ct-info a:hover{color:var(--ink);border-bottom:1px solid var(--line-2)}
+.form{display:grid;gap:22px}
+.form p.note{font-size:12px;color:var(--ink-3);line-height:1.8}
+.fld{display:grid;gap:9px}
+.fld label{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-3)}
+.fld input,.fld select,.fld textarea{
+  width:100%;background:transparent;border:0;border-bottom:1px solid var(--line-2);
+  padding:9px 0;font-size:14px;border-radius:0;transition:border-color .3s;
+  -webkit-appearance:none;appearance:none;
+}
+.fld select{background-image:linear-gradient(45deg,transparent 50%,var(--ink-3) 50%),linear-gradient(135deg,var(--ink-3) 50%,transparent 50%);background-position:calc(100% - 9px) 18px,calc(100% - 4px) 18px;background-size:5px 5px;background-repeat:no-repeat}
+.fld textarea{resize:vertical;line-height:1.7}
+.fld input:focus,.fld select:focus,.fld textarea:focus{outline:0;border-bottom-color:var(--ink)}
+.fld input::placeholder,.fld textarea::placeholder{color:var(--ink-3);opacity:.7}
+.send{
+  justify-self:start;background:transparent;border:1px solid var(--ink);color:var(--ink);
+  padding:13px 30px;font-family:var(--mono);font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;
+  cursor:pointer;transition:background .3s,color .3s;
+}
+.send:hover{background:var(--ink);color:#fff}
+.hint{font-size:11.5px;color:var(--ink-3);min-height:1.5em}
+@media(max-width:900px){.ct{grid-template-columns:1fr}}
+
+/* 푸터 */
+.ft{padding:56px var(--pad) 44px;border-top:1px solid var(--line);display:grid;grid-template-columns:1fr auto;gap:30px;align-items:end}
+.ft address{font-style:normal;font-size:12px;color:var(--ink-3);line-height:1.9;margin-top:20px}
+.ft .brand b{font-size:14px}
+.ft-nav{display:flex;gap:24px;font-size:12px;color:var(--ink-2)}
+.ft-nav a:hover{color:var(--ink)}
+.ft small{display:block;margin-top:16px;font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--ink-3);text-align:right}
+@media(max-width:700px){.ft{grid-template-columns:1fr}.ft small{text-align:left}}
+
+/* 등장 */
+.rv{opacity:0;transform:translateY(18px);transition:opacity .9s cubic-bezier(.2,.7,.2,1),transform .9s cubic-bezier(.2,.7,.2,1)}
+.rv.in{opacity:1;transform:none}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .float{animation:none}
+  .mq-t{animation:none}
+  .hero-cue span{animation:none}
+  .rv{opacity:1;transform:none;transition:none}
+  .lab{transition:none}
+  .stage{height:auto}
+  .stage-pin{position:relative;height:auto;min-height:0;padding:96px 0 120px}
+  .scene{position:relative;inset:auto;height:70vh;min-height:460px}
+  .float{top:50%}
+  .ov{position:relative;inset:auto;margin-top:24px;padding:0 var(--pad);display:grid;gap:26px}
+  .ov > *{position:static !important;transform:none !important;max-width:none}
+  .hero-t.hide{opacity:1;transform:none}
+  .lab .ln,.rail,.caption{display:none}
+  .readout{display:flex}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">본문 바로가기</a>
+
+<div class="flag"><i></i>E — 화이트 · 3D<em>DOENC DESIGN CONCEPT</em></div>
+
+<header class="hd" id="hd">
+  <a class="brand" href="#top"><b>DOENC</b><span>주식회사 디오이엔씨</span></a>
+  <nav class="nav" aria-label="주요 메뉴">
+    <a href="#business">사업영역</a>
+    <a href="#firestop">내화채움구조</a>
+    <a href="#shutter">셔터</a>
+    <a href="#tech">기술력</a>
+    <a href="#about">회사소개</a>
+    <a href="#contact">문의하기</a>
+  </nav>
+  <a class="hd-tel" href="tel:0299252992">02-925-2992</a>
+</header>
+
+<main id="main">
+
+<!-- ===== 1. 히어로 + 3D 분해도 ===== -->
+<section class="stage" id="top" aria-label="관통부 화재차단 시스템 분해도">
+  <div class="stage-pin">
+    <div class="scene" aria-hidden="true">
+      <div class="float"><div class="asm" id="asm"></div></div>
+    </div>
+
+    <div class="ov">
+      <div class="hero-t" id="heroT">
+        <p class="eyebrow">Creative DOENC</p>
+        <h1>우리는 기술을 만들고<br><em>기술은 미래를 만듭니다</em></h1>
+        <p class="hero-d">내화채움구조 · 내화구조 · 셔터를 자체기술로 국산화하여 건축물과 지하구의 화재차단 장치를 제조·시공합니다.</p>
+        <p class="hero-cue"><span></span>SCROLL — 분해도 보기</p>
+      </div>
+
+      <div class="lab l lab-2" data-at=".22"><span class="ln"></span>
+        <b>01</b><i>관통 설비</i><u>벽·바닥을 지나는 배관 · 케이블 · 덕트</u></div>
+      <div class="lab l lab-1" data-at=".16"><span class="ln"></span>
+        <b>02</b><i>구조체</i><u>방화구획을 이루는 벽체와 슬래브 단면</u></div>
+      <div class="lab r lab-3 acc" data-at=".46"><span class="ln"></span>
+        <b>03</b><i>내화채움구조</i><u>관통부를 밀실하게 채우는 불연 무기 화합물</u></div>
+      <div class="lab r lab-4" data-at=".64"><span class="ln"></span>
+        <b>04</b><i>케이블 트레이</i><u>복합관통 조건별 인정구조 적용</u></div>
+
+      <p class="caption" id="cap">벽 · 바닥 관통부 단면 — 조립 상태</p>
+
+      <div class="readout" aria-hidden="true">
+        <span id="roRot">ROT −40.0°</span>
+        <span id="roExp">EXPLODE 000%</span>
+        <span>SCALE 1:20</span>
+      </div>
+      <div class="rail" id="rail" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 2. 사업영역 ===== -->
+<section class="sec" id="business">
+  <div class="inner">
+    <div class="head rv">
+      <p class="tag">사업영역 / Business</p>
+      <div>
+        <h2>자체기술 국산화로<br>화재 확산을 차단합니다</h2>
+        <p class="lead">기술개발 · 자재생산 · 설계 · 시공을 한 회사가 수행합니다. 네 개 분야 모두 자체기술로 국산화한 제품입니다.</p>
+      </div>
+    </div>
+
+    <ul class="biz">
+      <li class="rv"><a href="#firestop">
+        <span class="n">01</span>
+        <span><h3>내화채움구조</h3><p>벽·바닥 관통부를 밀실하게 채워 화염과 유독가스의 이동 경로를 차단합니다.</p></span>
+        <svg class="dg" viewBox="0 0 148 96" fill="none" stroke="#111318" stroke-width="1" aria-hidden="true">
+          <path d="M62 2v92M86 2v92" stroke-opacity=".35"/>
+          <path d="M62 6l24 20M62 22l24 20M62 38l24 20M62 54l24 20M62 70l24 20" stroke-opacity=".1"/>
+          <path d="M0 34h62M86 34h62M0 50h62M86 50h62" stroke-opacity=".45"/>
+          <path d="M0 74h62M86 74h62" stroke-opacity=".3"/>
+          <rect x="62" y="30" width="24" height="24" stroke="#d6350b"/>
+          <rect x="62" y="70" width="24" height="14" stroke="#d6350b"/>
+          <path d="M20 22c-4-7 0-12 0-12M32 22c-4-7 0-12 0-12" stroke-opacity=".3"/>
+        </svg>
+        <span class="go">VIEW</span>
+      </a></li>
+      <li class="rv"><a href="#contact" data-product="내화구조">
+        <span class="n">02</span>
+        <span><h3>내화구조</h3><p>기둥·보·벽체 등 주요 구조부의 내화성능을 확보해 화재 시 구조적 붕괴를 막습니다.</p></span>
+        <svg class="dg" viewBox="0 0 148 96" fill="none" stroke="#111318" stroke-width="1" aria-hidden="true">
+          <rect x="62" y="22" width="24" height="52" stroke-opacity=".45"/>
+          <path d="M62 26l24 12M62 38l24 12M62 50l24 12M62 62l24 12" stroke-opacity=".12"/>
+          <rect x="52" y="12" width="44" height="72" stroke-opacity=".28"/>
+          <rect x="42" y="4" width="64" height="88" stroke-opacity=".6"/>
+          <path d="M10 48h32M106 48h32" stroke-opacity=".3"/>
+          <path d="M20 4v88M128 4v88" stroke-opacity=".14"/>
+        </svg>
+        <span class="go">CONTACT</span>
+      </a></li>
+      <li class="rv"><a href="#shutter">
+        <span class="n">03</span>
+        <span><h3>셔터</h3><p>방화셔터·스크린셔터로 대공간을 구획해 화재 확산을 막고 피난 시간을 확보합니다.</p></span>
+        <svg class="dg" viewBox="0 0 148 96" fill="none" stroke="#111318" stroke-width="1" aria-hidden="true">
+          <rect x="18" y="4" width="112" height="12" stroke-opacity=".45"/>
+          <path d="M18 24h112M18 34h112M18 44h112M18 54h112M18 64h112" stroke-opacity=".26"/>
+          <path d="M18 29h112M18 39h112M18 49h112M18 59h112" stroke-opacity=".08"/>
+          <path d="M18 72h112" stroke="#d6350b" stroke-width="1.6"/>
+          <path d="M18 4v88M130 4v88" stroke-opacity=".24"/>
+          <path d="M74 78v10M68 84l6 6 6-6" stroke-opacity=".4"/>
+        </svg>
+        <span class="go">VIEW</span>
+      </a></li>
+      <li class="rv"><a href="#contact" data-product="설계소프트웨어">
+        <span class="n">04</span>
+        <span><h3>설계소프트웨어</h3><p>현장 조건에 맞는 인정구조 선정과 물량 산출을 지원하는 자체 개발 소프트웨어입니다.</p></span>
+        <svg class="dg" viewBox="0 0 148 96" fill="none" stroke="#111318" stroke-width="1" aria-hidden="true">
+          <g stroke-opacity=".1"><path d="M0 16h148M0 32h148M0 48h148M0 64h148M0 80h148M20 0v96M44 0v96M68 0v96M92 0v96M116 0v96"/></g>
+          <rect x="36" y="22" width="52" height="44" stroke-opacity=".6"/>
+          <path d="M88 34h28v28H88" stroke-opacity=".45"/>
+          <path d="M14 18h44V6" stroke-opacity=".3"/>
+          <circle cx="88" cy="22" r="2.5" stroke-opacity=".8"/><circle cx="36" cy="66" r="2.5" stroke-opacity=".8"/><circle cx="116" cy="34" r="2.5" stroke-opacity=".8"/>
+          <path d="M36 78h80" stroke-opacity=".3"/>
+        </svg>
+        <span class="go">CONTACT</span>
+      </a></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===== 3. 지표 ===== -->
+<section class="sec plain" aria-label="회사 강점" style="padding-top:0">
+  <div class="inner">
+    <ul class="figs rv">
+      <li><strong>다수</strong><span>내화채움구조 · 스크린셔터 특허 보유</span></li>
+      <li><strong>4</strong><span>자체기술로 국산화한 제품 분야</span></li>
+      <li><strong>ONE-STOP</strong><span>자재생산 · 설계 · 시공 일괄 수행</span></li>
+      <li><strong>불연</strong><span>무기 화합물 기반 친환경 소재</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ===== 4. 내화채움구조 ===== -->
+<section class="sec" id="firestop">
+  <div class="inner">
+    <div class="head rv">
+      <p class="tag">01 / 내화채움구조</p>
+      <div>
+        <h2>관통부의 빈틈이<br>화재의 통로가 됩니다</h2>
+      </div>
+    </div>
+
+    <div class="detail">
+      <div class="rv">
+        <p class="lead" style="margin-top:0">벽과 바닥을 지나는 배관·케이블·덕트 주변의 틈은 화염과 유독가스가 퍼지는 길이 됩니다. 디오이엔씨의 내화채움구조는 이 관통부를 빈틈없이 채워 <strong>방화구획의 성능</strong>을 유지합니다.</p>
+        <dl class="spec">
+          <div><dt>차단 원리</dt><dd>화재 시 발포하여 탄화층을 생성, 화염과 유독가스를 차단</dd></div>
+          <div><dt>소재</dt><dd>불연성 친환경 무기 화합물 — 유해가스 발생 최소화</dd></div>
+          <div><dt>적용</dt><dd>배관 · 케이블 · 복합관통 등 현장 조건별 인정구조 보유</dd></div>
+          <div><dt>기술</dt><dd>관련 특허 다수 보유, 자체기술 국산화 제품</dd></div>
+        </dl>
+      </div>
+
+      <figure class="d-fig rv">
+        <svg viewBox="0 0 560 420" fill="none" stroke="#111318" stroke-width="1" aria-hidden="true">
+          <path d="M0 380h560" stroke-opacity=".3"/>
+          <g stroke-opacity=".12"><path d="M10 404l16-20M50 404l16-20M90 404l16-20M130 404l16-20M170 404l16-20M210 404l16-20M250 404l16-20M290 404l16-20M330 404l16-20M370 404l16-20M410 404l16-20M450 404l16-20M490 404l16-20M530 404l16-20"/></g>
+          <g stroke-opacity=".07"><path d="M228 0l104 88M228 44l104 88M228 88l104 88M228 132l104 88M228 176l104 88M228 220l104 88M228 264l104 88M228 308l104 72M228 352l40 28"/></g>
+          <path d="M228 0v380M332 0v380" stroke-opacity=".38"/>
+          <g stroke-opacity=".42"><path d="M0 132h560M0 188h560"/><circle cx="500" cy="160" r="20"/><path d="M500 140v40M480 160h40"/><path d="M44 126v68M76 126v68"/></g>
+          <g stroke-opacity=".36"><path d="M0 268h560M0 322h560M0 268v54"/><circle cx="412" cy="288" r="8"/><circle cx="438" cy="288" r="8"/><circle cx="464" cy="288" r="8"/><circle cx="424" cy="310" r="8"/><circle cx="450" cy="310" r="8"/></g>
+          <rect x="228" y="112" width="104" height="96" fill="rgba(214,53,11,.05)" stroke="#d6350b"/>
+          <rect x="228" y="248" width="104" height="94" fill="rgba(214,53,11,.05)" stroke="#d6350b"/>
+          <g stroke="#d6350b" stroke-opacity=".35"><path d="M238 122l84 76M238 168l84 32M238 200l44-78M238 258l84 76M238 304l84 32M238 336l44-78"/></g>
+          <g stroke="#d6350b"><path d="M280 100V78M270 88l10-10 10 10"/><path d="M280 220v22M270 232l10 10 10-10"/></g>
+          <path d="M218 116v88M218 252v86" stroke="#d6350b" stroke-width="2"/>
+          <g stroke-opacity=".3"><path d="M228 400h104M228 392v16M332 392v16"/></g>
+          <text x="280" y="416" font-size="10" fill="#8a8d95" stroke="none" text-anchor="middle" font-family="ui-monospace,monospace" letter-spacing="1.5">WALL 104</text>
+          <text x="8" y="60" font-size="11" fill="#d6350b" stroke="none" font-family="ui-monospace,monospace" letter-spacing="2">FIRE SIDE</text>
+          <text x="552" y="60" font-size="11" fill="#8a8d95" stroke="none" text-anchor="end" font-family="ui-monospace,monospace" letter-spacing="2">PROTECTED</text>
+        </svg>
+        <figcaption class="d-cap"><span>FIG. 01 — 관통부 단면</span><span>PENETRATION SEAL</span></figcaption>
+      </figure>
+    </div>
+
+    <ol class="steps rv">
+      <li><em>STEP 01</em><b>평상시</b><span>벽·바닥 관통부에 자재를 밀실하게 충전한 상태로 방화구획을 유지합니다.</span></li>
+      <li><em>STEP 02</em><b>화재 발생</b><span>화염이 관통부에 도달합니다. 배관이 녹거나 수축하면 그 자리에 빈틈이 생깁니다.</span></li>
+      <li><em>STEP 03</em><b>발포 · 팽창</b><span>열을 받은 자재가 부풀어 오르며 생긴 빈틈까지 스스로 채웁니다.</span></li>
+      <li><em>STEP 04</em><b>차단 완료</b><span>탄화층이 형성되어 화염과 유독가스의 이동 경로를 끊습니다.</span></li>
+    </ol>
+  </div>
+</section>
+
+<!-- ===== 5. 셔터 ===== -->
+<section class="sec" id="shutter">
+  <div class="inner">
+    <div class="head rv">
+      <p class="tag">03 / 셔터</p>
+      <div>
+        <h2>넓은 공간일수록<br>구획이 필요합니다</h2>
+      </div>
+    </div>
+
+    <div class="detail rev">
+      <div class="rv">
+        <p class="lead" style="margin-top:0">대형 매장, 물류창고, 주차장처럼 트인 공간은 화재가 빠르게 번집니다. 방화셔터와 스크린셔터는 화재 감지 시 자동으로 내려와 공간을 <strong>방화구획으로 나누고 피난 시간을 확보</strong>합니다.</p>
+        <dl class="spec">
+          <div><dt>특허</dt><dd>스크린셔터 특허 보유 — 대공간 구획 대응</dd></div>
+          <div><dt>작동</dt><dd>화재 감지 설비와 연동한 자동 폐쇄</dd></div>
+          <div><dt>설계</dt><dd>피난 동선을 고려한 설계 및 시공</dd></div>
+          <div><dt>제작</dt><dd>현장 규격에 맞춘 자체 생산 맞춤 제작</dd></div>
+        </dl>
+      </div>
+
+      <figure class="d-fig rv">
+        <svg viewBox="0 0 560 420" fill="none" stroke="#111318" stroke-width="1" aria-hidden="true">
+          <g stroke-opacity=".08"><path d="M0 4l38 34M40 4l38 34M80 4l38 34M120 4l38 34M160 4l38 34M200 4l38 34M240 4l38 34M280 4l38 34M320 4l38 34M360 4l38 34M400 4l38 34M440 4l38 34M480 4l38 34M520 4l38 34"/></g>
+          <path d="M0 38h560M0 380h560" stroke-opacity=".3"/>
+          <g stroke-opacity=".12"><path d="M10 404l16-20M90 404l16-20M170 404l16-20M250 404l16-20M330 404l16-20M410 404l16-20M490 404l16-20"/></g>
+          <rect x="128" y="38" width="304" height="38" stroke-opacity=".42"/>
+          <path d="M134 76v304M426 76v304" stroke-opacity=".22"/>
+          <g stroke-opacity=".28"><path d="M134 100h292M134 124h292M134 148h292M134 172h292M134 196h292M134 220h292M134 244h292M134 268h292M134 292h292M134 316h292M134 340h292"/></g>
+          <g stroke-opacity=".08"><path d="M134 112h292M134 136h292M134 160h292M134 184h292M134 208h292M134 232h292M134 256h292M134 280h292M134 304h292M134 328h292M134 352h292"/></g>
+          <path d="M134 376h292" stroke="#d6350b" stroke-width="2.4"/>
+          <circle cx="492" cy="62" r="10" stroke-opacity=".5"/>
+          <circle cx="492" cy="62" r="3" fill="#d6350b" stroke="none"/>
+          <path d="M492 38v14" stroke-opacity=".35"/>
+          <g stroke="#d6350b" stroke-opacity=".55"><path d="M472 84q20 16 40 0" /><path d="M462 98q30 24 60 0"/><path d="M482 62h-40" stroke-dasharray="4 4"/></g>
+          <g stroke="#d6350b" stroke-opacity=".8"><path d="M56 366q-24-44 4-76 -4 36 20 48 20-28 6-62 44 36 28 90"/><path d="M98 366q-18-32 4-56 -4 26 16 34 14-20 4-46 34 28 20 68"/></g>
+          <g stroke-opacity=".45"><path d="M448 262h56M490 250l14 12-14 12"/><path d="M540 190v190M540 190h-26"/></g>
+          <text x="8" y="352" font-size="11" fill="#d6350b" stroke="none" font-family="ui-monospace,monospace" letter-spacing="2">FIRE ZONE</text>
+          <text x="448" y="300" font-size="11" fill="#8a8d95" stroke="none" font-family="ui-monospace,monospace" letter-spacing="2">EGRESS</text>
+        </svg>
+        <figcaption class="d-cap"><span>FIG. 02 — 셔터 폐쇄 단면</span><span>FIRE COMPARTMENT</span></figcaption>
+      </figure>
+    </div>
+
+    <ol class="steps rv">
+      <li><em>STEP 01</em><b>평상시</b><span>셔터는 상부에 수납되어 있고, 대공간은 그대로 열린 채 사용됩니다.</span></li>
+      <li><em>STEP 02</em><b>화재 감지</b><span>화재 감지 설비가 연동 신호를 보내면 셔터가 폐쇄 동작을 시작합니다.</span></li>
+      <li><em>STEP 03</em><b>자동 폐쇄</b><span>셔터가 자동으로 내려와 대공간을 나눕니다.</span></li>
+      <li><em>STEP 04</em><b>구획 완성</b><span>공간이 방화구획으로 분리되어 확산을 막고, 반대편의 피난 시간을 확보합니다.</span></li>
+    </ol>
+  </div>
+</section>
+
+<!-- ===== 6. 기술력 ===== -->
+<section class="sec" id="tech">
+  <div class="inner">
+    <div class="head rv">
+      <p class="tag">기술력 / Technology</p>
+      <div>
+        <h2>기술개발부터 시공까지<br>한 번에 책임집니다</h2>
+        <p class="lead">자재를 사오는 회사가 아닙니다. 기술을 직접 개발하고, 자재를 직접 만들고, 설계하고, 현장에 직접 시공합니다. <strong>ONE-STOP SYSTEM</strong>이 성능의 편차를 없앱니다.</p>
+      </div>
+    </div>
+    <ol class="flow">
+      <li class="rv"><em>01</em><h3>기술개발</h3><p>자체 연구개발로 화재차단 기술을 국산화하고 특허를 확보합니다.</p></li>
+      <li class="rv"><em>02</em><h3>자재생산</h3><p>불연성 친환경 무기 화합물 기반 자재를 직접 생산합니다.</p></li>
+      <li class="rv"><em>03</em><h3>설계</h3><p>설계소프트웨어로 현장 조건에 맞는 인정구조를 선정합니다.</p></li>
+      <li class="rv"><em>04</em><h3>시공</h3><p>건축물과 지하구 현장에 직접 시공하여 성능을 완성합니다.</p></li>
+    </ol>
+  </div>
+</section>
+
+<!-- ===== 7. 회사소개 ===== -->
+<section class="sec" id="about">
+  <div class="inner">
+    <div class="head rv">
+      <p class="tag">회사소개 / About</p>
+      <div><h2>기술을 직접 만드는<br>회사입니다</h2></div>
+    </div>
+    <div class="about">
+      <div class="rv">
+        <p class="stmt">(주)디오이엔씨는 방화 · 내화구조 · 소방시설 전문기업입니다. 특화된 기술개발로 내화채움구조와 스크린셔터 등 다수의 특허를 보유하고 있으며, 차별화된 방화 성능으로 건축물과 지하구의 화재 차단장치를 주기술로 합니다.</p>
+        <p class="stmt-sub">디오인의 열정과 창의력이 새로운 기술을 만듭니다.</p>
+      </div>
+      <table class="info rv">
+        <caption class="sr">회사 기본 정보</caption>
+        <tbody>
+          <tr><th scope="row">상호</th><td>주식회사 디오이엔씨 (DOENC Co., Ltd.)</td></tr>
+          <tr><th scope="row">사업분야</th><td>내화채움구조 · 내화구조 · 셔터 · 설계소프트웨어</td></tr>
+          <tr><th scope="row">사업자번호</th><td>111-81-32572</td></tr>
+          <tr><th scope="row">주소</th><td>경기 화성시 정남면 안념길 121-12 (내리)</td></tr>
+          <tr><th scope="row">전화</th><td><a href="tel:0299252992">02-925-2992</a></td></tr>
+          <tr><th scope="row">팩스</th><td>02-929-5927</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 8. 마퀴 ===== -->
+<div class="mq" aria-hidden="true">
+  <div class="mq-t">
+    <span>Fire Safety Solution <b>·</b> DOENC <b>·</b> 내화채움구조 <b>·</b> 내화구조 <b>·</b> 셔터 <b>·</b> 설계소프트웨어 <b>·</b>&nbsp;</span>
+    <span>Fire Safety Solution <b>·</b> DOENC <b>·</b> 내화채움구조 <b>·</b> 내화구조 <b>·</b> 셔터 <b>·</b> 설계소프트웨어 <b>·</b>&nbsp;</span>
+  </div>
+</div>
+
+<!-- ===== 9. 문의 ===== -->
+<section class="sec" id="contact">
+  <div class="inner">
+    <div class="head rv">
+      <p class="tag">문의하기 / Contact</p>
+      <div><h2>도면과 현장 조건을<br>알려주세요</h2></div>
+    </div>
+
+    <div class="ct">
+      <div class="rv">
+        <a class="call" href="tel:0299252992">
+          <small>전화 문의가 가장 빠릅니다</small>
+          <strong>02-925-2992</strong>
+        </a>
+        <dl class="ct-info">
+          <div><dt>내화채움구조 사업부</dt><dd><a href="mailto:firestop@doenc.com">firestop@doenc.com</a></dd></div>
+          <div><dt>셔터 사업부</dt><dd><a href="mailto:firescreen@doenc.com">firescreen@doenc.com</a></dd></div>
+          <div><dt>운영시간</dt><dd>평일 09:00 – 18:00</dd></div>
+          <div><dt>팩스</dt><dd>02-929-5927</dd></div>
+          <div><dt>주소</dt><dd>경기 화성시 정남면 안념길 121-12 (내리)</dd></div>
+        </dl>
+      </div>
+
+      <form class="form rv" id="cf" novalidate>
+        <p class="note">작성 후 <strong>메일 보내기</strong>를 누르면 내용이 채워진 채로 메일 앱이 열립니다. 선택하신 분야의 담당 사업부로 발송됩니다.</p>
+        <div class="fld">
+          <label for="f-p">문의 분야</label>
+          <select id="f-p" name="product" required>
+            <option value="">선택해 주세요</option>
+            <option value="내화채움구조" data-team="firestop">내화채움구조</option>
+            <option value="내화구조" data-team="firestop">내화구조</option>
+            <option value="셔터" data-team="firescreen">셔터 (방화셔터 · 스크린셔터)</option>
+            <option value="설계소프트웨어" data-team="firestop">설계소프트웨어</option>
+            <option value="기타" data-team="firestop">기타 문의</option>
+          </select>
+        </div>
+        <div class="fld">
+          <label for="f-n">이름 / 회사</label>
+          <input id="f-n" name="name" type="text" required placeholder="성함 또는 회사명">
+        </div>
+        <div class="fld">
+          <label for="f-c">연락처</label>
+          <input id="f-c" name="contact" type="text" required placeholder="전화 또는 이메일">
+        </div>
+        <div class="fld">
+          <label for="f-m">문의 내용</label>
+          <textarea id="f-m" name="message" rows="5" required placeholder="현장 위치, 적용 제품, 규모, 일정 등을 남겨주세요."></textarea>
+        </div>
+        <button class="send" type="submit">메일 보내기</button>
+        <p class="hint" id="hint" role="status"></p>
+      </form>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="ft">
+  <div>
+    <span class="brand"><b>DOENC</b><span>주식회사 디오이엔씨</span></span>
+    <address>
+      사업자번호 111-81-32572<br>
+      경기 화성시 정남면 안념길 121-12 (내리)<br>
+      TEL. <a href="tel:0299252992">02-925-2992</a> &nbsp;/&nbsp; FAX. 02-929-5927
+    </address>
+  </div>
+  <div>
+    <nav class="ft-nav" aria-label="푸터 메뉴">
+      <a href="#business">사업영역</a><a href="#tech">기술력</a><a href="#about">회사소개</a><a href="#contact">문의하기</a>
+    </nav>
+    <small>© <span id="yr"></span> DOENC Co., Ltd.</small>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* ---------------- 3D 조립체 만들기 ---------------- */
+  var asm = document.getElementById("asm");
+
+  function div(cls, parent){
+    var d = document.createElement("div");
+    if (cls) d.className = cls;
+    if (parent) parent.appendChild(d);
+    return d;
+  }
+  /* 파트 컨테이너: 기준 위치(t*) + 분해 이동량(e*) */
+  function part(cls, t, e){
+    var p = div("part " + (cls || ""), asm);
+    p.style.setProperty("--tx", t[0]); p.style.setProperty("--ty", t[1]); p.style.setProperty("--tz", t[2]);
+    p.style.setProperty("--ex", e[0]); p.style.setProperty("--ey", e[1]); p.style.setProperty("--ez", e[2]);
+    return p;
+  }
+  /* 직육면체 — 6면 */
+  function box(parent, w, h, d, ox, oy, oz){
+    var b = div("box", parent);
+    b.style.transform = "translate3d(" + (ox||0) + "px," + (oy||0) + "px," + (oz||0) + "px)";
+    var f = [
+      ["z", "translateZ(" + d/2 + "px)", w, h],
+      ["z", "rotateY(180deg) translateZ(" + d/2 + "px)", w, h],
+      ["x", "rotateY(90deg) translateZ(" + w/2 + "px)", d, h],
+      ["x", "rotateY(-90deg) translateZ(" + w/2 + "px)", d, h],
+      ["y", "rotateX(90deg) translateZ(" + h/2 + "px)", w, d],
+      ["y", "rotateX(-90deg) translateZ(" + h/2 + "px)", w, d]
+    ];
+    for (var i = 0; i < f.length; i++){
+      var e = div("face " + f[i][0], b);
+      e.style.width = f[i][2] + "px";
+      e.style.height = f[i][3] + "px";
+      e.style.marginLeft = (-f[i][2] / 2) + "px";
+      e.style.marginTop = (-f[i][3] / 2) + "px";
+      e.style.transform = f[i][1];
+    }
+    return b;
+  }
+  /* 원통 근사 — n각 프리즘 (축은 Z 방향) */
+  function prism(parent, r, len, seg, ox, oy, cls){
+    var b = div("box prism " + (cls || ""), parent);
+    b.style.transform = "translate3d(" + (ox||0) + "px," + (oy||0) + "px,0)";
+    var w = 2 * r * Math.tan(Math.PI / seg) * 1.02;
+    for (var i = 0; i < seg; i++){
+      var a = 360 / seg * i;
+      var e = div("face", b);
+      e.style.width = w + "px";
+      e.style.height = len + "px";
+      e.style.marginLeft = (-w / 2) + "px";
+      e.style.marginTop = (-len / 2) + "px";
+      e.style.transform = "rotateZ(" + a + "deg) translateY(" + r + "px) rotateX(-90deg)";
+    }
+    return b;
+  }
+
+  if (asm){
+    /* 지반 그리드 */
+    var g = part("", [0, 250, 0], [0, 0, 0]);
+    div("ground", g);
+
+    /* 벽체 — 개구부 2곳을 남기고 띠 단위로 구성 */
+    var wTop = part("wall", [0, -140, 0], [0, -260, 0]);   box(wTop, 620, 140, 76);
+    var wBot = part("wall", [0, 140, 0], [0, 260, 0]);     box(wBot, 620, 140, 76);
+    var wL   = part("wall", [-250, 0, 0], [-200, 0, 0]);   box(wL, 120, 140, 76);
+    var wC   = part("wall", [0, 0, 0], [0, 0, -70]);       box(wC, 80, 140, 76);
+    var wR   = part("wall", [260, 0, 0], [200, 0, 0]);     box(wR, 100, 140, 76);
+
+    /* 관통 설비 01 — 배관 */
+    var pipe = part("steel", [-115, 0, 0], [0, -170, 60]);
+    prism(pipe, 46, 720, 16);
+    box(pipe, 118, 10, 14, 0, -58, 300);   /* 플랜지 */
+    box(pipe, 118, 10, 14, 0, 58, 300);
+    box(pipe, 14, 118, 14, -58, 0, 300);
+    box(pipe, 14, 118, 14, 58, 0, 300);
+
+    /* 관통 설비 02 — 케이블 트레이 */
+    var tray = part("steel", [125, 0, 0], [0, 180, 60]);
+    box(tray, 140, 8, 720, 0, 34, 0);
+    box(tray, 8, 70, 720, -66, 0, 0);
+    box(tray, 8, 70, 720, 66, 0, 0);
+    var cx = [-40, -12, 16, 44, -26], cy = [16, 16, 16, 16, -12];
+    for (var k = 0; k < 5; k++) prism(tray, 13, 720, 8, cx[k], cy[k], "cable");
+
+    /* 내화채움구조 — 유일한 강조색 */
+    var sA = part("seal", [-115, 0, 0], [0, -45, 250]); box(sA, 150, 140, 70);
+    var sB = part("seal", [125, 0, 0], [0, 45, 250]);   box(sB, 170, 140, 70);
+  }
+
+  /* ---------------- 스케일 ---------------- */
+  var root = document.documentElement;
+  function fit(){
+    var vw = window.innerWidth, vh = window.innerHeight;
+    var s = Math.min(vw / 1180, (vh - 160) / 1020);
+    s = Math.max(0.26, Math.min(0.78, s));
+    root.style.setProperty("--s", s.toFixed(3));
+  }
+  fit();
+  window.addEventListener("resize", fit, { passive: true });
+
+  /* ---------------- 스크롤 구동 ---------------- */
+  var stage = document.querySelector(".stage");
+  var heroT = document.getElementById("heroT");
+  var labs  = [].slice.call(document.querySelectorAll(".lab"));
+  var rail  = [].slice.call(document.querySelectorAll("#rail i"));
+  var roRot = document.getElementById("roRot");
+  var roExp = document.getElementById("roExp");
+  var cap   = document.getElementById("cap");
+  var hd    = document.getElementById("hd");
+
+  var CAPS = [
+    [0.00, "벽 · 바닥 관통부 단면 — 조립 상태"],
+    [0.22, "분해 — 구조체 / 관통 설비 / 채움재"],
+    [0.50, "내화채움구조가 관통부를 밀실하게 채웁니다"],
+    [0.78, "복합관통까지 조건별 인정구조로 대응합니다"]
+  ];
+  var lastCap = -1;
+
+  function ease(x){ return x < 0.5 ? 4*x*x*x : 1 - Math.pow(-2*x + 2, 3) / 2; }
+
+  function render(){
+    if (hd) hd.classList.toggle("is-stuck", window.pageYOffset > 12);
+    if (!stage || reduce) return;
+
+    var r = stage.getBoundingClientRect();
+    var total = stage.offsetHeight - window.innerHeight;
+    var p = total > 0 ? (-r.top) / total : 0;
+    p = Math.max(0, Math.min(1, p));
+
+    var e = ease(Math.max(0, Math.min(1, (p - 0.10) / 0.68)));
+    root.style.setProperty("--e", e.toFixed(4));
+
+    var yaw = -40 + p * 62;
+    var pitch = -15 + p * 10;
+    if (asm) asm.style.transform =
+      "scale(var(--s)) rotateX(" + pitch.toFixed(2) + "deg) rotateY(" + yaw.toFixed(2) + "deg)";
+
+    if (heroT) heroT.classList.toggle("hide", p > 0.10);
+
+    for (var i = 0; i < labs.length; i++){
+      labs[i].classList.toggle("on", p >= parseFloat(labs[i].getAttribute("data-at")));
+    }
+    for (var j = 0; j < rail.length; j++){
+      rail[j].classList.toggle("on", p >= j * 0.25);
+    }
+
+    var ci = 0;
+    for (var c = 0; c < CAPS.length; c++) if (p >= CAPS[c][0]) ci = c;
+    if (ci !== lastCap && cap){ lastCap = ci; cap.textContent = CAPS[ci][1]; }
+
+    if (roRot) roRot.textContent = "ROT " + (yaw < 0 ? "−" : "+") + Math.abs(yaw).toFixed(1) + "°";
+    if (roExp) roExp.textContent = "EXPLODE " + ("00" + Math.round(e * 100)).slice(-3) + "%";
+  }
+
+  var tick = false;
+  function onScroll(){
+    if (tick) return;
+    tick = true;
+    requestAnimationFrame(function(){ render(); tick = false; });
+  }
+  window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("resize", onScroll, { passive: true });
+
+  if (reduce){
+    /* 모션 최소화: 완전 분해된 상태로 고정하고 라벨을 모두 노출 */
+    root.style.setProperty("--e", "1");
+    if (asm) asm.style.transform = "scale(var(--s)) rotateX(-12deg) rotateY(-24deg)";
+    if (heroT) heroT.classList.remove("hide");
+    labs.forEach(function(l){ l.classList.add("on"); });
+  }
+  render();
+
+  /* ---------------- 등장 효과 ---------------- */
+  var rvs = [].slice.call(document.querySelectorAll(".rv, .flow li"));
+  if (reduce || !("IntersectionObserver" in window)){
+    rvs.forEach(function(n){ n.classList.add("in"); });
+  } else {
+    var io = new IntersectionObserver(function(en){
+      en.forEach(function(x){
+        if (x.isIntersecting){ x.target.classList.add("in"); io.unobserve(x.target); }
+      });
+    }, { rootMargin: "0px 0px -12% 0px", threshold: 0.06 });
+    rvs.forEach(function(n){ io.observe(n); });
+  }
+
+  /* ---------------- 사업부 라우팅 문의 폼 ---------------- */
+  var sel = document.getElementById("f-p");
+  document.addEventListener("click", function(ev){
+    var a = ev.target.closest ? ev.target.closest("a[data-product]") : null;
+    if (a && sel){ sel.value = a.getAttribute("data-product"); }
+  });
+
+  var form = document.getElementById("cf"), hint = document.getElementById("hint");
+  if (form){
+    form.addEventListener("submit", function(ev){
+      ev.preventDefault();
+      var p = sel.value, n = form.querySelector("#f-n").value.trim(),
+          c = form.querySelector("#f-c").value.trim(), m = form.querySelector("#f-m").value.trim();
+      if (!p || !n || !c || !m){
+        hint.textContent = "모든 항목을 입력해 주세요.";
+        return;
+      }
+      var team = sel.options[sel.selectedIndex].getAttribute("data-team") || "firestop";
+      var body = "[문의 분야] " + p + "\n[이름/회사] " + n + "\n[연락처] " + c + "\n\n" + m + "\n";
+      hint.textContent = team + "@doenc.com 으로 메일 앱을 엽니다. 열리지 않으면 02-925-2992로 전화 주세요.";
+      window.location.href = "mailto:" + team + "@doenc.com"
+        + "?subject=" + encodeURIComponent("[홈페이지 문의] " + p + " - " + n)
+        + "&body=" + encodeURIComponent(body);
+    });
+  }
+
+  var yr = document.getElementById("yr");
+  if (yr) yr.textContent = new Date().getFullYear();
+})();
+</script>
+</body>
+</html>
