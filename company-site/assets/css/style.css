@@ -10,8 +10,9 @@
     --line: rgba(255, 255, 255, .12);
     --line-soft: rgba(255, 255, 255, .07);
     --accent: #69b6fa;
-    --wrap: 1280px;
-    --pad: 40px;
+    --wrap: 1840px;
+    --pad: clamp(24px, 2.6vw, 64px);
+    --pad-edge: clamp(24px, 3vw, 76px);
     --font: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont,
         "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif;
 }
@@ -87,9 +88,10 @@ svg { display: block; width: 100%; height: auto; }
     border-bottom: 1px solid transparent;
 }
 .hd.solid { background: rgba(16, 16, 19, .88); backdrop-filter: blur(14px); border-bottom-color: var(--line); }
+/* 헤더는 참고 사이트처럼 화면 전체 폭을 씀 */
 .hd-inner {
-    width: min(var(--wrap), 100%); margin: 0 auto;
-    padding: 0 var(--pad);
+    width: 100%; margin: 0 auto;
+    padding: 0 var(--pad-edge);
     height: 80px; display: flex; align-items: center; gap: 32px;
 }
 .hd-brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 19px; letter-spacing: .06em; }
@@ -147,6 +149,22 @@ svg { display: block; width: 100%; height: auto; }
     display: flex; flex-direction: column; justify-content: flex-end;
     padding: 140px 0 60px; overflow: hidden;
 }
+/* 히어로 미디어 슬롯 — 실사 영상/사진을 받으면 .hero-art 앞에
+   <video ...> 또는 <img>를 넣기만 하면 아래 규칙이 도면 그래픽을 자동으로 감춘다 */
+.hero-media { position: absolute; inset: 0; overflow: hidden; }
+.hero-media > video, .hero-media > img {
+    position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+    filter: grayscale(1) contrast(1.06) brightness(.5);
+}
+.hero-media > video ~ .hero-art, .hero-media > img ~ .hero-art { display: none; }
+.hero-media > video ~ .hero-scrim, .hero-media > img ~ .hero-scrim { opacity: 1; }
+.hero-scrim {
+    position: absolute; inset: 0; opacity: 0;
+    background:
+        linear-gradient(90deg, rgba(16,16,19,.95) 0%, rgba(16,16,19,.7) 46%, rgba(16,16,19,.28) 100%),
+        linear-gradient(0deg, rgba(16,16,19,.96), transparent 58%);
+}
+
 .hero-art { position: absolute; inset: 0; }
 .ha-glow {
     position: absolute; inset: 0;
@@ -165,7 +183,32 @@ svg { display: block; width: 100%; height: auto; }
 }
 .ha-line { position: absolute; inset: 0; width: 100%; height: 100%; }
 
-.hero-body { position: relative; width: min(var(--wrap), 100%); margin: 0 auto; padding: 0 var(--pad); }
+/* 대형 기술 도면 레이어 — 사진이 들어오기 전까지 히어로 우측을 채우는 주 비주얼 */
+.ha-draw { position: absolute; inset: 0; width: 100%; height: 100%; }
+.ha-draw .dr-soft { opacity: .5; }
+.ha-seal { animation: sealpulse 4.2s ease-in-out infinite; transform-origin: center; }
+@keyframes sealpulse { 0%, 100% { opacity: .45; } 50% { opacity: 1; } }
+.ha-heat { animation: heatrise 6s ease-in-out infinite; }
+@keyframes heatrise {
+    0%   { opacity: 0; transform: translateY(14px); }
+    45%  { opacity: .85; }
+    100% { opacity: 0; transform: translateY(-30px); }
+}
+.ha-sweep {
+    position: absolute; top: 0; bottom: 0; left: 0; width: 42%;
+    background: linear-gradient(90deg, transparent, rgba(105, 182, 250, .07), transparent);
+    animation: sweep 11s linear infinite;
+}
+@keyframes sweep { 0% { transform: translateX(-60%); } 100% { transform: translateX(300%); } }
+/* 좌측 텍스트 가독성 확보 */
+.ha-veil {
+    position: absolute; inset: 0;
+    background:
+        linear-gradient(90deg, rgba(16,16,19,.92) 0%, rgba(16,16,19,.6) 38%, transparent 68%),
+        linear-gradient(0deg, rgba(16,16,19,.9), transparent 52%);
+}
+
+.hero-body { position: relative; width: 100%; padding: 0 var(--pad-edge); }
 .hero-eyebrow {
     display: flex; align-items: center; gap: 14px;
     font-size: 12px; font-weight: 600; letter-spacing: .3em; color: var(--accent);
@@ -176,11 +219,12 @@ svg { display: block; width: 100%; height: auto; }
     font-size: clamp(38px, 6.4vw, 88px);
     font-weight: 700; line-height: 1.16; letter-spacing: -0.04em;
 }
-.hero-desc { margin: 28px 0 44px; font-size: clamp(15px, 1.35vw, 18px); color: var(--muted); line-height: 1.75; }
+.hero-title { max-width: 16em; }
+.hero-desc { margin: 28px 0 44px; max-width: 46em; font-size: clamp(15px, 1.35vw, 18px); color: var(--muted); line-height: 1.75; }
 
 .hero-meta {
-    position: relative; width: min(var(--wrap), 100%); margin: 72px auto 0;
-    padding: 0 var(--pad); display: flex; justify-content: flex-end;
+    position: relative; width: 100%; margin: 72px auto 0;
+    padding: 0 var(--pad-edge); display: flex; justify-content: flex-end;
 }
 .hero-scroll { font-size: 11px; letter-spacing: .28em; color: var(--dim); padding-bottom: 34px; position: relative; }
 .hero-scroll::after {
@@ -206,11 +250,30 @@ svg { display: block; width: 100%; height: auto; }
 .biz-link { display: block; }
 .biz-media {
     display: block; position: relative; aspect-ratio: 4 / 5;
-    background: linear-gradient(170deg, #202027, #16161a);
+    background:
+        radial-gradient(120% 80% at 72% 12%, rgba(105, 182, 250, .1), transparent 62%),
+        linear-gradient(168deg, #24242c 0%, #191920 48%, #0f0f13 100%);
     border: 1px solid var(--line-soft);
     overflow: hidden;
 }
+/* 사진 슬롯 — <span class="biz-media"> 안 맨 앞에 <img>를 넣으면 도면이 자동으로 대체된다 */
+.biz-media > img {
+    position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+    filter: grayscale(1) contrast(1.08) brightness(.74);
+    transition: transform .9s cubic-bezier(.22,.61,.36,1), filter .5s ease;
+}
+.biz-link:hover .biz-media > img { transform: scale(1.06); filter: grayscale(1) contrast(1.12) brightness(.86); }
+.biz-media > img ~ svg, .biz-media > img ~ .biz-ghost { display: none; }
 .biz-media svg { position: absolute; inset: 0; width: 100%; height: 100%; }
+/* 프레임 안을 채우는 대형 인덱스 넘버 */
+.biz-ghost {
+    position: absolute; right: 12px; bottom: -8px;
+    font-size: clamp(64px, 7vw, 108px); font-weight: 800; line-height: 1;
+    letter-spacing: -0.05em; font-style: normal;
+    color: transparent; -webkit-text-stroke: 1px rgba(255, 255, 255, .13);
+    transition: -webkit-text-stroke-color .4s ease;
+}
+.biz-link:hover .biz-ghost { -webkit-text-stroke-color: rgba(105, 182, 250, .4); }
 .biz-media::after {
     content: ""; position: absolute; inset: 0;
     background: linear-gradient(180deg, transparent 55%, rgba(105, 182, 250, .1));
@@ -244,12 +307,29 @@ svg { display: block; width: 100%; height: auto; }
 /* ===== Detail sections ===== */
 .detail-inner { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(48px, 7vw, 110px); align-items: center; }
 .detail-alt { background: var(--surface); }
-.detail-lead { margin: 26px 0 40px; color: var(--muted); font-size: 16.5px; line-height: 1.85; }
-.spec { margin: 0 0 44px; border-top: 1px solid var(--line); }
+.detail-lead { margin: 26px 0 40px; max-width: 40em; color: var(--muted); font-size: 16.5px; line-height: 1.85; }
+.spec { margin: 0 0 44px; max-width: 42em; border-top: 1px solid var(--line); }
 .spec > div { display: grid; grid-template-columns: 120px 1fr; gap: 20px; padding: 18px 0; border-bottom: 1px solid var(--line-soft); }
 .spec dt { font-size: 13px; font-weight: 600; color: var(--accent); letter-spacing: .02em; }
 .spec dd { margin: 0; font-size: 15px; color: var(--muted); line-height: 1.7; }
-.detail-visual { background: linear-gradient(165deg, #1c1c22, #131317); border: 1px solid var(--line-soft); padding: clamp(24px, 4vw, 56px); }
+.detail-visual {
+    position: relative; overflow: hidden;
+    background:
+        radial-gradient(100% 70% at 76% 10%, rgba(105, 182, 250, .08), transparent 60%),
+        linear-gradient(165deg, #1e1e25, #121216);
+    border: 1px solid var(--line-soft); padding: clamp(24px, 3.2vw, 52px);
+}
+/* 사진 슬롯 — .detail-visual 안 맨 앞에 <img>를 넣으면 도면이 대체된다 */
+.detail-visual > img {
+    position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+    filter: grayscale(1) contrast(1.06) brightness(.72);
+}
+.detail-visual > img ~ svg { display: none; }
+.detail-visual > img ~ .dv-tag { position: relative; }
+.dv-tag {
+    position: absolute; left: clamp(24px, 3.2vw, 52px); bottom: clamp(20px, 2.4vw, 34px);
+    font-size: 12px; letter-spacing: .18em; color: var(--dim);
+}
 .detail-visual text { font-family: var(--font); }
 .pulse { animation: pulse 3.4s ease-in-out infinite; }
 @keyframes pulse { 0%, 100% { opacity: .55; } 50% { opacity: 1; } }
@@ -272,8 +352,8 @@ svg { display: block; width: 100%; height: auto; }
 .steps p { color: var(--muted); font-size: 14.5px; line-height: 1.7; }
 
 /* ===== About ===== */
-.about-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: clamp(48px, 6vw, 90px); align-items: start; }
-.about-lead { font-size: clamp(17px, 1.6vw, 21px); line-height: 1.85; color: var(--text); }
+.about-grid { display: grid; grid-template-columns: 1.05fr .95fr; gap: clamp(48px, 6vw, 90px); align-items: start; max-width: 1500px; }
+.about-lead { max-width: 30em; font-size: clamp(17px, 1.6vw, 21px); line-height: 1.85; color: var(--text); }
 .about-sub { margin-top: 26px; color: var(--dim); font-size: 15px; }
 .info { width: 100%; border-collapse: collapse; border-top: 1px solid var(--line); }
 .info th, .info td { text-align: left; padding: 17px 0; border-bottom: 1px solid var(--line-soft); font-size: 15px; vertical-align: top; }
@@ -294,7 +374,7 @@ svg { display: block; width: 100%; height: auto; }
 
 /* ===== Contact ===== */
 .sec-contact { background: var(--surface); }
-.ct-grid { display: grid; grid-template-columns: .85fr 1.15fr; gap: clamp(40px, 5vw, 80px); align-items: start; }
+.ct-grid { display: grid; grid-template-columns: .85fr 1.15fr; gap: clamp(40px, 5vw, 80px); align-items: start; max-width: 1440px; }
 .ct-call { display: block; border: 1px solid var(--line); padding: 34px 32px; transition: border-color .3s ease, background .3s ease; }
 .ct-call:hover { border-color: var(--accent); background: rgba(105, 182, 250, .06); }
 .ct-call-label { display: block; font-size: 13px; color: var(--accent); font-weight: 600; margin-bottom: 14px; }
@@ -307,6 +387,10 @@ svg { display: block; width: 100%; height: auto; }
 .ct-info dd { margin: 0; font-size: 14.5px; color: var(--muted); }
 .ct-info a:hover { color: var(--accent); }
 
+/* 넓은 화면에서 입력창이 과하게 늘어나지 않도록 가독폭 제한 */
+.ct-form { max-width: 720px; }
+.ct-side { max-width: 620px; }
+.info { max-width: 660px; }
 .ct-form-lead { margin-bottom: 34px; color: var(--muted); font-size: 14.5px; line-height: 1.8; }
 .ct-form-lead strong { color: var(--text); font-weight: 600; }
 .fld { margin-bottom: 24px; }
@@ -369,7 +453,7 @@ svg { display: block; width: 100%; height: auto; }
 
 /* ===== Responsive ===== */
 @media (max-width: 1080px) {
-    :root { --pad: 28px; }
+    :root { --pad: 28px; --pad-edge: 28px; }
     .hd-nav, .hd-side { display: none; }
     .hd-toggle { display: flex; }
     .biz { grid-template-columns: repeat(2, 1fr); gap: 26px 22px; }
@@ -386,7 +470,7 @@ svg { display: block; width: 100%; height: auto; }
 }
 
 @media (max-width: 680px) {
-    :root { --pad: 20px; }
+    :root { --pad: 20px; --pad-edge: 20px; }
     body { font-size: 15px; }
     .only-pc { display: none; }
     .hero { padding-bottom: 40px; }
@@ -411,6 +495,8 @@ svg { display: block; width: 100%; height: auto; }
 @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     .reveal { opacity: 1; transform: none; transition: none; }
-    .marquee-track, .pulse, .hero-scroll::after { animation: none; }
+    .marquee-track, .pulse, .hero-scroll::after,
+    .ha-seal, .ha-heat, .ha-sweep { animation: none; }
+    .ha-sweep, .ha-heat { display: none; }
     *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
 }
