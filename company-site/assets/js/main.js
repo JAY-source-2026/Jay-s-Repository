@@ -107,6 +107,90 @@
     });
   }
 
+  // ----- 작동 원리 애니메이션 (단계 자동 재생 + 직접 선택) -----
+  // 각 단계 표시 시간(ms). CSS의 진행 바 길이도 이 값을 따라간다.
+  var STEP_MS = 4200;
+  var stillPrefers = window.matchMedia
+    ? window.matchMedia("(prefers-reduced-motion: reduce)")
+    : null;
+
+  document.querySelectorAll("[data-anim]").forEach(function (anim) {
+    var buttons = Array.prototype.slice.call(anim.querySelectorAll(".anim-step"));
+    var layers = Array.prototype.slice.call(anim.querySelectorAll(".fx"));
+    if (!buttons.length) return;
+
+    var last = buttons.length;
+    var current = 1;
+    var timer = null;
+    var manual = false; // 방문자가 직접 고르면 자동 재생을 멈춘다
+
+    var render = function () {
+      anim.setAttribute("data-step", String(current));
+      layers.forEach(function (el) {
+        var on = (el.getAttribute("data-on") || "").split(",");
+        el.classList.toggle("on", on.indexOf(String(current)) !== -1);
+      });
+      buttons.forEach(function (btn, i) {
+        var on = i + 1 === current;
+        btn.classList.toggle("on", on);
+        btn.setAttribute("aria-current", on ? "step" : "false");
+        // 진행 바를 처음부터 다시 그리게 한다
+        btn.classList.remove("timing");
+        if (on && !manual) {
+          btn.style.setProperty("--dur", STEP_MS + "ms");
+          void btn.offsetWidth;
+          btn.classList.add("timing");
+        }
+      });
+    };
+
+    var stop = function () {
+      if (timer) {
+        clearInterval(timer);
+        timer = null;
+      }
+    };
+    var play = function () {
+      if (timer || manual) return;
+      render();
+      timer = setInterval(function () {
+        current = current >= last ? 1 : current + 1;
+        render();
+      }, STEP_MS);
+    };
+
+    buttons.forEach(function (btn, i) {
+      btn.addEventListener("click", function () {
+        manual = true;
+        stop();
+        current = i + 1;
+        render();
+      });
+    });
+
+    render();
+
+    if (stillPrefers && stillPrefers.matches) {
+      // 모션을 줄이도록 설정한 방문자에게는 자동 재생 없이 최종 상태를 보여준다
+      manual = true;
+      current = last;
+      render();
+    } else if ("IntersectionObserver" in window) {
+      // 화면에 들어와 있을 때만 재생
+      new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) play();
+            else stop();
+          });
+        },
+        { threshold: 0.25 }
+      ).observe(anim);
+    } else {
+      play();
+    }
+  });
+
   // ----- Contact form → 방문자의 메일 앱을 내용이 채워진 상태로 실행 -----
   var form = document.getElementById("contactForm");
   var note = document.getElementById("formNote");
