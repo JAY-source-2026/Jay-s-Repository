@@ -370,7 +370,9 @@
 
         <!-- ===== 4. Firestop ===== -->
         <section class="sec detail" id="firestop">
-            <div class="wrap detail-inner">
+          <div class="wrap">
+           <div class="anim" data-anim data-step="1">
+            <div class="detail-inner">
                 <div class="detail-text reveal">
                     <p class="label">01 &nbsp;내화채움구조</p>
                     <h2 class="sec-title">관통부의 빈틈이<br>화재의 통로가 됩니다</h2>
@@ -387,40 +389,176 @@
                     </dl>
                     <a class="more" href="#contact" data-product="내화채움구조">적용 문의 <i aria-hidden="true">+</i></a>
                 </div>
-                <!-- 사진 준비 시: 아래 svg 앞에 <img src="assets/images/firestop.jpg" alt=""> 추가 -->
-                <div class="detail-visual reveal" aria-hidden="true">
-                    <svg viewBox="0 0 520 520" fill="none">
-                        <rect x="196" y="0" width="128" height="520" fill="rgba(255,255,255,.03)"/>
-                        <path d="M196 0 v520 M324 0 v520" stroke="rgba(255,255,255,.2)"/>
-                        <path d="M0 232 h196 M324 232 h196 M0 288 h196 M324 288 h196" stroke="rgba(255,255,255,.45)"/>
-                        <path d="M0 232 v56 M520 232 v56" stroke="rgba(255,255,255,.25)"/>
-                        <rect class="pulse" x="196" y="196" width="128" height="128" stroke="#69b6fa" stroke-width="1.5"/>
-                        <path d="M206 206 l108 108 M206 250 l108 64 M206 294 l64 20 M250 206 l64 64" stroke="rgba(105,182,250,.35)"/>
-                        <g stroke="rgba(255,255,255,.3)">
-                            <path d="M60 150 q18 -32 0 -58 M92 150 q18 -32 0 -58 M124 150 q18 -32 0 -58"/>
+                <div class="detail-visual anim-stage reveal" aria-hidden="true">
+                    <svg viewBox="0 0 640 520" fill="none">
+                        <defs>
+                            <pattern id="fsWall" width="12" height="12" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+                                <line x1="0" y1="0" x2="0" y2="12" stroke="rgba(255,255,255,.09)"/>
+                            </pattern>
+                            <pattern id="fsChar" width="8" height="8" patternUnits="userSpaceOnUse">
+                                <circle cx="2" cy="2" r="1.1" fill="rgba(255,138,60,.45)"/>
+                                <circle cx="6" cy="6" r="1.1" fill="rgba(255,255,255,.16)"/>
+                            </pattern>
+                        </defs>
+
+                        <!-- 바닥 -->
+                        <path d="M0 468 h640" stroke="rgba(255,255,255,.28)"/>
+                        <path d="M12 496 l18 -24 M52 496 l18 -24 M92 496 l18 -24 M132 496 l18 -24 M172 496 l18 -24
+                                 M212 496 l18 -24 M252 496 l18 -24 M292 496 l18 -24 M332 496 l18 -24 M372 496 l18 -24
+                                 M412 496 l18 -24 M452 496 l18 -24 M492 496 l18 -24 M532 496 l18 -24 M572 496 l18 -24"
+                              stroke="rgba(255,255,255,.11)"/>
+
+                        <!-- 벽체 단면 -->
+                        <rect x="250" y="0" width="140" height="468" fill="url(#fsWall)"/>
+                        <path d="M250 0 v468 M390 0 v468" stroke="rgba(255,255,255,.32)"/>
+
+                        <!-- 관통 설비: 배관 -->
+                        <g stroke="rgba(255,255,255,.42)">
+                            <path d="M0 168 h640 M0 228 h640"/>
+                            <path d="M52 160 v76 M84 160 v76"/>
+                            <circle cx="576" cy="198" r="24"/>
+                            <path d="M576 174 v48 M552 198 h48"/>
                         </g>
-                        <text x="60" y="404" fill="rgba(255,255,255,.45)" font-size="15" letter-spacing="2">FIRE SIDE</text>
-                        <text x="360" y="404" fill="rgba(105,182,250,.9)" font-size="15" letter-spacing="2">PROTECTED</text>
+                        <!-- 관통 설비: 케이블 트레이 -->
+                        <g stroke="rgba(255,255,255,.38)">
+                            <path d="M0 330 h640 M0 398 h640 M0 330 v68"/>
+                            <circle cx="470" cy="352" r="9"/><circle cx="500" cy="352" r="9"/>
+                            <circle cx="530" cy="352" r="9"/><circle cx="485" cy="378" r="9"/>
+                            <circle cx="515" cy="378" r="9"/>
+                        </g>
+
+                        <!-- 우리 자재 (내화채움구조) -->
+                        <g class="seal">
+                            <rect class="seal-box" x="250" y="140" width="140" height="116" fill="rgba(105,182,250,.12)" stroke="#69b6fa"/>
+                            <path class="seal-x" d="M262 152 l116 92 M262 200 l116 44 M262 244 l58 -92" stroke="rgba(105,182,250,.4)"/>
+                            <rect class="char fx" data-on="4" x="250" y="140" width="140" height="116" fill="url(#fsChar)"/>
+                        </g>
+                        <g class="seal seal-b">
+                            <rect class="seal-box" x="250" y="306" width="140" height="116" fill="rgba(105,182,250,.12)" stroke="#69b6fa"/>
+                            <path class="seal-x" d="M262 318 l116 92 M262 366 l116 44 M262 410 l58 -92" stroke="rgba(105,182,250,.4)"/>
+                            <rect class="char fx" data-on="4" x="250" y="306" width="140" height="116" fill="url(#fsChar)"/>
+                        </g>
+
+                        <!-- 02 빈틈 발생 위험 -->
+                        <g class="fx" data-on="2" stroke="#ff8a3c">
+                            <rect x="242" y="132" width="24" height="132" stroke-dasharray="5 5"/>
+                            <rect x="242" y="298" width="24" height="132" stroke-dasharray="5 5"/>
+                        </g>
+                        <!-- 03 발포 방향 -->
+                        <g class="fx" data-on="3,4" stroke="#69b6fa">
+                            <path d="M320 128 v-22 M310 116 l10 -12 10 12"/>
+                            <path d="M320 268 v22 M310 280 l10 12 10 -12"/>
+                            <path d="M320 294 v-22 M310 282 l10 -12 10 12"/>
+                            <path d="M320 434 v22 M310 446 l10 12 10 -12"/>
+                        </g>
+
+                        <!-- 화염 -->
+                        <g class="flames fx" data-on="2,3,4" stroke="#ff8a3c">
+                            <path class="fl1" d="M96 452 q-30 -54 6 -92 q-6 42 26 58 q24 -34 8 -76 q54 44 34 110"/>
+                            <path class="fl2" d="M158 452 q-24 -42 4 -72 q-4 32 20 44 q18 -26 6 -58 q42 34 26 86"/>
+                            <path class="fl3" d="M44 452 q-18 -32 4 -56 q-2 24 14 34 q14 -20 4 -44 q32 26 20 66"/>
+                        </g>
+                        <!-- 열기류 -->
+                        <g class="fx heat" data-on="2,3" stroke="rgba(255,138,60,.55)">
+                            <path d="M150 198 h72 M206 190 l16 8 -16 8"/>
+                            <path d="M150 364 h72 M206 356 l16 8 -16 8"/>
+                        </g>
+                        <!-- 04 차단 -->
+                        <g class="fx" data-on="4">
+                            <g stroke="rgba(255,138,60,.7)">
+                                <path d="M170 198 h60 M214 190 l16 8 -16 8"/>
+                                <path d="M170 364 h60 M214 356 l16 8 -16 8"/>
+                            </g>
+                            <path d="M240 150 v96 M240 316 v96" stroke="#ff8a3c" stroke-width="2.5"/>
+                        </g>
+
+                        <text class="lbl" x="24" y="60" fill="rgba(255,138,60,.85)" font-size="16">화염측</text>
+                        <text class="lbl fx" data-on="4" x="616" y="60" fill="#69b6fa" font-size="16" text-anchor="end">안전측 유지</text>
                     </svg>
                 </div>
             </div>
+
+            <ol class="anim-steps">
+                <li><button type="button" class="anim-step" data-go="1">
+                    <em>01</em><b>평상시</b><span>벽·바닥 관통부에 자재를 밀실하게 충전한 상태로 방화구획을 유지합니다.</span></button></li>
+                <li><button type="button" class="anim-step" data-go="2">
+                    <em>02</em><b>화재 발생</b><span>화염이 관통부에 도달합니다. 배관이 녹거나 수축하면 그 자리에 빈틈이 생깁니다.</span></button></li>
+                <li><button type="button" class="anim-step" data-go="3">
+                    <em>03</em><b>발포 · 팽창</b><span>열을 받은 자재가 부풀어 오르며 생긴 빈틈까지 스스로 채웁니다.</span></button></li>
+                <li><button type="button" class="anim-step" data-go="4">
+                    <em>04</em><b>차단 완료</b><span>탄화층이 형성되어 화염과 유독가스의 이동 경로를 끊습니다.</span></button></li>
+            </ol>
+           </div>
+          </div>
         </section>
 
         <!-- ===== 5. Shutter ===== -->
         <section class="sec detail detail-alt" id="shutter">
-            <div class="wrap detail-inner">
-                <!-- 사진 준비 시: 아래 svg 앞에 <img src="assets/images/shutter.jpg" alt=""> 추가 -->
-                <div class="detail-visual reveal" aria-hidden="true">
-                    <svg viewBox="0 0 520 520" fill="none">
-                        <rect x="70" y="40" width="380" height="40" stroke="rgba(255,255,255,.45)"/>
-                        <path d="M70 40 v420 M450 40 v420" stroke="rgba(255,255,255,.2)"/>
-                        <g stroke="rgba(255,255,255,.28)">
-                            <path d="M70 108 h380 M70 148 h380 M70 188 h380 M70 228 h380"/>
+          <div class="wrap">
+           <div class="anim" data-anim data-step="1">
+            <div class="detail-inner">
+                <div class="detail-visual anim-stage reveal" aria-hidden="true">
+                    <svg viewBox="0 0 640 520" fill="none">
+                        <defs>
+                            <pattern id="shHatch" width="12" height="12" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+                                <line x1="0" y1="0" x2="0" y2="12" stroke="rgba(255,255,255,.08)"/>
+                            </pattern>
+                            <clipPath id="shClip"><rect x="152" y="92" width="336" height="376"/></clipPath>
+                        </defs>
+
+                        <!-- 슬래브 -->
+                        <rect x="0" y="0" width="640" height="46" fill="url(#shHatch)"/>
+                        <path d="M0 46 h640" stroke="rgba(255,255,255,.3)"/>
+                        <path d="M0 468 h640" stroke="rgba(255,255,255,.3)"/>
+                        <path d="M12 496 l18 -24 M92 496 l18 -24 M172 496 l18 -24 M252 496 l18 -24
+                                 M332 496 l18 -24 M412 496 l18 -24 M492 496 l18 -24 M572 496 l18 -24"
+                              stroke="rgba(255,255,255,.11)"/>
+
+                        <!-- 셔터 박스 · 가이드레일 -->
+                        <rect x="146" y="46" width="348" height="46" fill="rgba(255,255,255,.04)" stroke="rgba(255,255,255,.42)"/>
+                        <path d="M152 92 v376 M488 92 v376" stroke="rgba(255,255,255,.22)"/>
+
+                        <!-- 셔터 슬랫 (단계에 따라 하강) -->
+                        <g clip-path="url(#shClip)">
+                            <g class="slats">
+                                <rect x="152" y="92" width="336" height="376" fill="rgba(255,255,255,.05)"/>
+                                <g stroke="rgba(255,255,255,.3)">
+                                    <path d="M152 118 h336 M152 144 h336 M152 170 h336 M152 196 h336 M152 222 h336
+                                             M152 248 h336 M152 274 h336 M152 300 h336 M152 326 h336 M152 352 h336
+                                             M152 378 h336 M152 404 h336 M152 430 h336"/>
+                                </g>
+                                <path d="M152 466 h336" stroke="#69b6fa" stroke-width="3"/>
+                            </g>
                         </g>
-                        <path class="pulse" d="M70 268 h380" stroke="#69b6fa" stroke-width="1.5"/>
-                        <path d="M260 316 v100 M236 396 l24 24 24 -24" stroke="rgba(105,182,250,.65)"/>
-                        <path d="M30 460 h460" stroke="rgba(255,255,255,.25)"/>
-                        <text x="70" y="500" fill="rgba(255,255,255,.45)" font-size="15" letter-spacing="2">FIRE COMPARTMENT</text>
+
+                        <!-- 감지기 -->
+                        <g class="detector">
+                            <path d="M566 46 v14" stroke="rgba(255,255,255,.35)"/>
+                            <circle cx="566" cy="70" r="11" stroke="rgba(255,255,255,.5)"/>
+                            <circle class="det-dot fx" data-on="2,3,4" cx="566" cy="70" r="4" fill="#ff8a3c"/>
+                            <g class="det-wave fx" data-on="2,3,4" stroke="rgba(255,138,60,.6)">
+                                <path d="M544 92 q22 18 44 0" opacity=".9"/>
+                                <path d="M534 106 q32 26 64 0" opacity=".5"/>
+                            </g>
+                            <path class="fx" data-on="2,3,4" d="M556 70 h-40" stroke="rgba(255,138,60,.5)" stroke-dasharray="4 4"/>
+                        </g>
+
+                        <!-- 화염 (좌측 공간) -->
+                        <g class="flames fx" data-on="3,4" stroke="#ff8a3c">
+                            <path class="fl1" d="M70 452 q-28 -50 6 -86 q-6 40 24 54 q22 -32 8 -70 q50 40 32 102"/>
+                            <path class="fl2" d="M118 452 q-22 -38 4 -66 q-4 30 18 40 q16 -24 6 -54 q38 32 24 80"/>
+                        </g>
+
+                        <!-- 피난 동선 (우측) — 출구까지 이동 -->
+                        <g class="fx" data-on="4" stroke="#69b6fa">
+                            <path d="M512 340 h72 M568 328 l16 12 -16 12"/>
+                            <path d="M624 250 v218 M624 250 h-32" stroke="rgba(105,182,250,.55)"/>
+                            <path d="M600 340 h24" stroke="rgba(105,182,250,.55)"/>
+                        </g>
+
+                        <text class="lbl fx" data-on="1" x="320" y="270" fill="rgba(255,255,255,.4)" font-size="16" text-anchor="middle">대공간 개방</text>
+                        <text class="lbl fx" data-on="3,4" x="24" y="440" fill="rgba(255,138,60,.85)" font-size="16">화재구역</text>
+                        <text class="lbl fx" data-on="4" x="512" y="404" fill="#69b6fa" font-size="16">피난</text>
                     </svg>
                 </div>
                 <div class="detail-text reveal">
@@ -440,6 +578,19 @@
                     <a class="more" href="#contact" data-product="셔터">제품 문의 <i aria-hidden="true">+</i></a>
                 </div>
             </div>
+
+            <ol class="anim-steps">
+                <li><button type="button" class="anim-step" data-go="1">
+                    <em>01</em><b>평상시</b><span>셔터는 상부에 수납되어 있고, 대공간은 그대로 열린 채 사용됩니다.</span></button></li>
+                <li><button type="button" class="anim-step" data-go="2">
+                    <em>02</em><b>화재 감지</b><span>화재 감지 설비가 연동 신호를 보내면 셔터가 폐쇄 동작을 시작합니다.</span></button></li>
+                <li><button type="button" class="anim-step" data-go="3">
+                    <em>03</em><b>자동 폐쇄</b><span>셔터가 자동으로 내려와 대공간을 나눕니다.</span></button></li>
+                <li><button type="button" class="anim-step" data-go="4">
+                    <em>04</em><b>구획 완성</b><span>공간이 방화구획으로 분리되어 확산을 막고, 반대편의 피난 시간을 확보합니다.</span></button></li>
+            </ol>
+           </div>
+          </div>
         </section>
 
         <!-- ===== 6. Technology ===== -->
