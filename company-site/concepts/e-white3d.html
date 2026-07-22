@@ -402,6 +402,42 @@ h2{font-size:clamp(22px,2.3vw,31px);font-weight:350;line-height:1.45;letter-spac
   .lab .ln,.rail,.caption{display:none}
   .readout{display:flex}
 }
+
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+/* ===== 인정구조 매트릭스 ===== */
+.cert-bar{display:flex;flex-wrap:wrap;gap:26px;align-items:flex-end;margin-bottom:30px}
+.cert-count{font-family:var(--mono);font-size:11px;letter-spacing:.14em;color:var(--ink-3);margin-left:auto;white-space:nowrap}
+.cert-count b{font-weight:500;color:var(--acc);font-size:15px}
+.cf-group{display:flex;flex-direction:column;gap:9px}
+.cf-group > span{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-3)}
+.cf-btns{display:flex;flex-wrap:wrap;gap:6px}
+.cf-btns button{
+  font:inherit;font-size:12px;line-height:1;padding:8px 13px;cursor:pointer;
+  background:none;border:1px solid var(--line-2);color:var(--ink-2);
+  transition:background .2s,color .2s,border-color .2s;
+}
+.cf-btns button:hover{border-color:var(--ink)}
+.cf-btns button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+.cert-scroll{overflow-x:auto;border-top:1px solid var(--line-2);-webkit-overflow-scrolling:touch}
+table.cert{width:100%;min-width:920px;border-collapse:collapse;font-size:12.5px}
+table.cert th,table.cert td{text-align:left;padding:12px 14px 12px 0;border-bottom:1px solid var(--line);vertical-align:top}
+table.cert thead th{
+  font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--ink-3);font-weight:400;padding-top:14px;padding-bottom:14px;white-space:nowrap;
+}
+table.cert td.no,table.cert td.st{font-family:var(--mono);font-size:11.5px;letter-spacing:.02em;white-space:nowrap}
+table.cert td.no{color:var(--acc)}
+table.cert td.st{color:var(--ink)}
+table.cert tbody tr:hover{background:rgba(17,19,24,.028)}
+.pill{display:inline-block;font-family:var(--mono);font-size:10px;letter-spacing:.1em;padding:3px 7px;border:1px solid var(--line-2);color:var(--ink-2);white-space:nowrap}
+.pill.hot{border-color:var(--acc);color:var(--acc)}
+.cert-empty{padding:38px 0;color:var(--ink-3);font-size:13px}
+.cert-note{margin-top:22px;font-size:12px;color:var(--ink-3);line-height:1.85;max-width:70ch}
+.cert-note b{font-weight:500;color:var(--ink-2)}
+@media (max-width:700px){
+  .cert-bar{gap:18px}
+  .cert-count{margin-left:0;width:100%}
+}
 </style>
 </head>
 <body>
@@ -414,6 +450,7 @@ h2{font-size:clamp(22px,2.3vw,31px);font-weight:350;line-height:1.45;letter-spac
   <nav class="nav" aria-label="주요 메뉴">
     <a href="#business">사업영역</a>
     <a href="#firestop">내화채움구조</a>
+      <a href="#certs">인정구조</a>
     <a href="#shutter">셔터</a>
     <a href="#tech">기술력</a>
     <a href="#about">회사소개</a>
@@ -533,10 +570,10 @@ h2{font-size:clamp(22px,2.3vw,31px);font-weight:350;line-height:1.45;letter-spac
 <section class="sec plain" aria-label="회사 강점" style="padding-top:0">
   <div class="inner">
     <ul class="figs rv">
-      <li><strong>다수</strong><span>내화채움구조 · 스크린셔터 특허 보유</span></li>
-      <li><strong>4</strong><span>자체기술로 국산화한 제품 분야</span></li>
+      <li><strong>58</strong><span>내화채움구조 품질인정서 보유 (국토교통부)</span></li>
+      <li><strong>2시간</strong><span>전 품목 내화성능 — 차열 54 · 차염 4</span></li>
+      <li><strong>25A – 400A</strong><span>금속 · 비금속 · 다발배관 · 덕트 · 냉매 전 규격</span></li>
       <li><strong>ONE-STOP</strong><span>자재생산 · 설계 · 시공 일괄 수행</span></li>
-      <li><strong>불연</strong><span>무기 화합물 기반 친환경 소재</span></li>
     </ul>
   </div>
 </section>
@@ -590,6 +627,48 @@ h2{font-size:clamp(22px,2.3vw,31px);font-weight:350;line-height:1.45;letter-spac
       <li><em>STEP 03</em><b>발포 · 팽창</b><span>열을 받은 자재가 부풀어 오르며 생긴 빈틈까지 스스로 채웁니다.</span></li>
       <li><em>STEP 04</em><b>차단 완료</b><span>탄화층이 형성되어 화염과 유독가스의 이동 경로를 끊습니다.</span></li>
     </ol>
+  </div>
+</section>
+
+<!-- ===== 4-B. 인정구조 매트릭스 ===== -->
+<section class="sec" id="certs">
+  <div class="inner">
+    <div class="head rv">
+      <p class="tag">02 / 인정구조</p>
+      <div>
+        <h2>보유한 인정구조를<br>전부 공개합니다</h2>
+        <p class="lead" style="margin-top:22px">국토교통부 <strong>건축자재등 품질인정서(내화채움구조)</strong> 기준입니다. 현장 조건에 맞는 구조를 아래에서 찾아보시고, 해당하는 것이 없으면 도면을 보내주세요.</p>
+      </div>
+    </div>
+
+    <div class="rv">
+      <div class="cert-bar">
+        <div class="cf-group"><span>사용부위</span><div class="cf-btns" data-f="part"></div></div>
+        <div class="cf-group"><span>관통재</span><div class="cf-btns" data-f="type"></div></div>
+        <div class="cf-group"><span>내화성능</span><div class="cf-btns" data-f="grade"></div></div>
+        <p class="cert-count"><b id="certN">0</b> / 58 건</p>
+      </div>
+
+      <div class="cert-scroll">
+        <table class="cert">
+          <caption class="sr-only">디오이엔씨 내화채움구조 품질인정서 목록</caption>
+          <thead><tr>
+            <th scope="col">인정번호</th><th scope="col">구조명</th><th scope="col">사용부위</th>
+            <th scope="col">관통재</th><th scope="col">규격</th><th scope="col">보온</th>
+            <th scope="col">시공</th><th scope="col">내화성능</th><th scope="col">유효기간</th>
+          </tr></thead>
+          <tbody id="certBody"></tbody>
+        </table>
+      </div>
+      <p class="cert-empty" id="certEmpty" hidden>조건에 맞는 인정구조가 없습니다. 필터를 바꿔 보세요.</p>
+
+      <p class="cert-note">
+        전 품목 <b>내화성능 2시간</b>. 상품명은 내화채움보드(SFB-100F / SFB-100M), 내화자켓(SFBA-200),
+        내화밴드(SFBA-100 / 110 / 120), 세라믹섬유블랭킷(SFI-100 / 200 / 210 / 220),
+        내화실리콘실란트(SFS-100)로 구성됩니다.
+        인정서 원본과 세부인정내용은 <b>요청 시 제공</b>합니다.
+      </p>
+    </div>
   </div>
 </section>
 
@@ -990,6 +1069,66 @@ h2{font-size:clamp(22px,2.3vw,31px);font-weight:350;line-height:1.45;letter-spac
 
   var yr = document.getElementById("yr");
   if (yr) yr.textContent = new Date().getFullYear();
+})();
+</script>
+
+<script>
+/* ===== 인정구조 매트릭스 ===== */
+(function(){
+  var C=[["FS-MP24-0617-15","벽체","금속배관","25A","비보온","-","-","차열","2시간","DO-SW25-2H","SFB-100F","2029년 06월 16일"],["FS-MP24-0617-16","벽체","금속배관","50A","비보온","-","-","차열","2시간","DO-SW50-2H","SFB-100F","2029년 06월 16일"],["FS-MP24-0617-17","벽체","금속배관","100A","비보온","-","-","차열","2시간","DO-SW100-2H","SFB-100F","2029년 06월 16일"],["FS-MP24-0617-18","벽체","금속배관","150A","비보온","-","-","차열","2시간","DO-SW150-2H","SFB-100F","2029년 06월 16일"],["FS-MP23-1103-3","벽체","금속배관","전규격","비보온","-","-","차염","2시간","DO-SW400-2H-F","내화채움보드(SFB-100F)","2028년 11월 02일"],["FS-MP24-0617-19","벽체","금속배관","50A","보온","-","-","차열","2시간","DO-SW50-2H-W","SFB-100F","2029년 06월 16일"],["FS-MP24-0617-20","벽체","금속배관","100A","보온","-","-","차열","2시간","DO-SW100-2H-W","SFB-100F","2029년 06월 16일"],["FS-MP24-0617-21","벽체","금속배관","200A","보온","-","-","차열","2시간","DO-SW200-2H-W","SFB-100F","2029년 06월 16일"],["FS-MP23-1103-1","벽체","금속배관","전규격","보온","-","-","차열","2시간","DO-SW400-2H-W","내화채움보드(SFB-100F)","2028년 11월 02일"],["FS-MP25-1218-01","벽체","금속배관","50A","중공부보온","-","-","차열","2시간","DO-SW50-2H-A","내화채움보드(SFB-100F)","2030년 12월 17일"],["FS-MP25-1218-02","벽체","금속배관","100A","중공부보온","-","-","차열","2시간","DO-SW100-2H-A","내화채움보드(SFB-100F)","2030년 12월 17일"],["FS-MP25-1218-03","벽체","금속배관","150A","중공부보온","-","-","차열","2시간","DO-SW150-2H-A","내화채움보드(SFB-100F)","2030년 12월 17일"],["FS-MP25-1218-04","벽체","금속배관","200A","중공부보온","-","-","차열","2시간","DO-SW200-2H-A","내화채움보드(SFB-100F)","2030년 12월 17일"],["FS-MP25-1218-05","벽체","금속배관","400A","중공부보온","-","-","차열","2시간","DO-SW400-2H-A","내화채움보드(SFB-100F)","2030년 12월 17일"],["FS-MP25-1218-12","벽체","금속배관","400A","중공부보온","-","-","차염","2시간","DO-SW400-2H-AF","내화채움보드(SFB-100F)","2030년 12월 17일"],["FS-MP24-0617-22","바닥","금속배관","25A","비보온","-","-","차열","2시간","DO-SSB25-2H","SFBA-100. SFI-200","2029년 06월 16일"],["FS-MP24-0617-23","바닥","금속배관","50A","비보온","-","-","차열","2시간","DO-SSB50-2H","SFBA-100. SFI-200","2029년 06월 16일"],["FS-MP24-0617-24","바닥","금속배관","100A","비보온","-","-","차열","2시간","DO-SSB100-2H","SFBA-100. SFI-200","2029년 06월 16일"],["FS-MP24-0617-25","바닥","금속배관","150A","비보온","-","-","차열","2시간","DO-SSB150-2H","SFBA-100. SFI-200","2029년 06월 16일"],["FS-MP24-0617-26","바닥","금속배관","전규격","비보온","상부","-","차열","2시간","DO-SSB400-2H","SFBA-100. SFI-200","2029년 06월 16일"],["FS-MP23-1103-2","바닥","금속배관","전규격","비보온","상하부","-","차열","2시간","DO-SS400-2H","내화채움보드(SFB-100F)","2028년 11월 02일"],["FS-MP24-0617-27","바닥","금속배관","50A","보온","-","-","차열","2시간","DO-SSB50-2H-W","SFBA-100. SFI-200","2029년 06월 16일"],["FS-MP24-0617-28","바닥","금속배관","100A","보온","-","-","차열","2시간","DO-SSB100-2H-W","SFBA-100. SFI-200","2029년 06월 16일"],["FS-MP24-0617-29","바닥","금속배관","200A","보온","-","-","차열","2시간","DO-SSB200-2H-W","SFBA-100. SFI-200","2029년 06월 16일"],["FS-MP24-0617-30","바닥","금속배관","전규격","보온","-","-","차열","2시간","DO-SSB400-2H-W","SFBA-100. SFI-200","2029년 06월 16일"],["FS-MP25-1218-06","바닥","금속배관","25A","중공부보온","-","-","차열","2시간","DO-SSB25-2H-A","내화밴드(SFBA-100) 세라믹섬유블랭킷(SFI-200)","2030년 12월 17일"],["FS-MP25-1218-07","바닥","금속배관","50A","중공부보온","-","-","차열","2시간","DO-SSB50-2H-A","내화밴드(SFBA-100) 세라믹섬유블랭킷(SFI-200)","2030년 12월 17일"],["FS-MP25-1218-08","바닥","금속배관","100A","중공부보온","-","-","차열","2시간","DO-SSB100-2H-A","내화밴드(SFBA-100) 세라믹섬유블랭킷(SFI-200)","2030년 12월 17일"],["FS-MP25-1218-09","바닥","금속배관","150A","중공부보온","-","-","차열","2시간","DO-SSB150-2H-A","내화밴드(SFBA-100) 세라믹섬유블랭킷(SFI-200)","2030년 12월 17일"],["FS-MP25-1218-10","바닥","금속배관","200A","중공부보온","-","-","차열","2시간","DO-SSB200-2H-A","내화밴드(SFBA-100) 세라믹섬유블랭킷(SFI-200)","2030년 12월 17일"],["FS-MP25-1218-11","바닥","금속배관","400A","중공부보온","-","-","차열","2시간","DO-SSB400-2H-A","내화밴드(SFBA-100) 세라믹섬유블랭킷(SFI-200)","2030년 12월 17일"],["FS-NP24-0617-1","벽체","비금속배관","50A","-","-","내화자켓","차열","2시간","DO-NW50-2H-J","내화자켓(SFBA-200)","2029년 06월 16일"],["FS-NP24-0617-2","벽체","비금속배관","100A","-","-","내화자켓","차열","2시간","DO-NW100-2H-J","내화자켓(SFBA-200)","2029년 06월 16일"],["FS-NP24-0617-3","벽체","비금속배관","150A","-","-","내화자켓","차열","2시간","DO-NW150-2H-J","내화자켓(SFBA-200)","2029년 06월 16일"],["FS-NP24-0617-4","벽체","비금속배관","200A","-","-","내화자켓","차열","2시간","DO-NW200-2H-J","내화자켓(SFBA-200)","2029년 06월 16일"],["FS-NP24-0617-5","벽체","비금속배관","250A","-","-","내화자켓","차열","2시간","DO-NW250-2H-J","내화자켓(SFBA-200)","2029년 06월 16일"],["FS-NP24-0617-6","벽체","비금속배관","50A","-","-","보드+자켓","차열","2시간","DO-NW50-2H-BJ","내화채움보드(SFB-100F), 내화자켓(SFBA-200)","2029년 06월 16일"],["FS-NP24-0617-7","벽체","비금속배관","100A","-","-","보드+자켓","차열","2시간","DO-NW100-2H-BJ","내화채움보드(SFB-100F), 내화자켓(SFBA-200)","2029년 06월 16일"],["FS-NP24-0617-8","벽체","비금속배관","150A","-","-","보드+자켓","차열","2시간","DO-NW150-2H-BJ","내화채움보드(SFB-100F), 내화자켓(SFBA-200)","2029년 06월 16일"],["FS-NP24-0617-9","벽체","비금속배관","200A","-","-","보드+자켓","차열","2시간","DO-NW200-2H-BJ","내화채움보드(SFB-100F), 내화자켓(SFBA-200)","2029년 06월 16일"],["FS-NP24-0617-10","벽체","비금속배관","250A","-","-","보드+자켓","차열","2시간","DO-NW250-2H-BJ","내화채움보드(SFB-100F), 내화자켓(SFBA-200)","2029년 06월 16일"],["FS-NP24-0617-11","바닥","비금속배관","100A","-","하부","-","차열","2시간","DO-NS100-2H-J","내화자켓(SFBA-200)","2029년 06월 16일"],["FS-NP24-0617-12","바닥","비금속배관","150A","-","하부","-","차열","2시간","DO-NS150-2H-J","내화자켓(SFBA-200)","2029년 06월 16일"],["FS-NP24-0617-13","바닥","비금속배관","200A","-","하부","-","차열","2시간","DO-NS200-2H-J","내화자켓(SFBA-200)","2029년 06월 16일"],["FS-NP24-0617-14","바닥","비금속배관","250A","-","하부","-","차열","2시간","DO-NS250-2H-J","내화자켓(SFBA-200)","2029년 06월 16일"],["FS-NP25-0224-01","바닥","비금속배관","50A","-","상부","-","차열","2시간","DO-NSB50-2H","내화밴드(SFBA-110). 세라믹 섬유 블랭킷(SFI-210)","2030년 02월 23일"],["FS-NP25-0224-02","바닥","비금속배관","100A","-","상부","-","차열","2시간","DO-NSB100-2H","내화밴드(SFBA-110). 세라믹 섬유 블랭킷(SFI-210)","2030년 02월 23일"],["FS-NP25-0224-03","바닥","비금속배관","150A","-","상부","-","차열","2시간","DO-NSB150-2H","내화밴드(SFBA-110), 세라믹 섬유 블랭킷(SFI-210)","2030년 02월 23일"],["FS-NP25-0224-04","바닥","비금속배관","200A","-","상부","-","차열","2시간","DO-NSB200-2H","내화밴드(SFBA-110), 세라믹 섬유 블랭킷(SFI-210)","2030년 02월 23일"],["FS-NP25-0224-05","바닥","비금속배관","250A","-","상부","-","차열","2시간","DO-NSB250-2H-J","내화자켓(SFBA-200), 내화밴드(SFBA-110), 세라믹 섬유 블랭킷(SFI-210)","2030년 02월 23일"],["FS-MP25-0224-06","벽체","금속덕트","전규격","-","-","-","차염","2시간","DO-DW2600-2H-F","내화채움보드(SFB-100F). 내화밴드(SFBA-120)","2030년 02월 23일"],["FS-MP25-0625-02","벽체","금속 다발배관","200A","-","-","-","차열","2시간","DO-SWM200A2-2H-A","내화채움보드M (SFB-100M)","2030년 06월 24일"],["FS-MP25-1218-13","벽체","금속 다발배관","전규격","-","-","-","차열","2시간","DO-SWM400A0-2H-A","내화채움보드M(SFB-100M)","2030년 12월 17일"],["FS-MP25-0625-01","벽체","금속 다발배관","400A","-","-","-","차염","2시간","DO-SWM400A1-2H-AF","내화채움보드M (SFB-100M)","2030년 06월 24일"],["FS-NP25-0625-05","벽체","비금속 다발배관","100A","-","-","-","차열","2시간","DO-NWM100A1-2H-BJ","내화채움보드M (SFB-100M), 내화자켓 (SFBA-200)","2030년 06월 24일"],["FS-NP25-0625-04","벽체","비금속 다발배관","250A","-","-","-","차열","2시간","DO-NWM250A0-2H-BJ","내화채움보드M (SFB-100M), 내화자켓 (SFBA-200)","2030년 06월 24일"],["FS-MP25-0625-03","벽체","S-gas 다발배관","50A","-","-","-","차열","2시간","DO-SGWM50A0-2H","내화채움보드M (SFB-100M), 내화밴드 (SFBA-100)","2030년 06월 24일"],["FS-OS25-0513-01","벽체","냉매배관","40A","-","-","-","차열","2시간","DO-RFWM40A0-2H","내화밴드(SFBA-100)","2030년 05월 12일"]];
+  var K={no:0,part:1,type:2,size:3,insul:4,dir:5,finish:6,grade:7,hours:8,struct:9,product:10,expire:11};
+  var body=document.getElementById('certBody'), empty=document.getElementById('certEmpty'), cnt=document.getElementById('certN');
+  if(!body) return;
+  var sel={part:'전체',type:'전체',grade:'전체'};
+
+  function uniq(k){
+    var s=[],seen={};
+    for(var i=0;i<C.length;i++){var v=C[i][K[k]]; if(v&&!seen[v]){seen[v]=1;s.push(v);} }
+    return ['전체'].concat(s);
+  }
+  function buildFilters(){
+    var boxes=document.querySelectorAll('.cf-btns');
+    Array.prototype.forEach.call(boxes,function(box){
+      var key=box.getAttribute('data-f');
+      uniq(key).forEach(function(v){
+        var b=document.createElement('button');
+        b.type='button'; b.textContent=v;
+        b.setAttribute('aria-pressed', v===sel[key]?'true':'false');
+        b.addEventListener('click',function(){
+          sel[key]=v;
+          Array.prototype.forEach.call(box.querySelectorAll('button'),function(o){
+            o.setAttribute('aria-pressed', o===b?'true':'false');
+          });
+          render();
+        });
+        box.appendChild(b);
+      });
+    });
+  }
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+  function render(){
+    var html='', n=0;
+    for(var i=0;i<C.length;i++){
+      var r=C[i];
+      if(sel.part!=='전체' && r[K.part]!==sel.part) continue;
+      if(sel.type!=='전체' && r[K.type]!==sel.type) continue;
+      if(sel.grade!=='전체' && r[K.grade]!==sel.grade) continue;
+      n++;
+      html+='<tr>'
+        +'<td class="no">'+esc(r[K.no])+'</td>'
+        +'<td class="st">'+esc(r[K.struct])+'</td>'
+        +'<td>'+esc(r[K.part])+'</td>'
+        +'<td>'+esc(r[K.type])+'</td>'
+        +'<td>'+esc(r[K.size])+'</td>'
+        +'<td>'+esc(r[K.insul])+'</td>'
+        +'<td>'+esc(r[K.dir])+'</td>'
+        +'<td><span class="pill hot">'+esc(r[K.grade])+' '+esc(r[K.hours])+'</span></td>'
+        +'<td>'+esc(r[K.expire])+'</td>'
+        +'</tr>';
+    }
+    body.innerHTML=html; cnt.textContent=n; empty.hidden=n>0;
+  }
+  buildFilters(); render();
 })();
 </script>
 </body>
