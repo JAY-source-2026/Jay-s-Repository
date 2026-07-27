@@ -1,15 +1,17 @@
 /* ===== DOENC — 2nd design system ===== */
 :root {
-    --bg: #101013;
-    --surface: #17171b;
-    --surface-2: #1e1e23;
-    --paper: #f3f3f5;
-    --text: #f2f2f4;
-    --muted: #9a9aa2;
-    --dim: #6c6c76;
-    --line: rgba(255, 255, 255, .12);
-    --line-soft: rgba(255, 255, 255, .07);
-    --accent: #69b6fa;
+    --bg: #ffffff;
+    --surface: #f5f6f8;
+    --surface-2: #eceef1;
+    --paper: #ffffff;
+    --text: #17181d;
+    --muted: #565761;
+    --dim: #8b8c95;
+    --line: rgba(17, 18, 23, .13);
+    --line-soft: rgba(17, 18, 23, .07);
+    --accent: #1668c8;
+    /* 도면 플레이트(어두운 판) 위에서 쓰는 밝은 파랑 */
+    --accent-bright: #69b6fa;
     --wrap: 1840px;
     --pad: clamp(24px, 2.6vw, 64px);
     --pad-edge: clamp(24px, 3vw, 76px);
@@ -52,7 +54,7 @@ svg { display: block; width: 100%; height: auto; }
 }
 .skip-link {
     position: fixed; left: 16px; top: -60px; z-index: 300;
-    background: var(--accent); color: #08111c; padding: 10px 18px;
+    background: var(--accent); color: #fff; padding: 10px 18px;
     font-weight: 700; font-size: 14px; transition: top .2s ease;
 }
 .skip-link:focus { top: 16px; }
@@ -73,7 +75,7 @@ svg { display: block; width: 100%; height: auto; }
     font-size: 14px; font-weight: 600; letter-spacing: .08em;
     color: var(--text);
     padding-bottom: 6px;
-    border-bottom: 1px solid rgba(255, 255, 255, .25);
+    border-bottom: 1px solid rgba(17, 18, 23, .28);
     transition: border-color .3s ease, color .3s ease, gap .3s ease;
 }
 .more i { font-style: normal; font-size: 16px; line-height: 1; transition: transform .35s ease; }
@@ -87,7 +89,7 @@ svg { display: block; width: 100%; height: auto; }
     transition: background .35s ease, border-color .35s ease;
     border-bottom: 1px solid transparent;
 }
-.hd.solid { background: rgba(16, 16, 19, .88); backdrop-filter: blur(14px); border-bottom-color: var(--line); }
+.hd.solid { background: rgba(255, 255, 255, .82); backdrop-filter: blur(14px); border-bottom-color: var(--line); }
 /* 헤더는 참고 사이트처럼 화면 전체 폭을 씀 */
 .hd-inner {
     width: 100%; margin: 0 auto;
@@ -98,25 +100,25 @@ svg { display: block; width: 100%; height: auto; }
 .hd-brand img { width: 26px; height: 26px; object-fit: contain; }
 .hd-nav { display: flex; gap: 34px; margin: 0 auto; }
 .hd-nav a {
-    position: relative; font-size: 15px; font-weight: 500; color: rgba(242, 242, 244, .78);
+    position: relative; font-size: 15px; font-weight: 500; color: rgba(23, 24, 29, .72);
     padding: 6px 0; transition: color .25s ease;
 }
 .hd-nav a::after {
     content: ""; position: absolute; left: 0; bottom: 0; width: 0; height: 1px;
     background: var(--accent); transition: width .3s ease;
 }
-.hd-nav a:hover, .hd-nav a.current { color: #fff; }
+.hd-nav a:hover, .hd-nav a.current { color: var(--text); }
 .hd-nav a:hover::after, .hd-nav a.current::after { width: 100%; }
 .hd-side { display: flex; align-items: center; gap: 20px; }
-.hd-tel { font-size: 15px; font-weight: 600; letter-spacing: .02em; color: rgba(242, 242, 244, .8); }
+.hd-tel { font-size: 15px; font-weight: 600; letter-spacing: .02em; color: rgba(23, 24, 29, .8); }
 .hd-tel:hover { color: var(--accent); }
 .hd-cta {
     display: inline-flex; align-items: center; height: 40px; padding: 0 22px;
     font-size: 14px; font-weight: 600;
-    border: 1px solid rgba(255, 255, 255, .3);
+    border: 1px solid rgba(17, 18, 23, .24);
     transition: background .25s ease, color .25s ease, border-color .25s ease;
 }
-.hd-cta:hover { background: var(--accent); border-color: var(--accent); color: #08111c; }
+.hd-cta:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
 
 .hd-toggle {
     display: none; flex-direction: column; justify-content: center; gap: 7px;
@@ -154,7 +156,7 @@ svg { display: block; width: 100%; height: auto; }
 .hero-media { position: absolute; inset: 0; overflow: hidden; }
 .hero-media > video, .hero-media > img {
     position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
-    filter: grayscale(1) contrast(1.06) brightness(.5);
+    filter: grayscale(1) contrast(1.02) brightness(1.04);
 }
 .hero-media > video ~ .hero-art, .hero-media > img ~ .hero-art { display: none; }
 
@@ -167,16 +169,16 @@ svg { display: block; width: 100%; height: auto; }
 /* 3D는 사진보다 어두우므로 가림막을 약하게 — 대신 문구 쪽만 확실히 눌러준다 */
 .hero-media.is-3d .hero-scrim {
     background:
-        linear-gradient(90deg, rgba(16,16,19,.92) 0%, rgba(16,16,19,.55) 34%, transparent 62%),
-        linear-gradient(0deg, rgba(16,16,19,.82), transparent 46%);
+        linear-gradient(90deg, rgba(255,255,255,.94) 0%, rgba(255,255,255,.5) 36%, transparent 64%),
+        linear-gradient(0deg, rgba(255,255,255,.6), transparent 44%);
 }
 .hero-media.is-3d > img { opacity: 0; transition: opacity 1.2s ease; }
 .hero-media > video ~ .hero-scrim, .hero-media > img ~ .hero-scrim { opacity: 1; }
 .hero-scrim {
     position: absolute; inset: 0; opacity: 0;
     background:
-        linear-gradient(90deg, rgba(16,16,19,.95) 0%, rgba(16,16,19,.7) 46%, rgba(16,16,19,.28) 100%),
-        linear-gradient(0deg, rgba(16,16,19,.96), transparent 58%);
+        linear-gradient(90deg, rgba(255,255,255,.96) 0%, rgba(255,255,255,.74) 46%, rgba(255,255,255,.34) 100%),
+        linear-gradient(0deg, rgba(255,255,255,.9), transparent 56%);
 }
 
 .hero-art { position: absolute; inset: 0; }
@@ -230,10 +232,11 @@ svg { display: block; width: 100%; height: auto; }
 }
 .hero-eyebrow span { width: 44px; height: 1px; background: var(--accent); }
 .hero-title {
-    font-size: clamp(38px, 6.4vw, 88px);
-    font-weight: 700; line-height: 1.16; letter-spacing: -0.04em;
+    font-size: clamp(30px, 4.6vw, 60px);
+    font-weight: 700; line-height: 1.2; letter-spacing: -0.035em;
 }
 .hero-title { max-width: 16em; }
+.hero .more-lg { margin-top: 40px; }
 .hero-desc { margin: 28px 0 44px; max-width: 46em; font-size: clamp(15px, 1.35vw, 18px); color: var(--muted); line-height: 1.75; }
 
 .hero-meta {
@@ -414,9 +417,9 @@ svg { display: block; width: 100%; height: auto; }
 }
 .anim-step b { display: block; margin: 12px 0 10px; font-size: 19px; letter-spacing: -.02em; transition: color .3s ease; }
 .anim-step span { display: block; font-size: 14px; line-height: 1.7; color: var(--dim); transition: color .3s ease; }
-.anim-step:hover { background: rgba(255, 255, 255, .025); }
+.anim-step:hover { background: rgba(17, 18, 23, .035); }
 .anim-step:hover span, .anim-step.on span { color: var(--muted); }
-.anim-step.on { background: rgba(255, 255, 255, .03); }
+.anim-step.on { background: rgba(17, 18, 23, .05); }
 .anim-step.on em { color: var(--accent); }
 
 /* ===== Technology ===== */
@@ -452,9 +455,9 @@ svg { display: block; width: 100%; height: auto; }
 .marquee span {
     font-size: clamp(46px, 8vw, 110px); font-weight: 800; letter-spacing: -0.03em;
     white-space: nowrap; padding-right: 40px;
-    color: transparent; -webkit-text-stroke: 1px rgba(255, 255, 255, .22);
+    color: transparent; -webkit-text-stroke: 1px rgba(17, 18, 23, .24);
 }
-.marquee b { color: transparent; -webkit-text-stroke: 1px rgba(105, 182, 250, .6); }
+.marquee b { color: transparent; -webkit-text-stroke: 1px rgba(22, 104, 200, .62); }
 @keyframes slide { to { transform: translateX(-50%); } }
 
 /* ===== Contact ===== */
@@ -502,7 +505,7 @@ svg { display: block; width: 100%; height: auto; }
     display: inline-flex; align-items: center; justify-content: center; gap: 12px;
     width: 100%; height: 60px; margin-top: 12px;
     font: inherit; font-size: 15px; font-weight: 600; letter-spacing: .04em;
-    color: #08111c; background: var(--accent);
+    color: #fff; background: var(--accent);
     border: 1px solid var(--accent); border-radius: 0; cursor: pointer;
     transition: background .25s ease, color .25s ease, gap .25s ease;
 }
