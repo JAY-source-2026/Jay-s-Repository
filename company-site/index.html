@@ -112,11 +112,9 @@
                      <source src="assets/images/hero.mp4" type="video/mp4"></video>
                  또는  <img src="assets/images/hero.jpg" alt="">                        -->
             <div class="hero-media" id="heroMedia" aria-hidden="true">
-                <!-- 밝은 톤 사진 히어로 — 건축물 실사 크로스페이드 + 슬로우 줌 -->
-                <div class="hero-slides">
-                    <div class="hero-slide"><span class="kb" style="background-image:url(assets/images/hero-city.jpg)"></span></div>
-                    <div class="hero-slide"><span class="kb" style="background-image:url(assets/images/hero-tower.jpg)"></span></div>
-                </div>
+                <!-- 사실적 3D: 배관이 벽체를 관통하고, 우리 하얀 내화보드가 날아와 개구부를 막는 장면.
+                     WebGL 미지원 시 .hero-media 배경(사진)이 그대로 남는다. -->
+                <canvas class="hero-3d" id="hero3d"></canvas>
                 <div class="hero-art">
                     <div class="ha-glow"></div>
                     <div class="ha-grid"></div>
@@ -743,5 +741,16 @@
     </footer>
 
     <script src="assets/js/main.js"></script>
+    <script type="module">
+      // 히어로 3D는 첫 화면이 그려진 뒤에 불러온다 (본문 표시를 늦추지 않도록)
+      var canvas = document.getElementById("hero3d");
+      var host = document.getElementById("heroMedia");
+      var gl = canvas && canvas.getContext && (canvas.getContext("webgl2") || canvas.getContext("webgl"));
+      if (gl) {
+        import("./assets/js/hero3d.js")
+          .then(function (m) { return m.initHero3D(canvas, host); })
+          .catch(function () { /* 실패하면 폴백 배경이 그대로 남는다 */ });
+      }
+    </script>
 </body>
 </html>

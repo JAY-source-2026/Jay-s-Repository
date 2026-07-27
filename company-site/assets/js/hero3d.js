@@ -1,334 +1,276 @@
-// ===== 히어로 3D — 관통부 화재차단 시스템 (밝은 톤) =====
-// 벽체 단면에 원형 배관과 사각 덕트가 지나가고, 세 번째 개구부(사각 타공)는
-// 우리 내화보드가 날아와 밀착되며 막힌다. 영상이 아니라 브라우저가 매 프레임
-// 렌더링하므로 해상도 손실이 없고, 치수·배치는 아래 LAYOUT 값만 고치면 바뀐다.
-
-const LAYOUT = {
-  // 벽은 화면 밖까지 이어지게 잡는다 — 서 있는 판이 아니라 '잘라 본 벽'으로 읽히도록
-  wall: { x0: -8.5, x1: 8.5, y0: -2.2, y1: 7.5, z: 0.62 },
-  // 관통 개구부 3곳 (y 오름차순) — 이 영역만 벽이 비고, 그 자리를 자재가 채운다
-  holeBoard: { x0: 0.35, x1: 2.05, y0: -0.55, y1: 1.15 }, // 사각 타공 → 내화보드가 날아와 막음
-  holeDuct: { x0: 0.20, x1: 2.10, y0: 1.75, y1: 3.15 }, //   사각 덕트
-  holePipe: { x0: 0.50, x1: 1.90, y0: 3.70, y1: 5.00 }, //   원형 배관
-};
-
-const COLOR = {
-  concrete: 0xc3c7ce, // 밝지만 흰 배경과 구분되는 콘크리트
-  concreteDark: 0xb4b8c1, // 바닥
-  steel: 0x9aa1ac,
-  seal: 0x3f93ec, // 우리 제품(파랑)
-  board: 0x2f8bef, // 날아오는 내화보드(조금 더 진한 파랑)
-  ember: 0xff8a3c,
-  edge: 0x1b1c22, // 밝은 벽 위에서 읽히도록 어두운 도면 선
-};
+// ===== 히어로 3D — 관통부 화재차단 장면 (사실적) =====
+// 실내(흰 벽·바닥, 검은 천장 보이드)에서 배관이 벽체를 관통하고, 화재측에서
+// 연기가 새어 나온다. 우리의 하얀 내화보드가 날아와 그 개구부를 막아 차단한다.
+// 마가켐 홈페이지의 사실적 톤을 참조하되, 우리 제품(하얀 보드)의 시공 순간을 연출.
 
 export async function initHero3D(canvas, host) {
   const THREE = await import("./vendor/three.module.min.js");
 
+  // ---- 개구부/배관 배치 (오른쪽에 두어 좌측은 문구용으로 비운다) ----
+  const OPEN = { x: 3.4, y: 1.4, hw: 1.3, hh: 1.3 }; // 사각 개구부 중심·반폭
+  const PIPE_R = 0.58;
+  const WALL_Z = -3.6, WALL_T = 0.5; // 벽 중심 z, 두께
+  const WALL_FRONT = WALL_Z + WALL_T / 2; // 실내측 벽면
+
   const renderer = new THREE.WebGLRenderer({
-    canvas: canvas,
-    antialias: true,
-    alpha: true,
-    powerPreference: "high-performance",
+    canvas: canvas, antialias: true, alpha: false, powerPreference: "high-performance",
   });
-  renderer.setClearAlpha(0);
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.18;
+  renderer.toneMappingExposure = 1.06;
 
   const scene = new THREE.Scene();
-  // 밝은 안개로 먼 부분이 흰 배경에 자연스럽게 녹아들게 한다
-  scene.fog = new THREE.Fog(0xeef1f5, 22, 48);
+  scene.background = new THREE.Color(0xe9ebef);
+  scene.fog = new THREE.Fog(0xe7e9ee, 8, 34);
 
-  const camera = new THREE.PerspectiveCamera(32, 1, 0.1, 100);
-  // 시선을 모델 왼쪽·개구부 스택 중앙에 두어 3개 관통부가 헤더에 안 걸리게 한다
-  const TARGET = new THREE.Vector3(-2.35, 1.9, 0);
+  const camera = new THREE.PerspectiveCamera(38, 1, 0.1, 100);
+  const TARGET = new THREE.Vector3(3.2, 1.7, WALL_Z);
 
-  // ----- 재질 -----
-  const matConcrete = new THREE.MeshStandardMaterial({
-    color: COLOR.concrete,
-    roughness: 0.95,
-    metalness: 0.02,
-  });
-  const matFloor = new THREE.MeshStandardMaterial({
-    color: COLOR.concreteDark,
-    roughness: 1,
-    metalness: 0,
-  });
-  const matSteel = new THREE.MeshStandardMaterial({
-    color: COLOR.steel,
-    roughness: 0.35,
-    metalness: 0.8,
-  });
-  const matSeal = new THREE.MeshStandardMaterial({
-    color: COLOR.seal,
-    roughness: 0.5,
-    metalness: 0.04,
-    emissive: 0x1b5c94,
-    emissiveIntensity: 0.9,
-  });
-  const matEdge = new THREE.LineBasicMaterial({
-    color: COLOR.edge,
-    transparent: true,
-    opacity: 0.38,
-  });
+  // ---- 재질 ----
+  const matWall = new THREE.MeshStandardMaterial({ color: 0xf3f2ef, roughness: 0.94, metalness: 0.0 });
+  const matWallSide = new THREE.MeshStandardMaterial({ color: 0xe4e4e2, roughness: 0.96 });
+  const matFloor = new THREE.MeshStandardMaterial({ color: 0xd5d6da, roughness: 0.9 });
+  const matCeil = new THREE.MeshStandardMaterial({ color: 0x0c0d10, roughness: 1.0 });
+  const matPipe = new THREE.MeshStandardMaterial({ color: 0xe6e2d8, roughness: 0.6, metalness: 0.12 });
+  const matBand = new THREE.MeshStandardMaterial({ color: 0x9a968c, roughness: 0.5, metalness: 0.5 });
+  const matDuct = new THREE.MeshStandardMaterial({ color: 0xcfd2d6, roughness: 0.45, metalness: 0.55 });
+  const matBoard = new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.5, metalness: 0.02, emissive: 0x222428, emissiveIntensity: 0.25 });
 
   const world = new THREE.Group();
   scene.add(world);
 
-  // 상자 + 외곽선 — 도면 같은 인상을 만드는 핵심
-  function box(w, h, d, mat, edges) {
-    const g = new THREE.BoxGeometry(w, h, d);
-    const m = new THREE.Mesh(g, mat);
-    m.castShadow = true;
-    m.receiveShadow = true;
-    if (edges !== false) {
-      m.add(new THREE.LineSegments(new THREE.EdgesGeometry(g, 20), matEdge));
-    }
-    world.add(m);
-    return m;
-  }
-  function slab(x0, x1, y0, y1, mat) {
-    const m = box(x1 - x0, y1 - y0, LAYOUT.wall.z, mat || matConcrete);
-    m.position.set((x0 + x1) / 2, (y0 + y1) / 2, 0);
-    return m;
+  function box(w, h, d, mat, x, y, z, cast, rec) {
+    const m = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), mat);
+    m.position.set(x, y, z);
+    m.castShadow = cast !== false; m.receiveShadow = rec !== false;
+    world.add(m); return m;
   }
 
-  // ----- 벽체: 개구부 3곳을 남기고 띠 단위로 쌓는다 -----
-  const W = LAYOUT.wall;
-  const holes = [LAYOUT.holeBoard, LAYOUT.holeDuct, LAYOUT.holePipe]; // y 오름차순
-  let prevY = W.y0;
-  holes.forEach(function (h) {
-    slab(W.x0, W.x1, prevY, h.y0); // 개구부 아래 가로 띠
-    slab(W.x0, h.x0, h.y0, h.y1); // 개구부 좌측
-    slab(h.x1, W.x1, h.y0, h.y1); // 개구부 우측
-    prevY = h.y1;
-  });
-  slab(W.x0, W.x1, prevY, W.y1); // 맨 위 가로 띠
+  // ---- 벽체: 사각 개구부를 남기고 4장으로 쌓는다 ----
+  const WX0 = -16, WX1 = 16, WY0 = -4.5, WY1 = 13;
+  const ox0 = OPEN.x - OPEN.hw, ox1 = OPEN.x + OPEN.hw, oy0 = OPEN.y - OPEN.hh, oy1 = OPEN.y + OPEN.hh;
+  const slab = (x0, x1, y0, y1) => box(x1 - x0, y1 - y0, WALL_T, matWall, (x0 + x1) / 2, (y0 + y1) / 2, WALL_Z);
+  slab(WX0, WX1, WY0, oy0);   // 개구부 아래
+  slab(WX0, WX1, oy1, WY1);   // 개구부 위
+  slab(WX0, ox0, oy0, oy1);   // 좌
+  slab(ox1, WX1, oy0, oy1);   // 우
 
-  // ----- 바닥 슬래브 -----
-  const floor = box(24, 0.5, 14, matFloor);
-  floor.position.set(0, W.y0 - 0.25, 0);
-  floor.castShadow = false;
+  // ---- 바닥 ----
+  box(WX1 - WX0, 0.5, 22, matFloor, (WX0 + WX1) / 2, WY0 - 0.25, WALL_Z + 9, false, true);
+  // ---- 천장 보이드(검은 plenum) ----
+  box(WX1 - WX0, 0.4, 22, matCeil, (WX0 + WX1) / 2, 7.6, WALL_Z + 9, false, false);
+  // ---- 좌측 리턴 벽(코너감) ----
+  box(0.5, WY1 - WY0, 22, matWallSide, WX0 + 6.5, (WY0 + WY1) / 2, WALL_Z + 9, false, true);
 
-  // ----- 관통 설비 -----
-  // 원형 배관
-  function pipe(cx, cy, radius, len) {
-    const g = new THREE.CylinderGeometry(radius, radius, len, 40, 1, false);
-    const m = new THREE.Mesh(g, matSteel);
+  // ---- 관통 배관 (벽을 뚫고 실내로) ----
+  function pipe() {
+    const len = 12;
+    const cz = WALL_Z + 0.9; // 실내쪽으로 적당히
+    const g = new THREE.CylinderGeometry(PIPE_R, PIPE_R, len, 44);
+    const m = new THREE.Mesh(g, matPipe);
     m.rotation.x = Math.PI / 2;
-    m.position.set(cx, cy, 0);
-    m.castShadow = true;
-    m.receiveShadow = true;
+    m.position.set(OPEN.x, OPEN.y, cz);
+    m.castShadow = true; m.receiveShadow = true;
     world.add(m);
-    return m;
+    // 금속 밴드 2개
+    [-1.4, 1.0].forEach((dz) => {
+      const b = new THREE.Mesh(new THREE.CylinderGeometry(PIPE_R + 0.03, PIPE_R + 0.03, 0.16, 44), matBand);
+      b.rotation.x = Math.PI / 2; b.position.set(OPEN.x, OPEN.y, cz + dz);
+      b.castShadow = true; world.add(b);
+    });
   }
-  const P = LAYOUT.holePipe;
-  pipe((P.x0 + P.x1) / 2, (P.y0 + P.y1) / 2, 0.5, 8.4);
+  pipe();
 
-  // 사각 덕트 (개구부보다 작게 — 둘레의 빈틈을 우리 자재가 채운다)
-  function duct(cx, cy, w, h, len) {
-    const m = box(w, h, len, matSteel);
-    m.position.set(cx, cy, 0);
-    // 덕트 표면 리브 느낌의 가는 선 몇 줄
-    return m;
+  // ---- 천장 배관/덕트 (맥락용) ----
+  (function ceilingRuns() {
+    const p = new THREE.Mesh(new THREE.CylinderGeometry(0.5, 0.5, 30, 36), matPipe);
+    p.rotation.z = Math.PI / 2; p.position.set(0, 6.6, -1.2); p.castShadow = true; world.add(p);
+    const d = box(30, 1.0, 1.4, matDuct, 0, 5.2, 1.6); d.castShadow = true;
+  })();
+
+  // ---- 우리 자재: 하얀 내화보드 (사각판 + 배관 통과 원형홀) ----
+  const HALF = 1.62; // 개구부(1.35)보다 큰 보드
+  const board = (function () {
+    const shape = new THREE.Shape();
+    shape.moveTo(-HALF, -HALF); shape.lineTo(HALF, -HALF);
+    shape.lineTo(HALF, HALF); shape.lineTo(-HALF, HALF); shape.lineTo(-HALF, -HALF);
+    const hole = new THREE.Path();
+    hole.absarc(0, 0, PIPE_R + 0.14, 0, Math.PI * 2, true);
+    shape.holes.push(hole);
+    const geo = new THREE.ExtrudeGeometry(shape, {
+      depth: 0.16, bevelEnabled: true, bevelThickness: 0.02, bevelSize: 0.02, bevelSegments: 1, steps: 1, curveSegments: 56,
+    });
+    geo.center();
+    const m = new THREE.Mesh(geo, matBoard);
+    m.castShadow = true; m.receiveShadow = true;
+    world.add(m); return m;
+  })();
+  const SEAT = new THREE.Vector3(OPEN.x, OPEN.y, WALL_FRONT + 0.09); // 실내측 벽면에 밀착
+  const START = new THREE.Vector3(OPEN.x - 2.8, OPEN.y + 2.4, WALL_Z + 6.2); // 앞·좌상단에서 진입
+  board.position.copy(SEAT);
+
+  // ---- 연기 (캔버스 텍스처 스프라이트) ----
+  function smokeTexture() {
+    const c = document.createElement("canvas"); c.width = c.height = 128;
+    const g = c.getContext("2d");
+    const grd = g.createRadialGradient(64, 64, 2, 64, 64, 62);
+    grd.addColorStop(0, "rgba(138,140,147,0.8)");
+    grd.addColorStop(0.5, "rgba(118,120,128,0.38)");
+    grd.addColorStop(1, "rgba(108,110,120,0)");
+    g.fillStyle = grd; g.beginPath(); g.arc(64, 64, 62, 0, Math.PI * 2); g.fill();
+    return new THREE.CanvasTexture(c);
   }
-  const D = LAYOUT.holeDuct;
-  duct((D.x0 + D.x1) / 2, (D.y0 + D.y1) / 2, 1.15, 0.95, 8.4);
-
-  // ----- 우리 자재: 배관·덕트 개구부를 채운 내화채움구조 (정적) -----
-  function seal(hole) {
-    const m = box(
-      hole.x1 - hole.x0,
-      hole.y1 - hole.y0,
-      LAYOUT.wall.z * 0.92,
-      matSeal
-    );
-    m.position.set((hole.x0 + hole.x1) / 2, (hole.y0 + hole.y1) / 2, 0);
-    return m;
-  }
-  seal(LAYOUT.holePipe);
-  seal(LAYOUT.holeDuct);
-
-  // ----- 우리 자재: 날아와 사각 타공을 막는 내화보드 (애니메이션) -----
-  const B = LAYOUT.holeBoard;
-  const bx = (B.x0 + B.x1) / 2;
-  const by = (B.y0 + B.y1) / 2;
-  const openW = B.x1 - B.x0;
-  const openH = B.y1 - B.y0;
-  // 개구부보다 살짝 큰 사각 보드
-  const boardW = openW + 0.42;
-  const boardH = openH + 0.42;
-  const boardT = 0.18;
-  const zLand = LAYOUT.wall.z / 2 + boardT / 2 + 0.02; // 벽 앞면에 밀착
-  const zStart = 6.8; // 카메라 쪽에서 날아 들어온다
-  const driftX = 1.5;
-  const driftY = 1.0;
-  const tilt = 0.2;
-
-  const matBoard = new THREE.MeshStandardMaterial({
-    color: COLOR.board,
-    roughness: 0.42,
-    metalness: 0.05,
-    emissive: 0x1c66c4,
-    emissiveIntensity: 1.05,
-    transparent: true,
-    opacity: 1,
-  });
-  const matBoardEdge = new THREE.LineBasicMaterial({
-    color: 0xffffff,
-    transparent: true,
-    opacity: 0.5,
-  });
-  const boardGeo = new THREE.BoxGeometry(boardW, boardH, boardT);
-  const board = new THREE.Mesh(boardGeo, matBoard);
-  board.castShadow = true;
-  board.receiveShadow = true;
-  board.add(new THREE.LineSegments(new THREE.EdgesGeometry(boardGeo), matBoardEdge));
-  board.position.set(bx, by, zLand); // 기본값 = 밀착 상태(모션 없는 환경 대비)
-  world.add(board);
-
-  function easeOutCubic(k) {
-    return 1 - Math.pow(1 - k, 3);
-  }
-  // 날아 들어와 → 밀착 유지 → 빠지며 리셋 (반복)
-  function animateBoard(time) {
-    const PERIOD = 6.2;
-    const p = (time % PERIOD) / PERIOD;
-    let e, op;
-    if (p < 0.3) {
-      // 날아 들어옴
-      e = easeOutCubic(p / 0.3);
-      op = Math.min(1, (p / 0.3) * 2.2);
-    } else if (p < 0.84) {
-      // 밀착 유지
-      e = 1;
-      op = 1;
-    } else {
-      // 빠지며 사라짐
-      const k = (p - 0.84) / 0.16;
-      e = 1 - k * k;
-      op = 1 - k;
-    }
-    board.position.set(
-      bx + driftX * (1 - e),
-      by + driftY * (1 - e),
-      zLand + (zStart - zLand) * (1 - e)
-    );
-    board.rotation.z = tilt * (1 - e);
-    matBoard.opacity = op;
-    matBoardEdge.opacity = 0.5 * op;
+  const smokeTex = smokeTexture();
+  const puffs = [];
+  const smokeGroup = new THREE.Group(); scene.add(smokeGroup);
+  // 개구부 주변에서 피어오르는 연기 + 천장 배관을 타고 번지는 연기
+  for (let i = 0; i < 24; i++) {
+    const ceil = i >= 16; // 일부는 천장쪽
+    const mat = new THREE.SpriteMaterial({ map: smokeTex, transparent: true, opacity: 0, depthWrite: false });
+    const s = new THREE.Sprite(mat);
+    const p = {
+      sp: s,
+      x: ceil ? (Math.random() - 0.5) * 12 : OPEN.x + (Math.random() - 0.5) * 2.6,
+      z: WALL_Z + 0.3 + Math.random() * (ceil ? 3.5 : 2.6),
+      y0: ceil ? 5.2 + Math.random() * 1.6 : OPEN.y - 0.9 + Math.random() * 1.4,
+      rise: ceil ? 2.6 : 5.6,
+      scale: (ceil ? 2.6 : 1.8) + Math.random() * 2.0,
+      phase: Math.random(),
+      life: 3.2 + Math.random() * 2.8,
+      max: ceil ? 0.62 : 0.9,
+    };
+    s.position.set(p.x, p.y0, p.z);
+    smokeGroup.add(s); puffs.push(p);
   }
 
-  // ----- 조명 (밝은 톤) -----
-  scene.add(new THREE.HemisphereLight(0xffffff, 0xccd0d7, 1.15));
+  // ---- 불꽃 글로우(스프라이트) ----
+  function glowTexture(inner) {
+    const c = document.createElement("canvas"); c.width = c.height = 128;
+    const g = c.getContext("2d");
+    const grd = g.createRadialGradient(64, 64, 2, 64, 64, 62);
+    grd.addColorStop(0, inner); grd.addColorStop(1, "rgba(255,120,30,0)");
+    g.fillStyle = grd; g.beginPath(); g.arc(64, 64, 62, 0, Math.PI * 2); g.fill();
+    return new THREE.CanvasTexture(c);
+  }
+  const fireSprite = new THREE.Sprite(new THREE.SpriteMaterial({
+    map: glowTexture("rgba(255,150,50,0.9)"), transparent: true, opacity: 0.9,
+    depthWrite: false, blending: THREE.AdditiveBlending,
+  }));
+  fireSprite.position.set(OPEN.x + 0.2, OPEN.y - 2.4, WALL_Z - 3.0);
+  fireSprite.scale.set(5, 5, 1); scene.add(fireSprite);
+  // 개구부 바로 뒤(화재측)에서 새어나오는 글로우 — 보드가 밀착하면 가려진다
+  const openGlow = new THREE.Sprite(new THREE.SpriteMaterial({
+    map: glowTexture("rgba(255,180,90,0.95)"), transparent: true, opacity: 0.75,
+    depthWrite: false, blending: THREE.AdditiveBlending,
+  }));
+  openGlow.position.set(OPEN.x, OPEN.y, WALL_Z - 0.35);
+  openGlow.scale.set(3.4, 3.4, 1); scene.add(openGlow);
 
-  const key = new THREE.DirectionalLight(0xffffff, 2.6);
-  key.position.set(6.5, 8, 7);
-  key.castShadow = true;
+  // ---- 조명 ----
+  scene.add(new THREE.HemisphereLight(0xffffff, 0x9a9aa0, 1.0));
+  const key = new THREE.DirectionalLight(0xfff3e6, 2.2);
+  key.position.set(9, 11, 8); key.castShadow = true;
   key.shadow.mapSize.set(1024, 1024);
-  key.shadow.camera.near = 1;
-  key.shadow.camera.far = 30;
-  key.shadow.camera.left = -9;
-  key.shadow.camera.right = 9;
-  key.shadow.camera.top = 8;
-  key.shadow.camera.bottom = -6;
-  key.shadow.bias = -0.0012;
-  scene.add(key);
+  key.shadow.camera.near = 1; key.shadow.camera.far = 40;
+  key.shadow.camera.left = -14; key.shadow.camera.right = 14;
+  key.shadow.camera.top = 12; key.shadow.camera.bottom = -8;
+  key.shadow.bias = -0.0012; scene.add(key);
+  const fill = new THREE.DirectionalLight(0xdfe8ff, 0.5);
+  fill.position.set(-6, 4, 6); scene.add(fill);
+  // 화재측 따뜻한 빛 (벽 뒤 낮은 곳)
+  const fire = new THREE.PointLight(0xff6a1e, 42, 22, 2);
+  fire.position.set(OPEN.x + 0.5, OPEN.y - 2.2, WALL_Z - 5.5); scene.add(fire);
 
-  const rim = new THREE.DirectionalLight(0x69b6fa, 1.2);
-  rim.position.set(-6, 3, -5);
-  scene.add(rim);
-
-  // 벽 반대편(화염측)에서 새어 나오는 따뜻한 빛
-  const ember = new THREE.PointLight(COLOR.ember, 16, 16, 2);
-  ember.position.set(1.2, 0.2, -3.6);
-  scene.add(ember);
-
-  // ----- 리사이즈 -----
+  // ---- 리사이즈 ----
   function resize() {
     const w = host.clientWidth || window.innerWidth;
     const h = host.clientHeight || window.innerHeight;
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.75));
     renderer.setSize(w, h, false);
     camera.aspect = w / h;
-    // 화면이 좁아질수록 조금 물러나 전체가 담기게 한다
-    const pull = w / h < 1 ? 1.45 : w / h < 1.5 ? 1.15 : 1;
-    baseRadius = 15.5 * pull;
+    dollyPull = w / h < 1 ? 4.5 : w / h < 1.5 ? 2.0 : 0;
     camera.updateProjectionMatrix();
   }
-  let baseRadius = 15.5;
+  let dollyPull = 0;
   window.addEventListener("resize", resize, { passive: true });
   resize();
 
-  // ----- 카메라 궤도 -----
-  const BASE_ANGLE = 0.5; // 정면에서 살짝 틀어 단면이 보이게
+  // ---- 카메라 ----
   function place(t) {
-    const a = BASE_ANGLE + Math.sin(t * 0.11) * 0.18;
-    const y = 3.7 + Math.sin(t * 0.078) * 0.4;
-    camera.position.set(
-      Math.sin(a) * baseRadius,
-      y,
-      Math.cos(a) * baseRadius
-    );
+    const x = 0.4 + Math.sin(t * 0.085) * 0.55;
+    const y = 2.4 + Math.sin(t * 0.065) * 0.22;
+    const z = 9.6 + dollyPull + Math.sin(t * 0.05) * 0.4;
+    camera.position.set(x, y, z);
     camera.lookAt(TARGET);
   }
 
-  // ----- 재생 제어 -----
-  const reduce =
-    window.matchMedia &&
-    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  let raf = null;
-  let running = false;
-  let t0 = null;
-  let t = 0;
+  // ---- 보드 애니메이션: 날아 들어옴 → 밀착 유지 → 빠지며 리셋 ----
+  const easeOut = (k) => 1 - Math.pow(1 - k, 3);
+  let boardSeat = 1; // 0=멀리, 1=밀착 (개구부 글로우 가림 계산용)
+  function animateBoard(t) {
+    const PERIOD = 7.0, p = (t % PERIOD) / PERIOD;
+    let e, op;
+    if (p < 0.28) { e = easeOut(p / 0.28); op = Math.min(1, (p / 0.28) * 2.2); }
+    else if (p < 0.85) { e = 1; op = 1; }
+    else { const k = (p - 0.85) / 0.15; e = 1 - k * k; op = 1 - k; }
+    boardSeat = e;
+    board.position.set(
+      SEAT.x + (START.x - SEAT.x) * (1 - e),
+      SEAT.y + (START.y - SEAT.y) * (1 - e),
+      SEAT.z + (START.z - SEAT.z) * (1 - e)
+    );
+    board.rotation.set(0.14 * (1 - e), -0.18 * (1 - e), 0.05 * (1 - e));
+    matBoard.opacity = op; matBoard.transparent = op < 1;
+  }
 
+  // ---- 연기 애니메이션 ----
+  function animateSmoke(t) {
+    for (const p of puffs) {
+      const tt = (t * (1 / p.life) + p.phase) % 1;
+      p.sp.position.set(
+        p.x + Math.sin((t + p.phase * 10) * 0.5) * 0.4,
+        p.y0 + tt * p.rise,
+        p.z
+      );
+      const sc = p.scale * (0.7 + tt * 1.3);
+      p.sp.scale.set(sc, sc, 1);
+      p.sp.material.opacity = Math.sin(tt * Math.PI) * p.max;
+    }
+  }
+
+  // ---- 재생 제어 ----
+  const reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let raf = null, running = false, t0 = null, t = 0;
   function frame(now) {
     if (t0 === null) t0 = now;
     t = (now - t0) / 1000;
-    place(t);
-    animateBoard(t);
-    ember.intensity = 16 + Math.sin(t * 3.1) * 4 + Math.sin(t * 7.7) * 2;
+    place(t); animateBoard(t); animateSmoke(t);
+    fire.intensity = 42 + Math.sin(t * 3.2) * 8 + Math.sin(t * 9.1) * 4;
+    fireSprite.material.opacity = 0.5 + Math.sin(t * 4.0) * 0.12;
+    // 보드가 밀착할수록 개구부 글로우가 가려진 것처럼 약해진다
+    openGlow.material.opacity = (0.55 + Math.sin(t * 5.3) * 0.18) * (1 - boardSeat * 0.75);
     renderer.render(scene, camera);
     raf = requestAnimationFrame(frame);
   }
-  function start() {
-    if (running || reduce) return;
-    running = true;
-    t0 = null;
-    raf = requestAnimationFrame(frame);
-  }
-  function stop() {
-    running = false;
-    if (raf) cancelAnimationFrame(raf);
-    raf = null;
-  }
+  function start() { if (running || reduce) return; running = true; t0 = null; raf = requestAnimationFrame(frame); }
+  function stop() { running = false; if (raf) cancelAnimationFrame(raf); raf = null; }
 
-  // 첫 프레임을 그린 뒤에야 화면에 드러낸다 (빈 캔버스가 보이지 않도록)
-  place(0);
-  renderer.render(scene, camera);
+  place(0); animateSmoke(0); renderer.render(scene, camera);
   host.classList.add("is-3d");
-
   if (reduce) return { start: function () {}, stop: stop };
 
   document.addEventListener("visibilitychange", function () {
-    if (document.hidden) stop();
-    else if (isVisible) start();
+    if (document.hidden) stop(); else if (isVisible) start();
   });
-
   let isVisible = true;
   if ("IntersectionObserver" in window) {
-    new IntersectionObserver(
-      function (entries) {
-        entries.forEach(function (e) {
-          isVisible = e.isIntersecting;
-          if (isVisible && !document.hidden) start();
-          else stop();
-        });
-      },
-      { threshold: 0 }
-    ).observe(host);
+    new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        isVisible = e.isIntersecting;
+        if (isVisible && !document.hidden) start(); else stop();
+      });
+    }, { threshold: 0 }).observe(host);
   }
   start();
   return { start: start, stop: stop };
