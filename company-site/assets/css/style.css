@@ -153,14 +153,10 @@ svg { display: block; width: 100%; height: auto; }
 }
 /* 히어로 미디어 슬롯 — 실사 영상/사진을 받으면 .hero-art 앞에
    <video ...> 또는 <img>를 넣기만 하면 아래 규칙이 도면 그래픽을 자동으로 감춘다 */
-/* 폴백: WebGL 미지원 시 보이는 밝은 건축 사진 */
+/* 폴백: WebGL 미지원 시 보이는 무지 배경 (건축 사진 제거 — 3D가 주역) */
 .hero-media {
     position: absolute; inset: 0; overflow: hidden;
-    background: #eef0f3 url(../images/hero-tower.jpg) center 38% / cover no-repeat;
-}
-.hero-media::before {
-    content: ""; position: absolute; inset: 0;
-    background: rgba(255, 255, 255, .12);
+    background: linear-gradient(180deg, #f2f4f7 0%, #e6e8ee 100%);
 }
 
 /* 사실적 3D 캔버스 — 준비되면 폴백 위로 나타난다 */
