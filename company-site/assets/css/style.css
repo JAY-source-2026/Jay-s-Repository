@@ -157,6 +157,20 @@ svg { display: block; width: 100%; height: auto; }
     filter: grayscale(1) contrast(1.06) brightness(.5);
 }
 .hero-media > video ~ .hero-art, .hero-media > img ~ .hero-art { display: none; }
+
+/* 실시간 3D 캔버스 — 준비되면 폴백 사진 위로 겹쳐 나타난다 */
+.hero-3d {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    display: block; opacity: 0; transition: opacity 1.2s ease;
+}
+.hero-media.is-3d .hero-3d { opacity: 1; }
+/* 3D는 사진보다 어두우므로 가림막을 약하게 — 대신 문구 쪽만 확실히 눌러준다 */
+.hero-media.is-3d .hero-scrim {
+    background:
+        linear-gradient(90deg, rgba(16,16,19,.92) 0%, rgba(16,16,19,.55) 34%, transparent 62%),
+        linear-gradient(0deg, rgba(16,16,19,.82), transparent 46%);
+}
+.hero-media.is-3d > img { opacity: 0; transition: opacity 1.2s ease; }
 .hero-media > video ~ .hero-scrim, .hero-media > img ~ .hero-scrim { opacity: 1; }
 .hero-scrim {
     position: absolute; inset: 0; opacity: 0;

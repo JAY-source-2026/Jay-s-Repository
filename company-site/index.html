@@ -111,7 +111,10 @@
                  <video autoplay muted loop playsinline poster="assets/images/hero-poster.jpg">
                      <source src="assets/images/hero.mp4" type="video/mp4"></video>
                  또는  <img src="assets/images/hero.jpg" alt="">                        -->
-            <div class="hero-media" aria-hidden="true">
+            <div class="hero-media" id="heroMedia" aria-hidden="true">
+                <!-- 실시간 3D: 관통부 화재차단 시스템 컷어웨이.
+                     WebGL을 못 쓰는 환경에서는 아래 사진이 그대로 보인다. -->
+                <canvas class="hero-3d" id="hero3d"></canvas>
                 <img src="assets/images/hero-city.jpg" alt="">
                 <div class="hero-art">
                     <div class="ha-glow"></div>
@@ -743,5 +746,16 @@
     </footer>
 
     <script src="assets/js/main.js"></script>
+    <script type="module">
+      // 히어로 3D는 첫 화면이 그려진 뒤에 불러온다 (본문 표시를 늦추지 않도록)
+      var canvas = document.getElementById("hero3d");
+      var host = document.getElementById("heroMedia");
+      var gl = canvas && canvas.getContext && (canvas.getContext("webgl2") || canvas.getContext("webgl"));
+      if (gl) {
+        import("./assets/js/hero3d.js")
+          .then(function (m) { return m.initHero3D(canvas, host); })
+          .catch(function () { /* 실패하면 사진 히어로가 그대로 남는다 */ });
+      }
+    </script>
 </body>
 </html>
