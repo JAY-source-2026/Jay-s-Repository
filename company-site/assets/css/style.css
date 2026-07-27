@@ -153,32 +153,32 @@ svg { display: block; width: 100%; height: auto; }
 }
 /* 히어로 미디어 슬롯 — 실사 영상/사진을 받으면 .hero-art 앞에
    <video ...> 또는 <img>를 넣기만 하면 아래 규칙이 도면 그래픽을 자동으로 감춘다 */
-.hero-media { position: absolute; inset: 0; overflow: hidden; background: #eceff2; }
-
-/* 사진 히어로 — 두 장 크로스페이드 + 슬로우 줌 (밝은 톤) */
-.hero-slides { position: absolute; inset: 0; }
-.hero-slide { position: absolute; inset: 0; opacity: 0; animation: heroFade 18s infinite; }
-.hero-slide:first-child { opacity: 1; }
-.hero-slide:nth-child(2) { animation-delay: 9s; }
-.hero-slide .kb {
-    position: absolute; inset: 0;
-    background-size: cover; background-position: 50% 38%;
-    filter: grayscale(1) contrast(1.06) brightness(1.03);
-    animation: heroZoom 24s ease-in-out infinite alternate;
-    will-change: transform;
+/* 폴백: WebGL 미지원 시 보이는 밝은 건축 사진 */
+.hero-media {
+    position: absolute; inset: 0; overflow: hidden;
+    background: #eef0f3 url(../images/hero-tower.jpg) center 38% / cover no-repeat;
 }
-@keyframes heroFade { 0%, 42% { opacity: 1; } 52%, 92% { opacity: 0; } 100% { opacity: 1; } }
-@keyframes heroZoom { from { transform: scale(1.03); } to { transform: scale(1.13); } }
+.hero-media::before {
+    content: ""; position: absolute; inset: 0;
+    background: rgba(255, 255, 255, .12);
+}
+
+/* 사실적 3D 캔버스 — 준비되면 폴백 위로 나타난다 */
+.hero-3d {
+    position: absolute; inset: 0; width: 100%; height: 100%;
+    display: block; opacity: 0; transition: opacity 1s ease;
+}
+.hero-media.is-3d .hero-3d { opacity: 1; }
 
 /* 히어로 좌·하단·상단을 밝게 눌러 어두운 글씨와 헤더가 읽히게 (밝은 톤 유지) */
 .hero-scrim {
     position: absolute; inset: 0;
     background:
-        linear-gradient(90deg, rgba(255,255,255,.93) 0%, rgba(255,255,255,.62) 30%, rgba(255,255,255,.16) 56%, transparent 76%),
-        linear-gradient(0deg, rgba(255,255,255,.85) 0%, transparent 44%),
-        linear-gradient(180deg, rgba(255,255,255,.72) 0%, transparent 20%);
+        linear-gradient(90deg, rgba(255,255,255,.9) 0%, rgba(255,255,255,.55) 28%, rgba(255,255,255,.1) 54%, transparent 74%),
+        linear-gradient(0deg, rgba(255,255,255,.78) 0%, transparent 42%),
+        linear-gradient(180deg, rgba(255,255,255,.62) 0%, transparent 18%);
 }
-/* 구 3D/도면 폴백 레이어 비활성화 */
+/* 구 도면 폴백 레이어 비활성화 */
 .hero-art { display: none; }
 
 .hero-art { position: absolute; inset: 0; }
