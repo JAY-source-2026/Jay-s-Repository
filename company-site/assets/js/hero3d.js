@@ -237,6 +237,93 @@ export async function initHero3D(canvas, host) {
     }
   }
 
+  // =====================================================================
+  //  연기 — 불과 같은 방식(셰이더 노이즈). 불 위에서 피어올라 위로 갈수록 넓게 퍼진다.
+  //  스프라이트 연기는 동그란 얼룩으로 보여서 폐기.
+  // =====================================================================
+  const SMOKE_FRAG = `
+    precision highp float;
+    varying vec2 vUv;
+    uniform float uTime, uOn, uAlpha, uCut, uSeed, uSpeed, uDensity;
+    uniform vec2 uDetail, uEdge;
+
+    float hash(vec2 p) {
+      p = fract(p * vec2(233.34, 851.73));
+      p += dot(p, p + 23.45);
+      return fract(p.x * p.y);
+    }
+    float vnoise(vec2 p) {
+      vec2 i = floor(p), f = fract(p);
+      f = f * f * (3.0 - 2.0 * f);
+      return mix(mix(hash(i), hash(i + vec2(1.0, 0.0)), f.x),
+                 mix(hash(i + vec2(0.0, 1.0)), hash(i + vec2(1.0, 1.0)), f.x), f.y);
+    }
+    float fbm(vec2 p) {
+      float v = 0.0, a = 0.56;
+      for (int i = 0; i < 4; i++) { v += a * vnoise(p); p = p * 2.04 + vec2(11.7, 5.3); a *= 0.5; }
+      return v;
+    }
+
+    void main() {
+      vec2 uv = vUv;
+      float h = uv.y;                                  // 0 = 불 바로 위, 1 = 천장 쪽
+
+      // 위로 갈수록 옆으로 크게 퍼진다(불과 반대로 벌어지는 형상)
+      float spread = 0.42 + h * 1.85;
+      vec2 q = vec2((uv.x - 0.5) * uDetail.x / spread,
+                    h * uDetail.y - uTime * uSpeed);
+      float n1 = fbm(q + vec2(uSeed, 0.0));
+      float n2 = fbm(q * 2.15 + vec2(uSeed * 2.3, -uTime * uSpeed * 0.65));
+      float d = n1 * 0.78 + n2 * 0.42;
+
+      // 기둥 형상: 발생부는 좁고 위로 갈수록 벌어지며, 오르면서 좌우로 흔들린다.
+      // (가로 전체를 채우면 검은 사각 덩어리로 보인다)
+      float cx = 0.5 + sin(uTime * 0.33 + uSeed) * 0.06 * h
+                     + sin(uTime * 0.19 + uSeed * 2.1) * 0.04 * h;
+      float hw = uEdge.x + h * uEdge.y;   // half 는 GLSL 예약어라 쓸 수 없다
+      float dx = abs(uv.x - cx) / max(0.02, hw);
+      float plume = 1.0 - smoothstep(0.12, 1.0, dx);
+      // 올라오면서 짙어졌다가 천장으로 갈수록 흩어진다
+      float rise = smoothstep(0.0, 0.07, h) * (1.0 - smoothstep(0.62, 1.0, h));
+
+      float m = d * uDensity * plume * rise;
+      float a = smoothstep(0.3, 0.66, m) * uAlpha * uOn;
+      a *= smoothstep(uCut + 0.06, uCut - 0.03, h);
+      if (a < 0.004) discard;
+
+      // 발생부는 그을음처럼 짙고 위로 갈수록 옅은 회색
+      vec3 col = mix(vec3(0.14, 0.135, 0.14), vec3(0.52, 0.515, 0.53), smoothstep(0.0, 0.65, h));
+      gl_FragColor = vec4(col, a);
+    }
+  `;
+  function makeSmokeSheets(o, cfg) {
+    const bottom = cfg.bottom, H = cfg.h, W = 2 * o.hw + cfg.wpad;
+    const layers = [];
+    cfg.z.forEach((dz, i) => {
+      const w = W * (1 + i * 0.16), hh = H * (1 - i * 0.06);
+      const mat = new THREE.ShaderMaterial({
+        vertexShader: FIRE_VERT, fragmentShader: SMOKE_FRAG,
+        transparent: true, depthWrite: false, side: THREE.DoubleSide,
+        blending: THREE.NormalBlending,
+        uniforms: {
+          uTime: { value: 0 }, uOn: { value: 0 }, uCut: { value: 2 },
+          uAlpha: { value: cfg.alpha[i] },
+          uSeed: { value: 21.3 + i * 7.9 + Math.abs(o.x) * 0.17 },
+          uSpeed: { value: cfg.speed * (1 - i * 0.18) },
+          uDensity: { value: cfg.density },
+          uDetail: { value: new THREE.Vector2(w * 1.15, hh * 0.78) },
+          uEdge: { value: new THREE.Vector2(cfg.narrow, cfg.flare) },
+        },
+      });
+      const m = new THREE.Mesh(new THREE.PlaneGeometry(w, hh, 1, 1), mat);
+      m.position.set(o.x, bottom + hh / 2, WALL_FRONT + dz);
+      m.renderOrder = 1 - i;                            // 연기는 불보다 뒤에서 먼저 그린다
+      scene.add(m);
+      layers.push({ mesh: m, mat: mat, bottom: bottom, h: hh, fwd: i });
+    });
+    return layers;
+  }
+
   // cfg: x,y,z 발생 중심 / w,h,dz 발생 범위 / out 개구부 밖으로 나오는 거리 / rise 상승 / size / life / max
   function makeFire(cfg, tex, additive) {
     const arr = [];
@@ -534,12 +621,12 @@ export async function initHero3D(canvas, host) {
   // =====================================================================
   const FZ = WALL_FRONT + 0.05; // 불이 시작되는 면(개구부 앞면)
   // 개구부 하나당 한 세트: 셰이더 화염 여러 겹 + 불티 + 연기 + 안쪽 배광 + 광원
-  function makeFireRig(o, s, inset, lightPow, sheet) {
+  function makeFireRig(o, s, inset, lightPow, sheet, smoke) {
     const w = 2 * o.hw * 0.86, out = 1.0 + 0.35 * s;
     const rig = {
       sheets: makeFireSheets(o, sheet),
-      ember: makeFire({ n: Math.round(7 * s), x: o.x, y: o.y,              z: FZ + 0.22, w: w * 0.9, h: o.hh,       dz: 0.4, out: out * 0.8,  rise: 5.2 * s, size: 0.15 * s, life: 1.9, max: 0.5,  tall: 1.0, wide: 1.0 }, emberTex, true),
-      smoke: makeFire({ n: Math.round(7 * s), x: o.x, y: o.y + o.hh * 0.5, z: FZ + 0.3,  w: w,       h: o.hh * 0.8, dz: 0.5, out: out * 0.95, rise: 6.2 * s, size: 1.15 * s, life: 4.2, max: 0.32, tall: 1.05, wide: 1.0 }, smokeTex, false),
+      smoke: makeSmokeSheets(o, smoke),
+      ember: makeFire({ n: Math.round(7 * s), x: o.x, y: o.y, z: FZ + 0.22, w: w * 0.9, h: o.hh, dz: 0.4, out: out * 0.8, rise: 5.2 * s, size: 0.15 * s, life: 1.9, max: 0.5, tall: 1.0, wide: 1.0 }, emberTex, true),
       glow:  openingGlow(o, inset),
       light: new THREE.PointLight(0xff6a1e, 0, 9 + 9 * s, 2),
       seed:  o.x * 0.37,
@@ -549,7 +636,8 @@ export async function initHero3D(canvas, host) {
     rig.update = function (t, on, reach, maxY) {
       animSheets(rig.sheets, t, on, reach, maxY);
       animFire(rig.ember, t, on, reach, maxY);
-      animFire(rig.smoke, t, on * 0.92 + 0.05, reach, maxY);
+      // 연기는 불보다 조금 늦게 사그라진다 — 불이 꺼져도 잔연은 남는다
+      animSheets(rig.smoke, t, Math.min(1, on * 1.25), reach, maxY);
       const fl = Math.abs(Math.sin(t * 2.6 + rig.seed)) * 0.55 + Math.abs(Math.sin(t * 7.1 + rig.seed)) * 0.2;
       rig.glow.material.opacity = on * (0.3 + fl * 0.24);
       // 막히면 벽면으로 새어나오던 불빛도 함께 사라진다(셔터 원단 앞면이 달아오르지 않게)
@@ -559,12 +647,16 @@ export async function initHero3D(canvas, host) {
     return rig;
   }
   // sheet: h 불 판 높이 / wpad 개구부보다 넓힐 폭 / z 겹의 z 오프셋 / alpha 겹별 알파 / boost 뻗는 높이 / speed 흐름
+  // smoke: bottom 연기가 시작되는 높이 / h 판 높이 / wpad / z / alpha / density 짙기 / speed 상승 속도
   const rigPen = makeFireRig(PEN, 1.0, 0.25, 34,
-    { h: 4.6, wpad: 0.5, z: [0.04, 0.5, 1.0], alpha: [0.96, 0.66, 0.4], boost: 2.02, speed: 1.7 });
+    { h: 4.6, wpad: 0.5, z: [0.04, 0.5, 1.0], alpha: [0.96, 0.66, 0.4], boost: 2.02, speed: 1.7 },
+    { bottom: PEN.y + 0.7, h: 10.0, wpad: 4.0, z: [0.28, 0.9], alpha: [0.5, 0.32], density: 2.9, speed: 0.5, narrow: 0.12, flare: 0.4 });
   const rigDkt = makeFireRig(DUCT, 1.1, 0.25, 36,
-    { h: 4.6, wpad: 0.5, z: [0.04, 0.5, 1.0], alpha: [0.96, 0.66, 0.4], boost: 2.02, speed: 1.75 });
+    { h: 4.6, wpad: 0.5, z: [0.04, 0.5, 1.0], alpha: [0.96, 0.66, 0.4], boost: 2.02, speed: 1.75 },
+    { bottom: DUCT.y + 0.7, h: 10.0, wpad: 4.2, z: [0.28, 0.9], alpha: [0.5, 0.32], density: 2.9, speed: 0.52, narrow: 0.13, flare: 0.4 });
   const rigBig = makeFireRig(BIG, 2.4, 0.0, 62,
-    { h: 12.0, wpad: 1.0, z: [0.04, 0.75, 1.6], alpha: [0.97, 0.7, 0.44], boost: 1.88, speed: 1.5 });
+    { h: 12.0, wpad: 1.0, z: [0.04, 0.75, 1.6], alpha: [0.97, 0.7, 0.44], boost: 1.88, speed: 1.5 },
+    { bottom: BIG.y + 1.2, h: 12.5, wpad: 7.0, z: [0.4, 1.4], alpha: [0.6, 0.4], density: 3.0, speed: 0.42, narrow: 0.2, flare: 0.34 });
 
   // ---- 조명 ----
   scene.add(new THREE.HemisphereLight(0xeef1f6, 0x74747a, 0.62));
@@ -726,6 +818,10 @@ export async function initHero3D(canvas, host) {
   }
 
   // ---- 재생 제어 ----
+  // 바깥(문구 애니메이션)이 재생 시작·종료를 알 수 있게 이벤트를 쏜다
+  function emit(name) {
+    try { host.dispatchEvent(new CustomEvent(name, { bubbles: true })); } catch (e) { /* 구형 브라우저 */ }
+  }
   const reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   let raf = null, running = false, last = null, elapsed = 0, finished = false;
 
@@ -754,7 +850,11 @@ export async function initHero3D(canvas, host) {
     last = now; elapsed += dt;
     if (elapsed >= TOTAL) { elapsed = TOTAL; finished = true; }
     step(elapsed); renderer.render(scene, camera);
-    if (finished) { running = false; raf = null; return; }  // 막은 상태로 완료 — 여기서 렌더를 멈춘다
+    if (finished) {           // 막은 상태로 완료 — 여기서 렌더를 멈추고 끝났음을 알린다
+      running = false; raf = null;
+      emit("herofilm:end");
+      return;
+    }
     raf = requestAnimationFrame(frame);
   }
   function start() { if (running || reduce || finished) return; running = true; last = null; raf = requestAnimationFrame(frame); }
@@ -763,7 +863,12 @@ export async function initHero3D(canvas, host) {
   // 초기 프레임: 확립샷(불). reduced-motion이면 결과 화면 — 전부 막힌 완료 상태
   step(reduce ? TOTAL : 0); renderer.render(scene, camera);
   host.classList.add("is-3d");
-  if (reduce) return { start: function () {}, stop };
+  if (reduce) {
+    finished = true;
+    emit("herofilm:end");   // 모션을 줄이는 방문자에게는 문구를 바로 보여준다
+    return { start: function () {}, stop, seek: function () {}, replay: function () {}, total: TOTAL };
+  }
+  emit("herofilm:start");
 
   document.addEventListener("visibilitychange", function () { if (document.hidden) stop(); else if (isVisible) start(); });
   let isVisible = true;
@@ -778,6 +883,6 @@ export async function initHero3D(canvas, host) {
     finished = elapsed >= TOTAL;
     step(elapsed); renderer.render(scene, camera);
   }
-  function replay() { seek(0); start(); }
+  function replay() { seek(0); emit("herofilm:start"); start(); }
   return { start, stop, seek, replay, total: TOTAL };
 }

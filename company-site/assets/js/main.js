@@ -348,6 +348,31 @@
   var replayBtn = document.getElementById("heroReplay");
   var brand = document.getElementById("brandHome");
   var heroSection = document.getElementById("home");
+  var heroBody = document.getElementById("heroBody");
+
+  // ----- 히어로 문구는 영상이 끝난 뒤 한 줄씩 들어온다 -----
+  // 3D를 못 쓰거나 모션을 줄이는 환경에서는 클래스가 붙지 않아 처음부터 그대로 보인다.
+  var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (heroBody && document.getElementById("hero3d") && !reduceMotion) {
+    heroBody.classList.add("await");
+    // 3D 로딩이 실패하면 문구가 영영 안 나오므로 안전장치를 둔다
+    setTimeout(function () {
+      if (!heroBody.classList.contains("in")) {
+        heroBody.classList.remove("await");
+        heroBody.classList.add("in");
+      }
+    }, 15000);
+  }
+  document.addEventListener("herofilm:start", function () {
+    if (!heroBody) return;
+    heroBody.classList.remove("in");
+    heroBody.classList.add("await");
+  });
+  document.addEventListener("herofilm:end", function () {
+    if (!heroBody) return;
+    heroBody.classList.remove("await");
+    heroBody.classList.add("in");
+  });
 
   // id 가 hero3d 인 캔버스 때문에 window.hero3d 는 준비 전에도 참이 된다 → 실제 API인지 확인한다
   function heroApi() {
