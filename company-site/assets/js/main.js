@@ -21,6 +21,59 @@
   window.addEventListener("scroll", onScroll, { passive: true });
   onScroll();
 
+  // ----- 데스크톱 하위 메뉴 -----
+  // 마우스를 올리면 CSS 로 열리고, 터치·키보드에서는 눌러서 열 수 있게 한다.
+  var navItems = Array.prototype.slice.call(document.querySelectorAll(".nav-item"));
+  navItems.forEach(function (item) {
+    var top = item.querySelector(".nav-top");
+    if (!top) return;
+    top.addEventListener("click", function (e) {
+      // 아직 닫혀 있으면 첫 탭/클릭은 '열기'로 쓰고 이동은 막는다(터치 기기 배려)
+      var isTouch = window.matchMedia && window.matchMedia("(hover: none)").matches;
+      if (isTouch && !item.classList.contains("open")) {
+        e.preventDefault();
+        navItems.forEach(function (o) { if (o !== item) o.classList.remove("open"); });
+        item.classList.add("open");
+        top.setAttribute("aria-expanded", "true");
+      }
+    });
+    item.addEventListener("mouseenter", function () { top.setAttribute("aria-expanded", "true"); });
+    item.addEventListener("mouseleave", function () {
+      item.classList.remove("open");
+      top.setAttribute("aria-expanded", "false");
+    });
+  });
+  document.addEventListener("click", function (e) {
+    if (e.target.closest && e.target.closest(".nav-item")) return;
+    navItems.forEach(function (o) {
+      o.classList.remove("open");
+      var t = o.querySelector(".nav-top");
+      if (t) t.setAttribute("aria-expanded", "false");
+    });
+  });
+  document.addEventListener("keydown", function (e) {
+    if (e.key !== "Escape") return;
+    navItems.forEach(function (o) { o.classList.remove("open"); });
+  });
+
+  // ----- 모바일 하위 메뉴(아코디언) -----
+  Array.prototype.slice.call(document.querySelectorAll(".mnav-group > button.mnav-top")).forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var group = btn.parentNode;
+      var open = !group.classList.contains("open");
+      // 한 번에 하나만 열어둔다
+      document.querySelectorAll(".mnav-group.open").forEach(function (g) {
+        if (g !== group) {
+          g.classList.remove("open");
+          var b = g.querySelector("button.mnav-top");
+          if (b) b.setAttribute("aria-expanded", "false");
+        }
+      });
+      group.classList.toggle("open", open);
+      btn.setAttribute("aria-expanded", open ? "true" : "false");
+    });
+  });
+
   // ----- Mobile menu -----
   if (navToggle && mobileNav) {
     var setMenu = function (open) {
@@ -72,12 +125,17 @@
   }
 
   // ----- Nav current-section highlight -----
-  var navLinks = Array.prototype.slice.call(
-    document.querySelectorAll(".hd-nav a")
-  );
+  // 링크가 '다른 페이지 + 해시' 형태(about.html#ceo)이므로 지금 페이지의 해시만 골라낸다
+  var here = location.pathname.replace(/\/$/, "/index.html");
+  var navLinks = Array.prototype.slice
+    .call(document.querySelectorAll(".hd-nav a[href*='#']"))
+    .filter(function (a) {
+      var samePage = a.pathname.replace(/\/$/, "/index.html") === here;
+      return samePage && a.hash.length > 1;
+    });
   var sections = navLinks
     .map(function (a) {
-      return document.querySelector(a.getAttribute("href"));
+      try { return document.querySelector(a.hash); } catch (e) { return null; }
     })
     .filter(Boolean);
 
@@ -94,11 +152,31 @@
           return active[s.id];
         })[0];
         navLinks.forEach(function (a) {
-          a.classList.toggle(
-            "current",
-            !!current && a.getAttribute("href") === "#" + current.id
-          );
+          var on = !!current && a.hash === "#" + current.id;
+          a.classList.toggle("current", on);
+          // 하위 메뉴가 켜지면 대메뉴에도 표시를 준다
+          var item = a.closest ? a.closest(".nav-item") : null;
+          if (item && a.classList.contains("nav-sub-link")) return;
+          if (item && on) {
+            var top = item.querySelector(".nav-top");
+            if (top) top.classList.add("current");
+          }
         });
+        if (current) {
+          document.querySelectorAll(".nav-item").forEach(function (item) {
+            // 해시가 같아도 '지금 페이지의 링크'만 인정한다 (index#shutter vs archive#shutter)
+            var has = Array.prototype.slice
+              .call(item.querySelectorAll(".nav-sub a"))
+              .some(function (a) {
+                return a.hash === "#" + current.id &&
+                  a.pathname.replace(/\/$/, "/index.html") === here;
+              });
+            var top = item.querySelector(".nav-top");
+            var topSame = top && top.hash === "#" + current.id &&
+              top.pathname.replace(/\/$/, "/index.html") === here;
+            if (top) top.classList.toggle("current", has || !!topSame);
+          });
+        }
       },
       { rootMargin: "-45% 0px -50% 0px" }
     );
@@ -262,6 +340,75 @@
         teamName(team) + "로 보낼 메일 앱을 여는 중입니다. 창이 뜨면 그대로 '보내기'를 눌러주세요.";
       window.location.href = mailto;
     });
+  }
+
+  // ----- 히어로 영상 다시보기 -----
+  // hero3d.js 는 1회 재생 후 멈추므로 replay() 로 처음부터 다시 보여준다.
+  // 3D 가 실제로 뜬 뒤에만 버튼을 노출한다(WebGL 미지원·모션 최소화 환경에서는 숨김).
+  var replayBtn = document.getElementById("heroReplay");
+  var brand = document.getElementById("brandHome");
+  var heroSection = document.getElementById("home");
+
+  // id 가 hero3d 인 캔버스 때문에 window.hero3d 는 준비 전에도 참이 된다 → 실제 API인지 확인한다
+  function heroApi() {
+    var a = window.heroFilm;
+    return a && typeof a.replay === "function" ? a : null;
+  }
+
+  function replayHero() {
+    var api = heroApi();
+    if (!api) return false;
+    api.replay();
+    if (replayBtn) {
+      replayBtn.classList.remove("spin");
+      void replayBtn.offsetWidth;
+      replayBtn.classList.add("spin");
+    }
+    return true;
+  }
+
+  if (heroSection) {
+    // 3D 준비를 기다린다(모듈 로딩이 끝나면 window.hero3d 가 생긴다)
+    var waited = 0;
+    var wait = setInterval(function () {
+      waited += 300;
+      if (heroApi()) {
+        clearInterval(wait);
+        if (replayBtn) replayBtn.classList.add("on");
+      } else if (waited > 20000) {
+        clearInterval(wait);
+      }
+    }, 300);
+
+    // ⚠️ 스크롤을 끝낸 뒤에 재생을 건다.
+    // 3D 렌더가 rAF 를 점유하면 브라우저의 부드러운 스크롤이 중단되어 페이지 중간에 멈춘다.
+    // (CSS 의 scroll-behavior:smooth 때문에 scrollTop 대입도 애니메이션이라 같은 문제가 생긴다)
+    function goTopAndReplay() {
+      if (window.scrollY <= 4) { replayHero(); return; }
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      var tries = 0;
+      var t = setInterval(function () {
+        tries++;
+        if (window.scrollY <= 4 || tries > 14) {       // 최대 1.4초까지만 기다린다
+          clearInterval(t);
+          window.scrollTo({ top: 0, behavior: "instant" }); // 못 닿았으면 마무리
+          replayHero();
+        }
+      }, 100);
+    }
+
+    if (replayBtn) {
+      replayBtn.addEventListener("click", goTopAndReplay);
+    }
+    // 왼쪽 위 로고를 누르면 맨 위로 올라가면서 영상이 처음부터 다시 재생된다
+    if (brand) {
+      brand.classList.add("is-replay");
+      brand.addEventListener("click", function (e) {
+        if (!heroApi()) return; // 3D가 없으면 평소처럼 홈으로 이동
+        e.preventDefault();
+        goTopAndReplay();
+      });
+    }
   }
 
   // ----- Footer year -----
