@@ -64,41 +64,96 @@
     <link rel="stylesheet" href="assets/css/style.css">
     <noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
 </head>
-<body>
+<body id="top">
     <a href="#main" class="skip-link">본문 바로가기</a>
 
-    <!-- ===== Header ===== -->
+    <!-- ===== Header (공유) ===== -->
     <header class="hd" id="siteHeader">
         <div class="hd-inner">
-            <a class="hd-brand" href="#home" aria-label="디오이엔씨 홈">
+            <a class="hd-brand" href="index.html#home" id="brandHome" aria-label="디오이엔씨 홈 — 히어로 영상 처음부터 다시보기">
                 <img class="brand-mark" src="assets/images/doenc_mark.png" alt="" width="384" height="220">
                 <span>DOENC</span>
             </a>
             <nav class="hd-nav" aria-label="주요 메뉴">
-                <a href="#business">사업영역</a>
-                <a href="#firestop">내화채움구조</a>
-                <a href="#shutter">셔터</a>
-                <a href="#tech">기술력</a>
-                <a href="#about">회사소개</a>
+                <div class="nav-item" data-nav="about">
+                    <a class="nav-top" href="about.html#ceo" aria-haspopup="true" aria-expanded="false">회사소개</a>
+                    <div class="nav-sub">
+                        <a href="about.html#ceo">CEO 인사말</a>
+                        <a href="about.html#history">회사연혁</a>
+                        <a href="about.html#org">조직도</a>
+                        <a href="about.html#location">오시는길</a>
+                    </div>
+                </div>
+                <div class="nav-item" data-nav="business">
+                    <a class="nav-top" href="index.html#business" aria-haspopup="true" aria-expanded="false">사업영역</a>
+                    <div class="nav-sub">
+                        <a href="index.html#firestop">내화채움구조</a>
+                        <a href="index.html#fireproof">내화구조</a>
+                        <a href="index.html#shutter">방화셔터</a>
+                        <a href="index.html#software">설계소프트웨어</a>
+                    </div>
+                </div>
+                <div class="nav-item" data-nav="archive">
+                    <a class="nav-top" href="archive.html#firestop" aria-haspopup="true" aria-expanded="false">자료실</a>
+                    <div class="nav-sub">
+                        <a href="archive.html#firestop">내화채움구조 자료실</a>
+                        <a href="archive.html#fireproof">내화구조 자료실</a>
+                        <a href="archive.html#shutter">방화셔터 자료실</a>
+                        <a href="archive.html#software">설계소프트웨어 자료실</a>
+                    </div>
+                </div>
+                <div class="nav-item" data-nav="support">
+                    <a class="nav-top" href="support.html#notice" aria-haspopup="true" aria-expanded="false">고객지원</a>
+                    <div class="nav-sub">
+                        <a href="support.html#notice">공지사항</a>
+                        <a href="support.html#promo">홍보자료</a>
+                    </div>
+                </div>
             </nav>
             <div class="hd-side">
-                <a class="hd-tel" href="tel:0299252992">02-925-2992</a>
-                <a class="hd-cta" href="#contact">문의하기</a>
+                <a class="hd-cta" href="index.html#contact">문의하기</a>
             </div>
             <button class="hd-toggle" id="navToggle" aria-label="메뉴 열기" aria-expanded="false" aria-controls="mobileNav">
                 <span></span><span></span>
             </button>
         </div>
         <nav class="mnav" id="mobileNav" aria-label="모바일 메뉴">
-            <a href="#business"><em>01</em>사업영역</a>
-            <a href="#firestop"><em>02</em>내화채움구조</a>
-            <a href="#shutter"><em>03</em>셔터</a>
-            <a href="#tech"><em>04</em>기술력</a>
-            <a href="#about"><em>05</em>회사소개</a>
-            <a href="#contact"><em>06</em>문의하기</a>
-            <div class="mnav-foot">
-                <a href="tel:0299252992">02-925-2992</a>
-                <span>평일 09:00 – 18:00</span>
+            <div class="mnav-group">
+                <button type="button" class="mnav-top" aria-expanded="false">회사소개 <i aria-hidden="true"></i></button>
+                <div class="mnav-sub">
+                    <a href="about.html#ceo">CEO 인사말</a>
+                    <a href="about.html#history">회사연혁</a>
+                    <a href="about.html#org">조직도</a>
+                    <a href="about.html#location">오시는길</a>
+                </div>
+            </div>
+            <div class="mnav-group">
+                <button type="button" class="mnav-top" aria-expanded="false">사업영역 <i aria-hidden="true"></i></button>
+                <div class="mnav-sub">
+                    <a href="index.html#firestop">내화채움구조</a>
+                    <a href="index.html#fireproof">내화구조</a>
+                    <a href="index.html#shutter">방화셔터</a>
+                    <a href="index.html#software">설계소프트웨어</a>
+                </div>
+            </div>
+            <div class="mnav-group">
+                <button type="button" class="mnav-top" aria-expanded="false">자료실 <i aria-hidden="true"></i></button>
+                <div class="mnav-sub">
+                    <a href="archive.html#firestop">내화채움구조 자료실</a>
+                    <a href="archive.html#fireproof">내화구조 자료실</a>
+                    <a href="archive.html#shutter">방화셔터 자료실</a>
+                    <a href="archive.html#software">설계소프트웨어 자료실</a>
+                </div>
+            </div>
+            <div class="mnav-group">
+                <button type="button" class="mnav-top" aria-expanded="false">고객지원 <i aria-hidden="true"></i></button>
+                <div class="mnav-sub">
+                    <a href="support.html#notice">공지사항</a>
+                    <a href="support.html#promo">홍보자료</a>
+                </div>
+            </div>
+            <div class="mnav-group">
+                <a class="mnav-top" href="index.html#contact" style="display:block">문의하기</a>
             </div>
         </nav>
     </header>
@@ -197,8 +252,14 @@
                 <h1 class="hero-title">우리는 기술을 만들고<br>기술은 안전을 만듭니다</h1>
                 <a class="more more-lg" href="#business">VIEW MORE <i aria-hidden="true">+</i></a>
             </div>
-            <div class="hero-meta" aria-hidden="true">
-                <span class="hero-scroll">SCROLL</span>
+            <div class="hero-meta">
+                <button type="button" class="hero-replay" id="heroReplay">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+                        <path d="M3 12a9 9 0 1 0 3.2-6.9"/><path d="M3 4.5V10h5.5"/>
+                    </svg>
+                    영상 다시보기
+                </button>
+                <span class="hero-scroll" aria-hidden="true">SCROLL</span>
             </div>
         </section>
 
@@ -249,7 +310,7 @@
                         </a>
                     </li>
                     <li class="biz-item reveal">
-                        <a href="#contact" class="biz-link" data-product="내화구조">
+                        <a href="#fireproof" class="biz-link">
                             <!-- 사진 준비 시: 아래 svg 앞에 <img src="assets/images/biz-structure.jpg" alt=""> 추가 -->
                             <span class="biz-media">
                                 <svg viewBox="0 0 320 400" preserveAspectRatio="xMidYMid slice" fill="none" aria-hidden="true">
@@ -278,8 +339,8 @@
                             <span class="biz-body">
                                 <em class="biz-num">02</em>
                                 <h3>내화구조</h3>
-                                <p>기둥·보·벽체 등 주요 구조부의 내화성능을 확보해 화재 시 구조적 붕괴를 막습니다.</p>
-                                <span class="more">문의하기 <i aria-hidden="true">+</i></span>
+                                <p>지하 공동구·통신구·전력구의 방화벽과 층간 방화구획으로 구획을 완성합니다.</p>
+                                <span class="more">VIEW MORE <i aria-hidden="true">+</i></span>
                             </span>
                         </a>
                     </li>
@@ -309,14 +370,14 @@
                             </span>
                             <span class="biz-body">
                                 <em class="biz-num">03</em>
-                                <h3>셔터</h3>
+                                <h3>방화셔터</h3>
                                 <p>방화셔터·스크린셔터로 대공간을 구획해 화재 확산을 막고 피난 시간을 확보합니다.</p>
                                 <span class="more">VIEW MORE <i aria-hidden="true">+</i></span>
                             </span>
                         </a>
                     </li>
                     <li class="biz-item reveal">
-                        <a href="#contact" class="biz-link" data-product="설계소프트웨어">
+                        <a href="#software" class="biz-link">
                             <!-- 사진 준비 시: 아래 svg 앞에 <img src="assets/images/biz-software.jpg" alt=""> 추가 -->
                             <span class="biz-media">
                                 <svg viewBox="0 0 320 400" preserveAspectRatio="xMidYMid slice" fill="none" aria-hidden="true">
@@ -345,8 +406,8 @@
                             <span class="biz-body">
                                 <em class="biz-num">04</em>
                                 <h3>설계소프트웨어</h3>
-                                <p>현장 조건에 맞는 인정구조 선정과 물량 산출을 지원하는 자체 개발 소프트웨어입니다.</p>
-                                <span class="more">문의하기 <i aria-hidden="true">+</i></span>
+                                <p>현장 조건에 맞는 인정구조 선정과 물량 산출을 지원하는 DESkey를 자체 개발했습니다.</p>
+                                <span class="more">VIEW MORE <i aria-hidden="true">+</i></span>
                             </span>
                         </a>
                     </li>
@@ -490,6 +551,55 @@
           </div>
         </section>
 
+        <!-- ===== 4-2. 내화구조 ===== -->
+        <section class="sec detail detail-alt" id="fireproof">
+            <div class="wrap">
+                <div class="sec-head reveal">
+                    <p class="label">02 &nbsp;내화구조</p>
+                    <h2 class="sec-title">지하구의 화재를<br>구획 안에 가둡니다</h2>
+                </div>
+                <div class="brief">
+                    <div class="reveal">
+                        <ul class="brief-list">
+                            <li>
+                                <em>01</em>
+                                <div>
+                                    <h4>지하 공동구 · 통신구 · 전력구 방화벽</h4>
+                                    <p>케이블이 밀집한 지하구는 한 번 불이 붙으면 구획이 없어 끝까지 번집니다. 구간마다 내화 방화벽을 세워 화재를 한 구획 안에 가둡니다. 2004년 지하공동구 방화구획 내화장치 특허를 등록한 이후 축적한 구조입니다.</p>
+                                </div>
+                            </li>
+                            <li>
+                                <em>02</em>
+                                <div>
+                                    <h4>KT 통신구 방화벽 사업</h4>
+                                    <p>2020년 시범사업을 시작으로 2021년 1차, 2022년 2차 사업까지 통신구 방화구획 설치공사를 수행했습니다.</p>
+                                </div>
+                            </li>
+                            <li>
+                                <em>03</em>
+                                <div>
+                                    <h4>층간 방화구획</h4>
+                                    <p>커튼월·외벽 층간 틈을 막아 층 사이로 화염이 올라타는 것을 막습니다. 2014년 층간방화구획 성능인증(IS보드 TYPE)을 취득했습니다.</p>
+                                </div>
+                            </li>
+                            <li>
+                                <em>04</em>
+                                <div>
+                                    <h4>제연덕트</h4>
+                                    <p>연기를 배출하는 경로 자체가 화재 확산 통로가 되지 않도록 구조체를 설계합니다. 2005년 제연덕트 구조체 및 시공방법 특허를 등록했습니다.</p>
+                                </div>
+                            </li>
+                        </ul>
+                        <a class="more more-lg" href="archive.html#fireproof" style="margin-top:36px">내화구조 자료실 <i aria-hidden="true">+</i></a>
+                    </div>
+                    <div class="brief-shot reveal">
+                        <img src="assets/media/archive/fireproof/telecom-mockup-1.jpg" alt="지하 통신구 방화벽 목업" width="600" height="584" loading="lazy">
+                        <p class="brief-cap">지하 통신구 방화벽 목업 — 자료실에서 전체 사진을 볼 수 있습니다.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- ===== 5. Shutter ===== -->
         <section class="sec detail detail-alt" id="shutter">
           <div class="wrap">
@@ -560,7 +670,7 @@
                     </svg>
                 </div>
                 <div class="detail-text reveal">
-                    <p class="label">03 &nbsp;셔터</p>
+                    <p class="label">03 &nbsp;방화셔터</p>
                     <h2 class="sec-title">넓은 공간일수록<br>구획이 필요합니다</h2>
                     <p class="detail-lead">
                         대형 매장, 물류창고, 주차장처럼 트인 공간은 화재가 빠르게 번집니다.
@@ -589,6 +699,48 @@
             </ol>
            </div>
           </div>
+        </section>
+
+        <!-- ===== 5-2. 설계소프트웨어 ===== -->
+        <section class="sec detail" id="software">
+            <div class="wrap">
+                <div class="sec-head reveal">
+                    <p class="label">04 &nbsp;설계소프트웨어</p>
+                    <h2 class="sec-title">인정구조 선정을<br>소프트웨어가 대신합니다</h2>
+                </div>
+                <div class="brief">
+                    <div class="reveal">
+                        <ul class="brief-list">
+                            <li>
+                                <em>01</em>
+                                <div>
+                                    <h4>DESkey — 내화채움구조 자동 설계</h4>
+                                    <p>관통재 종류·규격, 사용부위(벽체/바닥), 요구 내화성능을 입력하면 조건에 맞는 인정구조를 자동으로 찾아줍니다. 인정번호와 시공 상세가 함께 나오므로 그대로 제출도면에 쓸 수 있습니다.</p>
+                                </div>
+                            </li>
+                            <li>
+                                <em>02</em>
+                                <div>
+                                    <h4>물량 산출</h4>
+                                    <p>선정된 인정구조를 기준으로 필요한 자재와 수량을 계산합니다. 견적과 발주 물량이 설계 단계에서 바로 나옵니다.</p>
+                                </div>
+                            </li>
+                            <li>
+                                <em>03</em>
+                                <div>
+                                    <h4>왜 직접 만들었나</h4>
+                                    <p>인정구조는 관통재·규격·부위·성능의 조합으로 결정되고, 조합 수가 많아 사람이 표에서 찾으면 틀립니다. 2015년 기업부설연구소를 설립하고 이 작업을 소프트웨어로 옮겼습니다.</p>
+                                </div>
+                            </li>
+                        </ul>
+                        <a class="more more-lg" href="archive.html#software" style="margin-top:36px">설계소프트웨어 자료실 <i aria-hidden="true">+</i></a>
+                    </div>
+                    <div class="brief-shot reveal">
+                        <img src="assets/media/archive/software/deskey-catalog.jpg" alt="DESkey 카달로그 표지" width="600" height="868" loading="lazy">
+                        <p class="brief-cap">DESkey 카달로그 — 사용설명서와 함께 자료실에 있습니다.</p>
+                    </div>
+                </div>
+            </div>
         </section>
 
         <!-- ===== 6. Technology ===== -->
@@ -626,12 +778,15 @@
                             차별화된 방화 성능으로 건축물과 지하구의 화재 차단장치를 주기술로 합니다.
                         </p>
                         <p class="about-sub">디오인의 열정과 창의력이 새로운 기술을 만듭니다.</p>
+                        <a class="more more-lg" href="about.html#ceo" style="margin-top:34px">회사소개 자세히 보기 <i aria-hidden="true">+</i></a>
                     </div>
                     <table class="info reveal">
                         <caption class="sr-only">회사 기본 정보</caption>
                         <tbody>
                             <tr><th scope="row">상호</th><td>주식회사 디오이엔씨 (DOENC Co., Ltd.)</td></tr>
-                            <tr><th scope="row">사업분야</th><td>내화채움구조 · 내화구조 · 셔터 · 설계소프트웨어</td></tr>
+                            <tr><th scope="row">설립</th><td>1999년 5월</td></tr>
+                            <tr><th scope="row">대표이사</th><td>원철희</td></tr>
+                            <tr><th scope="row">사업분야</th><td>내화채움구조 · 내화구조 · 방화셔터 · 설계소프트웨어</td></tr>
                             <tr><th scope="row">사업자번호</th><td>111-81-32572</td></tr>
                             <tr><th scope="row">주소</th><td>경기 화성시 정남면 안념길 121-12 (내리)</td></tr>
                             <tr><th scope="row">전화</th><td><a href="tel:0299252992">02-925-2992</a></td></tr>
@@ -717,7 +872,7 @@
         </section>
     </main>
 
-    <!-- ===== Footer ===== -->
+    <!-- ===== Footer (공유) ===== -->
     <footer class="ft">
         <div class="wrap ft-inner">
             <div class="ft-brand">
@@ -725,10 +880,11 @@
                 <span>DOENC</span>
             </div>
             <nav class="ft-nav" aria-label="푸터 메뉴">
-                <a href="#business">사업영역</a>
-                <a href="#tech">기술력</a>
-                <a href="#about">회사소개</a>
-                <a href="#contact">문의하기</a>
+                <a href="about.html#ceo">회사소개</a>
+                <a href="index.html#business">사업영역</a>
+                <a href="archive.html#firestop">자료실</a>
+                <a href="support.html#notice">고객지원</a>
+                <a href="index.html#contact">문의하기</a>
             </nav>
             <address class="ft-info">
                 주식회사 디오이엔씨 &nbsp;|&nbsp; 사업자번호 111-81-32572<br>
@@ -737,7 +893,7 @@
             </address>
             <p class="ft-copy">© <span id="year"></span> DOENC Co., Ltd. All rights reserved.</p>
         </div>
-        <a class="to-top" href="#home" aria-label="맨 위로">↑</a>
+        <a class="to-top" href="#top" aria-label="맨 위로">↑</a>
     </footer>
 
     <script src="assets/js/main.js"></script>
@@ -749,7 +905,9 @@
       if (gl) {
         import("./assets/js/hero3d.js")
           .then(function (m) { return m.initHero3D(canvas, host); })
-          .then(function (api) { window.hero3d = api; })  // 1회 재생이라 replay()로 다시 볼 수 있게
+          // 1회 재생이라 replay()로 다시 볼 수 있게 API를 전역에 둔다.
+          // ⚠️ window.hero3d 는 <canvas id="hero3d"> 와 이름이 겹치므로 heroFilm 을 정식 이름으로 쓴다.
+          .then(function (api) { window.heroFilm = api; window.hero3d = api; })
           .catch(function () { /* 실패하면 폴백 배경이 그대로 남는다 */ });
       }
     </script>
