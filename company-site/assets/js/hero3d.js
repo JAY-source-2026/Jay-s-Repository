@@ -24,20 +24,23 @@ export async function initHero3D(canvas, host) {
 
   // ---- 타임라인(초) — **루프 없음.** 한 번 재생하고 전부 막힌 상태로 끝난다 ----
   const TOTAL = 31.5;
-  const BOARD_IN = 8.8,  BOARD_DUR = 2.3;    // 배관 내화보드 진입 → 11.1에 밀착 완료
-  const DKB_IN   = 11.5, DKB_DUR   = 2.3;    // 덕트 내화보드는 배관 보드가 **완전히 밀착된 뒤** 등장
-  const PEN_OUT  = 14.1, PEN_OUT_D = 1.5;    // 두 보드 다 밀착된 뒤 진화
+  // ⚠️ 보드는 **등장하는 순간이 곧 시공 시작**이다. 미리 띄워두면 공중에서 멈췄다 가는 것처럼 보인다.
+  const BOARD_IN = 8.6,  BOARD_DUR = 2.3;    // 배관 내화보드 진입 → 10.9에 밀착 완료
+  const DKB_IN   = 11.1, DKB_DUR   = 2.3;    // 덕트 내화보드 4조각(상·하·좌·우) — 배관 보드가 밀착된 뒤
+  const PEN_OUT  = 14.2, PEN_OUT_D = 1.5;    // 두 보드 다 밀착된 뒤 진화
   const SHUT_IN  = 19.8, SHUT_DUR  = 3.6;    // 셔터 하강 → 23.4에 완전히 닫힘
   const BIG_OUT  = 23.6, BIG_OUT_D = 1.7;    // 셔터 닫힌 뒤 진화
 
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false, powerPreference: "high-performance" });
   renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   // 노출은 낮게 — 벽이 흰색으로 날아가면 하얀 내화보드도 크림색 셔터 원단도 안 보인다
-  renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 0.8;
+  renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 0.82;
 
   const scene = new THREE.Scene();
-  scene.background = new THREE.Color(0xdfe2e8);
-  scene.fog = new THREE.Fog(0xd9dce3, 46, 155); // 넓은 씬 — 안개는 아주 먼 배경에만
+  scene.background = new THREE.Color(0xd3d8e1);
+  // ⚠️ 안개는 '거리감'용이지 '뿌옇게'용이 아니다. 확립샷에서 벽 왼쪽 끝까지가 약 72m라
+  //    near 를 그보다 뒤(85)로 물려야 주역이 안개를 타지 않고 또렷하게 남는다.
+  scene.fog = new THREE.Fog(0xd6dae2, 85, 260);
 
   // 간이 환경맵 — 금속(배관·덕트·레일)에 또렷한 은빛 반사를 준다
   (function () {
@@ -498,7 +501,8 @@ export async function initHero3D(canvas, host) {
   // =====================================================================
   const BD = 0.16;
   function extrudeBoard(shape) {
-    const geo = new THREE.ExtrudeGeometry(shape, { depth: BD, bevelEnabled: true, bevelThickness: 0.035, bevelSize: 0.045, bevelSegments: 2, steps: 1, curveSegments: 48 });
+    // 모따기를 조금 깊게 — 조각끼리 맞닿는 자리에 홈이 생겨 '여러 장을 짜 맞춘 것'으로 읽힌다
+    const geo = new THREE.ExtrudeGeometry(shape, { depth: BD, bevelEnabled: true, bevelThickness: 0.05, bevelSize: 0.06, bevelSegments: 2, steps: 1, curveSegments: 48 });
     geo.translate(0, 0, -BD / 2);
     const m = new THREE.Mesh(geo, matBoard.clone()); m.castShadow = true; m.receiveShadow = true; scene.add(m); return m;
   }
@@ -516,22 +520,32 @@ export async function initHero3D(canvas, host) {
     }
     return extrudeBoard(s);
   }
-  // 덕트용 — 사각 노치
+  // 덕트용 — **상·하·좌·우 네 조각**이 사각 덕트를 사방에서 감싼다.
+  //  상·하는 폭 전체를 덮고, 좌·우는 그 사이(덕트 높이 구간)에 끼워 넣는다 → 겹침 없이 딱 맞는다.
+  //  좌표는 덕트 중심 기준이라, 밀착하면 각 조각을 그대로 개구부 중심에 놓기만 하면 된다.
   const DHW = 2.35, DHH = 1.72;
-  function ductBoard(top) {
+  function ductBoard(part) {
     const s = new THREE.Shape();
-    if (top) {
-      s.moveTo(-DHW, 0); s.lineTo(-NW, 0); s.lineTo(-NW, NH); s.lineTo(NW, NH); s.lineTo(NW, 0);
-      s.lineTo(DHW, 0); s.lineTo(DHW, DHH); s.lineTo(-DHW, DHH);
-    } else {
-      s.moveTo(-DHW, 0); s.lineTo(-DHW, -DHH); s.lineTo(DHW, -DHH); s.lineTo(DHW, 0);
-      s.lineTo(NW, 0); s.lineTo(NW, -NH); s.lineTo(-NW, -NH); s.lineTo(-NW, 0);
-    }
+    if (part === "top")         { s.moveTo(-DHW,  NH); s.lineTo( DHW,  NH); s.lineTo( DHW,  DHH); s.lineTo(-DHW,  DHH); }
+    else if (part === "bottom") { s.moveTo(-DHW, -DHH); s.lineTo( DHW, -DHH); s.lineTo( DHW, -NH);  s.lineTo(-DHW, -NH); }
+    else if (part === "left")   { s.moveTo(-DHW, -NH); s.lineTo(-NW,  -NH); s.lineTo(-NW,   NH);  s.lineTo(-DHW,  NH); }
+    else                        { s.moveTo( NW,  -NH); s.lineTo( DHW, -NH); s.lineTo( DHW,  NH);  s.lineTo( NW,   NH); }
+    s.closePath();
     return extrudeBoard(s);
   }
   const boardTop = pipeBoard(true), boardBot = pipeBoard(false);
-  const dboardTop = ductBoard(true), dboardBot = ductBoard(false);
   const SEATZ = WALL_FRONT + 0.1;
+  // 진입 방향과 순서. 상·하가 먼저 자리를 잡고 좌·우가 그 사이로 끼워지는 순서라야 조립으로 읽힌다.
+  // 한 장씩 시차를 두는 이유는 **네 장이라는 게 세어지게** 하기 위해서다.
+  // ⚠️ 좌·우를 x 로만 보내면 (a) 오른쪽 조각이 이미 시공된 배관 보드(x=9)를 뚫고 지나가고
+  //    (b) 왼쪽 조각이 앞으로 튀어나온 덕트 몸체에 완전히 가려 보이지 않는다.
+  //    → 왼쪽은 아래-왼쪽에서, 오른쪽은 위-오른쪽에서 비스듬히 들어오게 해 둘 다 화면에 살린다.
+  const DUCT_PARTS = [
+    { m: ductBoard("bottom"), dx:  0.0, dy: -3.6, dz: 1.1, rz:  0.08, lag: 0.00 },
+    { m: ductBoard("top"),    dx:  0.0, dy:  3.6, dz: 1.1, rz: -0.08, lag: 0.18 },
+    { m: ductBoard("left"),   dx: -4.4, dy: -1.6, dz: 1.6, rz:  0.10, lag: 0.40 },
+    { m: ductBoard("right"),  dx:  3.4, dy:  1.4, dz: 2.4, rz: -0.10, lag: 0.58 },
+  ];
 
   // =====================================================================
   //  스크린셔터 — 실제 구동 영상(docs/사진/셔터 영상.mp4) 기준.
@@ -633,11 +647,13 @@ export async function initHero3D(canvas, host) {
     };
     rig.light.position.set(o.x, o.y - o.hh * 0.4, WALL_FRONT + 0.3);
     scene.add(rig.light);
-    rig.update = function (t, on, reach, maxY) {
+    // seal = 개구부가 막힌 정도(0~1). 연기는 **막히는 즉시 끊긴다** — 다 막았는데 연기가
+    // 계속 피어오르면 차단이 안 된 것처럼 보인다. 불과 달리 잔연을 남기지 않는다.
+    rig.update = function (t, on, reach, maxY, seal) {
       animSheets(rig.sheets, t, on, reach, maxY);
       animFire(rig.ember, t, on, reach, maxY);
-      // 연기는 불보다 조금 늦게 사그라진다 — 불이 꺼져도 잔연은 남는다
-      animSheets(rig.smoke, t, Math.min(1, on * 1.25), reach, maxY);
+      const smokeOn = Math.min(1, on) * (1 - clamp01(((seal || 0) - 0.55) / 0.35));
+      animSheets(rig.smoke, t, smokeOn, reach, maxY);
       const fl = Math.abs(Math.sin(t * 2.6 + rig.seed)) * 0.55 + Math.abs(Math.sin(t * 7.1 + rig.seed)) * 0.2;
       rig.glow.material.opacity = on * (0.3 + fl * 0.24);
       // 막히면 벽면으로 새어나오던 불빛도 함께 사라진다(셔터 원단 앞면이 달아오르지 않게)
@@ -659,12 +675,14 @@ export async function initHero3D(canvas, host) {
     { bottom: BIG.y + 1.2, h: 12.5, wpad: 7.0, z: [0.4, 1.4], alpha: [0.6, 0.4], density: 3.0, speed: 0.42, narrow: 0.2, flare: 0.34 });
 
   // ---- 조명 ----
-  scene.add(new THREE.HemisphereLight(0xeef1f6, 0x74747a, 0.62));
-  const key = new THREE.DirectionalLight(0xfff3e6, 1.3); key.castShadow = true;
+  // 앰비언트(hemi)를 낮추고 방향광(key)을 올리면 면마다 명암이 갈려 형태가 또렷해진다.
+  // 반대로 hemi 가 세면 전체가 균일하게 떠서 '뿌연' 그림이 된다.
+  scene.add(new THREE.HemisphereLight(0xeef1f6, 0x6e6e75, 0.46));
+  const key = new THREE.DirectionalLight(0xfff3e6, 1.62); key.castShadow = true;
   key.shadow.mapSize.set(2048, 2048); key.shadow.camera.near = 1; key.shadow.camera.far = 70;
   key.shadow.camera.left = -16; key.shadow.camera.right = 16; key.shadow.camera.top = 13; key.shadow.camera.bottom = -11; key.shadow.bias = -0.0012;
   scene.add(key); scene.add(key.target); // 그림자 카메라가 시선을 따라다니게(넓은 씬에서 해상도 확보)
-  const fill = new THREE.DirectionalLight(0xdfe8ff, 0.3); fill.position.set(-6, 4, 6); scene.add(fill);
+  const fill = new THREE.DirectionalLight(0xdfe8ff, 0.2); fill.position.set(-6, 4, 6); scene.add(fill);
   // 카메라 쪽 스펙큘러 — 은빛 배관·덕트 위로 길게 흐르는 하이라이트를 만든다
   const spec = new THREE.DirectionalLight(0xffffff, 1.0); spec.position.set(7, 6, 14); scene.add(spec);
   // =====================================================================
@@ -792,14 +810,26 @@ export async function initHero3D(canvas, host) {
     top.rotation.z = (1 - e) * -0.1; bot.rotation.z = (1 - e) * 0.1;
   }
   function animBoards(cycle) {
+    // 등장과 동시에 움직인다 — 미리 띄워두면 공중에서 멈췄다 시공되는 것처럼 보인다
     seatPen = cycle < BOARD_IN ? 0 : easeOut(clamp01((cycle - BOARD_IN) / BOARD_DUR));
-    seatDkt = cycle < DKB_IN ? 0 : easeOut(clamp01((cycle - DKB_IN) / DKB_DUR));
-    // 확립샷에서 보드가 공중에 떠 있으면 이상하다 — 시공 직전에만 등장
-    const onP = cycle > BOARD_IN - 1.0, onD = cycle > DKB_IN - 1.0;
+    const onP = cycle >= BOARD_IN;
     boardTop.visible = boardBot.visible = onP;
-    dboardTop.visible = dboardBot.visible = onD;
     if (onP) seatBoards(boardTop, boardBot, PEN, seatPen);
-    if (onD) seatBoards(dboardTop, dboardBot, DUCT, seatDkt);
+
+    // 덕트는 네 조각이 조금씩 시차를 두고 들어온다. 가장 덜 들어온 조각을 밀폐도로 삼는다
+    let least = 1;
+    for (const p of DUCT_PARTS) {
+      const t0 = DKB_IN + p.lag;
+      const on = cycle >= t0;
+      p.m.visible = on;
+      const e = on ? easeOut(clamp01((cycle - t0) / DKB_DUR)) : 0;
+      if (on) {
+        p.m.position.set(DUCT.x + (1 - e) * p.dx, DUCT.y + (1 - e) * p.dy, SEATZ + (1 - e) * p.dz);
+        p.m.rotation.z = (1 - e) * p.rz;
+      }
+      if (e < least) least = e;
+    }
+    seatDkt = least;
   }
   function animShutter(cycle, t) {
     // 실제 셔터는 등속에 가깝게 내려온다 — 마지막만 살짝 감속
@@ -832,14 +862,16 @@ export async function initHero3D(canvas, host) {
 
     // 불은 보드가 다 밀착된 **뒤에** 꺼진다 — 진화 순서가 눈에 보이게.
     // reach = 개구부 밖으로 삐져나오는 정도. 보드가 밀착할수록 불이 안으로 밀려 들어간다
-    rigPen.update(t, 1 - clamp01((cycle - PEN_OUT) / PEN_OUT_D), 1 - seatPen * 0.92);
-    rigDkt.update(t, 1 - clamp01((cycle - (PEN_OUT + 0.35)) / PEN_OUT_D), 1 - seatDkt * 0.92);
+    // 다섯 번째 인자 = 밀폐도. 연기는 이 값에 따라 즉시 끊긴다(불보다 먼저 사라진다)
+    rigPen.update(t, 1 - clamp01((cycle - PEN_OUT) / PEN_OUT_D), 1 - seatPen * 0.92, undefined, seatPen);
+    rigDkt.update(t, 1 - clamp01((cycle - (PEN_OUT + 0.35)) / PEN_OUT_D), 1 - seatDkt * 0.92, undefined, seatDkt);
     // 셔터는 다 닫힌 **뒤에** 꺼진다. 닫히는 동안은 불꽃이 셔터 하단 아래로 눌려 사라질 뿐이다
     rigBig.update(
       t,
       (1 - clamp01((cycle - BIG_OUT) / BIG_OUT_D)) * (1 - coverBig * 0.35),
       1 - coverBig * 0.9,
-      coverBig > 0.008 ? shTopY - coverBig * shH : undefined
+      coverBig > 0.008 ? shTopY - coverBig * shH : undefined,
+      coverBig
     );
   }
 

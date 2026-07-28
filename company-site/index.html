@@ -249,7 +249,9 @@
                     <div class="ha-sweep"></div>
                     <div class="ha-veil"></div>
                 </div>
-                <div class="hero-scrim"></div>
+                <!-- .on 은 흰 스크림(뿌연 층). 3D 재생 중에는 main.js 가 벗겨 화면을 선명하게 두고,
+                     영상이 끝나면 다시 씌워 문구가 읽히게 한다. 3D를 못 쓰는 환경에서는 그대로 유지된다. -->
+                <div class="hero-scrim on" id="heroScrim"></div>
             </div>
             <!-- 문구는 3D 영상이 끝난 뒤 순서대로 들어온다 (main.js 가 .await → .in 으로 전환).
                  3D를 못 쓰는 환경에서는 클래스가 붙지 않아 처음부터 그대로 보인다. -->
