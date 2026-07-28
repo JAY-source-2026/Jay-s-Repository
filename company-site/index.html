@@ -16,10 +16,10 @@
     <meta property="og:url" content="https://jay-source-2026.github.io/Jay-s-Repository/company-site/">
     <meta property="og:title" content="주식회사 디오이엔씨 (DOENC) | 화재차단 전문기업">
     <meta property="og:description" content="기술력을 바탕으로 고객과 함께하는 (주)디오이엔씨. 내화채움구조·내화구조·셔터 제조 및 시공.">
-    <meta property="og:image" content="https://jay-source-2026.github.io/Jay-s-Repository/company-site/assets/images/doenc_logo.png">
+    <meta property="og:image" content="https://jay-source-2026.github.io/Jay-s-Repository/company-site/assets/images/doenc_mark.png">
     <meta name="twitter:card" content="summary">
 
-    <link rel="icon" type="image/png" href="assets/images/doenc_logo.png">
+    <link rel="icon" type="image/png" href="assets/images/doenc_mark.png">
 
     <script type="application/ld+json">
     {
@@ -28,7 +28,7 @@
       "name": "주식회사 디오이엔씨",
       "alternateName": "DOENC",
       "url": "https://jay-source-2026.github.io/Jay-s-Repository/company-site/",
-      "logo": "https://jay-source-2026.github.io/Jay-s-Repository/company-site/assets/images/doenc_logo.png",
+      "logo": "https://jay-source-2026.github.io/Jay-s-Repository/company-site/assets/images/doenc_mark.png",
       "description": "화재차단 전문기업. 내화채움구조·내화구조·셔터·설계소프트웨어를 자체기술로 국산화하여 건축물 및 지하구의 화재차단 장치를 제조·시공합니다.",
       "telephone": "+82-2-925-2992",
       "faxNumber": "+82-2-929-5927",
@@ -71,7 +71,7 @@
     <header class="hd" id="siteHeader">
         <div class="hd-inner">
             <a class="hd-brand" href="#home" aria-label="디오이엔씨 홈">
-                <img src="assets/images/doenc_logo.png" alt="" width="240" height="240">
+                <img class="brand-mark" src="assets/images/doenc_mark.png" alt="" width="384" height="220">
                 <span>DOENC</span>
             </a>
             <nav class="hd-nav" aria-label="주요 메뉴">
@@ -194,7 +194,7 @@
             </div>
             <div class="hero-body">
                 <p class="hero-eyebrow"><span></span>CREATIVE DOENC</p>
-                <h1 class="hero-title">우리는 기술을 만들고<br>기술은 미래를 만듭니다</h1>
+                <h1 class="hero-title">우리는 기술을 만들고<br>기술은 안전을 만듭니다</h1>
                 <a class="more more-lg" href="#business">VIEW MORE <i aria-hidden="true">+</i></a>
             </div>
             <div class="hero-meta" aria-hidden="true">
@@ -721,7 +721,7 @@
     <footer class="ft">
         <div class="wrap ft-inner">
             <div class="ft-brand">
-                <img src="assets/images/doenc_logo.png" alt="" width="240" height="240">
+                <img class="brand-mark" src="assets/images/doenc_mark.png" alt="" width="384" height="220">
                 <span>DOENC</span>
             </div>
             <nav class="ft-nav" aria-label="푸터 메뉴">
@@ -749,6 +749,7 @@
       if (gl) {
         import("./assets/js/hero3d.js")
           .then(function (m) { return m.initHero3D(canvas, host); })
+          .then(function (api) { window.hero3d = api; })  // 1회 재생이라 replay()로 다시 볼 수 있게
           .catch(function () { /* 실패하면 폴백 배경이 그대로 남는다 */ });
       }
     </script>
