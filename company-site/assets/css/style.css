@@ -97,7 +97,8 @@ svg { display: block; width: 100%; height: auto; }
     height: 80px; display: flex; align-items: center; gap: 32px;
 }
 .hd-brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 19px; letter-spacing: .06em; }
-.hd-brand img { width: 26px; height: 26px; object-fit: contain; }
+/* 로고 마크는 가로로 긴 형태(1.75:1) — 정사각으로 눌리지 않게 높이를 따라가게 둔다 */
+.hd-brand .brand-mark { width: 38px; height: auto; }
 .hd-nav { display: flex; gap: 34px; margin: 0 auto; }
 .hd-nav a {
     position: relative; font-size: 15px; font-weight: 500; color: rgba(23, 24, 29, .72);
@@ -516,7 +517,7 @@ svg { display: block; width: 100%; height: auto; }
 .ft { position: relative; padding: 74px 0 46px; border-top: 1px solid var(--line); }
 .ft-inner { display: grid; grid-template-columns: auto 1fr; gap: 26px 60px; align-items: start; }
 .ft-brand { display: flex; align-items: center; gap: 10px; font-weight: 800; font-size: 18px; letter-spacing: .06em; }
-.ft-brand img { width: 26px; height: 26px; object-fit: contain; }
+.ft-brand .brand-mark { width: 36px; height: auto; }
 .ft-nav { display: flex; gap: 28px; justify-self: end; font-size: 14px; }
 .ft-nav a { color: var(--muted); }
 .ft-nav a:hover { color: var(--accent); }
