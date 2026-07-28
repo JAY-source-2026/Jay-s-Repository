@@ -349,29 +349,42 @@
   var brand = document.getElementById("brandHome");
   var heroSection = document.getElementById("home");
   var heroBody = document.getElementById("heroBody");
+  var heroScrim = document.getElementById("heroScrim");
 
   // ----- 히어로 문구는 영상이 끝난 뒤 한 줄씩 들어온다 -----
-  // 3D를 못 쓰거나 모션을 줄이는 환경에서는 클래스가 붙지 않아 처음부터 그대로 보인다.
+  // 흰 스크림도 같이 움직인다 — 재생 중엔 벗겨서 3D를 선명하게, 끝나면 씌워 문구가 읽히게.
+  // 3D를 못 쓰거나 모션을 줄이는 환경에서는 클래스가 그대로라 처음부터 문구·스크림이 다 보인다.
   var reduceMotion = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function heroReveal(show) {
+    if (heroBody) {
+      heroBody.classList.toggle("await", !show);
+      heroBody.classList.toggle("in", !!show);
+    }
+    if (heroScrim) heroScrim.classList.toggle("on", !!show);
+  }
+  // 3D 로딩이 실패하면 문구가 영영 안 나오므로 안전장치를 둔다.
+  // ⚠️ 안전장치는 반드시 영상 길이보다 길어야 한다 — 짧으면 재생 도중에 문구가 튀어나온다.
+  //    그래서 재생이 시작되면 실제 길이(api.total)를 받아 마감 시각을 다시 잡는다.
+  var heroGuard = null;
+  function armGuard(sec) {
+    if (heroGuard) clearTimeout(heroGuard);
+    heroGuard = setTimeout(function () {
+      if (heroBody && !heroBody.classList.contains("in")) heroReveal(true);
+    }, sec * 1000);
+  }
   if (heroBody && document.getElementById("hero3d") && !reduceMotion) {
-    heroBody.classList.add("await");
-    // 3D 로딩이 실패하면 문구가 영영 안 나오므로 안전장치를 둔다
-    setTimeout(function () {
-      if (!heroBody.classList.contains("in")) {
-        heroBody.classList.remove("await");
-        heroBody.classList.add("in");
-      }
-    }, 15000);
+    heroReveal(false);
+    armGuard(12);   // 이때까지 재생이 시작되지 않으면 3D 자체가 실패한 것으로 본다
   }
   document.addEventListener("herofilm:start", function () {
-    if (!heroBody) return;
-    heroBody.classList.remove("in");
-    heroBody.classList.add("await");
+    heroReveal(false);
+    var api = window.heroFilm;
+    var total = api && typeof api.total === "number" ? api.total : 32;
+    armGuard(total + 6);   // 재생 중에는 절대 먼저 뜨지 않게 넉넉히
   });
   document.addEventListener("herofilm:end", function () {
-    if (!heroBody) return;
-    heroBody.classList.remove("await");
-    heroBody.classList.add("in");
+    if (heroGuard) { clearTimeout(heroGuard); heroGuard = null; }
+    heroReveal(true);
   });
 
   // id 가 hero3d 인 캔버스 때문에 window.hero3d 는 준비 전에도 참이 된다 → 실제 API인지 확인한다
