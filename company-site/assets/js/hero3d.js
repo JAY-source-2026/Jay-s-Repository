@@ -669,6 +669,51 @@ export async function initHero3D(canvas, host) {
   ];
 
   // =====================================================================
+  //  **이미 시공이 끝난 관통부** — 주역 옆의 빈 벽을 채운다.
+  //   멀리 빠졌을 때 벽이 휑하면 '한 군데만 하는 회사'로 보인다. 같은 처리가 현장 전체에
+  //   이미 되어 있는 모습을 보여주는 게 목적.
+  //   ⚠️ 벽에 구멍을 뚫지 않는다 — 보드가 어차피 그 자리를 덮으므로 구멍은 보이지 않는다.
+  //      (측벽은 개구부 분할 로직이 없어서, 뚫으려면 벽 생성 전체를 건드려야 한다)
+  //   좌표계: 그룹 원점 = 벽 앞면, 로컬 +z = 벽에서 나오는 방향. 측벽에는 rotation.y 로 돌려 붙인다.
+  // =====================================================================
+  function sealedPenetration(kind, out) {
+    const g = new THREE.Group();
+    const back = 1.4;                                   // 벽 뒤로 물리는 길이
+    if (kind === "pipe") {
+      const len = out + back;
+      const p = new THREE.Mesh(new THREE.CylinderGeometry(PIPE_R, PIPE_R, len, 28), matPipe);
+      p.rotation.x = Math.PI / 2; p.position.z = (out - back) / 2;
+      p.castShadow = true; p.receiveShadow = true; g.add(p);
+      [0.62, out - 0.5].forEach((dz) => {
+        const b = new THREE.Mesh(new THREE.CylinderGeometry(PIPE_R + 0.03, PIPE_R + 0.03, 0.16, 28), matBand);
+        b.rotation.x = Math.PI / 2; b.position.z = dz; b.castShadow = true; g.add(b);
+      });
+      [pipeBoard(true), pipeBoard(false)].forEach((m) => { m.position.z = 0.1; g.add(m); });
+    } else {
+      const len = out + back, cz = (out - back) / 2;
+      box(DUCT_W, DUCT_H, len, matDuct, 0, 0, cz, g, true, true);
+      [0.7, out - 0.6].forEach((dz) => box(DUCT_W + 0.2, DUCT_H + 0.2, 0.14, matBand, 0, 0, dz, g, true, true));
+      box(DUCT_W + 0.04, 0.05, len * 0.9, matBand, 0, DUCT_H / 2, cz, g, false, false);
+      ["top", "bottom", "left", "right"].forEach((k) => { const m = ductBoard(k); m.position.z = 0.1; g.add(m); });
+    }
+    scene.add(g);
+    return g;
+  }
+  // 본 벽 — 기둥(…-41·-33·-25·15·23·31)을 피해 기둥 사이 빈칸에 앉힌다.
+  // 오른쪽(19·27)과 셔터 왼쪽 구간(-37·-29) 둘 다 채워야 마지막 와이드 컷에서 벽이 안 휑하다.
+  [{ k: "duct", x: 19.0, y: 1.9, out: 3.4 }, { k: "pipe", x: 27.0, y: 1.7, out: 3.0 },
+   { k: "duct", x: -37.0, y: 1.9, out: 3.4 }, { k: "pipe", x: -29.0, y: 1.7, out: 3.0 }].forEach((c) => {
+    sealedPenetration(c.k, c.out).position.set(c.x, c.y, WALL_FRONT);
+  });
+  // 왼쪽에서 꺾여 들어가는 측벽 — 2222 컷에서 가장 휑하던 자리. 배관·덕트 두 개씩.
+  const SIDE_X = WX0 + 0.5;   // 측벽 앞면(실내 쪽)
+  [{ k: "pipe", z: 4.5, y: 1.7, out: 3.0 }, { k: "duct", z: 11.0, y: 1.9, out: 3.4 },
+   { k: "pipe", z: 17.5, y: 1.7, out: 3.0 }, { k: "duct", z: 24.0, y: 1.9, out: 3.4 }].forEach((c) => {
+    const g = sealedPenetration(c.k, c.out);
+    g.position.set(SIDE_X, c.y, c.z); g.rotation.y = Math.PI / 2;   // 로컬 +z → 월드 +x
+  });
+
+  // =====================================================================
   //  스크린셔터 — 실제 구동 영상(docs/사진/셔터 영상.mp4) 기준.
   //   · 원단은 **크림색 유리섬유 직물**, 가로 이음매가 1m 간격
   //   · 중앙 기둥 없이 **한 장이 개구부 전폭을 한 번에** 내려온다
@@ -942,8 +987,10 @@ export async function initHero3D(canvas, host) {
   // f = 화각. 확립샷은 넓게(개구부가 다 들어오게), 클로즈업은 좁게 — 줌 자체가 연출이 된다
   const PENC = (PEN.x + DUCT.x) / 2; // 배관+덕트를 한 프레임에 담는 중심
   const KEYS = [
-    { t: 0.0,  p: [17, 7.0, 32],     l: [-11, 4.2, WALL_Z], f: 56, sx: -2.5 },                   // 확립샷 — 벽 전체, 세 곳에서 불
-    { t: 4.6,  p: [16, 6.3, 27],     l: [-7, 4.0, WALL_Z], f: 51, sx: -1.0 },                    // 천천히 다가가기 시작
+    // 시작은 멀리서 훑는 확립샷이 아니라 **현장 안에 들어와 있는 시점** — 불이 바로 눈앞에서 난다.
+    // 여기서 천천히 뒤로 빠지며 시공을 지켜보고, 마지막에 전체를 보여주는 구성.
+    { t: 0.0,  p: [12.5, 5.0, 14.0], l: [1.0, 3.2, WALL_Z], f: 45, sx: 4.0 },                    // 개구부 두 곳이 한 화면에
+    { t: 4.6,  p: [13.2, 4.7, 16.0], l: [1.5, 3.0, WALL_Z], f: 44, sx: 4.5 },                    // 천천히 물러나며 전모를 보여줌
     { t: 8.4,  p: [13.6, 4.0, 17.4], l: [PENC - 4.6, PEN.y + 0.5, WALL_Z], f: 40, sx: PENC },    // 관통부 클로즈업 도착
     { t: 15.9, p: [13.1, 3.9, 16.6], l: [PENC - 4.6, PEN.y + 0.5, WALL_Z], f: 40, sx: PENC },    // 배관→덕트 순서로 시공, 진화까지 지켜보기
     { t: 19.4, p: [-7.6, 4.5, 21.5], l: [BIG.x - 4.0, BIG.y + 1.0, WALL_Z], f: 46, sx: BIG.x },  // 벽을 따라 대형 개구부로
