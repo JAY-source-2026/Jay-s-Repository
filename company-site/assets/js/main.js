@@ -37,10 +37,10 @@
     });
   }
   function openMega() { if (megaHold) { clearTimeout(megaHold); megaHold = null; } setMega(true); }
-  // 메뉴와 판 사이를 지나갈 때 깜빡이지 않도록 닫기만 살짝 늦춘다
+  // 메뉴와 판 사이를 지나갈 때 깜빡이지 않을 만큼만 늦춘다 — 길면 판이 남아 답답하다
   function closeMega() {
     if (megaHold) clearTimeout(megaHold);
-    megaHold = setTimeout(function () { setMega(false); megaHold = null; }, 140);
+    megaHold = setTimeout(function () { setMega(false); megaHold = null; }, 55);
   }
 
   var navBar = document.querySelector(".hd-nav");

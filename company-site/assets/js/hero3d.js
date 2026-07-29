@@ -860,7 +860,10 @@ export async function initHero3D(canvas, host) {
     { x0: -26, x1: -13, z0: 11.0, z1: 14.0, sp: 0.118, ph: 0.30, style: 2, cloth: 0x2b303a, vest: 0x8f97a4, hat: 0 },
     { x0:  20, x1:  33, z0: 10.0, z1: 13.0, sp: 0.142, ph: 0.65, style: 0, cloth: 0x3a4048, vest: 0xd6d94a, hat: 1 },
     { x0: -41, x1: -28, z0: 6.5,  z1: 9.5,  sp: 0.126, ph: 0.92, style: 1, cloth: 0x353b45, vest: 0xcfd644, hat: 1 },
-    { x0: -20, x1: -7,  z0: 3.4,  z1: 6.4,  sp: 0.171, ph: 0.22, style: 0, cloth: 0x424852, vest: 0xe08a3c, hat: 1 },
+    // ⚠️ 이 사람은 셔터(BIG, x=-13) 바로 앞을 좁게 오가서 시선을 계속 잡아끌었다.
+    //    동선을 벽 왼쪽 끝까지 늘리고 셔터를 구간의 '끝'에 두어, 스쳐 지나가기만 하게 했다.
+    //    구간을 늘린 만큼 sp 를 낮춰야 달리는 속도(약 4.4m/s)가 그대로 유지된다.
+    { x0: -45, x1: -12, z0: 5.2,  z1: 8.6,  sp: 0.067, ph: 0.22, style: 0, cloth: 0x424852, vest: 0xe08a3c, hat: 1 },
     { x0:  24, x1: 36,  z0: 6.0,  z1: 9.0,  sp: 0.121, ph: 0.44, style: 2, cloth: 0x30363f, vest: 0xcfd644, hat: 0 },
     { x0: -37, x1: -25, z0: 12.5, z1: 15.5, sp: 0.156, ph: 0.71, style: 0, cloth: 0x3d434c, vest: 0x8f97a4, hat: 1 },
   ].map((c) => Object.assign({ o: buildPerson(c.cloth, c.vest, c.hat), face: 0 }, c));
