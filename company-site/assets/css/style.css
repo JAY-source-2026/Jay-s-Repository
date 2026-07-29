@@ -114,9 +114,10 @@ svg { display: block; width: 100%; height: auto; }
     height: calc(var(--hd-h) + var(--mega-h));
     background: var(--mega-bg);
     opacity: 0; transform: translateY(-10px); pointer-events: none;
-    transition: opacity .3s ease, transform .3s cubic-bezier(.2, .7, .2, 1);
+    /* 열릴 때는 여유 있게, **닫힐 때는 빠르게** — 판이 오래 남아 있으면 답답하다 */
+    transition: opacity .16s ease, transform .16s ease;
 }
-.hd.mega::before { opacity: 1; transform: none; }
+.hd.mega::before { opacity: 1; transform: none; transition: opacity .3s ease, transform .3s cubic-bezier(.2, .7, .2, 1); }
 /* 판이 떠 있는 동안에는 스크롤용 흰 배경을 끈다 — 두 겹이 겹쳐 보이면 지저분하다 */
 .hd.mega, .hd.mega.solid { background: transparent; backdrop-filter: none; border-bottom-color: transparent; }
 .hd-inner { position: relative; z-index: 1; }
@@ -128,17 +129,22 @@ svg { display: block; width: 100%; height: auto; }
 .hd.mega .hd-cta:hover { background: var(--accent); border-color: var(--accent); }
 .hd-brand, .brand-mark, .hd-cta { transition: color .28s ease, filter .28s ease, border-color .28s ease, background .25s ease; }
 
-.hd-nav { display: flex; gap: clamp(44px, 4.2vw, 76px); margin: 0 auto; }
+/* 간격은 **가장 넓은 하위 항목이 옆 열을 침범하지 않을 만큼** 벌린다.
+   필요 간격 = (하위 열 폭 − 대메뉴 글자 폭) + 좌우 여백×2. 자료실이 가장 빡빡하다(약 99px). */
+.hd-nav { display: flex; gap: clamp(104px, 7.2vw, 132px); margin: 0 auto; }
 .nav-item { position: relative; }
-/* 마우스가 올라간 열만 밝게 — 어느 열을 보고 있는지 판 전체에서 읽힌다 */
-.nav-item::before {
+/* 마우스가 올라간 열만 밝게 — 어느 열을 보고 있는지 판 전체에서 읽힌다.
+   ⚠️ 강조 칸을 .nav-item 에 붙이면 **대메뉴 글자 폭**만 덮어서 더 넓은 하위 항목이 삐져나온다.
+      .nav-sub 는 min-width:100% 라 폭이 곧 max(대메뉴, 하위항목) → 여기에 붙여야 둘 다 감싼다. */
+.nav-sub::before {
     content: ""; position: absolute; z-index: -1;
     left: calc(-1 * var(--mega-pad)); right: calc(-1 * var(--mega-pad));
-    top: 0; height: calc(var(--hd-h) + var(--mega-h));
+    top: calc(-1 * var(--hd-h)); height: calc(var(--hd-h) + var(--mega-h));
     background: rgba(255, 255, 255, .062);
-    opacity: 0; transition: opacity .25s ease;
+    opacity: 0; transition: opacity .2s ease;
 }
-.hd.mega .nav-item:hover::before, .hd.mega .nav-item:focus-within::before { opacity: 1; }
+.hd.mega .nav-item:hover .nav-sub::before,
+.hd.mega .nav-item:focus-within .nav-sub::before { opacity: 1; }
 
 .nav-top {
     position: relative; display: inline-flex; align-items: center;
@@ -164,9 +170,12 @@ svg { display: block; width: 100%; height: auto; }
     padding: 26px 0 0;
     opacity: 0; visibility: hidden; pointer-events: none;
     transform: translateY(8px);
+    transition: opacity .13s ease, transform .13s ease, visibility .13s;   /* 닫힐 때 */
+}
+.hd.mega .nav-sub {
+    opacity: 1; visibility: visible; pointer-events: auto; transform: none;
     transition: opacity .28s ease, transform .34s cubic-bezier(.2, .7, .2, 1), visibility .28s;
 }
-.hd.mega .nav-sub { opacity: 1; visibility: visible; pointer-events: auto; transform: none; }
 /* 네 열이 동시에 뜨되 아주 살짝 시차를 둬서 판이 '펼쳐지는' 느낌을 준다 */
 .hd.mega .nav-item:nth-child(1) .nav-sub { transition-delay: .04s; }
 .hd.mega .nav-item:nth-child(2) .nav-sub { transition-delay: .08s; }
@@ -236,7 +245,7 @@ svg { display: block; width: 100%; height: auto; }
     position: absolute; inset: 0; overflow: hidden;
     /* 3D 가 뜨기 전에도 같은 장면이 보이도록 첫 프레임을 포스터로 깔아둔다.
        배경색은 포스터의 평균색 — 이미지가 오기 전에도 흰 화면이 되지 않는다. */
-    background: #979392 url("../images/hero-poster.jpg?v=20260729a") center center / cover no-repeat;
+    background: #979392 url("../images/hero-poster.jpg?v=20260729b") center center / cover no-repeat;
 }
 
 /* 사실적 3D 캔버스 — 준비되면 폴백 위로 나타난다 */
