@@ -701,8 +701,9 @@ export async function initHero3D(canvas, host) {
   }
   // 본 벽 — 기둥(…-41·-33·-25·15·23·31)을 피해 기둥 사이 빈칸에 앉힌다.
   // 오른쪽(19·27)과 셔터 왼쪽 구간(-37·-29) 둘 다 채워야 마지막 와이드 컷에서 벽이 안 휑하다.
-  [{ k: "duct", x: 19.0, y: 1.9, out: 3.4 }, { k: "pipe", x: 27.0, y: 1.7, out: 3.0 },
-   { k: "duct", x: -37.0, y: 1.9, out: 3.4 }, { k: "pipe", x: -29.0, y: 1.7, out: 3.0 }].forEach((c) => {
+  // ⚠️ 셔터(x=-13) 왼쪽 본 벽에는 두지 않는다 — 셔터가 내려오는 장면 바로 옆에서 시선을 나눠 간다.
+  //    (전에 -37·-29 에 뒀다가 뺐음. 왼쪽 허전함은 꺾인 측벽 쪽으로 해결한다)
+  [{ k: "duct", x: 19.0, y: 1.9, out: 3.4 }, { k: "pipe", x: 27.0, y: 1.7, out: 3.0 }].forEach((c) => {
     sealedPenetration(c.k, c.out).position.set(c.x, c.y, WALL_FRONT);
   });
   // 왼쪽에서 꺾여 들어가는 측벽 — 2222 컷에서 가장 휑하던 자리. 배관·덕트 두 개씩.
@@ -862,6 +863,9 @@ export async function initHero3D(canvas, host) {
     const body = new THREE.Group(); g.add(body);   // 달릴 때 앞으로 기울이는 상·하체 전체
     const cloth = new THREE.MeshStandardMaterial({ color: clothC, roughness: 0.88 });
     const vest = new THREE.MeshStandardMaterial({ color: vestC, roughness: 0.7, emissive: vestC, emissiveIntensity: 0.1 });
+    // 사라졌다 나타나는 연출을 하려면 재질이 **인물마다 따로**여야 한다(공유하면 전원이 같이 흐려진다)
+    const skin = matSkin.clone(), hat = matHelmet.clone(), shade = matShade.clone();
+    const mats = [{ m: cloth, a: 1 }, { m: vest, a: 1 }, { m: skin, a: 1 }, { m: hat, a: 1 }, { m: shade, a: matShade.opacity }];
     const limb = (parent, x, y, len, w, mat) => {
       const piv = new THREE.Group(); piv.position.set(x, y, 0); parent.add(piv);
       const m = new THREE.Mesh(new THREE.BoxGeometry(w, len, w * 1.15), mat);
@@ -873,22 +877,22 @@ export async function initHero3D(canvas, host) {
     const armR = limb(body,  0.29, 1.44, 0.66, 0.13, cloth);
     box(0.46, 0.66, 0.26, cloth, 0, 1.2, 0, body, true, false);        // 몸통
     box(0.5, 0.46, 0.31, vest, 0, 1.2, 0, body, true, false);          // 안전조끼
-    box(0.15, 0.13, 0.15, matSkin, 0, 1.6, 0, body, true, false);      // 목
+    box(0.15, 0.13, 0.15, skin, 0, 1.6, 0, body, true, false);         // 목
     // 머리는 따로 묶는다 — 달아나면서 불 쪽을 돌아보게 하려면 목만 돌려야 한다
     const headPiv = new THREE.Group(); headPiv.position.y = 1.62; body.add(headPiv);
-    const head = new THREE.Mesh(new THREE.SphereGeometry(0.115, 16, 12), matSkin);
+    const head = new THREE.Mesh(new THREE.SphereGeometry(0.115, 16, 12), skin);
     head.position.y = 0.10; head.castShadow = true; headPiv.add(head);
     if (helmet) {
-      const h = new THREE.Mesh(new THREE.SphereGeometry(0.145, 18, 12, 0, Math.PI * 2, 0, Math.PI / 2), matHelmet);
+      const h = new THREE.Mesh(new THREE.SphereGeometry(0.145, 18, 12, 0, Math.PI * 2, 0, Math.PI / 2), hat);
       h.position.y = 0.13; h.castShadow = true; headPiv.add(h);
-      const brim = new THREE.Mesh(new THREE.CylinderGeometry(0.175, 0.175, 0.03, 18), matHelmet);
+      const brim = new THREE.Mesh(new THREE.CylinderGeometry(0.175, 0.175, 0.03, 18), hat);
       brim.position.y = 0.125; headPiv.add(brim);
     }
     // 접지 그림자 — 그림자맵 범위 밖에서도 바닥에 붙어 보이게
-    const sh = new THREE.Mesh(new THREE.CircleGeometry(0.36, 20), matShade);
+    const sh = new THREE.Mesh(new THREE.CircleGeometry(0.36, 20), shade);
     sh.rotation.x = -Math.PI / 2; sh.position.y = 0.03; g.add(sh);
     scene.add(g);
-    return { g, body, headPiv, legL, legR, armL, armR, shade: sh };
+    return { g, body, headPiv, legL, legR, armL, armR, shade: sh, mats };
   }
 
   // =====================================================================
@@ -917,27 +921,57 @@ export async function initHero3D(canvas, host) {
   // 삼각파 둘을 합쳐 왕복 주기가 눈에 안 띄게 — 규칙적으로 오가면 산책으로 보인다
   const scurry = (u) => clamp01(0.72 * tri(u) + 0.28 * tri(u * 2.37 + 0.19));
 
-  // 다 막고 불이 꺼졌는데도 계속 도망다니면 이상하다 → **시간축 자체를 눌러** 걸음을 잦아들게 한다.
+  // ---- 사람이 나오고 들어가는 구간 ----
+  //  시공·셔터 장면에서는 감춘다 — 앞에서 사람이 뛰어다니면 주역(보드·셔터)에 집중이 안 된다.
+  //  다시 나올 때는 이미 진정된 상태로, 여유롭게 걷는 모습이어야 한다.
+  const HIDE_IN = 6.0, HIDE_OUT = 25.7, PPL_FADE = 1.3;   // HIDE_OUT = 카메라가 물러나기 시작하는 시점
+  // 다급함이 잦아드는 시점은 **감춰져 있는 동안**으로 잡는다 → 다시 등장할 땐 이미 걷는 걸음이다.
   // (속도 계수를 그냥 곱하면 위치가 튄다. 누적 시간을 적분해 두면 이어진 채로 느려진다.)
-  const CALM_AT = 25.3, CALM_DUR = 4.0, CALM_MIN = 0.26;
-  function calmTime(c) {
+  const CALM_AT = 8.0, CALM_DUR = 3.0, CALM_MIN = 0.26;
+  // floor = 진정된 뒤의 시간 진행 배율
+  function calmTime(c, floor) {
     if (c <= CALM_AT) return c;
-    const k = (1 - CALM_MIN) / CALM_DUR;                  // 초당 감속량
+    const k = (1 - floor) / CALM_DUR;                     // 초당 감속량
     const d = Math.min(c - CALM_AT, CALM_DUR);
     const w = CALM_AT + d - k * d * d / 2;
-    return c > CALM_AT + CALM_DUR ? w + CALM_MIN * (c - CALM_AT - CALM_DUR) : w;
+    return c > CALM_AT + CALM_DUR ? w + floor * (c - CALM_AT - CALM_DUR) : w;
+  }
+
+  // 등장/퇴장은 팝이 아니라 페이드로. 완전히 보일 때는 transparent 를 꺼서 반투명 정렬 문제를 피한다.
+  function fadePeople(k) {
+    for (const p of PEOPLE) {
+      const on = k > 0.005;
+      p.o.g.visible = on;
+      if (!on) continue;
+      const solid = k > 0.995;
+      for (const e of p.o.mats) {
+        e.m.opacity = e.a * k;
+        if (e.m.transparent !== !solid && e.a >= 1) { e.m.transparent = !solid; e.m.needsUpdate = true; }
+      }
+    }
+    return k > 0.005;
   }
 
   function animPeople(t, cycle) {
+    // 시공·셔터 구간에는 감춘다. 카메라가 물러나기 시작하면 다시 나온다.
+    const k = cycle < HIDE_IN ? 1
+      : cycle < HIDE_IN + PPL_FADE ? 1 - smooth((cycle - HIDE_IN) / PPL_FADE)
+      : cycle < HIDE_OUT ? 0
+      : smooth(clamp01((cycle - HIDE_OUT) / PPL_FADE));
+    if (!fadePeople(k)) return;
+
     const retreat = smooth(clamp01((cycle - 1.2) / 15));  // 불이 커질수록 벽에서 물러난다
     const panic = 1 - smooth(clamp01((cycle - CALM_AT) / CALM_DUR));  // 1 다급함 → 0 진정
-    const tw = calmTime(cycle);
+    const tw = calmTime(cycle, CALM_MIN);
+    // ⚠️ 보속을 이동속도와 같은 비율로 늦추면 **미끄러지듯** 보인다.
+    //    보폭이 짧아지는 만큼 걸음 수는 덜 줄어야 하므로 보속은 따로 덜 늦춘다.
+    const tg = calmTime(cycle, 0.62);
     for (const p of PEOPLE) {
       const u = tw * p.sp + p.ph;
       const a = scurry(u), b = scurry(u + 0.006);      // b-a 로 진행 방향을 얻는다
       const span = p.x1 - p.x0;
       const g = p.o.g;
-      const gait = tw * 9.4 + p.ph * 17;                // 걷기(4.6)보다 두 배 빠른 보속
+      const gait = tg * 9.4 + p.ph * 17;                // 걷기(4.6)보다 두 배 빠른 보속
       const bounce = Math.abs(Math.sin(gait));
       g.position.set(p.x0 + span * a, WY0 + bounce * (0.03 + panic * 0.055), p.z0 + (p.z1 - p.z0) * retreat);
 
