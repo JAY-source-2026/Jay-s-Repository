@@ -102,15 +102,51 @@ svg { display: block; width: 100%; height: auto; }
 .hd-brand .brand-mark { width: 48px; height: auto; }
 .hd-brand.is-replay { cursor: pointer; }
 
-/* 1단 메뉴 4개 + 마우스를 올리면 열리는 하위 메뉴 */
-.hd-nav { display: flex; gap: clamp(30px, 4vw, 74px); margin: 0 auto; }
+/* ===== 메가 메뉴 =====
+   대메뉴 하나에 작은 박스가 딸려 나오는 방식(테두리+그림자)은 촌스럽다.
+   → 헤더 전체 폭에 **판 하나**가 내려오고, 네 메뉴의 하위 항목이 각자 제자리에 동시에 펼쳐진다.
+   판은 header 의 ::before 라서 HTML 은 손대지 않는다. 열림 상태는 JS 가 .hd 에 .mega 로 알린다. */
+/* --mega-h 는 가장 긴 열(4항목) 아래로 여백이 56px 남는 높이. 항목을 늘리면 같이 키울 것 */
+:root { --mega-h: 248px; --mega-pad: 26px; --mega-bg: rgba(19, 20, 24, .965); }
+
+.hd::before {
+    content: ""; position: absolute; left: 0; right: 0; top: 0;
+    height: calc(var(--hd-h) + var(--mega-h));
+    background: var(--mega-bg);
+    opacity: 0; transform: translateY(-10px); pointer-events: none;
+    transition: opacity .3s ease, transform .3s cubic-bezier(.2, .7, .2, 1);
+}
+.hd.mega::before { opacity: 1; transform: none; }
+/* 판이 떠 있는 동안에는 스크롤용 흰 배경을 끈다 — 두 겹이 겹쳐 보이면 지저분하다 */
+.hd.mega, .hd.mega.solid { background: transparent; backdrop-filter: none; border-bottom-color: transparent; }
+.hd-inner { position: relative; z-index: 1; }
+
+/* 열리면 헤더 자체가 어두운 판 위에 올라탄다 → 로고·글자를 흰색으로 뒤집는다 */
+.hd.mega .hd-brand { color: #fff; }
+.hd.mega .brand-mark { filter: brightness(0) invert(1); }
+.hd.mega .hd-cta { color: #fff; border-color: rgba(255, 255, 255, .34); }
+.hd.mega .hd-cta:hover { background: var(--accent); border-color: var(--accent); }
+.hd-brand, .brand-mark, .hd-cta { transition: color .28s ease, filter .28s ease, border-color .28s ease, background .25s ease; }
+
+.hd-nav { display: flex; gap: clamp(44px, 4.2vw, 76px); margin: 0 auto; }
 .nav-item { position: relative; }
+/* 마우스가 올라간 열만 밝게 — 어느 열을 보고 있는지 판 전체에서 읽힌다 */
+.nav-item::before {
+    content: ""; position: absolute; z-index: -1;
+    left: calc(-1 * var(--mega-pad)); right: calc(-1 * var(--mega-pad));
+    top: 0; height: calc(var(--hd-h) + var(--mega-h));
+    background: rgba(255, 255, 255, .062);
+    opacity: 0; transition: opacity .25s ease;
+}
+.hd.mega .nav-item:hover::before, .hd.mega .nav-item:focus-within::before { opacity: 1; }
+
 .nav-top {
     position: relative; display: inline-flex; align-items: center;
     height: var(--hd-h);
     font-size: 18px; font-weight: 600; color: rgba(23, 24, 29, .76);
     letter-spacing: -0.01em; transition: color .25s ease;
 }
+/* 현재 위치 표시는 글자 아래 짧은 선 */
 .nav-top::after {
     content: ""; position: absolute; left: 0; right: 0; bottom: 26px; height: 1.5px;
     background: var(--accent); transform: scaleX(0); transform-origin: left;
@@ -118,26 +154,40 @@ svg { display: block; width: 100%; height: auto; }
 }
 .nav-top:hover, .nav-top.current, .nav-item.open .nav-top { color: var(--text); }
 .nav-top:hover::after, .nav-top.current::after, .nav-item.open .nav-top::after { transform: scaleX(1); }
+.hd.mega .nav-top { color: rgba(255, 255, 255, .58); }
+.hd.mega .nav-top:hover, .hd.mega .nav-top.current, .hd.mega .nav-item:focus-within .nav-top { color: #fff; }
+.hd.mega .nav-top::after { background: var(--accent-bright); }  /* 어두운 판 위에선 진한 파랑이 안 보인다 */
 
+/* 하위 항목 — 판 위에 그냥 놓인 글자. 상자도 그림자도 없다 */
 .nav-sub {
-    position: absolute; top: 100%; left: 50%; transform: translate(-50%, 8px);
-    min-width: 220px; padding: 10px 0;
-    background: #fff; border: 1px solid var(--line);
-    box-shadow: 0 18px 44px rgba(17, 18, 23, .13);
+    position: absolute; top: 100%; left: 0; width: max-content; min-width: 100%;
+    padding: 26px 0 0;
     opacity: 0; visibility: hidden; pointer-events: none;
-    transition: opacity .22s ease, transform .22s ease, visibility .22s;
+    transform: translateY(8px);
+    transition: opacity .28s ease, transform .34s cubic-bezier(.2, .7, .2, 1), visibility .28s;
 }
-.nav-item:hover .nav-sub,
-.nav-item:focus-within .nav-sub,
-.nav-item.open .nav-sub {
-    opacity: 1; visibility: visible; pointer-events: auto; transform: translate(-50%, 0);
-}
+.hd.mega .nav-sub { opacity: 1; visibility: visible; pointer-events: auto; transform: none; }
+/* 네 열이 동시에 뜨되 아주 살짝 시차를 둬서 판이 '펼쳐지는' 느낌을 준다 */
+.hd.mega .nav-item:nth-child(1) .nav-sub { transition-delay: .04s; }
+.hd.mega .nav-item:nth-child(2) .nav-sub { transition-delay: .08s; }
+.hd.mega .nav-item:nth-child(3) .nav-sub { transition-delay: .12s; }
+.hd.mega .nav-item:nth-child(4) .nav-sub { transition-delay: .16s; }
+
 .nav-sub a {
-    display: block; padding: 11px 24px;
-    font-size: 15.5px; font-weight: 500; white-space: nowrap;
-    color: var(--muted); transition: color .2s ease, background .2s ease;
+    position: relative; display: block; padding: 9px 0;
+    font-size: 15.5px; font-weight: 500; white-space: nowrap; line-height: 1.5;
+    color: rgba(255, 255, 255, .56);
+    transition: color .2s ease;
 }
-.nav-sub a:hover, .nav-sub a.current { color: var(--accent); background: var(--surface); }
+.nav-sub a::after {
+    content: ""; position: absolute; left: 0; bottom: 6px; width: 100%; height: 1px;
+    background: currentColor; transform: scaleX(0); transform-origin: left;
+    transition: transform .3s cubic-bezier(.2, .7, .2, 1);
+}
+.nav-sub a:hover { color: #fff; }
+.nav-sub a:hover::after { transform: scaleX(1); }
+.nav-sub a.current { color: var(--accent-bright); }
+.nav-sub a.current::after { transform: scaleX(1); }
 
 .hd-side { display: flex; align-items: center; gap: 20px; }
 .hd-cta {
@@ -186,7 +236,7 @@ svg { display: block; width: 100%; height: auto; }
     position: absolute; inset: 0; overflow: hidden;
     /* 3D 가 뜨기 전에도 같은 장면이 보이도록 첫 프레임을 포스터로 깔아둔다.
        배경색은 포스터의 평균색 — 이미지가 오기 전에도 흰 화면이 되지 않는다. */
-    background: #aeaaa8 url("../images/hero-poster.jpg") center center / cover no-repeat;
+    background: #979392 url("../images/hero-poster.jpg") center center / cover no-repeat;
 }
 
 /* 사실적 3D 캔버스 — 준비되면 폴백 위로 나타난다 */
@@ -268,11 +318,38 @@ svg { display: block; width: 100%; height: auto; }
     margin-bottom: 28px;
 }
 .hero-eyebrow span { width: 44px; height: 1px; background: var(--accent); }
-.hero-title {
-    font-size: clamp(30px, 4.6vw, 60px);
-    font-weight: 700; line-height: 1.2; letter-spacing: -0.035em;
+/* ── 히어로 문구 ──────────────────────────────────────────────
+   전: 큰 헤드라인 + 회색 태그 + 자간 넓은 굵은 DOENC 3단 나열 → 위계가 없어 촌스럽다.
+   후: ① 얇은 키커(브랜드 + 구분선 + 분야)  ② 두 줄 헤드라인인데 앞줄을 흐리게 눌러
+       뒷줄이 결론으로 읽히게  ③ 사업영역을 가는 구분선으로 이은 한 줄.
+   장식을 늘리는 대신 **굵기·명도·자간의 차이**로만 위계를 만든다. */
+.hero-kicker {
+    display: flex; align-items: center; gap: 14px;
+    font-size: 12px; font-weight: 600; letter-spacing: .2em;
+    color: rgba(23, 24, 29, .5); margin-bottom: 26px;
 }
-.hero-title { max-width: 16em; }
+.hero-kicker b { font-weight: 800; letter-spacing: .26em; color: var(--text); }
+.hero-kicker i { width: 30px; height: 1px; background: currentColor; opacity: .5; flex: none; }
+
+.hero-title {
+    max-width: 15em;
+    font-size: clamp(32px, 5.1vw, 70px);
+    font-weight: 700; line-height: 1.16; letter-spacing: -0.045em;
+}
+/* 앞줄은 도입, 뒷줄이 결론 — 명도로만 갈라 놓는다 */
+.hero-title span { display: block; font-weight: 600; color: rgba(23, 24, 29, .44); }
+
+.hero-lede {
+    display: flex; flex-wrap: wrap; align-items: center;
+    margin-top: 34px; font-size: 14px; font-weight: 500; letter-spacing: .01em;
+    color: var(--muted);
+}
+.hero-lede span { position: relative; padding: 0 18px; }
+.hero-lede span:first-child { padding-left: 0; }
+.hero-lede span + span::before {
+    content: ""; position: absolute; left: 0; top: 50%; transform: translateY(-50%);
+    width: 1px; height: 11px; background: currentColor; opacity: .32;
+}
 .hero .more-lg { margin-top: 40px; }
 .hero-desc { margin: 28px 0 44px; max-width: 46em; font-size: clamp(15px, 1.35vw, 18px); color: var(--muted); line-height: 1.75; }
 
@@ -622,17 +699,7 @@ svg { display: block; width: 100%; height: auto; }
 @keyframes replaySpin { from { transform: rotate(0); } to { transform: rotate(-360deg); } }
 .hero-meta { display: flex; align-items: flex-start; gap: 30px; }
 
-/* ===== 히어로 문구 — 영상이 끝난 뒤 순서대로 들어온다 ===== */
-.hero-tag {
-    margin-top: 24px;
-    font-size: clamp(16px, 1.45vw, 23px); font-weight: 600;
-    letter-spacing: -0.01em; color: var(--muted);
-}
-.hero-word {
-    margin-top: 30px;
-    font-size: clamp(26px, 3.1vw, 46px); font-weight: 800;
-    letter-spacing: .3em; line-height: 1; color: var(--text);
-}
+/* ===== 히어로 문구 — 영상이 끝난 뒤 순서대로 들어온다 (모양은 위 '히어로 문구' 블록) ===== */
 .hero-body > * {
     transition: opacity 1s cubic-bezier(.2, .7, .2, 1), transform 1s cubic-bezier(.2, .7, .2, 1);
 }
@@ -887,6 +954,8 @@ body.lb-lock { overflow: hidden; }
     :root { --pad: 28px; --pad-edge: 28px; --hd-h: 78px; }
     .hd-nav, .hd-side { display: none; }
     .hd-toggle { display: flex; }
+    /* 메가 판은 데스크톱 전용 — 모바일은 햄버거 아코디언을 쓴다 */
+    .hd::before { display: none; }
     .biz { grid-template-columns: repeat(2, 1fr); gap: 26px 22px; }
     .biz-item:nth-child(even) { margin-top: 0; }
     .biz-item:nth-child(3), .biz-item:nth-child(4) { margin-top: 22px; }
@@ -917,7 +986,10 @@ body.lb-lock { overflow: hidden; }
     .hero { padding-bottom: 40px; }
     .hero-scroll { display: none; }
     .hero-meta { margin-top: 40px; justify-content: flex-start; padding: 0 var(--pad); }
-    .hero-word { letter-spacing: .22em; }
+    .hero-kicker { font-size: 11px; letter-spacing: .16em; gap: 10px; margin-bottom: 20px; }
+    .hero-kicker i { width: 20px; }
+    .hero-lede { margin-top: 24px; font-size: 13px; }
+    .hero-lede span { padding: 0 12px; }
     .biz { grid-template-columns: 1fr; gap: 44px; }
     .biz-item:nth-child(3), .biz-item:nth-child(4) { margin-top: 0; }
     .biz-media { aspect-ratio: 16 / 11; }

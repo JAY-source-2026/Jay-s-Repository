@@ -62,17 +62,82 @@ export async function initHero3D(canvas, host) {
 
   const camera = new THREE.PerspectiveCamera(38, 1, 0.1, 320);
 
+  // =====================================================================
+  //  표면 결 — 이게 없으면 아무리 형태를 만들어도 '색종이로 접은 방'으로 보인다.
+  //   콘크리트는 단색이 아니다: 타설 얼룩(큰 반점) + 미세 입자 + 얼룩진 거칠기.
+  //   albedo 와 roughnessMap 을 **같은 결로** 넣어야 빛이 면 위에서 균일하게 깔리지 않는다.
+  // =====================================================================
+  function makeSurfaceTex(S, o) {
+    const c = document.createElement("canvas"); c.width = c.height = S;
+    const g = c.getContext("2d");
+    g.fillStyle = o.base; g.fillRect(0, 0, S, S);
+    // 큰 얼룩 — 타설 자국·물 자국·때
+    for (let i = 0; i < o.blobs; i++) {
+      const x = Math.random() * S, y = Math.random() * S, r = S * (0.04 + Math.random() * 0.24);
+      const grd = g.createRadialGradient(x, y, 0, x, y, r);
+      grd.addColorStop(0, Math.random() < 0.55 ? o.dark : o.light);
+      grd.addColorStop(1, "rgba(0,0,0,0)");
+      g.fillStyle = grd; g.beginPath(); g.arc(x, y, r, 0, Math.PI * 2); g.fill();
+    }
+    // 세로로 흘러내린 자국(빗물·먼지) — 벽에서 특히 사실감을 준다
+    for (let i = 0; i < (o.streaks || 0); i++) {
+      const x = Math.random() * S, w = S * (0.004 + Math.random() * 0.010), h = S * (0.2 + Math.random() * 0.5);
+      const grd = g.createLinearGradient(0, 0, 0, h);
+      grd.addColorStop(0, o.dark); grd.addColorStop(1, "rgba(0,0,0,0)");
+      g.fillStyle = grd; g.save(); g.translate(x, Math.random() * S * 0.5); g.fillRect(0, 0, w, h); g.restore();
+    }
+    if (o.grid) {  // 바닥 줄눈 — 타일 경계를 이미지에 구워 넣는다
+      g.strokeStyle = o.gridColor; g.lineWidth = Math.max(1, S / 340);
+      for (let i = 1; i < o.grid; i++) {
+        const p = (i / o.grid) * S;
+        g.beginPath(); g.moveTo(p, 0); g.lineTo(p, S); g.stroke();
+        g.beginPath(); g.moveTo(0, p); g.lineTo(S, p); g.stroke();
+      }
+    }
+    // 미세 입자
+    const img = g.getImageData(0, 0, S, S), d = img.data;
+    for (let i = 0; i < d.length; i += 4) {
+      const n = (Math.random() - 0.5) * o.grain;
+      d[i] += n; d[i + 1] += n; d[i + 2] += n;
+    }
+    g.putImageData(img, 0, 0);
+    const tex = new THREE.CanvasTexture(c);
+    tex.wrapS = tex.wrapT = THREE.RepeatWrapping; tex.anisotropy = 8;
+    return tex;
+  }
+  // ⚠️ 얼룩·흘러내린 자국을 세게 주면 '폐건물'이 된다. 관리되는 시설이어야 하므로
+  //    결은 남기되 대비를 눌러서, 가까이서만 보이고 멀리서는 고운 회색으로 읽히게 한다.
+  const texConcrete = makeSurfaceTex(512, { base: "#8d8a84", dark: "rgba(64,62,58,.12)", light: "rgba(232,229,223,.13)", blobs: 34, streaks: 7, grain: 13 });
+  const texFloor    = makeSurfaceTex(512, { base: "#9c9da3", dark: "rgba(60,62,68,.13)", light: "rgba(238,240,244,.17)", blobs: 28, grain: 12, grid: 3, gridColor: "rgba(74,76,82,.42)" });
+  const texCeil     = makeSurfaceTex(256, { base: "#6d6a66", dark: "rgba(28,26,24,.22)", light: "rgba(150,146,140,.14)", blobs: 20, grain: 12 });
+
+  // 같은 결 이미지를 쓰되 **면의 월드 좌표에 맞춰** 반복·오프셋을 정한다.
+  //  · 크기에 비례한 repeat  → 큰 벽과 작은 조각의 결 크기가 같아진다
+  //  · 위치에 따른 offset    → 벽을 여러 조각으로 나눠 만들어도 결이 조각 경계에서 끊기지 않는다
+  //    (이걸 안 하면 개구부 위·아래 슬래브가 서로 다른 패널을 붙인 것처럼 단차가 보인다)
+  function scaled(mat, w, h, unit, u0, v0) {
+    const m = mat.clone();
+    if (mat.map) {
+      m.map = mat.map.clone();
+      m.map.repeat.set(Math.max(0.35, w / unit), Math.max(0.35, h / unit));
+      m.map.offset.set((u0 || 0) / unit, (v0 || 0) / unit);
+    }
+    if (mat.roughnessMap) m.roughnessMap = m.map || mat.roughnessMap.clone();
+    return m;
+  }
+
   // ---- 재질 ----
   // 벽체 = 노출 콘크리트 톤의 건축 마감. 하얀 내화보드가 확실히 대비되도록 중간 명도의 웜그레이
-  const matWall     = new THREE.MeshStandardMaterial({ color: 0x8b8479, roughness: 0.94 });
-  const matWallSide = new THREE.MeshStandardMaterial({ color: 0x7f7971, roughness: 0.96 });
-  const matCol      = new THREE.MeshStandardMaterial({ color: 0xa69f96, roughness: 0.9 });  // 기둥(빛 받는 면)
-  const matBeam     = new THREE.MeshStandardMaterial({ color: 0x8b857c, roughness: 0.92 }); // 보·인방
+  const matWall     = new THREE.MeshStandardMaterial({ color: 0x8b8479, roughness: 0.94, map: texConcrete, roughnessMap: texConcrete });
+  const matWallSide = new THREE.MeshStandardMaterial({ color: 0x7f7971, roughness: 0.96, map: texConcrete, roughnessMap: texConcrete });
+  const matCol      = new THREE.MeshStandardMaterial({ color: 0xa69f96, roughness: 0.9,  map: texConcrete, roughnessMap: texConcrete });  // 기둥(빛 받는 면)
+  const matBeam     = new THREE.MeshStandardMaterial({ color: 0x8b857c, roughness: 0.92, map: texConcrete, roughnessMap: texConcrete }); // 보·인방
   const matReveal   = new THREE.MeshStandardMaterial({ color: 0x6b6660, roughness: 0.97 }); // 패널 줄눈
-  const matFloor    = new THREE.MeshStandardMaterial({ color: 0x9a9ba1, roughness: 0.9 });
+  // 바닥은 도장 콘크리트 — 살짝 반사가 있어야 실내로 읽힌다(완전 무광이면 종이가 된다)
+  const matFloor    = new THREE.MeshStandardMaterial({ color: 0x9a9ba1, roughness: 0.52, metalness: 0.04, envMapIntensity: 0.55, map: texFloor, roughnessMap: texFloor });
   const matFJoint   = new THREE.MeshStandardMaterial({ color: 0x7f8086, roughness: 0.95 });
-  const matCeil     = new THREE.MeshStandardMaterial({ color: 0x676460, roughness: 1.0 });  // 완전 검정은 멀리서 화면을 눌러버린다
-  const matCeilBeam = new THREE.MeshStandardMaterial({ color: 0x55524e, roughness: 1.0 });
+  const matCeil     = new THREE.MeshStandardMaterial({ color: 0x676460, roughness: 1.0, map: texCeil, roughnessMap: texCeil });  // 완전 검정은 멀리서 화면을 눌러버린다
+  const matCeilBeam = new THREE.MeshStandardMaterial({ color: 0x55524e, roughness: 1.0, map: texCeil });
   const matDark     = new THREE.MeshStandardMaterial({ color: 0x161210, roughness: 1.0 });
   // 반짝이는 은빛 스테인리스 배관 / 아연도 사각덕트
   const matPipe = new THREE.MeshStandardMaterial({ color: 0xccd3dc, roughness: 0.13, metalness: 1.0, envMapIntensity: 2.4 });
@@ -412,9 +477,11 @@ export async function initHero3D(canvas, host) {
   // =====================================================================
   (function buildWall() {
     const rects = OPENINGS.map((o) => ({ x0: o.x - o.hw, x1: o.x + o.hw, y0: o.y - o.hh, y1: o.y + o.hh }));
+    const TILE = 6;   // 콘크리트 결 한 장이 덮는 크기(m)
     const slab = (x0, x1, y0, y1) => {
       if (x1 - x0 > 0.001 && y1 - y0 > 0.001)
-        box(x1 - x0, y1 - y0, WALL_T, matWall, (x0 + x1) / 2, (y0 + y1) / 2, WALL_Z, scene);
+        box(x1 - x0, y1 - y0, WALL_T, scaled(matWall, x1 - x0, y1 - y0, TILE, x0 - WX0, y0 - WY0),
+          (x0 + x1) / 2, (y0 + y1) / 2, WALL_Z, scene);
     };
     // 개구부들의 y 경계로 가로 띠를 나누고, 각 띠에서 그 높이에 걸린 개구부만 비운다
     const bands = [WY0, WY1];
@@ -432,7 +499,7 @@ export async function initHero3D(canvas, host) {
 
     // 인방보(스팬드럴) — 벽 상부를 가로지르는 구조체. 벽이 색면이 아니라 건물로 읽히게 한다
     const BEAM_Y = 11.3, BEAM_H = 1.15;
-    box(WX1 - WX0, BEAM_H, 0.9, matBeam, (WX0 + WX1) / 2, BEAM_Y, WALL_FRONT + 0.42, scene, true, true);
+    box(WX1 - WX0, BEAM_H, 0.9, scaled(matBeam, WX1 - WX0, BEAM_H, TILE), (WX0 + WX1) / 2, BEAM_Y, WALL_FRONT + 0.42, scene, true, true);
     box(WX1 - WX0, 0.14, 1.0, matReveal, (WX0 + WX1) / 2, BEAM_Y - BEAM_H / 2 - 0.07, WALL_FRONT + 0.44, scene, false, false);
 
     // 기둥(필라스터) — 바닥에서 인방보까지. 사람과 함께 공간의 스케일을 만든다
@@ -440,7 +507,7 @@ export async function initHero3D(canvas, host) {
     for (let cx = WX0 + 5; cx < WX1; cx += 8) {
       if (nearOpening(cx, 2.2)) continue;
       if (cx > BIG.x - BIG.hw - 3.2 && cx < BIG.x + BIG.hw + 3.2) continue; // 셔터 소핏 자리
-      box(1.7, colTop - WY0, 0.95, matCol, cx, (WY0 + colTop) / 2, WALL_FRONT + 0.48, scene, true, true);
+      box(1.7, colTop - WY0, 0.95, scaled(matCol, 1.7, colTop - WY0, TILE, cx - WX0, 0), cx, (WY0 + colTop) / 2, WALL_FRONT + 0.48, scene, true, true);
       box(2.0, 0.28, 1.08, matBeam, cx, colTop - 0.14, WALL_FRONT + 0.5, scene, true, true);   // 주두
       box(2.0, 0.3, 1.1, matBeam, cx, WY0 + 0.15, WALL_FRONT + 0.5, scene, true, true);        // 주각
     }
@@ -455,17 +522,71 @@ export async function initHero3D(canvas, host) {
     // 걸레받이
     box(WX1 - WX0, 0.34, 0.1, matWallSide, (WX0 + WX1) / 2, WY0 + 0.17, WALL_FRONT + 0.06, scene, false, true);
 
-    // ---- 실내 바닥 ----
-    box(WX1 - WX0, 0.5, 52, matFloor, (WX0 + WX1) / 2, WY0 - 0.25, WALL_Z + 24, scene, false, true);
-    for (let fx = WX0 + 6; fx < WX1; fx += 6) box(0.07, 0.03, 48, matFJoint, fx, WY0 + 0.012, WALL_Z + 22, scene, false, false);
-    for (let fz = 4; fz < 46; fz += 6)        box(WX1 - WX0, 0.03, 0.07, matFJoint, (WX0 + WX1) / 2, WY0 + 0.012, WALL_Z + fz, scene, false, false);
+    // ---- 실내 바닥 ---- (줄눈은 결 이미지에 구워져 있고, 굵은 신축줄눈만 실물로 얹는다)
+    const FW = WX1 - WX0, FD = 52;
+    box(FW, 0.5, FD, scaled(matFloor, FW, FD, 6), (WX0 + WX1) / 2, WY0 - 0.25, WALL_Z + 24, scene, false, true);
+    for (let fx = WX0 + 12; fx < WX1; fx += 12) box(0.09, 0.03, 48, matFJoint, fx, WY0 + 0.012, WALL_Z + 22, scene, false, false);
+    for (let fz = 6; fz < 46; fz += 12)         box(FW, 0.03, 0.09, matFJoint, (WX0 + WX1) / 2, WY0 + 0.012, WALL_Z + fz, scene, false, false);
 
     // ---- 천장 슬래브 + 보 ---- (큰 검은 판은 멀리서 화면을 눌러버린다 → 콘크리트 톤으로)
-    box(WX1 - WX0, 0.8, 8.0, matCeil, (WX0 + WX1) / 2, 12.6, WALL_Z + 4.2, scene, false, false);
+    box(FW, 0.8, 8.0, scaled(matCeil, FW, 8.0, 6), (WX0 + WX1) / 2, 12.6, WALL_Z + 4.2, scene, false, false);
     for (let bx = WX0 + 4; bx < WX1; bx += 8) box(0.75, 0.85, 8.0, matCeilBeam, bx, 11.85, WALL_Z + 4.2, scene, false, false);
 
     // 측벽
-    box(0.5, WY1 - WY0, 52, matWallSide, WX0 + 0.25, (WY0 + WY1) / 2, WALL_Z + 24, scene, false, true);
+    box(0.5, WY1 - WY0, FD, scaled(matWallSide, FD, WY1 - WY0, 6), WX0 + 0.25, (WY0 + WY1) / 2, WALL_Z + 24, scene, false, true);
+
+    // ---- 접지 그림자(AO) ----
+    // 그림자맵만으로는 벽과 바닥이 만나는 자리가 안 어두워져 부재들이 '떠 있는' 것처럼 보인다.
+    // 물리 계산 대신 그라디언트 판을 깔아 맞닿는 자리를 눌러준다 — 가장 값싼 사실감.
+    const aoTex = (() => {
+      const S = 64, c = document.createElement("canvas"); c.width = 4; c.height = S;
+      const g = c.getContext("2d");
+      const grd = g.createLinearGradient(0, 0, 0, S);
+      grd.addColorStop(0.00, "rgba(0,0,0,0.5)");
+      grd.addColorStop(0.35, "rgba(0,0,0,0.17)");
+      grd.addColorStop(1.00, "rgba(0,0,0,0)");
+      g.fillStyle = grd; g.fillRect(0, 0, 4, S);
+      return new THREE.CanvasTexture(c);
+    })();
+    const matAO = new THREE.MeshBasicMaterial({ map: aoTex, transparent: true, depthWrite: false, fog: false });
+    // 벽 밑동 → 바닥으로 퍼지는 그늘
+    const aoFloor = new THREE.Mesh(new THREE.PlaneGeometry(FW, 3.4), matAO);
+    aoFloor.rotation.x = -Math.PI / 2; aoFloor.position.set((WX0 + WX1) / 2, WY0 + 0.02, WALL_FRONT + 1.7);
+    aoFloor.renderOrder = 1; scene.add(aoFloor);
+    // 바닥에서 벽면을 타고 올라가는 그늘
+    const aoWall = new THREE.Mesh(new THREE.PlaneGeometry(FW, 2.2), matAO.clone());
+    aoWall.material.map = aoTex.clone(); aoWall.material.map.repeat.y = -1; aoWall.material.map.offset.y = 1;
+    aoWall.position.set((WX0 + WX1) / 2, WY0 + 1.1, WALL_FRONT + 0.09);
+    aoWall.renderOrder = 1; scene.add(aoWall);
+    // 천장 밑으로 드리우는 그늘 — 위쪽이 어두워야 천장이 무겁게 얹힌다
+    const aoTop = new THREE.Mesh(new THREE.PlaneGeometry(FW, 2.6), matAO.clone());
+    aoTop.position.set((WX0 + WX1) / 2, 12.2 - 1.3, WALL_FRONT + 0.09);
+    aoTop.renderOrder = 1; scene.add(aoTop);
+
+    // ---- 천장 설비 ---- 조명기구와 소방배관이 있어야 '건물 안'으로 읽힌다
+    // ⚠️ 천장보가 11.4~12.3 을 차지한다 → 등기구를 그 위에 두면 보 사이에 묻혀 안 보인다.
+    //    보 아래(11.2)에 매달아야 '달려 있는 조명'으로 읽힌다.
+    const matLamp = new THREE.MeshStandardMaterial({ color: 0xfffaf0, roughness: 0.4, emissive: 0xfff2da, emissiveIntensity: 2.1, toneMapped: false });
+    const matLampBody = new THREE.MeshStandardMaterial({ color: 0xb4b8be, roughness: 0.4, metalness: 0.65, envMapIntensity: 1.3 });
+    const LAMP_Y = 11.15, LAMP_Z = WALL_Z + 5.6;
+    for (let lx = WX0 + 8; lx < WX1 - 2; lx += 16) {
+      [-0.9, 0.9].forEach((dx) => {   // 행거
+        const rod = new THREE.Mesh(new THREE.CylinderGeometry(0.035, 0.035, 0.5, 8), matLampBody);
+        rod.position.set(lx + dx, LAMP_Y + 0.34, LAMP_Z); scene.add(rod);
+      });
+      box(5.2, 0.18, 0.46, matLampBody, lx, LAMP_Y, LAMP_Z, scene, false, false);
+      box(4.9, 0.06, 0.34, matLamp, lx, LAMP_Y - 0.11, LAMP_Z, scene, false, false);  // 아래를 향한 발광면
+    }
+    // 스프링클러 주배관(적색) + 헤드
+    const matFP = new THREE.MeshStandardMaterial({ color: 0x9c3b2c, roughness: 0.45, metalness: 0.5, envMapIntensity: 0.9 });
+    const fpPipe = new THREE.Mesh(new THREE.CylinderGeometry(0.16, 0.16, FW - 2, 18), matFP);
+    fpPipe.rotation.z = Math.PI / 2; fpPipe.position.set((WX0 + WX1) / 2, 11.55, WALL_Z + 7.8); scene.add(fpPipe);
+    for (let hx = WX0 + 6; hx < WX1 - 2; hx += 6) {
+      const drop = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.06, 0.5, 10), matFP);
+      drop.position.set(hx, 11.28, WALL_Z + 7.8); scene.add(drop);
+      const hd = new THREE.Mesh(new THREE.SphereGeometry(0.1, 10, 8), matLampBody);
+      hd.position.set(hx, 11.02, WALL_Z + 7.8); scene.add(hd);
+    }
 
     // ---- 화재측(벽 뒤) — 어두운 방. 개구부 너머로 밝은 배경이 새면 흰 후광이 생긴다 ----
     const bkTop = WY1 + 0.3, bkBot = WY0 - 10; // 벽 위로 삐져나오면 하늘 자리에 검은 판이 생긴다
@@ -692,7 +813,8 @@ export async function initHero3D(canvas, host) {
   const matSkin   = new THREE.MeshStandardMaterial({ color: 0xc59d84, roughness: 0.85 });
   const matShade  = new THREE.MeshBasicMaterial({ color: 0x3d4045, transparent: true, opacity: 0.2, depthWrite: false, fog: false });
   function buildPerson(clothC, vestC, helmet) {
-    const g = new THREE.Group();
+    const g = new THREE.Group();          // 바닥에 붙는 기준 — 진행 방향으로 돌린다
+    const body = new THREE.Group(); g.add(body);   // 달릴 때 앞으로 기울이는 상·하체 전체
     const cloth = new THREE.MeshStandardMaterial({ color: clothC, roughness: 0.88 });
     const vest = new THREE.MeshStandardMaterial({ color: vestC, roughness: 0.7, emissive: vestC, emissiveIntensity: 0.1 });
     const limb = (parent, x, y, len, w, mat) => {
@@ -700,50 +822,98 @@ export async function initHero3D(canvas, host) {
       const m = new THREE.Mesh(new THREE.BoxGeometry(w, len, w * 1.15), mat);
       m.position.y = -len / 2; m.castShadow = true; piv.add(m); return piv;
     };
-    const legL = limb(g, -0.11, 0.9, 0.9, 0.17, cloth);
-    const legR = limb(g,  0.11, 0.9, 0.9, 0.17, cloth);
-    const armL = limb(g, -0.29, 1.44, 0.66, 0.13, cloth);
-    const armR = limb(g,  0.29, 1.44, 0.66, 0.13, cloth);
-    box(0.46, 0.66, 0.26, cloth, 0, 1.2, 0, g, true, false);        // 몸통
-    box(0.5, 0.46, 0.31, vest, 0, 1.2, 0, g, true, false);          // 안전조끼
-    box(0.15, 0.13, 0.15, matSkin, 0, 1.6, 0, g, true, false);      // 목
+    const legL = limb(body, -0.11, 0.9, 0.9, 0.17, cloth);
+    const legR = limb(body,  0.11, 0.9, 0.9, 0.17, cloth);
+    const armL = limb(body, -0.29, 1.44, 0.66, 0.13, cloth);
+    const armR = limb(body,  0.29, 1.44, 0.66, 0.13, cloth);
+    box(0.46, 0.66, 0.26, cloth, 0, 1.2, 0, body, true, false);        // 몸통
+    box(0.5, 0.46, 0.31, vest, 0, 1.2, 0, body, true, false);          // 안전조끼
+    box(0.15, 0.13, 0.15, matSkin, 0, 1.6, 0, body, true, false);      // 목
+    // 머리는 따로 묶는다 — 달아나면서 불 쪽을 돌아보게 하려면 목만 돌려야 한다
+    const headPiv = new THREE.Group(); headPiv.position.y = 1.62; body.add(headPiv);
     const head = new THREE.Mesh(new THREE.SphereGeometry(0.115, 16, 12), matSkin);
-    head.position.y = 1.72; head.castShadow = true; g.add(head);
+    head.position.y = 0.10; head.castShadow = true; headPiv.add(head);
     if (helmet) {
       const h = new THREE.Mesh(new THREE.SphereGeometry(0.145, 18, 12, 0, Math.PI * 2, 0, Math.PI / 2), matHelmet);
-      h.position.y = 1.75; h.castShadow = true; g.add(h);
+      h.position.y = 0.13; h.castShadow = true; headPiv.add(h);
       const brim = new THREE.Mesh(new THREE.CylinderGeometry(0.175, 0.175, 0.03, 18), matHelmet);
-      brim.position.y = 1.745; g.add(brim);
+      brim.position.y = 0.125; headPiv.add(brim);
     }
     // 접지 그림자 — 그림자맵 범위 밖에서도 바닥에 붙어 보이게
     const sh = new THREE.Mesh(new THREE.CircleGeometry(0.36, 20), matShade);
     sh.rotation.x = -Math.PI / 2; sh.position.y = 0.03; g.add(sh);
     scene.add(g);
-    return { g, legL, legR, armL, armR };
+    return { g, body, headPiv, legL, legR, armL, armR, shade: sh };
   }
-  // x0→x1 왕복. 주역(오른쪽 개구부)을 가리지 않도록 z·구간을 배치했다
-  const PEOPLE = [
-    { x0: -32, x1: -19, z: 4.5,  sp: 0.055, ph: 0.10, cloth: 0x39404a, vest: 0xd6d94a, hat: 1 },
-    { x0: -6,  x1:  8,  z: 9.0,  sp: 0.042, ph: 0.55, cloth: 0x2f3540, vest: 0xcfd644, hat: 1 },
-    { x0:  16, x1:  30, z: 3.0,  sp: 0.05,  ph: 0.80, cloth: 0x434a54, vest: 0xe08a3c, hat: 1 },
-    { x0: -24, x1: -12, z: 12.0, sp: 0.035, ph: 0.30, cloth: 0x2b303a, vest: 0x8f97a4, hat: 0 },
-    { x0:  19, x1:  32, z: 10.5, sp: 0.046, ph: 0.65, cloth: 0x3a4048, vest: 0xd6d94a, hat: 1 },
-    { x0: -40, x1: -28, z: 7.0,  sp: 0.04,  ph: 0.92, cloth: 0x353b45, vest: 0xcfd644, hat: 1 },
-  ].map((c) => Object.assign({ o: buildPerson(c.cloth, c.vest, c.hat) }, c));
 
-  function animPeople(t) {
+  // =====================================================================
+  //  대피 — 산책이 아니라 **화재에서 달아나는 사람들**이다.
+  //   · 좌우로 급하게 오가되(출구를 찾는 움직임) 규칙적인 왕복으로 보이지 않게 파형을 둘 겹친다
+  //   · 영상이 진행될수록 벽(화재)에서 뒤로 물러난다
+  //   · 달리는 자세 — 큰 보폭 · 앞으로 기울인 상체 · 큰 반동, 이따금 불 쪽을 돌아본다
+  //   · style 0 정상 질주 / 1 머리를 감싸고 뛴다 / 2 한 팔로 일행을 이끈다
+  // =====================================================================
+  const PEOPLE = [
+    { x0: -34, x1: -20, z0: 4.0,  z1: 8.0,  sp: 0.150, ph: 0.10, style: 0, cloth: 0x39404a, vest: 0xd6d94a, hat: 1 },
+    { x0: -8,  x1:  7,  z0: 8.0,  z1: 11.0, sp: 0.132, ph: 0.55, style: 1, cloth: 0x2f3540, vest: 0xcfd644, hat: 1 },
+    { x0:  17, x1:  31, z0: 2.6,  z1: 5.6,  sp: 0.163, ph: 0.80, style: 0, cloth: 0x434a54, vest: 0xe08a3c, hat: 1 },
+    { x0: -26, x1: -13, z0: 11.0, z1: 14.0, sp: 0.118, ph: 0.30, style: 2, cloth: 0x2b303a, vest: 0x8f97a4, hat: 0 },
+    { x0:  20, x1:  33, z0: 10.0, z1: 13.0, sp: 0.142, ph: 0.65, style: 0, cloth: 0x3a4048, vest: 0xd6d94a, hat: 1 },
+    { x0: -41, x1: -28, z0: 6.5,  z1: 9.5,  sp: 0.126, ph: 0.92, style: 1, cloth: 0x353b45, vest: 0xcfd644, hat: 1 },
+    { x0: -20, x1: -7,  z0: 3.4,  z1: 6.4,  sp: 0.171, ph: 0.22, style: 0, cloth: 0x424852, vest: 0xe08a3c, hat: 1 },
+    { x0:  24, x1: 36,  z0: 6.0,  z1: 9.0,  sp: 0.121, ph: 0.44, style: 2, cloth: 0x30363f, vest: 0xcfd644, hat: 0 },
+    { x0: -37, x1: -25, z0: 12.5, z1: 15.5, sp: 0.156, ph: 0.71, style: 0, cloth: 0x3d434c, vest: 0x8f97a4, hat: 1 },
+  ].map((c) => Object.assign({ o: buildPerson(c.cloth, c.vest, c.hat), face: 0 }, c));
+
+  const tri = (v) => { v = v - Math.floor(v); return v < 0.5 ? v * 2 : 2 - v * 2; };
+  // 삼각파 둘을 합쳐 왕복 주기가 눈에 안 띄게 — 규칙적으로 오가면 산책으로 보인다
+  const scurry = (u) => clamp01(0.72 * tri(u) + 0.28 * tri(u * 2.37 + 0.19));
+
+  // 다 막고 불이 꺼졌는데도 계속 도망다니면 이상하다 → **시간축 자체를 눌러** 걸음을 잦아들게 한다.
+  // (속도 계수를 그냥 곱하면 위치가 튄다. 누적 시간을 적분해 두면 이어진 채로 느려진다.)
+  const CALM_AT = 25.3, CALM_DUR = 4.0, CALM_MIN = 0.26;
+  function calmTime(c) {
+    if (c <= CALM_AT) return c;
+    const k = (1 - CALM_MIN) / CALM_DUR;                  // 초당 감속량
+    const d = Math.min(c - CALM_AT, CALM_DUR);
+    const w = CALM_AT + d - k * d * d / 2;
+    return c > CALM_AT + CALM_DUR ? w + CALM_MIN * (c - CALM_AT - CALM_DUR) : w;
+  }
+
+  function animPeople(t, cycle) {
+    const retreat = smooth(clamp01((cycle - 1.2) / 15));  // 불이 커질수록 벽에서 물러난다
+    const panic = 1 - smooth(clamp01((cycle - CALM_AT) / CALM_DUR));  // 1 다급함 → 0 진정
+    const tw = calmTime(cycle);
     for (const p of PEOPLE) {
-      const u = (t * p.sp + p.ph) % 1;
-      const tri = u < 0.5 ? u * 2 : 2 - u * 2;              // 왕복
-      const dir = u < 0.5 ? 1 : -1;
+      const u = tw * p.sp + p.ph;
+      const a = scurry(u), b = scurry(u + 0.006);      // b-a 로 진행 방향을 얻는다
+      const span = p.x1 - p.x0;
       const g = p.o.g;
-      g.position.set(p.x0 + (p.x1 - p.x0) * tri, WY0, p.z);
-      g.rotation.y = dir > 0 ? Math.PI / 2 : -Math.PI / 2;
-      const gait = t * 4.6 + p.ph * 12;
-      const sw = Math.sin(gait) * 0.5;
+      const gait = tw * 9.4 + p.ph * 17;                // 걷기(4.6)보다 두 배 빠른 보속
+      const bounce = Math.abs(Math.sin(gait));
+      g.position.set(p.x0 + span * a, WY0 + bounce * (0.03 + panic * 0.055), p.z0 + (p.z1 - p.z0) * retreat);
+
+      // 방향 전환이 뚝 끊기지 않게 — 도는 동안 카메라 쪽을 스친다
+      const face = span * (b - a) >= 0 ? Math.PI / 2 : -Math.PI / 2;
+      p.face += (face - p.face) * 0.14;
+      g.rotation.y = p.face;
+
+      const sw = Math.sin(gait) * (0.45 + panic * 0.5);  // 다급하면 큰 보폭, 진정되면 보통 걸음
       p.o.legL.rotation.x = sw; p.o.legR.rotation.x = -sw;
-      p.o.armL.rotation.x = -sw * 0.7; p.o.armR.rotation.x = sw * 0.7;
-      g.position.y = WY0 + Math.abs(Math.cos(gait)) * 0.045;  // 걸음 반동
+      p.o.body.rotation.x = (0.17 + bounce * 0.05) * panic;   // 앞으로 기울인 상체도 함께 펴진다
+      if (p.style === 1) {                              // 머리를 감싸고 뛴다
+        p.o.armL.rotation.x = (-2.45 + sw * 0.12) * panic - sw * 0.8 * (1 - panic);
+        p.o.armR.rotation.x = (-2.3 - sw * 0.12) * panic + sw * 0.8 * (1 - panic);
+      } else if (p.style === 2) {                       // 한 팔은 앞으로 뻗어 일행을 이끈다
+        p.o.armL.rotation.x = (-0.95 + sw * 0.18) * panic - sw * 0.8 * (1 - panic);
+        p.o.armR.rotation.x = sw * (1.1 * panic + 0.8 * (1 - panic)) - 0.25 * panic;
+      } else {
+        p.o.armL.rotation.x = -sw * (1.25 * panic + 0.8 * (1 - panic)) - 0.3 * panic;
+        p.o.armR.rotation.x = sw * (1.25 * panic + 0.8 * (1 - panic)) - 0.3 * panic;
+      }
+      // 이따금 불 쪽을 돌아본다 — 불이 꺼지면 돌아보지 않는다
+      const glance = clamp01((Math.sin(tw * 0.5 + p.ph * 13) - 0.55) / 0.45);
+      p.o.headPiv.rotation.y = -1.9 * glance * panic;
     }
   }
 
@@ -857,7 +1027,7 @@ export async function initHero3D(canvas, host) {
 
   function step(t) {
     const cycle = Math.min(t, TOTAL);   // 루프하지 않는다 — TOTAL에서 멈춘 채 유지
-    animBoards(cycle); animShutter(cycle, t); animPeople(t);
+    animBoards(cycle); animShutter(cycle, t); animPeople(t, cycle);
     placeCamera(cycle, t);
 
     // 불은 보드가 다 밀착된 **뒤에** 꺼진다 — 진화 순서가 눈에 보이게.
