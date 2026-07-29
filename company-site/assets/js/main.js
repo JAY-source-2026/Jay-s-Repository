@@ -21,39 +21,68 @@
   window.addEventListener("scroll", onScroll, { passive: true });
   onScroll();
 
-  // ----- 데스크톱 하위 메뉴 -----
-  // 마우스를 올리면 CSS 로 열리고, 터치·키보드에서는 눌러서 열 수 있게 한다.
+  // ----- 데스크톱 메가 메뉴 -----
+  // 대메뉴 하나에 박스가 딸려 나오는 방식이 아니라, 헤더 폭 전체에 판 하나가 내려오고
+  // 네 메뉴의 하위 항목이 동시에 펼쳐진다. 열림 상태는 헤더의 .mega 클래스 하나로만 관리한다.
   var navItems = Array.prototype.slice.call(document.querySelectorAll(".nav-item"));
+  var megaHold = null;
+
+  function setMega(open) {
+    if (!header) return;
+    header.classList.toggle("mega", !!open);
+    navItems.forEach(function (o) {
+      var t = o.querySelector(".nav-top");
+      if (t) t.setAttribute("aria-expanded", open ? "true" : "false");
+      if (!open) o.classList.remove("open");
+    });
+  }
+  function openMega() { if (megaHold) { clearTimeout(megaHold); megaHold = null; } setMega(true); }
+  // 메뉴와 판 사이를 지나갈 때 깜빡이지 않도록 닫기만 살짝 늦춘다
+  function closeMega() {
+    if (megaHold) clearTimeout(megaHold);
+    megaHold = setTimeout(function () { setMega(false); megaHold = null; }, 140);
+  }
+
+  var navBar = document.querySelector(".hd-nav");
+  function megaHeight() {
+    var v = parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--mega-h"));
+    return v || 292;
+  }
+  if (header && navBar) {
+    // 여는 건 대메뉴에 올렸을 때만 — 히어로 위에서 마우스가 스치기만 해도 열리면 성가시다
+    navBar.addEventListener("mouseenter", openMega);
+    // ⚠️ 판은 헤더 박스보다 아래로 내려와 있어 header 의 mouseleave 가 판 위에서 먼저 뜬다.
+    //    그래서 닫는 판정은 '헤더 + 판' 사각형으로 직접 한다.
+    document.addEventListener("mousemove", function (e) {
+      if (!header.classList.contains("mega")) return;
+      var r = header.getBoundingClientRect();
+      var inside = e.clientX >= r.left && e.clientX <= r.right &&
+        e.clientY >= r.top && e.clientY <= r.top + r.height + megaHeight();
+      if (inside) openMega(); else closeMega();
+    }, { passive: true });
+  }
+
   navItems.forEach(function (item) {
     var top = item.querySelector(".nav-top");
     if (!top) return;
+    // 터치 기기: 첫 탭은 '판 열기', 두 번째 탭에서 이동
     top.addEventListener("click", function (e) {
-      // 아직 닫혀 있으면 첫 탭/클릭은 '열기'로 쓰고 이동은 막는다(터치 기기 배려)
       var isTouch = window.matchMedia && window.matchMedia("(hover: none)").matches;
-      if (isTouch && !item.classList.contains("open")) {
-        e.preventDefault();
-        navItems.forEach(function (o) { if (o !== item) o.classList.remove("open"); });
-        item.classList.add("open");
-        top.setAttribute("aria-expanded", "true");
-      }
+      if (isTouch && !header.classList.contains("mega")) { e.preventDefault(); openMega(); }
     });
-    item.addEventListener("mouseenter", function () { top.setAttribute("aria-expanded", "true"); });
-    item.addEventListener("mouseleave", function () {
-      item.classList.remove("open");
-      top.setAttribute("aria-expanded", "false");
-    });
+    top.addEventListener("focus", openMega);
   });
   document.addEventListener("click", function (e) {
-    if (e.target.closest && e.target.closest(".nav-item")) return;
-    navItems.forEach(function (o) {
-      o.classList.remove("open");
-      var t = o.querySelector(".nav-top");
-      if (t) t.setAttribute("aria-expanded", "false");
-    });
+    if (e.target.closest && e.target.closest(".hd-nav")) return;
+    setMega(false);
   });
   document.addEventListener("keydown", function (e) {
-    if (e.key !== "Escape") return;
-    navItems.forEach(function (o) { o.classList.remove("open"); });
+    if (e.key === "Escape") setMega(false);
+  });
+  // 포커스가 헤더 밖으로 나가면 닫는다(키보드 이동)
+  document.addEventListener("focusin", function (e) {
+    if (!header) return;
+    if (!header.contains(e.target)) setMega(false);
   });
 
   // ----- 모바일 하위 메뉴(아코디언) -----
