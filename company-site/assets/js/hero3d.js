@@ -38,7 +38,7 @@ export async function initHero3D(canvas, host) {
   //    여기서 톤매핑을 켜면 불이 버퍼에 담기기 전에 이미 눌려서 아무리 밝혀도 베이지색이 된다.
   renderer.toneMapping = THREE.NoToneMapping;
   renderer.outputColorSpace = THREE.LinearSRGBColorSpace;
-  const EXPOSURE = 0.82;   // 노출 — 벽이 날아가면 하얀 내화보드도 크림색 셔터 원단도 안 보인다
+  const EXPOSURE = 0.68;   // 노출 — 벽이 날아가면 하얀 내화보드도 크림색 셔터 원단도 안 보인다
 
   // 저사양 판별 — 블룸 해상도와 MSAA 를 여기서 한 번에 낮춘다(재생이 20fps 밑으로 떨어지면 문구가 먼저 튀어나온다)
   const LOWEND = (navigator.hardwareConcurrency || 4) <= 4 ||
@@ -341,11 +341,20 @@ export async function initHero3D(canvas, host) {
     tex.normalTwin = nrm;
     return tex;
   }
-  // ⚠️ 얼룩·흘러내린 자국을 세게 주면 '폐건물'이 된다. 관리되는 시설이어야 하므로
-  //    결은 남기되 대비를 눌러서, 가까이서만 보이고 멀리서는 고운 회색으로 읽히게 한다.
-  const texConcrete = makeSurfaceTex(512, { base: "#c6c3bd", roughBase: "#8d8d8d", dark: "rgba(64,62,58,.12)", light: "rgba(232,229,223,.13)", blobs: 34, streaks: 7, grain: 13 });
-  const texFloor    = makeSurfaceTex(512, { base: "#cdced2", roughBase: "#9c9c9c", dark: "rgba(60,62,68,.13)", light: "rgba(238,240,244,.17)", blobs: 28, grain: 12, grid: 3, gridColor: "rgba(74,76,82,.42)" });
-  const texCeil     = makeSurfaceTex(256, { base: "#afaba6", roughBase: "#b4b4b4", dark: "rgba(28,26,24,.22)", light: "rgba(150,146,140,.14)", blobs: 20, grain: 12 });
+  // ⚠️⚠️ 여기가 '폐건물로 보인다'의 진짜 원인이었다.
+  //   세로로 흘러내린 물자국(streaks)과 큰 얼룩(blobs)은 **방치된 건물의 신호**다.
+  //   아무리 렌더링을 올려도 이게 있으면 버려진 곳으로 읽힌다.
+  //   → 벽은 도장 마감으로 바꾼다. 결은 롤러 자국 수준으로만 남기고 얼룩·물자국은 없앤다.
+  //   색도 갈회색(때 낀 콘크리트) → 중성 회색(관리되는 시설)으로 옮긴다.
+  const texPaint = makeSurfaceTex(512, {
+    base: "#d9d9d7", roughBase: "#7d7d7d",
+    dark: "rgba(150,150,148,.05)", light: "rgba(255,255,255,.06)",   // 대비를 거의 없앤다
+    blobs: 9, grain: 4, normalStrength: 0.55,                        // 롤러 자국 정도의 아주 얕은 굴곡
+  });
+  // 바닥은 에폭시 코팅 — 구워 넣던 굵은 타일 격자를 빼고 매끈하게. 반사는 재질 쪽에서 준다.
+  const texFloor    = makeSurfaceTex(512, { base: "#dbdde0", roughBase: "#6a6a6a", dark: "rgba(96,100,106,.06)", light: "rgba(255,255,255,.08)", blobs: 12, grain: 5, normalStrength: 0.35 });
+  // 천장은 노출 콘크리트로 남긴다 — 벽이 밝아진 만큼 위가 눌려야 공간이 안 뜬다(실제 설비실도 이렇다)
+  const texCeil     = makeSurfaceTex(256, { base: "#afaba6", roughBase: "#b4b4b4", dark: "rgba(28,26,24,.18)", light: "rgba(150,146,140,.12)", blobs: 16, grain: 9 });
 
   // 같은 결 이미지를 쓰되 **면의 월드 좌표에 맞춰** 반복·오프셋을 정한다.
   //  · 크기에 비례한 repeat  → 큰 벽과 작은 조각의 결 크기가 같아진다
@@ -374,16 +383,20 @@ export async function initHero3D(canvas, host) {
 
   // ---- 재질 ----
   // 벽체 = 노출 콘크리트 톤의 건축 마감. 하얀 내화보드가 확실히 대비되도록 중간 명도의 웜그레이
-  const matWall     = new THREE.MeshStandardMaterial({ color: 0x8b8479, roughness: 0.94, envMapIntensity: 0.5, map: texConcrete, roughnessMap: texConcrete.dataTwin, normalMap: texConcrete.normalTwin, normalScale: new THREE.Vector2(0.85, 0.85) });
-  const matWallSide = new THREE.MeshStandardMaterial({ color: 0x7f7971, roughness: 0.96, envMapIntensity: 0.5, map: texConcrete, roughnessMap: texConcrete.dataTwin, normalMap: texConcrete.normalTwin, normalScale: new THREE.Vector2(0.8, 0.8) });
-  const matCol      = new THREE.MeshStandardMaterial({ color: 0xa69f96, roughness: 0.9,  envMapIntensity: 0.5, map: texConcrete, roughnessMap: texConcrete.dataTwin, normalMap: texConcrete.normalTwin, normalScale: new THREE.Vector2(0.9, 0.9) });  // 기둥(빛 받는 면)
-  const matBeam     = new THREE.MeshStandardMaterial({ color: 0x8b857c, roughness: 0.92, envMapIntensity: 0.5, map: texConcrete, roughnessMap: texConcrete.dataTwin, normalMap: texConcrete.normalTwin, normalScale: new THREE.Vector2(0.85, 0.85) }); // 보·인방
-  const matReveal   = new THREE.MeshStandardMaterial({ color: 0x6b6660, roughness: 0.97 }); // 패널 줄눈
+  // 도장 마감 — 무광에 가깝지만 완전 무광은 아니다(0.9 는 종이가 된다). 살짝 남긴 반사가 '칠한 면'을 만든다.
+  // ⚠️ 명도는 크게 못 올린다. 하얀 내화보드가 벽에 묻히면 주역이 사라진다 → 중간 회색을 유지하되 색상만 중성으로.
+  const matWall     = new THREE.MeshStandardMaterial({ color: 0x767c80, roughness: 0.82, envMapIntensity: 0.55, map: texPaint, roughnessMap: texPaint.dataTwin, normalMap: texPaint.normalTwin, normalScale: new THREE.Vector2(0.35, 0.35) });
+  const matWallSide = new THREE.MeshStandardMaterial({ color: 0x6e7478, roughness: 0.84, envMapIntensity: 0.55, map: texPaint, roughnessMap: texPaint.dataTwin, normalMap: texPaint.normalTwin, normalScale: new THREE.Vector2(0.35, 0.35) });
+  const matCol      = new THREE.MeshStandardMaterial({ color: 0x838a8e, roughness: 0.8,  envMapIntensity: 0.6,  map: texPaint, roughnessMap: texPaint.dataTwin, normalMap: texPaint.normalTwin, normalScale: new THREE.Vector2(0.35, 0.35) });  // 기둥(빛 받는 면)
+  const matBeam     = new THREE.MeshStandardMaterial({ color: 0x72787c, roughness: 0.82, envMapIntensity: 0.55, map: texPaint, roughnessMap: texPaint.dataTwin, normalMap: texPaint.normalTwin, normalScale: new THREE.Vector2(0.35, 0.35) }); // 보·인방
+  const matReveal   = new THREE.MeshStandardMaterial({ color: 0x71777b, roughness: 0.88 }); // 패널 줄눈
+  const matAccent   = new THREE.MeshStandardMaterial({ color: 0x2e5f8f, roughness: 0.68, envMapIntensity: 0.4 });  // 브랜드 파랑 — 유도 라인
+  const matSafety   = new THREE.MeshStandardMaterial({ color: 0xc9a327, roughness: 0.66, envMapIntensity: 0.35 });  // 바닥 안전선
   // 바닥은 도장 콘크리트 — 살짝 반사가 있어야 실내로 읽힌다(완전 무광이면 종이가 된다)
-  const matFloor    = new THREE.MeshStandardMaterial({ color: 0x9a9ba1, roughness: 0.52, metalness: 0.04, envMapIntensity: 0.55, map: texFloor, roughnessMap: texFloor.dataTwin, normalMap: texFloor.normalTwin, normalScale: new THREE.Vector2(0.5, 0.5) });
-  const matFJoint   = new THREE.MeshStandardMaterial({ color: 0x7f8086, roughness: 0.95 });
-  const matCeil     = new THREE.MeshStandardMaterial({ color: 0x676460, roughness: 1.0, envMapIntensity: 0.4, map: texCeil, roughnessMap: texCeil.dataTwin });  // 완전 검정은 멀리서 화면을 눌러버린다
-  const matCeilBeam = new THREE.MeshStandardMaterial({ color: 0x55524e, roughness: 1.0, map: texCeil });
+  const matFloor    = new THREE.MeshStandardMaterial({ color: 0x9298a0, roughness: 0.3, metalness: 0.05, envMapIntensity: 1.05, map: texFloor, roughnessMap: texFloor.dataTwin, normalMap: texFloor.normalTwin, normalScale: new THREE.Vector2(0.22, 0.22) });
+  const matFJoint   = new THREE.MeshStandardMaterial({ color: 0x7c828a, roughness: 0.6 });
+  const matCeil     = new THREE.MeshStandardMaterial({ color: 0x5e6164, roughness: 1.0, envMapIntensity: 0.35, map: texCeil, roughnessMap: texCeil.dataTwin });  // 완전 검정은 멀리서 화면을 눌러버린다
+  const matCeilBeam = new THREE.MeshStandardMaterial({ color: 0x4d5053, roughness: 1.0, envMapIntensity: 0.3, map: texCeil });
   const matDark     = new THREE.MeshStandardMaterial({ color: 0x161210, roughness: 1.0 });
   // 반짝이는 은빛 스테인리스 배관 / 아연도 사각덕트
   const matPipe = new THREE.MeshStandardMaterial({ color: 0xccd3dc, roughness: 0.16, metalness: 1.0, envMapIntensity: 1.05 });
@@ -730,6 +743,8 @@ export async function initHero3D(canvas, host) {
   // =====================================================================
   //  벽체 — 개구부 세 곳을 남기고 슬래브로 채운 뒤, 기둥·보·줄눈으로 건축을 만든다
   // =====================================================================
+  const lampSpots = [];   // 등기구 x 좌표 — 실제 광원은 조명 절 에서 단다(선언 순서 때문에 분리)
+  const LAMP_LIGHT_Y = 10.9, LAMP_LIGHT_Z = WALL_Z + 5.6;
   (function buildWall() {
     const rects = OPENINGS.map((o) => ({ x0: o.x - o.hw, x1: o.x + o.hw, y0: o.y - o.hh, y1: o.y + o.hh }));
     const TILE = 6;   // 콘크리트 결 한 장이 덮는 크기(m)
@@ -773,15 +788,23 @@ export async function initHero3D(canvas, host) {
       if (jx > BIG.x - BIG.hw - 2.2 && jx < BIG.x + BIG.hw + 2.2) continue; // 셔터 소핏 자리
       box(0.13, colTop - WY0, 0.05, matReveal, jx, (WY0 + colTop) / 2, WALL_FRONT + 0.03, scene, false, false);
     }
+    // 허리 라인 — 도장 구획선. 위는 밝은 회색, 아래는 한 톤 어둡게 칠한 마감을 암시한다.
     box(WX1 - WX0, 0.26, 0.12, matCol, (WX0 + WX1) / 2, 6.6, WALL_FRONT + 0.07, scene, false, false);
-    // 걸레받이
+    // 브랜드 파랑 유도 라인 — 관리되는 시설에는 반드시 도색된 라인이 있다. 색면이 하나 들어가면
+    // 회색 일변도의 화면이 '설계된 공간'으로 읽힌다. 얇게 한 줄만 — 굵으면 촌스러워진다.
+    box(WX1 - WX0, 0.09, 0.13, matAccent, (WX0 + WX1) / 2, 6.44, WALL_FRONT + 0.075, scene, false, false);
+    // 걸레받이 — 도장면 아래를 받는 짙은 띠
     box(WX1 - WX0, 0.34, 0.1, matWallSide, (WX0 + WX1) / 2, WY0 + 0.17, WALL_FRONT + 0.06, scene, false, true);
 
     // ---- 실내 바닥 ---- (줄눈은 결 이미지에 구워져 있고, 굵은 신축줄눈만 실물로 얹는다)
     const FW = WX1 - WX0, FD = 52;
     box(FW, 0.5, FD, scaled(matFloor, FW, FD, 6), (WX0 + WX1) / 2, WY0 - 0.25, WALL_Z + 24, scene, false, true);
-    for (let fx = WX0 + 12; fx < WX1; fx += 12) box(0.09, 0.03, 48, matFJoint, fx, WY0 + 0.012, WALL_Z + 22, scene, false, false);
-    for (let fz = 6; fz < 46; fz += 12)         box(FW, 0.03, 0.09, matFJoint, (WX0 + WX1) / 2, WY0 + 0.012, WALL_Z + fz, scene, false, false);
+    // 신축줄눈만 남긴다 — 간격을 넓혀 격자무늬처럼 안 보이게(촘촘하면 타일 바닥이 된다)
+    for (let fx = WX0 + 16; fx < WX1 - 4; fx += 16) box(0.06, 0.03, 48, matFJoint, fx, WY0 + 0.012, WALL_Z + 22, scene, false, false);
+    for (let fz = 10; fz < 46; fz += 16)            box(FW, 0.03, 0.06, matFJoint, (WX0 + WX1) / 2, WY0 + 0.012, WALL_Z + fz, scene, false, false);
+    // 황색 안전선 — 벽 앞 통행 금지대. 현장 사진에서 '관리되는 시설'을 가장 빨리 알려주는 신호다.
+    box(FW, 0.02, 0.14, matSafety, (WX0 + WX1) / 2, WY0 + 0.02, WALL_FRONT + 2.6, scene, false, false);
+    box(FW, 0.02, 0.06, matSafety, (WX0 + WX1) / 2, WY0 + 0.02, WALL_FRONT + 2.9, scene, false, false);
 
     // ---- 천장 슬래브 + 보 ---- (큰 검은 판은 멀리서 화면을 눌러버린다 → 콘크리트 톤으로)
     box(FW, 0.8, 8.0, scaled(matCeil, FW, 8.0, 6), (WX0 + WX1) / 2, 12.6, WALL_Z + 4.2, scene, false, false);
@@ -831,6 +854,10 @@ export async function initHero3D(canvas, host) {
       });
       box(5.2, 0.18, 0.46, matLampBody, lx, LAMP_Y, LAMP_Z, scene, false, false);
       box(4.9, 0.06, 0.34, matLamp, lx, LAMP_Y - 0.11, LAMP_Z, scene, false, false);  // 아래를 향한 발광면
+      // ⚠️ 여태 등기구는 '빛나는 것처럼 칠해진 판'일 뿐 방을 전혀 밝히지 않았다.
+      //    실내인데 흐린 날 야외처럼 빛이 평평하게 깔린 게 폐건물 느낌의 절반이었다.
+      //    실제 광원을 달아 바닥·벽에 빛웅덩이를 만든다. 그림자는 끄고(키라이트가 담당) 수만 최소로.
+      lampSpots.push(lx);
     }
     // 스프링클러 주배관(적색) + 헤드
     const matFP = new THREE.MeshStandardMaterial({ color: 0x9c3b2c, roughness: 0.45, metalness: 0.5, envMapIntensity: 0.9 });
@@ -1100,13 +1127,26 @@ export async function initHero3D(canvas, host) {
   // 앰비언트(hemi)를 낮추고 방향광(key)을 올리면 면마다 명암이 갈려 형태가 또렷해진다.
   // 반대로 hemi 가 세면 전체가 균일하게 떠서 '뿌연' 그림이 된다.
   scene.add(new THREE.HemisphereLight(0xeef1f6, 0x6e6e75, 0.17));
-  const key = new THREE.DirectionalLight(0xfff3e6, 1.62); key.castShadow = true;
+  const key = new THREE.DirectionalLight(0xfff3e6, 1.05); key.castShadow = true;
   key.shadow.mapSize.set(2048, 2048); key.shadow.camera.near = 1; key.shadow.camera.far = 70;
   key.shadow.camera.left = -16; key.shadow.camera.right = 16; key.shadow.camera.top = 13; key.shadow.camera.bottom = -11; key.shadow.bias = -0.0012;
   scene.add(key); scene.add(key.target); // 그림자 카메라가 시선을 따라다니게(넓은 씬에서 해상도 확보)
-  const fill = new THREE.DirectionalLight(0xdfe8ff, 0.2); fill.position.set(-6, 4, 6); scene.add(fill);
+  const fill = new THREE.DirectionalLight(0xdfe8ff, 0.16); fill.position.set(-6, 4, 6); scene.add(fill);
   // 카메라 쪽 스펙큘러 — 은빛 배관·덕트 위로 길게 흐르는 하이라이트를 만든다
-  const spec = new THREE.DirectionalLight(0xffffff, 1.0); spec.position.set(7, 6, 14); scene.add(spec);
+  const spec = new THREE.DirectionalLight(0xffffff, 0.7); spec.position.set(7, 6, 14); scene.add(spec);
+
+  // 천장 등기구가 **실제로 방을 밝히게** 한다.
+  //  · 거리 16m 를 던져야 하므로 세기가 크다(three 는 물리 단위 — 조도는 거리 제곱으로 준다)
+  //  · 그림자는 끈다. 광원마다 그림자맵을 뜨면 저사양에서 바로 무너진다.
+  //  · 저사양에서는 개수를 줄인다 — 광원 수는 픽셀 셰이더 비용에 그대로 붙는다.
+  (function ceilingLights() {
+    const step = LOWEND ? 2 : 1;
+    for (let i = 0; i < lampSpots.length; i += step) {
+      const L = new THREE.PointLight(0xffeed6, LOWEND ? 260 : 145, 46, 2);
+      L.position.set(lampSpots[i], LAMP_LIGHT_Y, LAMP_LIGHT_Z);
+      scene.add(L);
+    }
+  })();
 
   // =====================================================================
   //  환경맵을 **실제 이 방**으로 교체한다.
