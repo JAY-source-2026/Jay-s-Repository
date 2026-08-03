@@ -863,9 +863,7 @@ export async function initHero3D(canvas, host) {
     const body = new THREE.Group(); g.add(body);   // 달릴 때 앞으로 기울이는 상·하체 전체
     const cloth = new THREE.MeshStandardMaterial({ color: clothC, roughness: 0.88 });
     const vest = new THREE.MeshStandardMaterial({ color: vestC, roughness: 0.7, emissive: vestC, emissiveIntensity: 0.1 });
-    // 사라졌다 나타나는 연출을 하려면 재질이 **인물마다 따로**여야 한다(공유하면 전원이 같이 흐려진다)
-    const skin = matSkin.clone(), hat = matHelmet.clone(), shade = matShade.clone();
-    const mats = [{ m: cloth, a: 1 }, { m: vest, a: 1 }, { m: skin, a: 1 }, { m: hat, a: 1 }, { m: shade, a: matShade.opacity }];
+    const skin = matSkin, hat = matHelmet, shade = matShade;   // 페이드를 안 하므로 재질은 공유해도 된다
     const limb = (parent, x, y, len, w, mat) => {
       const piv = new THREE.Group(); piv.position.set(x, y, 0); parent.add(piv);
       const m = new THREE.Mesh(new THREE.BoxGeometry(w, len, w * 1.15), mat);
@@ -892,7 +890,7 @@ export async function initHero3D(canvas, host) {
     const sh = new THREE.Mesh(new THREE.CircleGeometry(0.36, 20), shade);
     sh.rotation.x = -Math.PI / 2; sh.position.y = 0.03; g.add(sh);
     scene.add(g);
-    return { g, body, headPiv, legL, legR, armL, armR, shade: sh, mats };
+    return { g, body, headPiv, legL, legR, armL, armR, shade: sh };
   }
 
   // =====================================================================
@@ -915,18 +913,21 @@ export async function initHero3D(canvas, host) {
     { x0: -45, x1: -12, z0: 5.2,  z1: 8.6,  sp: 0.067, ph: 0.22, style: 0, cloth: 0x424852, vest: 0xe08a3c, hat: 1 },
     { x0:  24, x1: 36,  z0: 6.0,  z1: 9.0,  sp: 0.121, ph: 0.44, style: 2, cloth: 0x30363f, vest: 0xcfd644, hat: 0 },
     { x0: -37, x1: -25, z0: 12.5, z1: 15.5, sp: 0.156, ph: 0.71, style: 0, cloth: 0x3d434c, vest: 0x8f97a4, hat: 1 },
-  ].map((c) => Object.assign({ o: buildPerson(c.cloth, c.vest, c.hat), face: 0 }, c));
+  ].map((c) => Object.assign({ o: buildPerson(c.cloth, c.vest, c.hat), face: 0, on: true }, c));
 
   const tri = (v) => { v = v - Math.floor(v); return v < 0.5 ? v * 2 : 2 - v * 2; };
   // 삼각파 둘을 합쳐 왕복 주기가 눈에 안 띄게 — 규칙적으로 오가면 산책으로 보인다
   const scurry = (u) => clamp01(0.72 * tri(u) + 0.28 * tri(u * 2.37 + 0.19));
 
-  // ---- 사람이 나오고 들어가는 구간 ----
-  //  시공·셔터 장면에서는 감춘다 — 앞에서 사람이 뛰어다니면 주역(보드·셔터)에 집중이 안 된다.
-  //  다시 나올 때는 이미 진정된 상태로, 여유롭게 걷는 모습이어야 한다.
-  // ⚠️ 사라지는 '과정'도 시공 장면에 걸리면 안 된다 → 카메라가 관통부로 다가가기 시작하는
-  //    4.6초 전에 이미 완전히 사라져 있어야 한다. HIDE_OUT 은 카메라가 물러나기 시작하는 시점.
-  const HIDE_IN = 3.2, HIDE_OUT = 25.7, PPL_FADE = 1.4;
+  // ---- 사람이 나가고 들어오는 구간 ----
+  //  시공·셔터 장면에는 사람이 **한 명도 프레임에 걸리면 안 된다** — 주역(보드·셔터)에 집중이 안 된다.
+  //  ⚠️ 투명도로 사라지게 하면 사라지는 동안 반투명 인물이 그대로 프레임에 남는다. 그래서 페이드를 버리고
+  //     ① 출구 쪽으로 **뛰어 나가게** 하고 ② **화면 밖으로 벗어난 순간에만** 끈다 — 꺼지는 게 안 보인다.
+  const HIDE_IN = 2.4;      // 이때부터 프레임 바깥으로 빠지기 시작
+  const EXIT_DUR = 2.2;     // 빠져나가는 데 걸리는 시간
+  const HIDE_HARD = 5.6;    // 최후 방어선 — 아직 화면에 남아 있어도 여기서는 무조건 끈다(카메라가 관통부로 들어가기 전)
+  const HIDE_OUT = 25.7;    // 카메라가 물러나기 시작 — 화면 밖에 있는 사람부터 다시 걸어 들어온다
+  let snapVis = true;       // 시간을 건너뛴 프레임(초기 표시·seek)에서는 화면 밖 판정 없이 즉시 맞춘다
   // 다급함이 잦아드는 시점은 **감춰져 있는 동안**으로 잡는다 → 다시 등장할 땐 이미 걷는 걸음이다.
   // (속도 계수를 그냥 곱하면 위치가 튄다. 누적 시간을 적분해 두면 이어진 채로 느려진다.)
   const CALM_AT = 8.0, CALM_DUR = 3.0, CALM_MIN = 0.26;
@@ -939,28 +940,26 @@ export async function initHero3D(canvas, host) {
     return c > CALM_AT + CALM_DUR ? w + floor * (c - CALM_AT - CALM_DUR) : w;
   }
 
-  // 등장/퇴장은 팝이 아니라 페이드로. 완전히 보일 때는 transparent 를 꺼서 반투명 정렬 문제를 피한다.
-  function fadePeople(k) {
-    for (const p of PEOPLE) {
-      const on = k > 0.005;
-      p.o.g.visible = on;
-      if (!on) continue;
-      const solid = k > 0.995;
-      for (const e of p.o.mats) {
-        e.m.opacity = e.a * k;
-        if (e.m.transparent !== !solid && e.a >= 1) { e.m.transparent = !solid; e.m.needsUpdate = true; }
-      }
-    }
-    return k > 0.005;
+  // 지금 카메라에 잡히는지 — 켜고 끄는 순간이 눈에 띄지 않으려면 이 판정이 있어야 한다.
+  // ⚠️ 카메라를 먼저 놓고(placeCamera) 나서 판정해야 한다. 순서가 반대면 한 프레임 늦은 절두체로 판정한다.
+  const _frustum = new THREE.Frustum(), _fmat = new THREE.Matrix4(), _fbox = new THREE.Box3();
+  function updateFrustum() {
+    camera.updateMatrixWorld();
+    _fmat.multiplyMatrices(camera.projectionMatrix, camera.matrixWorldInverse);
+    _frustum.setFromProjectionMatrix(_fmat);
+  }
+  // 사람 한 명을 감싸는 박스로 본다. 좌우 0.9m 여유를 둬서 화면 가장자리에 걸친 채로 꺼지지 않게 한다.
+  function inFrame(g) {
+    _fbox.min.set(g.position.x - 0.9, g.position.y, g.position.z - 0.9);
+    _fbox.max.set(g.position.x + 0.9, g.position.y + 2.1, g.position.z + 0.9);
+    return _frustum.intersectsBox(_fbox);
   }
 
   function animPeople(t, cycle) {
-    // 시공·셔터 구간에는 감춘다. 카메라가 물러나기 시작하면 다시 나온다.
-    const k = cycle < HIDE_IN ? 1
-      : cycle < HIDE_IN + PPL_FADE ? 1 - smooth((cycle - HIDE_IN) / PPL_FADE)
-      : cycle < HIDE_OUT ? 0
-      : smooth(clamp01((cycle - HIDE_OUT) / PPL_FADE));
-    if (!fadePeople(k)) return;
+    // 화면에 있어도 되는 구간인가 — 실제로 껐다 켜는 건 화면 밖으로 벗어난 뒤다.
+    const want = cycle < HIDE_IN || cycle >= HIDE_OUT;
+    // 나가는 동안에는 프레임 바깥쪽(카메라가 보는 지점의 반대편)으로 크게 벌어진다.
+    const exit = cycle < HIDE_OUT ? smooth(clamp01((cycle - HIDE_IN) / EXIT_DUR)) : 0;
 
     const retreat = smooth(clamp01((cycle - 1.2) / 15));  // 불이 커질수록 벽에서 물러난다
     const panic = 1 - smooth(clamp01((cycle - CALM_AT) / CALM_DUR));  // 1 다급함 → 0 진정
@@ -975,7 +974,10 @@ export async function initHero3D(canvas, host) {
       const g = p.o.g;
       const gait = tg * 9.4 + p.ph * 17;                // 걷기(4.6)보다 두 배 빠른 보속
       const bounce = Math.abs(Math.sin(gait));
-      g.position.set(p.x0 + span * a, WY0 + bounce * (0.03 + panic * 0.055), p.z0 + (p.z1 - p.z0) * retreat);
+      // 화면 중앙(카메라가 보는 x)에서 멀어지는 쪽으로 밀어낸다 — 사라지는 게 아니라 출구로 뛰어 나가는 것
+      const px = p.x0 + span * a;
+      const away = (px >= camLook.x ? 1 : -1) * 11 * exit;
+      g.position.set(px + away, WY0 + bounce * (0.03 + panic * 0.055), p.z0 + (p.z1 - p.z0) * retreat);
 
       // 방향 전환이 뚝 끊기지 않게 — 도는 동안 카메라 쪽을 스친다
       const face = span * (b - a) >= 0 ? Math.PI / 2 : -Math.PI / 2;
@@ -998,7 +1000,13 @@ export async function initHero3D(canvas, host) {
       // 이따금 불 쪽을 돌아본다 — 불이 꺼지면 돌아보지 않는다
       const glance = clamp01((Math.sin(tw * 0.5 + p.ph * 13) - 0.55) / 0.45);
       p.o.headPiv.rotation.y = -1.9 * glance * panic;
+
+      // 켜고 끄는 건 **화면 밖에 있을 때만**. 끝내 안 나가면 HIDE_HARD 에서 강제로 끈다.
+      // snapVis = seek 으로 시간을 건너뛴 경우 — 이전 상태를 끌고 오면 안 되므로 즉시 맞춘다.
+      if (p.on !== want && (snapVis || !inFrame(g) || (!want && cycle >= HIDE_HARD))) p.on = want;
+      g.visible = p.on;
     }
+    snapVis = false;
   }
 
   // ---- 리사이즈 ----
@@ -1113,8 +1121,9 @@ export async function initHero3D(canvas, host) {
 
   function step(t) {
     const cycle = Math.min(t, TOTAL);   // 루프하지 않는다 — TOTAL에서 멈춘 채 유지
-    animBoards(cycle); animShutter(cycle, t); animPeople(t, cycle);
-    placeCamera(cycle, t);
+    animBoards(cycle); animShutter(cycle, t);
+    // ⚠️ 카메라를 먼저 놓는다 — 사람의 화면 안/밖 판정이 **이번 프레임의** 절두체를 써야 한다
+    placeCamera(cycle, t); updateFrustum(); animPeople(t, cycle);
 
     // 불은 보드가 다 밀착된 **뒤에** 꺼진다 — 진화 순서가 눈에 보이게.
     // reach = 개구부 밖으로 삐져나오는 정도. 보드가 밀착할수록 불이 안으로 밀려 들어간다
@@ -1169,6 +1178,7 @@ export async function initHero3D(canvas, host) {
     stop();
     elapsed = Math.min(TOTAL, Math.max(0, sec || 0));
     finished = elapsed >= TOTAL;
+    snapVis = true;         // 건너뛴 시점의 상태로 바로 맞춘다(이전 프레임의 등/퇴장 상태를 끌고 오지 않게)
     step(elapsed); renderer.render(scene, camera);
   }
   function replay() { seek(0); emit("herofilm:start"); start(); }
