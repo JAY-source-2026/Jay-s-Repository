@@ -33,8 +33,16 @@ export async function initHero3D(canvas, host) {
 
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false, powerPreference: "high-performance" });
   renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-  // 노출은 낮게 — 벽이 흰색으로 날아가면 하얀 내화보드도 크림색 셔터 원단도 안 보인다
-  renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = 0.82;
+  // ⚠️ 톤매핑·색공간 변환은 **마지막 합성 패스에서 한 번만** 한다.
+  //    씬은 HDR 버퍼(HalfFloat)에 선형으로 그려야 1을 넘는 밝기가 살아남고, 그래야 블룸이 걸린다.
+  //    여기서 톤매핑을 켜면 불이 버퍼에 담기기 전에 이미 눌려서 아무리 밝혀도 베이지색이 된다.
+  renderer.toneMapping = THREE.NoToneMapping;
+  renderer.outputColorSpace = THREE.LinearSRGBColorSpace;
+  const EXPOSURE = 0.82;   // 노출 — 벽이 날아가면 하얀 내화보드도 크림색 셔터 원단도 안 보인다
+
+  // 저사양 판별 — 블룸 해상도와 MSAA 를 여기서 한 번에 낮춘다(재생이 20fps 밑으로 떨어지면 문구가 먼저 튀어나온다)
+  const LOWEND = (navigator.hardwareConcurrency || 4) <= 4 ||
+                 /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent || "");
 
   const scene = new THREE.Scene();
   scene.background = new THREE.Color(0xd3d8e1);
@@ -56,11 +64,194 @@ export async function initHero3D(canvas, host) {
     g.fillStyle = "rgba(255,255,255,0.85)"; g.fillRect(0, Math.round(H * 0.46), W, 2);
     for (let i = 0; i < 6; i++) { g.fillStyle = "rgba(255,255,255,0.7)"; g.fillRect(Math.round((i + 0.15) * W / 6), 0, Math.round(W / 26), Math.round(H * 0.42)); }
     const tex = new THREE.CanvasTexture(c); tex.mapping = THREE.EquirectangularReflectionMapping;
+    tex.colorSpace = THREE.SRGBColorSpace;   // 눈으로 고른 색 = sRGB. 안 붙이면 선형으로 읽혀 반사가 들뜬다
     const pmrem = new THREE.PMREMGenerator(renderer);
     scene.environment = pmrem.fromEquirectangular(tex).texture;
   })();
 
   const camera = new THREE.PerspectiveCamera(38, 1, 0.1, 320);
+
+  // =====================================================================
+  //  포스트 프로세싱 — 형태를 아무리 잘 만들어도 이게 없으면 '옛날 게임 화면'이 된다.
+  //   ① 씬을 HDR 버퍼에 그린다      → 1을 넘는 밝기가 살아남는다
+  //   ② 밝은 부분만 뽑아 단계별로 흐려 더한다(블룸) → 불·등기구가 공기 중으로 번진다
+  //   ③ 마지막에 한 번만 톤매핑 → 비네팅 → 그레인 → sRGB
+  //  three 애드온(EffectComposer 등)은 안 쓴다 — 벤더 용량을 안 늘리고,
+  //  단계마다 해상도를 직접 정해 저사양에서 깎을 수 있게 하려고 직접 짰다.
+  // =====================================================================
+  const BLOOM_MIPS = LOWEND ? 3 : 5;   // 단계가 많을수록 넓게 번진다
+  const BLOOM_DIV  = LOWEND ? 4 : 2;   // 첫 단계 해상도 = 화면 / 이 값
+  const rtOpt = { type: THREE.HalfFloatType, depthBuffer: false, stencilBuffer: false };
+  const rtScene = new THREE.WebGLRenderTarget(2, 2, {
+    type: THREE.HalfFloatType, depthBuffer: true, stencilBuffer: false,
+    samples: LOWEND ? 0 : 4,   // 캔버스 antialias 는 렌더타깃에 안 먹는다 → MSAA 는 여기서
+  });
+  const bloomMip = [];
+  for (let i = 0; i < BLOOM_MIPS; i++) {
+    bloomMip.push({ a: new THREE.WebGLRenderTarget(2, 2, rtOpt), b: new THREE.WebGLRenderTarget(2, 2, rtOpt) });
+  }
+
+  const fsCam = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
+  const fsScene = new THREE.Scene();
+  const fsQuad = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), null);
+  fsQuad.frustumCulled = false; fsScene.add(fsQuad);
+  function blit(mat, target) {
+    fsQuad.material = mat;
+    renderer.setRenderTarget(target || null);
+    renderer.render(fsScene, fsCam);
+  }
+  const FS_VERT = `
+    varying vec2 vUv;
+    void main() { vUv = uv; gl_Position = vec4(position.xy, 0.0, 1.0); }
+  `;
+  // 밝은 곳만 뽑아낸다. 무릎(knee)을 둬서 문턱 근처가 계단처럼 끊기지 않게.
+  const matBright = new THREE.ShaderMaterial({
+    uniforms: { tSrc: { value: null }, uThresh: { value: 1.35 }, uKnee: { value: 0.5 } },
+    vertexShader: FS_VERT,
+    fragmentShader: `
+      precision highp float;
+      varying vec2 vUv; uniform sampler2D tSrc; uniform float uThresh, uKnee;
+      void main() {
+        vec3 c = texture2D(tSrc, vUv).rgb;
+        float l = max(c.r, max(c.g, c.b));
+        float k = uKnee;
+        float soft = clamp(l - uThresh + k, 0.0, 2.0 * k);
+        soft = soft * soft / (4.0 * k + 1e-4);
+        float w = max(soft, l - uThresh) / max(l, 1e-4);
+        gl_FragColor = vec4(c * w, 1.0);
+      }
+    `,
+  });
+  // 분리형 가우시안 — 가로 한 번, 세로 한 번. 2D 로 한 번에 하는 것보다 훨씬 싸다.
+  const matBlur = new THREE.ShaderMaterial({
+    uniforms: { tSrc: { value: null }, uDir: { value: new THREE.Vector2() } },
+    vertexShader: FS_VERT,
+    fragmentShader: `
+      precision highp float;
+      varying vec2 vUv; uniform sampler2D tSrc; uniform vec2 uDir;
+      void main() {
+        vec3 s = texture2D(tSrc, vUv).rgb * 0.227027;
+        s += (texture2D(tSrc, vUv + uDir * 1.3846).rgb + texture2D(tSrc, vUv - uDir * 1.3846).rgb) * 0.316216;
+        s += (texture2D(tSrc, vUv + uDir * 3.2308).rgb + texture2D(tSrc, vUv - uDir * 3.2308).rgb) * 0.070270;
+        gl_FragColor = vec4(s, 1.0);
+      }
+    `,
+  });
+  // 최종 합성 — 톤매핑은 three 의 ACESFilmic 과 같은 식을 써서 지금까지 맞춰둔 색이 안 틀어지게 한다
+  const matComposite = new THREE.ShaderMaterial({
+    uniforms: {
+      tScene: { value: null },
+      tB0: { value: null }, tB1: { value: null }, tB2: { value: null }, tB3: { value: null }, tB4: { value: null },
+      uMips: { value: BLOOM_MIPS },
+      uBloom: { value: 0.30 },
+      uExposure: { value: EXPOSURE },
+      uVignette: { value: 0.26 },
+      uGrain: { value: 0.022 },
+      uTime: { value: 0 },
+      uAberr: { value: 0.0016 },
+    },
+    vertexShader: FS_VERT,
+    fragmentShader: `
+      precision highp float;
+      varying vec2 vUv;
+      uniform sampler2D tScene, tB0, tB1, tB2, tB3, tB4;
+      uniform float uMips, uBloom, uExposure, uVignette, uGrain, uTime, uAberr;
+
+      // three 의 ACESFilmicToneMapping 과 동일한 근사식
+      vec3 rrt(vec3 v) { vec3 a = v * (v + 0.0245786) - 0.000090537;
+                         vec3 b = v * (0.983729 * v + 0.4329510) + 0.238081; return a / b; }
+      vec3 aces(vec3 c) {
+        const mat3 IN  = mat3(0.59719, 0.07600, 0.02840, 0.35458, 0.90834, 0.13383, 0.04823, 0.01566, 0.83777);
+        const mat3 OUT = mat3(1.60475, -0.10208, -0.00327, -0.53108, 1.10813, -0.07276, -0.07367, -0.00605, 1.07602);
+        c *= uExposure / 0.6;
+        return clamp(OUT * rrt(IN * c), 0.0, 1.0);
+      }
+      vec3 lin2srgb(vec3 c) {
+        return mix(pow(c, vec3(0.4166667)) * 1.055 - 0.055, c * 12.92, step(c, vec3(0.0031308)));
+      }
+      float hash(vec2 p) { return fract(sin(dot(p, vec2(12.9898, 78.233))) * 43758.5453); }
+
+      void main() {
+        vec2 uv = vUv;
+        vec2 d = uv - 0.5;
+        float r2 = dot(d, d);
+
+        // 아주 약한 색수차 — 가장자리에서만. 렌즈로 찍은 느낌을 준다(과하면 싸구려가 된다)
+        vec2 off = d * r2 * uAberr;
+        vec3 col = vec3(
+          texture2D(tScene, uv - off).r,
+          texture2D(tScene, uv).g,
+          texture2D(tScene, uv + off).b
+        );
+
+        // 블룸 — 단계가 커질수록 넓고 옅게
+        vec3 b = texture2D(tB0, uv).rgb * 1.0;
+        if (uMips > 1.5) b += texture2D(tB1, uv).rgb * 0.78;
+        if (uMips > 2.5) b += texture2D(tB2, uv).rgb * 0.56;
+        if (uMips > 3.5) b += texture2D(tB3, uv).rgb * 0.38;
+        if (uMips > 4.5) b += texture2D(tB4, uv).rgb * 0.24;
+        col += b * uBloom;
+
+        col = aces(col);
+
+        // 비네팅 — 시선을 가운데로 모은다
+        col *= 1.0 - uVignette * smoothstep(0.12, 0.78, r2);
+
+        col = lin2srgb(col);
+
+        // 필름 그레인 — 어두운 쪽에만 살짝. 디지털 특유의 '너무 매끈한' 느낌을 깬다
+        float g = hash(uv * vec2(1024.0, 1024.0) + fract(uTime) * 91.7) - 0.5;
+        col += g * uGrain * (1.0 - 0.7 * dot(col, vec3(0.333)));
+
+        gl_FragColor = vec4(col, 1.0);
+      }
+    `,
+  });
+
+  function postSetSize(w, h, dpr) {
+    const pw = Math.max(2, Math.round(w * dpr)), ph = Math.max(2, Math.round(h * dpr));
+    rtScene.setSize(pw, ph);
+    let mw = Math.max(2, Math.round(pw / BLOOM_DIV)), mh = Math.max(2, Math.round(ph / BLOOM_DIV));
+    for (let i = 0; i < BLOOM_MIPS; i++) {
+      bloomMip[i].a.setSize(mw, mh); bloomMip[i].b.setSize(mw, mh);
+      bloomMip[i].w = mw; bloomMip[i].h = mh;
+      mw = Math.max(2, mw >> 1); mh = Math.max(2, mh >> 1);
+    }
+  }
+
+  const BKEY = ["tB0", "tB1", "tB2", "tB3", "tB4"];
+  function renderFrame(t) {
+    renderer.setRenderTarget(rtScene);
+    renderer.clear();
+    renderer.render(scene, camera);
+
+    // 밝은 부분 추출 → 첫 단계로
+    matBright.uniforms.tSrc.value = rtScene.texture;
+    blit(matBright, bloomMip[0].a);
+    // 단계마다 가로·세로 블러. 다음 단계는 이전 단계 결과를 반으로 줄여 받는다.
+    for (let i = 0; i < BLOOM_MIPS; i++) {
+      const m = bloomMip[i];
+      if (i > 0) { matBright.uniforms.tSrc.value = bloomMip[i - 1].a.texture; }
+      if (i > 0) {
+        // 축소만 하면 되므로 임계값 0 으로 통과시킨다
+        matBright.uniforms.uThresh.value = 0.0;
+        blit(matBright, m.a);
+        matBright.uniforms.uThresh.value = 1.35;
+      }
+      matBlur.uniforms.tSrc.value = m.a.texture;
+      matBlur.uniforms.uDir.value.set(1 / m.w, 0);
+      blit(matBlur, m.b);
+      matBlur.uniforms.tSrc.value = m.b.texture;
+      matBlur.uniforms.uDir.value.set(0, 1 / m.h);
+      blit(matBlur, m.a);
+    }
+    for (let i = 0; i < 5; i++) {
+      matComposite.uniforms[BKEY[i]].value = bloomMip[Math.min(i, BLOOM_MIPS - 1)].a.texture;
+    }
+    matComposite.uniforms.tScene.value = rtScene.texture;
+    matComposite.uniforms.uTime.value = t || 0;
+    blit(matComposite, null);
+  }
 
   // =====================================================================
   //  표면 결 — 이게 없으면 아무리 형태를 만들어도 '색종이로 접은 방'으로 보인다.
@@ -96,6 +287,9 @@ export async function initHero3D(canvas, host) {
     }
     // 미세 입자
     const img = g.getImageData(0, 0, S, S), d = img.data;
+    // ⚠️ 노멀맵은 **입자를 넣기 전** 그림에서 뽑는다. 픽셀 단위 난수로 노멀을 만들면
+    //    표면이 지글거리고 오히려 싸구려로 보인다. 굴곡은 얼룩·줄눈 같은 큰 결에서만 온다.
+    const pre = new Uint8ClampedArray(d);
     for (let i = 0; i < d.length; i += 4) {
       const n = (Math.random() - 0.5) * o.grain;
       d[i] += n; d[i + 1] += n; d[i + 2] += n;
@@ -103,13 +297,55 @@ export async function initHero3D(canvas, host) {
     g.putImageData(img, 0, 0);
     const tex = new THREE.CanvasTexture(c);
     tex.wrapS = tex.wrapT = THREE.RepeatWrapping; tex.anisotropy = 8;
+    tex.colorSpace = THREE.SRGBColorSpace;   // albedo — 눈으로 고른 색이므로 sRGB 로 읽어야 한다
+    // ⚠️ 같은 그림을 roughness 로도 쓰는데, 거칠기는 **색이 아니다**.
+    //    같은 캔버스를 그냥 재사용하면 두 가지가 한꺼번에 어긋난다.
+    //     ① colorSpace 는 텍스처당 하나뿐이라 sRGB 디코드가 거칠기에도 끼어든다
+    //     ② albedo 를 밝게/어둡게 고치는 순간 거칠기까지 같이 움직인다
+    //    → 같은 무늬를 쓰되 **평균값을 따로 정한** 선형 사본을 만든다.
+    //      (roughBase 가 곧 이 면의 기본 거칠기 배율. 재질의 roughness 와 곱해진다)
+    const rc = document.createElement("canvas"); rc.width = rc.height = S;
+    const rg = rc.getContext("2d");
+    rg.fillStyle = o.roughBase || "#8d8d8d"; rg.fillRect(0, 0, S, S);
+    rg.globalAlpha = 0.45; rg.globalCompositeOperation = "overlay";
+    rg.drawImage(c, 0, 0);
+    const data = new THREE.CanvasTexture(rc);
+    data.wrapS = data.wrapT = THREE.RepeatWrapping; data.anisotropy = 8;
+    tex.dataTwin = data;
+
+    // 노멀맵 — 같은 무늬의 밝기 기울기(소벨)에서 뽑는다.
+    // 색만 있는 면은 아무리 잘 칠해도 '인쇄된 판'이다. 빛이 굴곡을 타야 표면이 된다.
+    const nc = document.createElement("canvas"); nc.width = nc.height = S;
+    const ng = nc.getContext("2d");
+    const out = ng.createImageData(S, S), od = out.data;
+    const lum = (x, y) => {
+      x = (x + S) % S; y = (y + S) % S; const i = (y * S + x) * 4;
+      return (pre[i] * 0.299 + pre[i + 1] * 0.587 + pre[i + 2] * 0.114) / 255;
+    };
+    const st = o.normalStrength === undefined ? 2.4 : o.normalStrength;
+    for (let y = 0; y < S; y++) {
+      for (let x = 0; x < S; x++) {
+        const dx = (lum(x + 1, y) - lum(x - 1, y)) * st;
+        const dy = (lum(x, y + 1) - lum(x, y - 1)) * st;
+        const inv = 1 / Math.sqrt(dx * dx + dy * dy + 1);
+        const i = (y * S + x) * 4;
+        od[i]     = (-dx * inv * 0.5 + 0.5) * 255;
+        od[i + 1] = ( dy * inv * 0.5 + 0.5) * 255;
+        od[i + 2] = ( inv * 0.5 + 0.5) * 255;
+        od[i + 3] = 255;
+      }
+    }
+    ng.putImageData(out, 0, 0);
+    const nrm = new THREE.CanvasTexture(nc);
+    nrm.wrapS = nrm.wrapT = THREE.RepeatWrapping; nrm.anisotropy = 8;
+    tex.normalTwin = nrm;
     return tex;
   }
   // ⚠️ 얼룩·흘러내린 자국을 세게 주면 '폐건물'이 된다. 관리되는 시설이어야 하므로
   //    결은 남기되 대비를 눌러서, 가까이서만 보이고 멀리서는 고운 회색으로 읽히게 한다.
-  const texConcrete = makeSurfaceTex(512, { base: "#8d8a84", dark: "rgba(64,62,58,.12)", light: "rgba(232,229,223,.13)", blobs: 34, streaks: 7, grain: 13 });
-  const texFloor    = makeSurfaceTex(512, { base: "#9c9da3", dark: "rgba(60,62,68,.13)", light: "rgba(238,240,244,.17)", blobs: 28, grain: 12, grid: 3, gridColor: "rgba(74,76,82,.42)" });
-  const texCeil     = makeSurfaceTex(256, { base: "#6d6a66", dark: "rgba(28,26,24,.22)", light: "rgba(150,146,140,.14)", blobs: 20, grain: 12 });
+  const texConcrete = makeSurfaceTex(512, { base: "#c6c3bd", roughBase: "#8d8d8d", dark: "rgba(64,62,58,.12)", light: "rgba(232,229,223,.13)", blobs: 34, streaks: 7, grain: 13 });
+  const texFloor    = makeSurfaceTex(512, { base: "#cdced2", roughBase: "#9c9c9c", dark: "rgba(60,62,68,.13)", light: "rgba(238,240,244,.17)", blobs: 28, grain: 12, grid: 3, gridColor: "rgba(74,76,82,.42)" });
+  const texCeil     = makeSurfaceTex(256, { base: "#afaba6", roughBase: "#b4b4b4", dark: "rgba(28,26,24,.22)", light: "rgba(150,146,140,.14)", blobs: 20, grain: 12 });
 
   // 같은 결 이미지를 쓰되 **면의 월드 좌표에 맞춰** 반복·오프셋을 정한다.
   //  · 크기에 비례한 repeat  → 큰 벽과 작은 조각의 결 크기가 같아진다
@@ -117,33 +353,45 @@ export async function initHero3D(canvas, host) {
   //    (이걸 안 하면 개구부 위·아래 슬래브가 서로 다른 패널을 붙인 것처럼 단차가 보인다)
   function scaled(mat, w, h, unit, u0, v0) {
     const m = mat.clone();
+    const rx = Math.max(0.35, w / unit), ry = Math.max(0.35, h / unit);
+    const ox = (u0 || 0) / unit, oy = (v0 || 0) / unit;
     if (mat.map) {
       m.map = mat.map.clone();
-      m.map.repeat.set(Math.max(0.35, w / unit), Math.max(0.35, h / unit));
-      m.map.offset.set((u0 || 0) / unit, (v0 || 0) / unit);
+      m.map.repeat.set(rx, ry); m.map.offset.set(ox, oy);
     }
-    if (mat.roughnessMap) m.roughnessMap = m.map || mat.roughnessMap.clone();
+    // ⚠️ 예전엔 roughnessMap 에 map 사본을 그대로 물렸는데, 이제 albedo 는 sRGB 라 그러면 안 된다.
+    //    선형 사본(dataTwin)을 따로 복제해 같은 반복·오프셋을 준다.
+    if (mat.roughnessMap) {
+      m.roughnessMap = mat.roughnessMap.clone();
+      m.roughnessMap.repeat.set(rx, ry); m.roughnessMap.offset.set(ox, oy);
+    }
+    if (mat.normalMap) {
+      m.normalMap = mat.normalMap.clone();
+      m.normalMap.repeat.set(rx, ry); m.normalMap.offset.set(ox, oy);
+    }
     return m;
   }
 
   // ---- 재질 ----
   // 벽체 = 노출 콘크리트 톤의 건축 마감. 하얀 내화보드가 확실히 대비되도록 중간 명도의 웜그레이
-  const matWall     = new THREE.MeshStandardMaterial({ color: 0x8b8479, roughness: 0.94, map: texConcrete, roughnessMap: texConcrete });
-  const matWallSide = new THREE.MeshStandardMaterial({ color: 0x7f7971, roughness: 0.96, map: texConcrete, roughnessMap: texConcrete });
-  const matCol      = new THREE.MeshStandardMaterial({ color: 0xa69f96, roughness: 0.9,  map: texConcrete, roughnessMap: texConcrete });  // 기둥(빛 받는 면)
-  const matBeam     = new THREE.MeshStandardMaterial({ color: 0x8b857c, roughness: 0.92, map: texConcrete, roughnessMap: texConcrete }); // 보·인방
+  const matWall     = new THREE.MeshStandardMaterial({ color: 0x8b8479, roughness: 0.94, envMapIntensity: 0.5, map: texConcrete, roughnessMap: texConcrete.dataTwin, normalMap: texConcrete.normalTwin, normalScale: new THREE.Vector2(0.85, 0.85) });
+  const matWallSide = new THREE.MeshStandardMaterial({ color: 0x7f7971, roughness: 0.96, envMapIntensity: 0.5, map: texConcrete, roughnessMap: texConcrete.dataTwin, normalMap: texConcrete.normalTwin, normalScale: new THREE.Vector2(0.8, 0.8) });
+  const matCol      = new THREE.MeshStandardMaterial({ color: 0xa69f96, roughness: 0.9,  envMapIntensity: 0.5, map: texConcrete, roughnessMap: texConcrete.dataTwin, normalMap: texConcrete.normalTwin, normalScale: new THREE.Vector2(0.9, 0.9) });  // 기둥(빛 받는 면)
+  const matBeam     = new THREE.MeshStandardMaterial({ color: 0x8b857c, roughness: 0.92, envMapIntensity: 0.5, map: texConcrete, roughnessMap: texConcrete.dataTwin, normalMap: texConcrete.normalTwin, normalScale: new THREE.Vector2(0.85, 0.85) }); // 보·인방
   const matReveal   = new THREE.MeshStandardMaterial({ color: 0x6b6660, roughness: 0.97 }); // 패널 줄눈
   // 바닥은 도장 콘크리트 — 살짝 반사가 있어야 실내로 읽힌다(완전 무광이면 종이가 된다)
-  const matFloor    = new THREE.MeshStandardMaterial({ color: 0x9a9ba1, roughness: 0.52, metalness: 0.04, envMapIntensity: 0.55, map: texFloor, roughnessMap: texFloor });
+  const matFloor    = new THREE.MeshStandardMaterial({ color: 0x9a9ba1, roughness: 0.52, metalness: 0.04, envMapIntensity: 0.55, map: texFloor, roughnessMap: texFloor.dataTwin, normalMap: texFloor.normalTwin, normalScale: new THREE.Vector2(0.5, 0.5) });
   const matFJoint   = new THREE.MeshStandardMaterial({ color: 0x7f8086, roughness: 0.95 });
-  const matCeil     = new THREE.MeshStandardMaterial({ color: 0x676460, roughness: 1.0, map: texCeil, roughnessMap: texCeil });  // 완전 검정은 멀리서 화면을 눌러버린다
+  const matCeil     = new THREE.MeshStandardMaterial({ color: 0x676460, roughness: 1.0, envMapIntensity: 0.4, map: texCeil, roughnessMap: texCeil.dataTwin });  // 완전 검정은 멀리서 화면을 눌러버린다
   const matCeilBeam = new THREE.MeshStandardMaterial({ color: 0x55524e, roughness: 1.0, map: texCeil });
   const matDark     = new THREE.MeshStandardMaterial({ color: 0x161210, roughness: 1.0 });
   // 반짝이는 은빛 스테인리스 배관 / 아연도 사각덕트
-  const matPipe = new THREE.MeshStandardMaterial({ color: 0xccd3dc, roughness: 0.13, metalness: 1.0, envMapIntensity: 2.4 });
-  const matDuct = new THREE.MeshStandardMaterial({ color: 0xbcc3cb, roughness: 0.3,  metalness: 0.92, envMapIntensity: 1.8 });
-  const matBand = new THREE.MeshStandardMaterial({ color: 0xa8b0ba, roughness: 0.2,  metalness: 1.0, envMapIntensity: 2.0 });
-  const matBoard = new THREE.MeshStandardMaterial({ color: 0xf7f5ef, roughness: 0.72, metalness: 0.0, emissive: 0x22242a, emissiveIntensity: 0.1 });
+  const matPipe = new THREE.MeshStandardMaterial({ color: 0xccd3dc, roughness: 0.16, metalness: 1.0, envMapIntensity: 1.05 });
+  const matDuct = new THREE.MeshStandardMaterial({ color: 0xbcc3cb, roughness: 0.36, metalness: 0.92, envMapIntensity: 0.85 });
+  const matBand = new THREE.MeshStandardMaterial({ color: 0xa8b0ba, roughness: 0.24, metalness: 1.0, envMapIntensity: 0.95 });
+  // 내화보드 — 흰색이지만 **하얗게 날아가면 안 된다**. 밝은 환경맵을 그대로 받으면
+  // 종이를 오려 붙인 것처럼 면이 다 뭉개진다. 톤을 살짝 내리고 환경 반사도 절반만 받는다.
+  const matBoard = new THREE.MeshStandardMaterial({ color: 0xe6e2d8, roughness: 0.78, metalness: 0.0, envMapIntensity: 0.5 });
 
   function box(w, h, d, mat, x, y, z, parent, cast, rec) {
     const m = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), mat);
@@ -166,7 +414,9 @@ export async function initHero3D(canvas, host) {
     const g2 = c2.getContext("2d");
     try { g2.filter = "blur(" + (blur === undefined ? 4 : blur) + "px)"; } catch (e) { /* 미지원 브라우저는 그대로 */ }
     g2.drawImage(c, 0, 0);
-    return new THREE.CanvasTexture(c2);
+    const t = new THREE.CanvasTexture(c2);
+    t.colorSpace = THREE.SRGBColorSpace;   // 색 맵 — 선형으로 읽히면 하얗게 뜬다
+    return t;
   }
   // 불티 — 작고 아주 밝은 점
   const emberTex = softDraw(64, (g, S) => {
@@ -255,6 +505,10 @@ export async function initHero3D(canvas, host) {
       col = mix(col, vec3(1.00, 0.52, 0.07), smoothstep(0.24, 0.52, f));
       col = mix(col, vec3(1.00, 0.82, 0.32), smoothstep(0.52, 0.80, f));
       col = mix(col, vec3(1.00, 0.91, 0.60), smoothstep(0.90, 1.00, f));
+      // ⚠️ 위 색은 눈으로 고른 sRGB 값이다. 이제 HDR 선형 버퍼에 그리므로 선형으로 되돌린다.
+      //    그 다음 온도에 따라 1을 훌쩍 넘게 밀어 올린다 — 그래야 심부가 하얗게 타고 블룸이 걸린다.
+      //    (이 단계가 없으면 아무리 노랗게 칠해도 '주황색 판'으로만 보인다)
+      col = pow(col, vec3(2.2)) * mix(1.35, 4.6, smoothstep(0.10, 0.98, f));
 
       float a = smoothstep(0.012, 0.19, f) * uAlpha * uOn;
       a *= smoothstep(uCut + 0.05, uCut - 0.03, h);   // 셔터 하단 아래로만 남는다
@@ -359,9 +613,10 @@ export async function initHero3D(canvas, host) {
       a *= smoothstep(uCut + 0.06, uCut - 0.03, h);
       if (a < 0.004) discard;
 
-      // 발생부는 그을음처럼 짙고 위로 갈수록 옅은 회색
-      vec3 col = mix(vec3(0.14, 0.135, 0.14), vec3(0.52, 0.515, 0.53), smoothstep(0.0, 0.65, h));
-      gl_FragColor = vec4(col, a);
+      // 발생부는 그을음처럼 짙고 위로 갈수록 옅은 회색.
+      // 불과 마찬가지로 sRGB 로 고른 값이라 선형으로 되돌려야 한다(안 하면 흰 연무가 된다).
+      vec3 col = mix(vec3(0.10, 0.097, 0.105), vec3(0.40, 0.396, 0.42), smoothstep(0.0, 0.65, h));
+      gl_FragColor = vec4(pow(col, vec3(2.2)), a);
     }
   `;
   function makeSmokeSheets(o, cfg) {
@@ -844,7 +1099,7 @@ export async function initHero3D(canvas, host) {
   // ---- 조명 ----
   // 앰비언트(hemi)를 낮추고 방향광(key)을 올리면 면마다 명암이 갈려 형태가 또렷해진다.
   // 반대로 hemi 가 세면 전체가 균일하게 떠서 '뿌연' 그림이 된다.
-  scene.add(new THREE.HemisphereLight(0xeef1f6, 0x6e6e75, 0.46));
+  scene.add(new THREE.HemisphereLight(0xeef1f6, 0x6e6e75, 0.17));
   const key = new THREE.DirectionalLight(0xfff3e6, 1.62); key.castShadow = true;
   key.shadow.mapSize.set(2048, 2048); key.shadow.camera.near = 1; key.shadow.camera.far = 70;
   key.shadow.camera.left = -16; key.shadow.camera.right = 16; key.shadow.camera.top = 13; key.shadow.camera.bottom = -11; key.shadow.bias = -0.0012;
@@ -852,6 +1107,27 @@ export async function initHero3D(canvas, host) {
   const fill = new THREE.DirectionalLight(0xdfe8ff, 0.2); fill.position.set(-6, 4, 6); scene.add(fill);
   // 카메라 쪽 스펙큘러 — 은빛 배관·덕트 위로 길게 흐르는 하이라이트를 만든다
   const spec = new THREE.DirectionalLight(0xffffff, 1.0); spec.position.set(7, 6, 14); scene.add(spec);
+
+  // =====================================================================
+  //  환경맵을 **실제 이 방**으로 교체한다.
+  //   손으로 칠한 256×128 그라디언트를 반사시키면, 배관도 덕트도 레일도
+  //   '회색 플라스틱'으로 보인다. 금속이 금속으로 보이려면 주변 형태가 비쳐야 한다.
+  //   → 조명·형상이 다 올라온 지금, 현장 한가운데서 큐브맵을 한 번 찍어 그걸 환경맵으로 쓴다.
+  //   한 번만 굽는 비용(6면 × 256px + PMREM)이고, 이후 프레임에는 부담이 없다.
+  // =====================================================================
+  (function bakeEnvironment() {
+    const cubeRT = new THREE.WebGLCubeRenderTarget(256, { type: THREE.HalfFloatType });
+    const cubeCam = new THREE.CubeCamera(0.4, 220, cubeRT);
+    cubeCam.position.set(3.0, 2.2, 7.0);   // 개구부 앞 — 금속들이 실제로 놓인 자리
+    const prevTarget = renderer.getRenderTarget();
+    cubeCam.update(renderer, scene);
+    renderer.setRenderTarget(prevTarget);
+    const pmrem = new THREE.PMREMGenerator(renderer);
+    const baked = pmrem.fromCubemap(cubeRT.texture).texture;
+    if (scene.environment && scene.environment.dispose) scene.environment.dispose();
+    scene.environment = baked;
+    cubeRT.dispose(); pmrem.dispose();
+  })();
   // =====================================================================
   //  사람 — 앞쪽을 오가는 사람들. 벽이 '건물'로 읽히게 하는 스케일 기준이 된다
   // =====================================================================
@@ -1025,8 +1301,10 @@ export async function initHero3D(canvas, host) {
   let fovK = 1, lookK = 0;
   function resize() {
     const w = host.clientWidth || window.innerWidth, h = host.clientHeight || window.innerHeight;
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 1.75));
+    const dpr = Math.min(window.devicePixelRatio || 1, LOWEND ? 1.4 : 1.75);
+    renderer.setPixelRatio(dpr);
     renderer.setSize(w, h, false); camera.aspect = w / h;
+    postSetSize(w, h, dpr);   // 렌더타깃은 setSize 를 안 따라간다 — 직접 맞춰줘야 한다
     const a = w / h;
     fovK = a < 0.8 ? 1.58 : a < 1.2 ? 1.32 : a < 1.6 ? 1.12 : 1; // 세로 화면일수록 화각을 넓힌다
     // 가로 화면은 왼쪽이 헤드라인 자리라 주역을 오른쪽으로 밀지만,
@@ -1158,7 +1436,7 @@ export async function initHero3D(canvas, host) {
     const dt = Math.min(0.05, Math.max(0, (now - last) / 1000)); // 탭 복귀 시 시간 점프 방지
     last = now; elapsed += dt;
     if (elapsed >= TOTAL) { elapsed = TOTAL; finished = true; }
-    step(elapsed); renderer.render(scene, camera);
+    step(elapsed); renderFrame(elapsed);
     if (finished) {           // 막은 상태로 완료 — 여기서 렌더를 멈추고 끝났음을 알린다
       running = false; raf = null;
       emit("herofilm:end");
@@ -1170,7 +1448,7 @@ export async function initHero3D(canvas, host) {
   function stop() { running = false; last = null; if (raf) cancelAnimationFrame(raf); raf = null; }
 
   // 초기 프레임: 확립샷(불). reduced-motion이면 결과 화면 — 전부 막힌 완료 상태
-  step(reduce ? TOTAL : 0); renderer.render(scene, camera);
+  step(reduce ? TOTAL : 0); renderFrame(reduce ? TOTAL : 0);
   host.classList.add("is-3d");
   if (reduce) {
     finished = true;
@@ -1191,7 +1469,7 @@ export async function initHero3D(canvas, host) {
     elapsed = Math.min(TOTAL, Math.max(0, sec || 0));
     finished = elapsed >= TOTAL;
     snapVis = true;         // 건너뛴 시점의 상태로 바로 맞춘다(이전 프레임의 등/퇴장 상태를 끌고 오지 않게)
-    step(elapsed); renderer.render(scene, camera);
+    step(elapsed); renderFrame(elapsed);
   }
   function replay() { seek(0); emit("herofilm:start"); start(); }
   return { start, stop, seek, replay, total: TOTAL };
