@@ -245,7 +245,7 @@ svg { display: block; width: 100%; height: auto; }
     position: absolute; inset: 0; overflow: hidden;
     /* 3D 가 뜨기 전에도 같은 장면이 보이도록 첫 프레임을 포스터로 깔아둔다.
        배경색은 포스터의 평균색 — 이미지가 오기 전에도 흰 화면이 되지 않는다. */
-    background: #979392 url("../images/hero-poster.jpg?v=20260803a") center center / cover no-repeat;
+    background: #979392 url("../images/hero-poster.jpg?v=20260803b") center center / cover no-repeat;
 }
 
 /* 사실적 3D 캔버스 — 준비되면 폴백 위로 나타난다 */
