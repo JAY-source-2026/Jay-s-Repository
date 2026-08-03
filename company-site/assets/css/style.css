@@ -241,20 +241,34 @@ svg { display: block; width: 100%; height: auto; }
 /* 히어로 미디어 슬롯 — 실사 영상/사진을 받으면 .hero-art 앞에
    <video ...> 또는 <img>를 넣기만 하면 아래 규칙이 도면 그래픽을 자동으로 감춘다 */
 /* 폴백: WebGL 미지원 시 보이는 무지 배경 (건축 사진 제거 — 3D가 주역) */
+/* 3D 가 뜨기 전에도 같은 장면이 보이도록 필름 첫 프레임을 포스터로 깔아둔다.
+   ⚠️ 포스터는 **필름 0초를 그대로 캡처한 것**이어야 한다. 타임라인·카메라를 고치고
+      포스터를 그대로 두면 옛 장면이 잠깐 비쳤다가 바뀌는 게 그대로 보인다.
+
+   ⚠️ 그리고 한 장으로는 못 맞춘다. hero3d.js 의 resize() 는 화면 비율에 따라
+      세로 화각(fovK)과 시선 지점(lookK)을 4단계로 바꾼다. cover 로 깔면 세로 화면에서
+      포스터만 4배 확대된 꼴이 되어, 3D 로 넘어가는 순간 화면이 확 튄다.
+      → 단계마다 한 장씩, 그 단계의 **가장 넓은 비율**로 뽑아 두고
+        `background-size: auto 100%` 로 높이를 맞춘다. 좁아지면 좌우가 잘리는데,
+        카메라도 세로 화각을 고정한 채 가로만 넓히므로 잘리는 방식이 똑같다 = 프레임 일치.
+   ⚠️ 경계는 min-aspect-ratio 로 쓴다. resize() 의 조건이 `a < 0.8` 이므로 그 여집합인
+      `a >= 0.8` = min-aspect-ratio:4/5 와 정확히 겹친다. max- 로 쓰면 경계값(딱 0.8)에서
+      CSS 와 JS 가 서로 다른 단계를 골라 그 화면만 프레임이 튄다.
+   배경색은 포스터의 평균색 — 이미지가 오기 전에도 흰 화면이 되지 않는다. */
 .hero-media {
     position: absolute; inset: 0; overflow: hidden;
-    /* 3D 가 뜨기 전에도 같은 장면이 보이도록 첫 프레임을 포스터로 깔아둔다.
-       ⚠️ 이 포스터는 **필름 0초를 그대로 캡처한 것**이어야 한다. 타임라인·카메라를 고치고
-          포스터를 그대로 두면 옛 장면이 잠깐 비쳤다가 바뀌는 게 그대로 보인다.
-       배경색은 포스터의 평균색 — 이미지가 오기 전에도 흰 화면이 되지 않는다. */
-    background: #83786f url("../images/hero-poster.jpg?v=20260803c") center center / cover no-repeat;
+    background: #83786f center center / auto 100% no-repeat;
+    background-image: url("../images/hero-poster-p.jpg?v=20260803d");           /*        a < 0.8 */
 }
+@media (min-aspect-ratio: 4/5) { .hero-media { background-image: url("../images/hero-poster-n.jpg?v=20260803d"); } }  /* 0.8 <= a < 1.2 */
+@media (min-aspect-ratio: 6/5) { .hero-media { background-image: url("../images/hero-poster-m.jpg?v=20260803d"); } }  /* 1.2 <= a < 1.6 */
+@media (min-aspect-ratio: 8/5) { .hero-media { background-image: url("../images/hero-poster-w.jpg?v=20260803d"); } }  /* 1.6 <= a       */
 
 /* 사실적 3D 캔버스 — 준비되면 폴백 위로 나타난다.
-   포스터가 곧 첫 프레임이므로 길게 겹칠 이유가 없다 — 짧게 넘겨야 갈아타는 게 안 보인다 */
+   포스터가 곧 같은 프레임이므로 길게 겹칠 이유가 없다 — 짧게 넘겨야 갈아타는 게 안 보인다 */
 .hero-3d {
     position: absolute; inset: 0; width: 100%; height: 100%;
-    display: block; opacity: 0; transition: opacity .28s linear;
+    display: block; opacity: 0; transition: opacity .22s linear;
 }
 .hero-media.is-3d .hero-3d { opacity: 1; }
 
