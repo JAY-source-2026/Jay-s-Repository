@@ -913,6 +913,18 @@ export async function initHero3D(canvas, host) {
     { x0: -45, x1: -12, z0: 5.2,  z1: 8.6,  sp: 0.067, ph: 0.22, style: 0, cloth: 0x424852, vest: 0xe08a3c, hat: 1 },
     { x0:  24, x1: 36,  z0: 6.0,  z1: 9.0,  sp: 0.121, ph: 0.44, style: 2, cloth: 0x30363f, vest: 0xcfd644, hat: 0 },
     { x0: -37, x1: -25, z0: 12.5, z1: 15.5, sp: 0.156, ph: 0.71, style: 0, cloth: 0x3d434c, vest: 0x8f97a4, hat: 1 },
+    // ↓ 마지막 와이드샷(문구가 들어오는 장면)을 채우는 인원.
+    //   벽 전체가 한 화면에 들어오면 앞의 9명으로는 현장이 휑해 보인다. 좌우 끝과 중간 깊이를 메운다.
+    //   ⚠️ 이들도 같은 감춤 규칙을 탄다 — 시공·셔터 구간에는 함께 빠져나간다.
+    { x0: -44, x1: -32, z0:  9.0, z1: 12.0, sp: 0.147, ph: 0.38, style: 2, cloth: 0x2e343d, vest: 0xcfd644, hat: 1 },
+    { x0: -21, x1:  -8, z0: 14.5, z1: 17.5, sp: 0.128, ph: 0.17, style: 0, cloth: 0x363c46, vest: 0xd6d94a, hat: 1 },
+    { x0: -32, x1: -20, z0: 16.5, z1: 19.5, sp: 0.115, ph: 0.05, style: 0, cloth: 0x333942, vest: 0x8f97a4, hat: 1 },
+    { x0:   6, x1:  18, z0:  5.5, z1:  8.5, sp: 0.131, ph: 0.45, style: 0, cloth: 0x444a55, vest: 0xe08a3c, hat: 1 },
+    { x0:   2, x1:  16, z0: 10.0, z1: 13.0, sp: 0.124, ph: 0.49, style: 1, cloth: 0x3b414a, vest: 0xcfd644, hat: 1 },
+    { x0:   5, x1:  19, z0: 14.0, z1: 17.0, sp: 0.137, ph: 0.61, style: 0, cloth: 0x3f4550, vest: 0xd6d94a, hat: 1 },
+    { x0: -12, x1:   0, z0: 16.0, z1: 19.0, sp: 0.126, ph: 0.90, style: 0, cloth: 0x2f353e, vest: 0xe08a3c, hat: 1 },
+    { x0:  -4, x1:   9, z0: 14.5, z1: 17.5, sp: 0.133, ph: 0.12, style: 2, cloth: 0x40464f, vest: 0xcfd644, hat: 0 },
+    { x0:  -2, x1:  11, z0: 18.0, z1: 21.0, sp: 0.141, ph: 0.24, style: 0, cloth: 0x343a44, vest: 0xd6d94a, hat: 1 },
   ].map((c) => Object.assign({ o: buildPerson(c.cloth, c.vest, c.hat), face: 0, on: true }, c));
 
   const tri = (v) => { v = v - Math.floor(v); return v < 0.5 ? v * 2 : 2 - v * 2; };
