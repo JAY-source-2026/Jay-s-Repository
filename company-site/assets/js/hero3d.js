@@ -40,9 +40,20 @@ export async function initHero3D(canvas, host) {
   renderer.outputColorSpace = THREE.LinearSRGBColorSpace;
   const EXPOSURE = 0.68;   // 노출 — 벽이 날아가면 하얀 내화보드도 크림색 셔터 원단도 안 보인다
 
-  // 저사양 판별 — 블룸 해상도와 MSAA 를 여기서 한 번에 낮춘다(재생이 20fps 밑으로 떨어지면 문구가 먼저 튀어나온다)
-  const LOWEND = (navigator.hardwareConcurrency || 4) <= 4 ||
-                 /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent || "");
+  // 저사양 판별 — 블룸 해상도·MSAA·심도·접지그림자를 여기서 한 번에 낮춘다
+  // (재생이 20fps 밑으로 떨어지면 문구가 먼저 튀어나온다)
+  //
+  // ⚠️ **`?gfx=high` 를 붙이면 강제로 고품질**이 된다. 반드시 필요하다:
+  //    헤드리스 컨테이너는 코어가 2개라 무조건 저사양으로 잡힌다. 그 상태로 포스터를 구우면
+  //    **저품질로 구운 첫 화면 위에 고품질 3D 가 뜨면서 화면이 끊기듯 바뀐다** —
+  //    사용자가 두 번 지적한 그 증상의 원인이 바로 이것이다. 검수·포스터는 항상 gfx=high 로.
+  let LOWEND = (navigator.hardwareConcurrency || 4) <= 4 ||
+               /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent || "");
+  try {
+    const gfx = new URLSearchParams(location.search).get("gfx");
+    if (gfx === "high") LOWEND = false;
+    else if (gfx === "low") LOWEND = true;
+  } catch (e) { /* 구형 브라우저 */ }
 
   const scene = new THREE.Scene();
   scene.background = new THREE.Color(0xd3d8e1);
@@ -86,6 +97,47 @@ export async function initHero3D(canvas, host) {
     type: THREE.HalfFloatType, depthBuffer: true, stencilBuffer: false,
     samples: LOWEND ? 0 : 4,   // 캔버스 antialias 는 렌더타깃에 안 먹는다 → MSAA 는 여기서
   });
+  // ⚠️ **MSAA 렌더타깃에 깊이 텍스처를 붙여도 값이 안 나온다** — 확인해보니 전부 0 이었다.
+  //    멀티샘플 깊이는 텍스처로 해석(resolve)되지 않는다. 그렇다고 MSAA 를 끄면 이 씬은
+  //    가느다란 모서리·줄눈이 잔뜩이라 계단이 심해진다(모따기를 넣은 의미가 없어진다).
+  //    → 색은 MSAA 로 그대로 두고, **깊이만 따로 한 번 더** 그린다. 조명·텍스처가 없는
+  //      패스라 전체 렌더의 1/4 수준이고, 무엇보다 어느 환경에서나 똑같이 동작한다.
+  const depthTex = new THREE.DepthTexture(2, 2);
+  depthTex.type = THREE.UnsignedIntType;   // 24비트 — near 0.1/far 320 에서 20m 지점 분해능 0.3mm
+  const rtDepth = new THREE.WebGLRenderTarget(2, 2, {
+    depthTexture: depthTex, depthBuffer: true, stencilBuffer: false, samples: 0,
+  });
+  // 색은 안 쓴다 — 깊이만 채우면 된다.
+  // ⚠️ **양면으로 둔다.** 셔터 원단은 열린 면(PlaneGeometry, DoubleSide)이라 앞면 판정이
+  //    뒤집히면 깊이가 통째로 비고, 그 자리만 초점·그늘이 배경 값으로 계산된다.
+  //    닫힌 입체는 앞면이 어차피 더 가까우므로 양면으로 그려도 결과가 같다.
+  const matDepthOnly = new THREE.MeshBasicMaterial({ side: THREE.DoubleSide });
+  // 불·연기·글로우·접지원판은 반투명이라 본 패스에서도 깊이를 안 쓴다(depthWrite:false).
+  // 깊이 패스에서는 override 재질이 씌워져 **불투명하게 깊이를 써버리므로** 잠시 꺼야 한다.
+  // 안 그러면 불꽃이 벽처럼 취급돼 개구부 앞이 통째로 초점·그늘 판정을 먹는다.
+  const noDepth = [];
+  function collectNoDepth() {
+    noDepth.length = 0;
+    scene.traverse(function (o) {
+      if (!o.isMesh && !o.isSprite) return;
+      const arr = Array.isArray(o.material) ? o.material : [o.material];
+      if (arr.some((m) => m && (m.transparent === true || m.depthWrite === false))) noDepth.push(o);
+    });
+  }
+  function renderDepth() {
+    const saved = [];
+    for (let i = 0; i < noDepth.length; i++) { saved[i] = noDepth[i].visible; noDepth[i].visible = false; }
+    scene.overrideMaterial = matDepthOnly;
+    // ⚠️ 이 패스에서도 three 는 그림자맵을 다시 굽는다 — 끄지 않으면 그림자 비용이 **두 배**가 된다.
+    //    바로 뒤 본 렌더에서 어차피 갱신되므로 여기서는 꺼도 결과가 같다.
+    renderer.shadowMap.autoUpdate = false;
+    renderer.setRenderTarget(rtDepth);
+    renderer.clear();
+    renderer.render(scene, camera);
+    renderer.shadowMap.autoUpdate = true;
+    scene.overrideMaterial = null;
+    for (let i = 0; i < noDepth.length; i++) noDepth[i].visible = saved[i];
+  }
   const bloomMip = [];
   for (let i = 0; i < BLOOM_MIPS; i++) {
     bloomMip.push({ a: new THREE.WebGLRenderTarget(2, 2, rtOpt), b: new THREE.WebGLRenderTarget(2, 2, rtOpt) });
@@ -137,6 +189,140 @@ export async function initHero3D(canvas, host) {
       }
     `,
   });
+  // =====================================================================
+  //  렌즈 — 심도(피사계심도) · 접지 그림자
+  //   3D 가 3D 로 보이는 가장 큰 이유는 **모든 것이 똑같이 선명하기 때문**이다.
+  //   실제 카메라는 한 거리에만 초점이 맞고 나머지는 부드럽게 풀린다. 그리고 실제 공간에는
+  //   물체가 바닥·벽과 만나는 자리마다 빛이 못 들어가 생기는 어두운 틈이 있다.
+  //   이 둘이 없으면 아무리 재질을 잘 만들어도 "떠 있는 모형"으로 읽힌다.
+  //
+  //   ⚠️ 접지 그림자를 세게 주면 **때가 낀 폐건물**이 된다(14차에 이미 겪은 실패).
+  //      반경을 작게(0.55m) 잡아 '닿는 자리'만 어두워지게 하고 세기는 눌러 둔다.
+  // =====================================================================
+  const PHOTO = !LOWEND;               // 패스가 4개 늘어난다 — 저사양에서는 통째로 끈다
+  const rtDof = [new THREE.WebGLRenderTarget(2, 2, rtOpt), new THREE.WebGLRenderTarget(2, 2, rtOpt)];
+  const rtAO  = [new THREE.WebGLRenderTarget(2, 2, rtOpt), new THREE.WebGLRenderTarget(2, 2, rtOpt)];
+
+  // 깊이 버퍼(0~1 비선형)에서 **눈에서 떨어진 실제 거리(m)** 를 되찾는 공통 코드
+  const GLSL_DEPTH = `
+    uniform sampler2D tDepth;
+    uniform float uNear, uFar, uTanHalf, uAspect;
+    float viewZ(vec2 uv) {
+      float d = texture2D(tDepth, uv).x;
+      return (2.0 * uNear * uFar) / (uFar + uNear - (d * 2.0 - 1.0) * (uFar - uNear));
+    }
+    // 화면 좌표 + 거리 → 카메라 좌표계의 위치. 법선을 되살리는 데 쓴다
+    vec3 viewPos(vec2 uv) {
+      float z = viewZ(uv);
+      vec2 ndc = uv * 2.0 - 1.0;
+      return vec3(ndc * uTanHalf * vec2(uAspect, 1.0) * z, -z);
+    }
+    // 착란원(CoC) — 0 이면 초점이 맞은 것, ±1 이면 최대로 풀린 것.
+    // 앞·뒤 세기를 따로 둔다: 뒷배경은 시원하게 풀되 앞쪽 인물까지 뭉개지면 장면을 못 읽는다.
+    uniform float uFocus, uKFar, uKNear;
+    float cocOf(float z) {
+      float s = (z - uFocus) / max(z, 0.001);
+      return clamp(s * (s > 0.0 ? uKFar : uKNear), -1.0, 1.0);
+    }
+  `;
+
+  // ① 절반 해상도로 줄이면서 알파에 CoC 를 실어 보낸다 — 게더 패스가 깊이를 다시 안 읽어도 되게
+  const matCoc = new THREE.ShaderMaterial({
+    uniforms: {
+      tSrc: { value: null }, tDepth: { value: null },
+      uNear: { value: 0.1 }, uFar: { value: 320 }, uTanHalf: { value: 0.36 }, uAspect: { value: 1.78 },
+      uFocus: { value: 24 }, uKFar: { value: 1.25 }, uKNear: { value: 0.42 },
+    },
+    vertexShader: FS_VERT,
+    fragmentShader: `
+      precision highp float;
+      varying vec2 vUv; uniform sampler2D tSrc;
+      ${GLSL_DEPTH}
+      void main() {
+        vec3 c = texture2D(tSrc, vUv).rgb;
+        gl_FragColor = vec4(c, cocOf(viewZ(vUv)) * 0.5 + 0.5);
+      }
+    `,
+  });
+
+  // ② 보케 게더 — 황금각 나선으로 흩뿌린다. 격자로 뽑으면 흐림에 격자무늬가 그대로 남는다.
+  const matBokeh = new THREE.ShaderMaterial({
+    uniforms: { tSrc: { value: null }, uRadius: { value: 0.011 }, uAspect: { value: 1.78 } },
+    vertexShader: FS_VERT,
+    fragmentShader: `
+      precision highp float;
+      varying vec2 vUv; uniform sampler2D tSrc; uniform float uRadius, uAspect;
+      void main() {
+        vec4 c0 = texture2D(tSrc, vUv);
+        float coc0 = c0.a * 2.0 - 1.0;
+        float r0 = abs(coc0);
+        vec3 sum = c0.rgb; float wsum = 1.0;
+        for (int i = 0; i < 16; i++) {
+          float fi = float(i) + 0.5;
+          float ang = fi * 2.39996323;              // 황금각
+          float rad = sqrt(fi / 16.0);              // 원판에 고르게 퍼지도록
+          vec2 off = vec2(cos(ang), sin(ang)) * rad * uRadius * r0;
+          off.x /= uAspect;                          // 가로로 늘어난 보케가 되지 않게
+          vec4 cs = texture2D(tSrc, vUv + off);
+          float cocS = cs.a * 2.0 - 1.0;
+          // 흐린 배경이 **선명한 앞쪽 물체**를 끌어오면 윤곽에 후광이 생긴다 → 그 표본만 눌러준다
+          float w = mix(0.12, 1.0, smoothstep(coc0 - 0.30, coc0 + 0.02, cocS));
+          sum += cs.rgb * w; wsum += w;
+        }
+        gl_FragColor = vec4(sum / wsum, c0.a);
+      }
+    `,
+  });
+
+  // ③ 접지 그림자 — 깊이에서 법선을 되살려 반구 표본을 던진다(법선 없이 하면 비스듬한 벽이 통째로 어두워진다)
+  const matSSAO = new THREE.ShaderMaterial({
+    uniforms: {
+      tDepth: { value: null },
+      uNear: { value: 0.1 }, uFar: { value: 320 }, uTanHalf: { value: 0.36 }, uAspect: { value: 1.78 },
+      uFocus: { value: 24 }, uKFar: { value: 1.25 }, uKNear: { value: 0.42 },
+      // ⚠️ 반경을 '접지'만 생각해 0.55m 로 잡았더니 **윤곽선만 그리는 필터**가 됐다.
+      //    카메라가 20~45m 밖에 있어서 0.5m 는 화면에서 2px 남짓이기 때문이다.
+      //    이 장면에서 실제로 읽히는 건 벽·바닥이 만나는 구석, 천장보 밑, 개구부 안쪽처럼
+      //    **몇 미터 규모의 그늘**이다. 그래서 반경을 공간 스케일(3m)로 잡는다.
+      uAoRad: { value: 3.0 }, uAoStr: { value: 0.5 }, uTexel: { value: new THREE.Vector2() },
+    },
+    vertexShader: FS_VERT,
+    fragmentShader: `
+      precision highp float;
+      varying vec2 vUv;
+      uniform float uAoRad, uAoStr; uniform vec2 uTexel;
+      ${GLSL_DEPTH}
+      void main() {
+        vec3 p = viewPos(vUv);
+        // 이웃 두 점으로 면의 기울기를 잡는다
+        vec3 dx = viewPos(vUv + vec2(uTexel.x, 0.0)) - p;
+        vec3 dy = viewPos(vUv + vec2(0.0, uTexel.y)) - p;
+        vec3 n = normalize(cross(dx, dy));
+        if (n.z < 0.0) n = -n;
+        // 화면상 반경 = 실제 반경 / 거리 / 화각. 멀수록 작게 뿌려야 실제 크기가 일정해 보인다
+        float sr = uAoRad / max(-p.z, 0.5) / (2.0 * uTanHalf);
+        float occ = 0.0;
+        for (int i = 0; i < 12; i++) {
+          float fi = float(i) + 0.5;
+          float ang = fi * 2.39996323;
+          float rad = sqrt(fi / 12.0);
+          vec2 off = vec2(cos(ang), sin(ang)) * rad * sr;
+          off.x /= uAspect;
+          vec3 s = viewPos(vUv + off);
+          vec3 v = s - p;
+          float d = length(v);
+          if (d > 0.0001) {
+            // 표본이 이 면보다 앞에 있을수록(=위를 덮을수록) 가려진다.
+            // 반경 밖은 선형으로 끊어낸다 — 안 그러면 멀리 있는 물체가 배경에 후광을 남긴다
+            occ += max(0.0, dot(n, v / d) - 0.05) * max(0.0, 1.0 - d / uAoRad);
+          }
+        }
+        float ao = clamp(1.0 - uAoStr * occ / 12.0 * 3.0, 0.0, 1.0);
+        gl_FragColor = vec4(vec3(ao), 1.0);
+      }
+    `,
+  });
+
   // 최종 합성 — 톤매핑은 three 의 ACESFilmic 과 같은 식을 써서 지금까지 맞춰둔 색이 안 틀어지게 한다
   const matComposite = new THREE.ShaderMaterial({
     uniforms: {
@@ -149,13 +335,22 @@ export async function initHero3D(canvas, host) {
       uGrain: { value: 0.022 },
       uTime: { value: 0 },
       uAberr: { value: 0.0016 },
+      tDof: { value: null }, tAO: { value: null }, tDepth: { value: null },
+      uPhoto: { value: 0 },        // 0 이면 심도·접지그림자를 통째로 건너뛴다(저사양)
+      uNear: { value: 0.1 }, uFar: { value: 320 }, uTanHalf: { value: 0.36 }, uAspect: { value: 1.78 },
+      uFocus: { value: 24 }, uKFar: { value: 1.25 }, uKNear: { value: 0.42 },
+      uAoMix: { value: 0.85 },
+      // 검수용 — window.heroFilm.debug(n) 로 중간 버퍼를 그대로 화면에 띄운다.
+      // 1=깊이 2=착란원(CoC) 3=접지그림자 4=보케 버퍼
+      uDebug: { value: 0 },
     },
     vertexShader: FS_VERT,
     fragmentShader: `
       precision highp float;
       varying vec2 vUv;
-      uniform sampler2D tScene, tB0, tB1, tB2, tB3, tB4;
-      uniform float uMips, uBloom, uExposure, uVignette, uGrain, uTime, uAberr;
+      uniform sampler2D tScene, tB0, tB1, tB2, tB3, tB4, tDof, tAO;
+      uniform float uMips, uBloom, uExposure, uVignette, uGrain, uTime, uAberr, uPhoto, uAoMix, uDebug;
+      ${GLSL_DEPTH}
 
       // three 의 ACESFilmicToneMapping 과 동일한 근사식
       vec3 rrt(vec3 v) { vec3 a = v * (v + 0.0245786) - 0.000090537;
@@ -176,6 +371,14 @@ export async function initHero3D(canvas, host) {
         vec2 d = uv - 0.5;
         float r2 = dot(d, d);
 
+        if (uDebug > 0.5) {
+          if (uDebug < 1.5) { float z = viewZ(uv); gl_FragColor = vec4(vec3(z / 90.0), 1.0); return; }
+          if (uDebug < 2.5) { float c = cocOf(viewZ(uv));
+                              gl_FragColor = vec4(max(0.0, c), max(0.0, -c), 0.0, 1.0); return; }
+          if (uDebug < 3.5) { gl_FragColor = vec4(vec3(texture2D(tAO, uv).r), 1.0); return; }
+          gl_FragColor = vec4(texture2D(tDof, uv).rgb * uExposure, 1.0); return;
+        }
+
         // 아주 약한 색수차 — 가장자리에서만. 렌즈로 찍은 느낌을 준다(과하면 싸구려가 된다)
         vec2 off = d * r2 * uAberr;
         vec3 col = vec3(
@@ -183,6 +386,15 @@ export async function initHero3D(canvas, host) {
           texture2D(tScene, uv).g,
           texture2D(tScene, uv + off).b
         );
+
+        // 렌즈: 초점이 맞은 곳은 원본 그대로, 벗어날수록 보케 버퍼로 넘어간다.
+        // 접지 그림자는 저주파라 절반 해상도 그대로 곱해도 티가 안 난다.
+        // ⚠️ 블룸을 **더하기 전에** 적용한다 — 빛 번짐은 렌즈에서 생기는 거라 가려지지 않는다.
+        if (uPhoto > 0.5) {
+          float coc = abs(cocOf(viewZ(uv)));
+          col = mix(col, texture2D(tDof, uv).rgb, smoothstep(0.02, 0.26, coc));
+          col *= mix(1.0, texture2D(tAO, uv).r, uAoMix);
+        }
 
         // 블룸 — 단계가 커질수록 넓고 옅게
         vec3 b = texture2D(tB0, uv).rgb * 1.0;
@@ -211,6 +423,13 @@ export async function initHero3D(canvas, host) {
   function postSetSize(w, h, dpr) {
     const pw = Math.max(2, Math.round(w * dpr)), ph = Math.max(2, Math.round(h * dpr));
     rtScene.setSize(pw, ph);
+    rtDepth.setSize(pw, ph);
+    // 심도·접지그림자는 절반 해상도. 둘 다 저주파라 눈에 안 띄고 비용은 1/4 이 된다.
+    const hw = Math.max(2, pw >> 1), hh = Math.max(2, ph >> 1);
+    for (const rt of rtDof) rt.setSize(hw, hh);
+    for (const rt of rtAO) rt.setSize(hw, hh);
+    matSSAO.uniforms.uTexel.value.set(1 / hw, 1 / hh);
+    halfW = hw; halfH = hh;
     let mw = Math.max(2, Math.round(pw / BLOOM_DIV)), mh = Math.max(2, Math.round(ph / BLOOM_DIV));
     for (let i = 0; i < BLOOM_MIPS; i++) {
       bloomMip[i].a.setSize(mw, mh); bloomMip[i].b.setSize(mw, mh);
@@ -220,10 +439,50 @@ export async function initHero3D(canvas, host) {
   }
 
   const BKEY = ["tB0", "tB1", "tB2", "tB3", "tB4"];
+  let halfW = 2, halfH = 2;
+  let bypassPhoto = false;   // 검수용 — 심도·접지그림자만 끄고 같은 프레임을 비교할 때
+  // 카메라가 매 프레임 화각·위치를 바꾸므로 렌즈 상수도 매 프레임 따라가야 한다
+  function syncLens() {
+    const tanHalf = Math.tan((camera.fov * Math.PI / 180) / 2);
+    // 초점은 **지금 카메라가 보고 있는 지점**에 맞춘다 — 연출상 주역이 늘 거기에 있다
+    const focus = Math.max(1, camera.position.distanceTo(camLook));
+    for (const m of [matCoc, matSSAO, matComposite]) {
+      m.uniforms.uNear.value = camera.near; m.uniforms.uFar.value = camera.far;
+      m.uniforms.uTanHalf.value = tanHalf; m.uniforms.uAspect.value = camera.aspect;
+      m.uniforms.uFocus.value = focus;
+    }
+    matBokeh.uniforms.uAspect.value = camera.aspect;
+  }
+
   function renderFrame(t) {
+    const usePhoto = PHOTO && !bypassPhoto;
+    if (usePhoto) renderDepth();       // ⚠️ 본 렌더보다 **먼저** — 같은 프레임의 카메라로 찍어야 한다
     renderer.setRenderTarget(rtScene);
     renderer.clear();
     renderer.render(scene, camera);
+
+    if (usePhoto) {
+      syncLens();
+      // ① 절반 해상도 + CoC → ② 보케 게더
+      matCoc.uniforms.tSrc.value = rtScene.texture;
+      matCoc.uniforms.tDepth.value = rtDepth.depthTexture;
+      blit(matCoc, rtDof[0]);
+      matBokeh.uniforms.tSrc.value = rtDof[0].texture;
+      blit(matBokeh, rtDof[1]);
+      // ③ 접지 그림자 → 표본이 12개뿐이라 얼룩진다. 가로·세로로 한 번씩 흐려 편다.
+      matSSAO.uniforms.tDepth.value = rtDepth.depthTexture;
+      blit(matSSAO, rtAO[0]);
+      matBlur.uniforms.tSrc.value = rtAO[0].texture;
+      matBlur.uniforms.uDir.value.set(1 / halfW, 0);
+      blit(matBlur, rtAO[1]);
+      matBlur.uniforms.tSrc.value = rtAO[1].texture;
+      matBlur.uniforms.uDir.value.set(0, 1 / halfH);
+      blit(matBlur, rtAO[0]);
+      matComposite.uniforms.tDof.value = rtDof[1].texture;
+      matComposite.uniforms.tAO.value = rtAO[0].texture;
+      matComposite.uniforms.tDepth.value = rtDepth.depthTexture;
+    }
+    matComposite.uniforms.uPhoto.value = usePhoto ? 1 : 0;
 
     // 밝은 부분 추출 → 첫 단계로
     matBright.uniforms.tSrc.value = rtScene.texture;
@@ -406,8 +665,107 @@ export async function initHero3D(canvas, host) {
   // 종이를 오려 붙인 것처럼 면이 다 뭉개진다. 톤을 살짝 내리고 환경 반사도 절반만 받는다.
   const matBoard = new THREE.MeshStandardMaterial({ color: 0xe6e2d8, roughness: 0.78, metalness: 0.0, envMapIntensity: 0.5 });
 
+  // =====================================================================
+  //  모따기 상자 — CG 티가 가장 많이 나던 부분
+  //   현실에 **완벽하게 날카로운 모서리는 없다.** 콘크리트 기둥에도 거푸집 면귀가 있고
+  //   도장면은 모서리에서 도료가 얇아진다. 그래서 실제 사진에서는 모든 모서리에
+  //   가느다란 밝은 선(하이라이트)이 하나 얹힌다. 각진 BoxGeometry 는 그 선이 없어서
+  //   아무리 재질을 잘 만들어도 "면과 면이 그냥 만난" 렌더로 읽힌다.
+  //
+  //   구성: 면 6장(안쪽으로 r 만큼 줄인 사각형) + 모서리 띠 12장 + 꼭짓점 삼각형 8장.
+  //   ⚠️ 정점을 구면으로 밀어내는 흔한 방식(RoundedBoxGeometry)은 쓰지 않는다 —
+  //      면이 도톰하게 부풀고 법선이 면 전체에 번져 **베개처럼** 보인다. 여기서는
+  //      면은 완전히 평평하게 두고 **모따기 띠에만** 법선을 주는 게 맞다.
+  //   ⚠️ UV 는 BoxGeometry 와 **완전히 같은 식**으로 계산한다. 벽·기둥 재질이
+  //      scaled() 로 repeat/offset 을 월드좌표에 맞춰 놓았기 때문에, UV 규약이 달라지면
+  //      슬래브마다 결이 어긋나 패널을 덧댄 것처럼 단차가 보인다(7차에 겪은 문제).
+  // =====================================================================
+  const CHAMFER = 0.022;                       // 실제 콘크리트 면귀와 같은 정도(약 2cm)
+  const chamferCache = new Map();
+  function chamferBoxGeom(w, h, d, rIn) {
+    // 얇은 줄눈(두께 0.03)이 모따기에 먹혀 사라지지 않게 각 변의 1/4 로 상한을 건다
+    const r = Math.max(0.0015, Math.min(rIn === undefined ? CHAMFER : rIn, w * 0.25, h * 0.25, d * 0.25));
+    const key = `${w.toFixed(4)}|${h.toFixed(4)}|${d.toFixed(4)}|${r.toFixed(4)}`;
+    const hit = chamferCache.get(key);
+    if (hit) return hit;
+
+    const a = w / 2, b = h / 2, c = d / 2;      // 바깥 반치수
+    const ax = a - r, by = b - r, cz = c - r;   // 면이 평평하게 남는 범위
+    const pos = [], nor = [], uvs = [];
+
+    // BoxGeometry 의 면별 UV 규약 그대로. 0=+X 1=-X 2=+Y 3=-Y 4=+Z 5=-Z
+    const UV = [
+      (x, y, z) => [(c - z) / (2 * c), (y + b) / (2 * b)],
+      (x, y, z) => [(z + c) / (2 * c), (y + b) / (2 * b)],
+      (x, y, z) => [(x + a) / (2 * a), (c - z) / (2 * c)],
+      (x, y, z) => [(x + a) / (2 * a), (z + c) / (2 * c)],
+      (x, y, z) => [(x + a) / (2 * a), (y + b) / (2 * b)],
+      (x, y, z) => [(a - x) / (2 * a), (y + b) / (2 * b)],
+    ];
+    // p = [x,y,z] 꼭짓점 배열(3개 또는 4개), n = 법선, face = UV 를 빌려올 면 번호
+    // ⚠️ 감김 방향(winding)을 손으로 맞추지 않는다 — 모따기 띠 12장의 부호를 사람이 따지면
+    //    반드시 몇 장이 뒤집히고, 뒤집힌 면은 back-face culling 으로 **구멍처럼 사라진다**.
+    //    첫 삼각형의 외적이 원하는 법선과 반대면 여기서 그냥 순서를 뒤집는다.
+    function poly(p, n, face) {
+      const len = Math.hypot(n[0], n[1], n[2]) || 1;
+      const nx = n[0] / len, ny = n[1] / len, nz = n[2] / len;
+      const e1 = [p[1][0] - p[0][0], p[1][1] - p[0][1], p[1][2] - p[0][2]];
+      const e2 = [p[2][0] - p[0][0], p[2][1] - p[0][1], p[2][2] - p[0][2]];
+      const cx = e1[1] * e2[2] - e1[2] * e2[1];
+      const cy = e1[2] * e2[0] - e1[0] * e2[2];
+      const cz2 = e1[0] * e2[1] - e1[1] * e2[0];
+      if (cx * nx + cy * ny + cz2 * nz < 0) p = p.slice().reverse();
+      const fan = p.length === 4 ? [0, 1, 2, 0, 2, 3] : [0, 1, 2];
+      for (const i of fan) {
+        const v = p[i];
+        pos.push(v[0], v[1], v[2]);
+        nor.push(nx, ny, nz);
+        const t = UV[face](v[0], v[1], v[2]);
+        uvs.push(t[0], t[1]);
+      }
+    }
+
+    // ---- 면 6장 (r 만큼 안으로 줄인 평면) ----
+    poly([[a, -by, cz], [a, -by, -cz], [a, by, -cz], [a, by, cz]], [1, 0, 0], 0);
+    poly([[-a, -by, -cz], [-a, -by, cz], [-a, by, cz], [-a, by, -cz]], [-1, 0, 0], 1);
+    poly([[-ax, b, cz], [ax, b, cz], [ax, b, -cz], [-ax, b, -cz]], [0, 1, 0], 2);
+    poly([[-ax, -b, -cz], [ax, -b, -cz], [ax, -b, cz], [-ax, -b, cz]], [0, -1, 0], 3);
+    poly([[-ax, -by, c], [ax, -by, c], [ax, by, c], [-ax, by, c]], [0, 0, 1], 4);
+    poly([[ax, -by, -c], [-ax, -by, -c], [-ax, by, -c], [ax, by, -c]], [0, 0, -1], 5);
+
+    // ---- 모서리 띠 12장 ---- (감김은 poly 가 알아서 맞춘다)
+    // z 를 따라 뻗는 4개 (x·y 모서리)
+    for (const sx of [1, -1]) for (const sy of [1, -1]) {
+      poly([[sx * a, sy * by, -cz], [sx * a, sy * by, cz], [sx * ax, sy * b, cz], [sx * ax, sy * b, -cz]],
+        [sx, sy, 0], sx > 0 ? 0 : 1);
+    }
+    // x 를 따라 뻗는 4개 (y·z 모서리)
+    for (const sy of [1, -1]) for (const sz of [1, -1]) {
+      poly([[-ax, sy * b, sz * cz], [ax, sy * b, sz * cz], [ax, sy * by, sz * c], [-ax, sy * by, sz * c]],
+        [0, sy, sz], sz > 0 ? 4 : 5);
+    }
+    // y 를 따라 뻗는 4개 (x·z 모서리)
+    for (const sx of [1, -1]) for (const sz of [1, -1]) {
+      poly([[sx * a, -by, sz * cz], [sx * a, by, sz * cz], [sx * ax, by, sz * c], [sx * ax, -by, sz * c]],
+        [sx, 0, sz], sx > 0 ? 0 : 1);
+    }
+    // ---- 꼭짓점 삼각형 8장 ----
+    for (const sx of [1, -1]) for (const sy of [1, -1]) for (const sz of [1, -1]) {
+      poly([[sx * a, sy * by, sz * cz], [sx * ax, sy * b, sz * cz], [sx * ax, sy * by, sz * c]],
+        [sx, sy, sz], sx > 0 ? 0 : 1);
+    }
+
+    const g = new THREE.BufferGeometry();
+    g.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3));
+    g.setAttribute("normal", new THREE.Float32BufferAttribute(nor, 3));
+    g.setAttribute("uv", new THREE.Float32BufferAttribute(uvs, 2));
+    g.computeBoundingSphere();
+    chamferCache.set(key, g);
+    return g;
+  }
+
   function box(w, h, d, mat, x, y, z, parent, cast, rec) {
-    const m = new THREE.Mesh(new THREE.BoxGeometry(w, h, d), mat);
+    const m = new THREE.Mesh(chamferBoxGeom(w, h, d), mat);
     m.position.set(x, y, z); m.castShadow = cast !== false; m.receiveShadow = rec !== false;
     (parent || scene).add(m); return m;
   }
@@ -1174,28 +1532,59 @@ export async function initHero3D(canvas, host) {
   const matHelmet = new THREE.MeshStandardMaterial({ color: 0xf2f3f5, roughness: 0.42, metalness: 0.05 });
   const matSkin   = new THREE.MeshStandardMaterial({ color: 0xc59d84, roughness: 0.85 });
   const matShade  = new THREE.MeshBasicMaterial({ color: 0x3d4045, transparent: true, opacity: 0.2, depthWrite: false, fog: false });
+  const matShoe   = new THREE.MeshStandardMaterial({ color: 0x23262b, roughness: 0.6 });
+  // 캡슐 지오메트리 캐시 — 18명 × 팔다리 4개면 같은 걸 72번 만들게 된다
+  const capsCache = new Map();
+  function capsule(r, len, seg) {
+    const key = `${r.toFixed(3)}|${len.toFixed(3)}|${seg || 10}`;
+    let g = capsCache.get(key);
+    // CapsuleGeometry(반지름, 원통부 길이, 캡 분할, 둘레 분할) — 전체 높이 = len + 2r
+    if (!g) { g = new THREE.CapsuleGeometry(r, Math.max(0.001, len), 3, seg || 10); capsCache.set(key, g); }
+    return g;
+  }
+
   function buildPerson(clothC, vestC, helmet) {
     const g = new THREE.Group();          // 바닥에 붙는 기준 — 진행 방향으로 돌린다
     const body = new THREE.Group(); g.add(body);   // 달릴 때 앞으로 기울이는 상·하체 전체
     const cloth = new THREE.MeshStandardMaterial({ color: clothC, roughness: 0.88 });
     const vest = new THREE.MeshStandardMaterial({ color: vestC, roughness: 0.7, emissive: vestC, emissiveIntensity: 0.1 });
     const skin = matSkin, hat = matHelmet, shade = matShade;   // 페이드를 안 하므로 재질은 공유해도 된다
+    // ⚠️ 팔다리·몸통이 상자면 아무리 멀어도 '장난감'으로 읽힌다. 사람의 실루엣은 어디에도
+    //    직각이 없다 — 캡슐로 바꾸는 것만으로 마지막 와이드샷 18명이 통째로 달라진다.
+    //    가슴·등은 원통이 아니라 납작하므로 z 를 눌러 타원 단면으로 만든다.
     const limb = (parent, x, y, len, w, mat) => {
       const piv = new THREE.Group(); piv.position.set(x, y, 0); parent.add(piv);
-      const m = new THREE.Mesh(new THREE.BoxGeometry(w, len, w * 1.15), mat);
+      const r = w / 2;
+      const m = new THREE.Mesh(capsule(r, len - 2 * r, 8), mat);
       m.position.y = -len / 2; m.castShadow = true; piv.add(m); return piv;
     };
     const legL = limb(body, -0.11, 0.9, 0.9, 0.17, cloth);
     const legR = limb(body,  0.11, 0.9, 0.9, 0.17, cloth);
     const armL = limb(body, -0.29, 1.44, 0.66, 0.13, cloth);
     const armR = limb(body,  0.29, 1.44, 0.66, 0.13, cloth);
-    box(0.46, 0.66, 0.26, cloth, 0, 1.2, 0, body, true, false);        // 몸통
-    box(0.5, 0.46, 0.31, vest, 0, 1.2, 0, body, true, false);          // 안전조끼
-    box(0.15, 0.13, 0.15, skin, 0, 1.6, 0, body, true, false);         // 목
+    // 신발 — 다리 끝이 그냥 둥글게 끝나면 바닥에 닿는 느낌이 안 난다
+    for (const leg of [legL, legR]) {
+      const sh2 = new THREE.Mesh(chamferBoxGeom(0.11, 0.07, 0.25, 0.02), matShoe);
+      sh2.position.set(0, -0.875, 0.04); sh2.castShadow = true; leg.add(sh2);
+    }
+    // ⚠️ 캡슐의 **캡 반지름이 크면** 위아래가 공처럼 부풀어, 그 위에 덧씌운 조끼가
+    //    어깨·밑단에서 몸통에 파묻혀 **가느다란 띠**로만 보인다(실제로 그렇게 나왔다).
+    //    그래서 몸통은 '반지름 작고 원통부 긴' 캡슐로 만들어 어깨선까지 폭을 유지시킨다.
+    const torso = new THREE.Mesh(capsule(0.13, 0.40, 12), cloth);  // 전체 높이 0.66
+    torso.position.y = 1.2; torso.scale.set(1.77, 1, 1.04);        // 폭 0.46 · 두께 0.27
+    torso.castShadow = true; body.add(torso);
+    // 조끼는 가슴 전체를 덮는 넓은 판. 어깨·밑단에서 몸통이 살짝 비어져 나오는 건
+    // 그대로 두는 게 맞다 — 그게 '조끼 위로 드러난 작업복'으로 읽힌다.
+    const vst = new THREE.Mesh(capsule(0.10, 0.26, 12), vest);     // 전체 높이 0.46
+    vst.position.y = 1.2; vst.scale.set(2.5, 1, 1.55);             // 폭 0.50 · 두께 0.31
+    vst.castShadow = true; body.add(vst);
+    const neck = new THREE.Mesh(capsule(0.062, 0.04, 8), skin);
+    neck.position.y = 1.6; body.add(neck);
     // 머리는 따로 묶는다 — 달아나면서 불 쪽을 돌아보게 하려면 목만 돌려야 한다
     const headPiv = new THREE.Group(); headPiv.position.y = 1.62; body.add(headPiv);
     const head = new THREE.Mesh(new THREE.SphereGeometry(0.115, 16, 12), skin);
-    head.position.y = 0.10; head.castShadow = true; headPiv.add(head);
+    head.position.y = 0.10; head.scale.set(1, 1.12, 1.06);   // 완전한 구는 사람 머리로 안 읽힌다
+    head.castShadow = true; headPiv.add(head);
     if (helmet) {
       const h = new THREE.Mesh(new THREE.SphereGeometry(0.145, 18, 12, 0, Math.PI * 2, 0, Math.PI / 2), hat);
       h.position.y = 0.13; h.castShadow = true; headPiv.add(h);
@@ -1470,10 +1859,27 @@ export async function initHero3D(canvas, host) {
     );
   }
 
+  // ---- 성능 안전장치 ----
+  // ⚠️ 코어 수로는 GPU 성능을 알 수 없다. 코어가 8개여도 내장 그래픽이면 깊이 패스 + 보케에서
+  //    프레임이 무너진다. 그런데 이 필름은 **느려지면 문구가 먼저 튀어나오는** 구조라
+  //    (12초 안전장치) 끊기는 게 그냥 보기 나쁜 정도로 끝나지 않는다.
+  //    → 실제 프레임 시간을 재서 느리면 **렌즈 효과만 끄고** 필름은 그대로 간다.
+  let perfN = 0, perfSum = 0;
+  function watchPerf(dt) {
+    if (perfN < 0 || !PHOTO || bypassPhoto) return;
+    perfN++;
+    if (perfN <= 20) return;            // 앞 20프레임은 셰이더 컴파일 때문에 무조건 느리다
+    perfSum += dt;
+    if (perfN < 80) return;
+    if (perfSum / (perfN - 20) > 0.033) bypassPhoto = true;   // 평균 30fps 미만이면 포기
+    perfN = -1;                         // 판정은 한 번만
+  }
+
   // 경과 시간을 누적한다 — 스크롤로 벗어났다 돌아와도 처음부터 다시 시작하지 않는다
   function frame(now) {
     if (last === null) last = now;
     const dt = Math.min(0.05, Math.max(0, (now - last) / 1000)); // 탭 복귀 시 시간 점프 방지
+    watchPerf(dt);
     last = now; elapsed += dt;
     if (elapsed >= TOTAL) { elapsed = TOTAL; finished = true; }
     step(elapsed); renderFrame(elapsed);
@@ -1488,6 +1894,7 @@ export async function initHero3D(canvas, host) {
   function stop() { running = false; last = null; if (raf) cancelAnimationFrame(raf); raf = null; }
 
   // 초기 프레임: 확립샷(불). reduced-motion이면 결과 화면 — 전부 막힌 완료 상태
+  collectNoDepth();   // 씬이 다 만들어진 뒤에 한 번만 — 깊이 패스에서 뺄 반투명 목록
   step(reduce ? TOTAL : 0); renderFrame(reduce ? TOTAL : 0);
   host.classList.add("is-3d");
   if (reduce) {
@@ -1512,5 +1919,8 @@ export async function initHero3D(canvas, host) {
     step(elapsed); renderFrame(elapsed);
   }
   function replay() { seek(0); emit("herofilm:start"); start(); }
-  return { start, stop, seek, replay, total: TOTAL };
+  // 검수용 — 1=깊이 2=CoC 3=접지그림자 4=보케. 0 으로 되돌린다.
+  function debug(mode) { matComposite.uniforms.uDebug.value = mode || 0; renderFrame(elapsed); }
+  function photo(on) { bypassPhoto = !on; renderFrame(elapsed); }
+  return { start, stop, seek, replay, debug, photo, total: TOTAL };
 }
