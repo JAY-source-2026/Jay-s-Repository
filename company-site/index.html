@@ -21,15 +21,15 @@
 
     <link rel="icon" type="image/png" href="assets/images/doenc_mark.png">
     <!-- 히어로 첫 화면 — 화면 비율 단계별로 한 장만 받는다 (경계는 style.css / hero3d.js resize() 와 동일) -->
-    <link rel="preload" as="image" href="assets/images/hero-poster-w.jpg?v=20260805f" media="(min-aspect-ratio: 8/5)" fetchpriority="high">
-    <link rel="preload" as="image" href="assets/images/hero-poster-m.jpg?v=20260805f" media="(min-aspect-ratio: 6/5) and (max-aspect-ratio: 8/5)" fetchpriority="high">
-    <link rel="preload" as="image" href="assets/images/hero-poster-n.jpg?v=20260805f" media="(min-aspect-ratio: 4/5) and (max-aspect-ratio: 6/5)" fetchpriority="high">
-    <link rel="preload" as="image" href="assets/images/hero-poster-p.jpg?v=20260805f" media="(max-aspect-ratio: 4/5)" fetchpriority="high">
+    <link rel="preload" as="image" href="assets/images/hero-poster-w.jpg?v=20260805g" media="(min-aspect-ratio: 8/5)" fetchpriority="high">
+    <link rel="preload" as="image" href="assets/images/hero-poster-m.jpg?v=20260805g" media="(min-aspect-ratio: 6/5) and (max-aspect-ratio: 8/5)" fetchpriority="high">
+    <link rel="preload" as="image" href="assets/images/hero-poster-n.jpg?v=20260805g" media="(min-aspect-ratio: 4/5) and (max-aspect-ratio: 6/5)" fetchpriority="high">
+    <link rel="preload" as="image" href="assets/images/hero-poster-p.jpg?v=20260805g" media="(max-aspect-ratio: 4/5)" fetchpriority="high">
 
     <!-- 3D 모듈을 미리 받아둔다. 없으면 main.js → hero3d.js → three.module → three.core 로
          **네 번 순차 왕복**하느라 750KB 를 다 받을 때까지 포스터가 계속 떠 있는다.
          ⚠️ href 는 실제 import 주소와 **글자 그대로 같아야** 캐시가 재사용된다(쿼리 포함). -->
-    <link rel="modulepreload" href="assets/js/hero3d.js?v=20260805f">
+    <link rel="modulepreload" href="assets/js/hero3d.js?v=20260805g">
     <link rel="modulepreload" href="assets/js/vendor/three.module.min.js">
     <link rel="modulepreload" href="assets/js/vendor/three.core.min.js">
 
@@ -76,7 +76,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
           media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"></noscript>
-    <link rel="stylesheet" href="assets/css/style.css?v=20260805f">
+    <link rel="stylesheet" href="assets/css/style.css?v=20260805g">
     <noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
 </head>
 <body id="top">
@@ -178,7 +178,7 @@
         <section class="hero" id="home">
             <!-- ▼ 히어로 미디어 슬롯
                  실사 영상/사진을 받으면 아래 주석 한 줄만 살리면 도면 그래픽이 자동 교체됩니다.
-                 <video autoplay muted loop playsinline poster="assets/images/hero-poster-w.jpg?v=20260805f">
+                 <video autoplay muted loop playsinline poster="assets/images/hero-poster-w.jpg?v=20260805g">
                      <source src="assets/images/hero.mp4" type="video/mp4"></video>
                  또는  <img src="assets/images/hero.jpg" alt="">                        -->
             <div class="hero-media" id="heroMedia" aria-hidden="true">
@@ -917,14 +917,14 @@
         <a class="to-top" href="#top" aria-label="맨 위로">↑</a>
     </footer>
 
-    <script src="assets/js/main.js?v=20260805f"></script>
+    <script src="assets/js/main.js?v=20260805g"></script>
     <script type="module">
       // 히어로 3D는 첫 화면이 그려진 뒤에 불러온다 (본문 표시를 늦추지 않도록)
       var canvas = document.getElementById("hero3d");
       var host = document.getElementById("heroMedia");
       var gl = canvas && canvas.getContext && (canvas.getContext("webgl2") || canvas.getContext("webgl"));
       if (gl) {
-        import("./assets/js/hero3d.js?v=20260805f")
+        import("./assets/js/hero3d.js?v=20260805g")
           .then(function (m) { return m.initHero3D(canvas, host); })
           // 1회 재생이라 replay()로 다시 볼 수 있게 API를 전역에 둔다.
           // ⚠️ window.hero3d 는 <canvas id="hero3d"> 와 이름이 겹치므로 heroFilm 을 정식 이름으로 쓴다.
