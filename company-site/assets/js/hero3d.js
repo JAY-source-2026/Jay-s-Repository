@@ -13,7 +13,31 @@ export async function initHero3D(canvas, host) {
 
   // ---- 배치 (1 단위 = 1m) ----
   const WALL_Z = -4.0, WALL_T = 0.5, WALL_FRONT = WALL_Z + WALL_T / 2;
-  const WX0 = -46, WX1 = 34, WY0 = -5, WY1 = 13;           // 벽 범위
+
+  // =====================================================================
+  //  건물 단면 — 경쟁사(마가켐) 히어로의 설명력이 여기서 온다.
+  //   벽 하나만 보여주면 "무엇으로부터 막는지"가 화면에 없다. 층을 잘라서 보여주면
+  //   **불난 층**과 **멀쩡한 위·아래 층**이 한 화면에 들어와, 구획이 왜 필요한지가 저절로 읽힌다.
+  //
+  //   구성: 방화구획벽(z = WALL_Z)이 화면 안쪽에 서 있고, 그 앞으로 바닥 슬래브가
+  //        카메라 쪽으로 뻗어 나오다가 SECT_Z 에서 **뚝 잘린다**(단면).
+  //        주역인 화재층이 가운데, 위·아래로 한 층씩.
+  // =====================================================================
+  const SECT_D = 27;                                  // 벽 앞면 → 잘린 면 (실내 깊이)
+  const SECT_Z = WALL_Z + WALL_T / 2 + SECT_D;
+  const SLAB_T = 0.7;                                 // 층 슬래브 두께
+  const FIRE_Y = -5;                                  // 화재층 바닥 상단 (기존 바닥 높이를 그대로 쓴다)
+  const FIRE_CEIL = 6.9;                              // 화재층 천장(슬래브 하단) — 개구부 BIG 이 5.8 까지라 여유를 둔다
+  const SIDE_H = 9.5;                                 // 위·아래 층의 실내 높이 (화재층 11.9 와 너무 차이 나면 층이 들쭉날쭉해 보인다)
+  // 각 층: y = 바닥 상단, h = 실내 높이. 가운데(index 1)가 화재층 = 주역
+  const LEVELS = [
+    { y: FIRE_Y - SLAB_T - SIDE_H, h: SIDE_H },
+    { y: FIRE_Y,                   h: FIRE_CEIL - FIRE_Y },
+    { y: FIRE_CEIL + SLAB_T,       h: SIDE_H },
+  ];
+  const WX0 = -46, WX1 = 34;                               // 벽 좌우 범위
+  const WY0 = LEVELS[0].y - SLAB_T;                        // 벽 아래끝 = 맨 아래 슬래브 바닥
+  const WY1 = LEVELS[2].y + LEVELS[2].h + SLAB_T;          // 벽 위끝 = 지붕 슬래브 위
   const PEN  = { x: 9.0, y: 1.7, hw: 1.35, hh: 1.35 };     // 가까운 쪽 — 원형 배관 관통부
   const DUCT = { x: 4.6, y: 1.9, hw: 1.95, hh: 1.25 };     // 그 옆 — 사각덕트 관통부
   const BIG  = { x: -13, y: 0.6, hw: 4.6,  hh: 5.2 };      // 먼 쪽 — 셔터가 막을 대형 개구부(바닥까지)
@@ -59,7 +83,7 @@ export async function initHero3D(canvas, host) {
   scene.background = new THREE.Color(0xd3d8e1);
   // ⚠️ 안개는 '거리감'용이지 '뿌옇게'용이 아니다. 확립샷에서 벽 왼쪽 끝까지가 약 72m라
   //    near 를 그보다 뒤(85)로 물려야 주역이 안개를 타지 않고 또렷하게 남는다.
-  scene.fog = new THREE.Fog(0xd6dae2, 85, 260);
+  scene.fog = new THREE.Fog(0xd6dae2, 150, 380);
 
   // 간이 환경맵 — 금속(배관·덕트·레일)에 또렷한 은빛 반사를 준다
   (function () {
@@ -1151,7 +1175,7 @@ export async function initHero3D(canvas, host) {
   //  벽체 — 개구부 세 곳을 남기고 슬래브로 채운 뒤, 기둥·보·줄눈으로 건축을 만든다
   // =====================================================================
   const lampSpots = [];   // 등기구 x 좌표 — 실제 광원은 조명 절 에서 단다(선언 순서 때문에 분리)
-  const LAMP_LIGHT_Y = 10.9, LAMP_LIGHT_Z = WALL_Z + 5.6;
+  const LAMP_LIGHT_Y = FIRE_CEIL - 1.8, LAMP_LIGHT_Z = WALL_Z + 5.6;
   (function buildWall() {
     const rects = OPENINGS.map((o) => ({ x0: o.x - o.hw, x1: o.x + o.hw, y0: o.y - o.hh, y1: o.y + o.hh }));
     const TILE = 6;   // 콘크리트 결 한 장이 덮는 크기(m)
@@ -1174,51 +1198,57 @@ export async function initHero3D(canvas, host) {
       slab(x, WX1, y0, y1);
     }
 
-    // 인방보(스팬드럴) — 벽 상부를 가로지르는 구조체. 벽이 색면이 아니라 건물로 읽히게 한다
-    const BEAM_Y = 11.3, BEAM_H = 1.15;
-    box(WX1 - WX0, BEAM_H, 0.9, scaled(matBeam, WX1 - WX0, BEAM_H, TILE), (WX0 + WX1) / 2, BEAM_Y, WALL_FRONT + 0.42, scene, true, true);
-    box(WX1 - WX0, 0.14, 1.0, matReveal, (WX0 + WX1) / 2, BEAM_Y - BEAM_H / 2 - 0.07, WALL_FRONT + 0.44, scene, false, false);
+    const FW = WX1 - WX0;
 
-    // 기둥(필라스터) — 바닥에서 인방보까지. 사람과 함께 공간의 스케일을 만든다
-    const colTop = BEAM_Y - BEAM_H / 2;
-    for (let cx = WX0 + 5; cx < WX1; cx += 8) {
-      if (nearOpening(cx, 2.2)) continue;
-      if (cx > BIG.x - BIG.hw - 3.2 && cx < BIG.x + BIG.hw + 3.2) continue; // 셔터 소핏 자리
-      box(1.7, colTop - WY0, 0.95, scaled(matCol, 1.7, colTop - WY0, TILE, cx - WX0, 0), cx, (WY0 + colTop) / 2, WALL_FRONT + 0.48, scene, true, true);
-      box(2.0, 0.28, 1.08, matBeam, cx, colTop - 0.14, WALL_FRONT + 0.5, scene, true, true);   // 주두
-      box(2.0, 0.3, 1.1, matBeam, cx, WY0 + 0.15, WALL_FRONT + 0.5, scene, true, true);        // 주각
+    // ---- 층별 구조 ---- 기둥은 층마다 바닥에서 그 층 천장까지 선다
+    for (const L of LEVELS) {
+      const top = L.y + L.h;
+      for (let cx = WX0 + 5; cx < WX1; cx += 8) {
+        // 개구부·셔터 소핏 자리는 비운다 (화재층에만 개구부가 있으므로 그 층에서만 걸린다)
+        const onFire = Math.abs(L.y - FIRE_Y) < 0.01;
+        if (onFire && (nearOpening(cx, 2.2) ||
+            (cx > BIG.x - BIG.hw - 3.2 && cx < BIG.x + BIG.hw + 3.2))) continue;
+        box(1.7, L.h, 0.95, scaled(matCol, 1.7, L.h, TILE, cx - WX0, L.y - WY0), cx, L.y + L.h / 2, WALL_FRONT + 0.48, scene, true, true);
+        box(2.0, 0.28, 1.08, matBeam, cx, top - 0.14, WALL_FRONT + 0.5, scene, true, true);   // 주두
+        box(2.0, 0.3, 1.1, matBeam, cx, L.y + 0.15, WALL_FRONT + 0.5, scene, true, true);     // 주각
+      }
+      // 세로 줄눈
+      for (let jx = WX0 + 4; jx < WX1; jx += 4) {
+        const onFire = Math.abs(L.y - FIRE_Y) < 0.01;
+        if (onFire && (nearOpening(jx, 1.2) ||
+            (jx > BIG.x - BIG.hw - 2.2 && jx < BIG.x + BIG.hw + 2.2))) continue;
+        box(0.13, L.h, 0.05, matReveal, jx, L.y + L.h / 2, WALL_FRONT + 0.03, scene, false, false);
+      }
+      // 걸레받이 — 각 층 바닥을 받는 짙은 띠
+      box(FW, 0.34, 0.1, matWallSide, (WX0 + WX1) / 2, L.y + 0.17, WALL_FRONT + 0.06, scene, false, true);
     }
+    // 허리 라인 + 브랜드 파랑 유도 라인 — 화재층에만. 관리되는 시설의 신호다.
+    box(FW, 0.26, 0.12, matCol, (WX0 + WX1) / 2, FIRE_Y + 4.4, WALL_FRONT + 0.07, scene, false, false);
+    box(FW, 0.09, 0.13, matAccent, (WX0 + WX1) / 2, FIRE_Y + 4.24, WALL_FRONT + 0.075, scene, false, false);
 
-    // 콘크리트 패널 줄눈 — 세로 리빌 + 허리 라인. 스케일감을 준다
-    for (let jx = WX0 + 4; jx < WX1; jx += 4) {
-      if (nearOpening(jx, 1.2)) continue;
-      if (jx > BIG.x - BIG.hw - 2.2 && jx < BIG.x + BIG.hw + 2.2) continue; // 셔터 소핏 자리
-      box(0.13, colTop - WY0, 0.05, matReveal, jx, (WY0 + colTop) / 2, WALL_FRONT + 0.03, scene, false, false);
+    // ---- 층 슬래브 ---- 벽에서 카메라 쪽으로 뻗어 나오다 SECT_Z 에서 잘린다.
+    //  잘린 단면(두께 0.7)이 그대로 보이는 게 '건물을 잘랐다'는 신호다.
+    const SD = SECT_Z - WALL_Z, SCZ = (WALL_Z + SECT_Z) / 2;   // 슬래브 깊이·중심
+    for (const L of LEVELS) {
+      // 바닥 슬래브 (윗면 = L.y)
+      box(FW, SLAB_T, SD, scaled(matFloor, FW, SD, 6), (WX0 + WX1) / 2, L.y - SLAB_T / 2, SCZ, scene, false, true);
+      // 슬래브 아랫면(= 아래층 천장)은 콘크리트 톤으로 따로 덮는다 — 바닥 결이 천장에 비치면 이상하다
+      box(FW, 0.06, SD, scaled(matCeil, FW, SD, 6), (WX0 + WX1) / 2, L.y - SLAB_T - 0.03, SCZ, scene, false, false);
+      // 신축줄눈
+      for (let fx = WX0 + 16; fx < WX1 - 4; fx += 16) box(0.06, 0.03, SD - 2, matFJoint, fx, L.y + 0.012, SCZ, scene, false, false);
+      for (let fz = 8; fz < SD - 4; fz += 16)         box(FW, 0.03, 0.06, matFJoint, (WX0 + WX1) / 2, L.y + 0.012, WALL_Z + fz, scene, false, false);
+      // 황색 안전선 — 벽 앞 통행 금지대
+      box(FW, 0.02, 0.14, matSafety, (WX0 + WX1) / 2, L.y + 0.02, WALL_FRONT + 2.6, scene, false, false);
+      box(FW, 0.02, 0.06, matSafety, (WX0 + WX1) / 2, L.y + 0.02, WALL_FRONT + 2.9, scene, false, false);
+      // 슬래브를 받는 보 — 층이 구조로 읽히게
+      for (let bx = WX0 + 4; bx < WX1; bx += 8)
+        box(0.75, 0.8, SD - 1.5, matCeilBeam, bx, L.y - SLAB_T - 0.42, SCZ, scene, false, false);
     }
-    // 허리 라인 — 도장 구획선. 위는 밝은 회색, 아래는 한 톤 어둡게 칠한 마감을 암시한다.
-    box(WX1 - WX0, 0.26, 0.12, matCol, (WX0 + WX1) / 2, 6.6, WALL_FRONT + 0.07, scene, false, false);
-    // 브랜드 파랑 유도 라인 — 관리되는 시설에는 반드시 도색된 라인이 있다. 색면이 하나 들어가면
-    // 회색 일변도의 화면이 '설계된 공간'으로 읽힌다. 얇게 한 줄만 — 굵으면 촌스러워진다.
-    box(WX1 - WX0, 0.09, 0.13, matAccent, (WX0 + WX1) / 2, 6.44, WALL_FRONT + 0.075, scene, false, false);
-    // 걸레받이 — 도장면 아래를 받는 짙은 띠
-    box(WX1 - WX0, 0.34, 0.1, matWallSide, (WX0 + WX1) / 2, WY0 + 0.17, WALL_FRONT + 0.06, scene, false, true);
+    // 지붕 슬래브
+    box(FW, SLAB_T, SD, scaled(matCeil, FW, SD, 6), (WX0 + WX1) / 2, WY1 - SLAB_T / 2, SCZ, scene, false, false);
 
-    // ---- 실내 바닥 ---- (줄눈은 결 이미지에 구워져 있고, 굵은 신축줄눈만 실물로 얹는다)
-    const FW = WX1 - WX0, FD = 52;
-    box(FW, 0.5, FD, scaled(matFloor, FW, FD, 6), (WX0 + WX1) / 2, WY0 - 0.25, WALL_Z + 24, scene, false, true);
-    // 신축줄눈만 남긴다 — 간격을 넓혀 격자무늬처럼 안 보이게(촘촘하면 타일 바닥이 된다)
-    for (let fx = WX0 + 16; fx < WX1 - 4; fx += 16) box(0.06, 0.03, 48, matFJoint, fx, WY0 + 0.012, WALL_Z + 22, scene, false, false);
-    for (let fz = 10; fz < 46; fz += 16)            box(FW, 0.03, 0.06, matFJoint, (WX0 + WX1) / 2, WY0 + 0.012, WALL_Z + fz, scene, false, false);
-    // 황색 안전선 — 벽 앞 통행 금지대. 현장 사진에서 '관리되는 시설'을 가장 빨리 알려주는 신호다.
-    box(FW, 0.02, 0.14, matSafety, (WX0 + WX1) / 2, WY0 + 0.02, WALL_FRONT + 2.6, scene, false, false);
-    box(FW, 0.02, 0.06, matSafety, (WX0 + WX1) / 2, WY0 + 0.02, WALL_FRONT + 2.9, scene, false, false);
-
-    // ---- 천장 슬래브 + 보 ---- (큰 검은 판은 멀리서 화면을 눌러버린다 → 콘크리트 톤으로)
-    box(FW, 0.8, 8.0, scaled(matCeil, FW, 8.0, 6), (WX0 + WX1) / 2, 12.6, WALL_Z + 4.2, scene, false, false);
-    for (let bx = WX0 + 4; bx < WX1; bx += 8) box(0.75, 0.85, 8.0, matCeilBeam, bx, 11.85, WALL_Z + 4.2, scene, false, false);
-
-    // 측벽
-    box(0.5, WY1 - WY0, FD, scaled(matWallSide, FD, WY1 - WY0, 6), WX0 + 0.25, (WY0 + WY1) / 2, WALL_Z + 24, scene, false, true);
+    // 측벽 — 단면이므로 한쪽만. 층 전체 높이를 덮는다
+    box(0.5, WY1 - WY0, SD, scaled(matWallSide, SD, WY1 - WY0, 6), WX0 + 0.25, (WY0 + WY1) / 2, SCZ, scene, false, true);
 
     // ---- 접지 그림자(AO) ----
     // 그림자맵만으로는 벽과 바닥이 만나는 자리가 안 어두워져 부재들이 '떠 있는' 것처럼 보인다.
@@ -1234,54 +1264,57 @@ export async function initHero3D(canvas, host) {
       return new THREE.CanvasTexture(c);
     })();
     const matAO = new THREE.MeshBasicMaterial({ map: aoTex, transparent: true, depthWrite: false, fog: false });
-    // 벽 밑동 → 바닥으로 퍼지는 그늘
-    const aoFloor = new THREE.Mesh(new THREE.PlaneGeometry(FW, 3.4), matAO);
-    aoFloor.rotation.x = -Math.PI / 2; aoFloor.position.set((WX0 + WX1) / 2, WY0 + 0.02, WALL_FRONT + 1.7);
-    aoFloor.renderOrder = 1; scene.add(aoFloor);
-    // 바닥에서 벽면을 타고 올라가는 그늘
-    const aoWall = new THREE.Mesh(new THREE.PlaneGeometry(FW, 2.2), matAO.clone());
-    aoWall.material.map = aoTex.clone(); aoWall.material.map.repeat.y = -1; aoWall.material.map.offset.y = 1;
-    aoWall.position.set((WX0 + WX1) / 2, WY0 + 1.1, WALL_FRONT + 0.09);
-    aoWall.renderOrder = 1; scene.add(aoWall);
-    // 천장 밑으로 드리우는 그늘 — 위쪽이 어두워야 천장이 무겁게 얹힌다
-    const aoTop = new THREE.Mesh(new THREE.PlaneGeometry(FW, 2.6), matAO.clone());
-    aoTop.position.set((WX0 + WX1) / 2, 12.2 - 1.3, WALL_FRONT + 0.09);
-    aoTop.renderOrder = 1; scene.add(aoTop);
+    // 층마다 — 벽 밑동 그늘 / 벽을 타고 오르는 그늘 / 천장 밑 그늘
+    for (const L of LEVELS) {
+      const aoFloor = new THREE.Mesh(new THREE.PlaneGeometry(FW, 3.4), matAO);
+      aoFloor.rotation.x = -Math.PI / 2; aoFloor.position.set((WX0 + WX1) / 2, L.y + 0.02, WALL_FRONT + 1.7);
+      aoFloor.renderOrder = 1; scene.add(aoFloor);
+      const aoWall = new THREE.Mesh(new THREE.PlaneGeometry(FW, 2.2), matAO.clone());
+      aoWall.material.map = aoTex.clone(); aoWall.material.map.repeat.y = -1; aoWall.material.map.offset.y = 1;
+      aoWall.position.set((WX0 + WX1) / 2, L.y + 1.1, WALL_FRONT + 0.09);
+      aoWall.renderOrder = 1; scene.add(aoWall);
+      const aoTop = new THREE.Mesh(new THREE.PlaneGeometry(FW, 2.6), matAO.clone());
+      aoTop.position.set((WX0 + WX1) / 2, L.y + L.h - 1.3, WALL_FRONT + 0.09);
+      aoTop.renderOrder = 1; scene.add(aoTop);
+    }
 
-    // ---- 천장 설비 ---- 조명기구와 소방배관이 있어야 '건물 안'으로 읽힌다
-    // ⚠️ 천장보가 11.4~12.3 을 차지한다 → 등기구를 그 위에 두면 보 사이에 묻혀 안 보인다.
-    //    보 아래(11.2)에 매달아야 '달려 있는 조명'으로 읽힌다.
+    // ---- 천장 설비 ---- 조명기구와 소방배관이 있어야 '건물 안'으로 읽힌다.
+    // ⚠️ 슬래브 밑 보가 층 천장 아래 0.4~1.2 를 차지한다 → 등기구를 그 위에 두면 보 사이에 묻힌다.
+    //    보 아래에 매달아야 '달려 있는 조명'으로 읽힌다.
     const matLamp = new THREE.MeshStandardMaterial({ color: 0xfffaf0, roughness: 0.4, emissive: 0xfff2da, emissiveIntensity: 2.1, toneMapped: false });
     const matLampBody = new THREE.MeshStandardMaterial({ color: 0xb4b8be, roughness: 0.4, metalness: 0.65, envMapIntensity: 1.3 });
-    const LAMP_Y = 11.15, LAMP_Z = WALL_Z + 5.6;
-    for (let lx = WX0 + 8; lx < WX1 - 2; lx += 16) {
-      [-0.9, 0.9].forEach((dx) => {   // 행거
-        const rod = new THREE.Mesh(new THREE.CylinderGeometry(0.035, 0.035, 0.5, 8), matLampBody);
-        rod.position.set(lx + dx, LAMP_Y + 0.34, LAMP_Z); scene.add(rod);
-      });
-      box(5.2, 0.18, 0.46, matLampBody, lx, LAMP_Y, LAMP_Z, scene, false, false);
-      box(4.9, 0.06, 0.34, matLamp, lx, LAMP_Y - 0.11, LAMP_Z, scene, false, false);  // 아래를 향한 발광면
-      // ⚠️ 여태 등기구는 '빛나는 것처럼 칠해진 판'일 뿐 방을 전혀 밝히지 않았다.
-      //    실내인데 흐린 날 야외처럼 빛이 평평하게 깔린 게 폐건물 느낌의 절반이었다.
-      //    실제 광원을 달아 바닥·벽에 빛웅덩이를 만든다. 그림자는 끄고(키라이트가 담당) 수만 최소로.
-      lampSpots.push(lx);
-    }
-    // 스프링클러 주배관(적색) + 헤드
     const matFP = new THREE.MeshStandardMaterial({ color: 0x9c3b2c, roughness: 0.45, metalness: 0.5, envMapIntensity: 0.9 });
-    const fpPipe = new THREE.Mesh(new THREE.CylinderGeometry(0.16, 0.16, FW - 2, 18), matFP);
-    fpPipe.rotation.z = Math.PI / 2; fpPipe.position.set((WX0 + WX1) / 2, 11.55, WALL_Z + 7.8); scene.add(fpPipe);
-    for (let hx = WX0 + 6; hx < WX1 - 2; hx += 6) {
-      const drop = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.06, 0.5, 10), matFP);
-      drop.position.set(hx, 11.28, WALL_Z + 7.8); scene.add(drop);
-      const hd = new THREE.Mesh(new THREE.SphereGeometry(0.1, 10, 8), matLampBody);
-      hd.position.set(hx, 11.02, WALL_Z + 7.8); scene.add(hd);
+    for (const L of LEVELS) {
+      const onFire = Math.abs(L.y - FIRE_Y) < 0.01;
+      const lampY = L.y + L.h - 1.55, lampZ = WALL_Z + 5.6;
+      for (let lx = WX0 + 8; lx < WX1 - 2; lx += 16) {
+        [-0.9, 0.9].forEach((dx) => {   // 행거
+          const rod = new THREE.Mesh(new THREE.CylinderGeometry(0.035, 0.035, 0.5, 8), matLampBody);
+          rod.position.set(lx + dx, lampY + 0.34, lampZ); scene.add(rod);
+        });
+        box(5.2, 0.18, 0.46, matLampBody, lx, lampY, lampZ, scene, false, false);
+        box(4.9, 0.06, 0.34, matLamp, lx, lampY - 0.11, lampZ, scene, false, false);  // 아래를 향한 발광면
+        // ⚠️ 등기구가 '빛나는 것처럼 칠해진 판'이기만 하면 실내가 흐린 날 야외처럼 보인다(14차 교훈).
+        //    실제 광원은 화재층에만 단다 — 층마다 달면 광원이 셋으로 늘어 비용이 커진다.
+        if (onFire) lampSpots.push(lx);
+      }
+      // 스프링클러 주배관(적색) + 헤드
+      const fpY = L.y + L.h - 1.15;
+      const fpPipe = new THREE.Mesh(new THREE.CylinderGeometry(0.16, 0.16, FW - 2, 18), matFP);
+      fpPipe.rotation.z = Math.PI / 2; fpPipe.position.set((WX0 + WX1) / 2, fpY, WALL_Z + 7.8); scene.add(fpPipe);
+      for (let hx = WX0 + 6; hx < WX1 - 2; hx += 6) {
+        const drop = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.06, 0.5, 10), matFP);
+        drop.position.set(hx, fpY - 0.27, WALL_Z + 7.8); scene.add(drop);
+        const hd = new THREE.Mesh(new THREE.SphereGeometry(0.1, 10, 8), matLampBody);
+        hd.position.set(hx, fpY - 0.53, WALL_Z + 7.8); scene.add(hd);
+      }
     }
 
     // ---- 화재측(벽 뒤) — 어두운 방. 개구부 너머로 밝은 배경이 새면 흰 후광이 생긴다 ----
     const bkTop = WY1 + 0.3, bkBot = WY0 - 10; // 벽 위로 삐져나오면 하늘 자리에 검은 판이 생긴다
     box(WX1 - WX0 + 30, bkTop - bkBot, 0.4, matDark, (WX0 + WX1) / 2, (bkTop + bkBot) / 2, WALL_Z - 17, scene, false, false);
-    box(WX1 - WX0 + 30, 0.4, 34, matDark, (WX0 + WX1) / 2, WY0 - 0.4, WALL_Z - 17, scene, false, false); // 화재실 바닥
-    box(WX1 - WX0 + 30, 0.4, 34, matDark, (WX0 + WX1) / 2, 10.0, WALL_Z - 17, scene, false, false);      // 화재실 천장
+    box(WX1 - WX0 + 30, 0.4, 34, matDark, (WX0 + WX1) / 2, FIRE_Y - 0.4, WALL_Z - 17, scene, false, false); // 화재실 바닥
+    box(WX1 - WX0 + 30, 0.4, 34, matDark, (WX0 + WX1) / 2, FIRE_CEIL - 0.2, WALL_Z - 17, scene, false, false); // 화재실 천장
   })();
 
   // ---- 관통 배관 + 밴드 ----
@@ -1445,7 +1478,7 @@ export async function initHero3D(canvas, host) {
     const stex = new THREE.CanvasTexture(c);
     stex.wrapS = stex.wrapT = THREE.RepeatWrapping; stex.anisotropy = 4;
 
-    shTopY = bt + 0.1; shH = shTopY - WY0 - SHUT_SAG; // 처진 가운데가 정확히 바닥에 닿는 높이
+    shTopY = bt + 0.1; shH = shTopY - FIRE_Y - SHUT_SAG; // 처진 가운데가 정확히 바닥에 닿는 높이
     const pw = 2 * BIG.hw - 0.14;   // 개구부 전폭을 덮는 한 장
 
     const mat = new THREE.MeshStandardMaterial({
@@ -1743,7 +1776,7 @@ export async function initHero3D(canvas, host) {
       // 화면 중앙(카메라가 보는 x)에서 멀어지는 쪽으로 밀어낸다 — 사라지는 게 아니라 출구로 뛰어 나가는 것
       const px = p.x0 + span * a;
       const away = (px >= camLook.x ? 1 : -1) * 11 * exit;
-      g.position.set(px + away, WY0 + bounce * (0.03 + panic * 0.055), p.z0 + (p.z1 - p.z0) * retreat);
+      g.position.set(px + away, FIRE_Y + bounce * (0.03 + panic * 0.055), p.z0 + (p.z1 - p.z0) * retreat);
 
       // 방향 전환이 뚝 끊기지 않게 — 도는 동안 카메라 쪽을 스친다
       const face = span * (b - a) >= 0 ? Math.PI / 2 : -Math.PI / 2;
@@ -1798,17 +1831,21 @@ export async function initHero3D(canvas, host) {
   // 주역(개구부)은 늘 화면 오른쪽 — 왼쪽은 헤드라인 자리다. 그래서 시선 지점을 주역보다 왼쪽에 둔다
   // f = 화각. 확립샷은 넓게(개구부가 다 들어오게), 클로즈업은 좁게 — 줌 자체가 연출이 된다
   const PENC = (PEN.x + DUCT.x) / 2; // 배관+덕트를 한 프레임에 담는 중심
+  // ⚠️ 단면 구도로 바뀌면서 카메라 궤적의 성격이 달라졌다.
+  //    잘린 면이 z = SECT_Z 에 있으므로, **그보다 뒤(z 큼)에 있어야 건물 단면이 보이고**
+  //    그보다 앞(z 작음)으로 들어가면 화재층 **안에** 들어간 시점이 된다.
+  //    구성: 단면 와이드(불난 층 + 멀쩡한 위·아래 층) → 화재층으로 날아 들어가 시공을 보여줌
+  //         → 셔터 차단 → 다시 밖으로 빠져 단면 전체(전부 막힌 상태)로 끝.
+  const SECT_LOOK = [-4, FIRE_Y + 6.0, WALL_Z];   // 단면 와이드에서 볼 지점 — 건물 중간 높이
   const KEYS = [
-    // 시작은 멀리서 훑는 확립샷이 아니라 **현장 안에 들어와 있는 시점** — 불이 바로 눈앞에서 난다.
-    // 여기서 천천히 뒤로 빠지며 시공을 지켜보고, 마지막에 전체를 보여주는 구성.
-    { t: 0.0,  p: [12.5, 5.0, 14.0], l: [1.0, 3.2, WALL_Z], f: 45, sx: 4.0 },                    // 개구부 두 곳이 한 화면에
-    { t: 4.6,  p: [13.2, 4.7, 16.0], l: [1.5, 3.0, WALL_Z], f: 44, sx: 4.5 },                    // 천천히 물러나며 전모를 보여줌
-    { t: 8.4,  p: [13.6, 4.0, 17.4], l: [PENC - 4.6, PEN.y + 0.5, WALL_Z], f: 40, sx: PENC },    // 관통부 클로즈업 도착
+    { t: 0.0,  p: [6, FIRE_Y + 6.5, 96], l: SECT_LOOK, f: 24, sx: -4 },                          // 건물 단면 — 불난 층 + 멀쩡한 위·아래 층
+    { t: 4.6,  p: [11, FIRE_Y + 6.0, 62], l: [-1, FIRE_Y + 5.0, WALL_Z], f: 30, sx: -1 },        // 화재층으로 다가간다
+    { t: 8.4,  p: [13.6, 4.0, 17.4], l: [PENC - 4.6, PEN.y + 0.5, WALL_Z], f: 40, sx: PENC },    // 층 안으로 들어와 관통부 클로즈업
     { t: 15.9, p: [13.1, 3.9, 16.6], l: [PENC - 4.6, PEN.y + 0.5, WALL_Z], f: 40, sx: PENC },    // 배관→덕트 순서로 시공, 진화까지 지켜보기
     { t: 19.4, p: [-7.6, 4.5, 21.5], l: [BIG.x - 4.0, BIG.y + 1.0, WALL_Z], f: 46, sx: BIG.x },  // 벽을 따라 대형 개구부로
     { t: 25.7, p: [-8.4, 4.2, 22.1], l: [BIG.x - 4.0, BIG.y + 1.0, WALL_Z], f: 46, sx: BIG.x },  // 셔터 닫히고 불 꺼지는 것 보기
-    { t: 30.0, p: [14, 7.6, 34],     l: [-8, 4.4, WALL_Z], f: 58, sx: -2.5 },                    // 멀어지며 전부 막힌 벽 전체
-    { t: 31.5, p: [13.0, 7.3, 35.6], l: [-8, 4.4, WALL_Z], f: 58, sx: -2.5 },                    // 아주 천천히 정착 — 여기서 끝
+    { t: 30.0, p: [7, FIRE_Y + 6.5, 92], l: SECT_LOOK, f: 24, sx: -4 },                          // 다시 밖으로 — 전부 막힌 건물 단면
+    { t: 31.5, p: [6.5, FIRE_Y + 6.4, 95], l: SECT_LOOK, f: 24, sx: -4 },                        // 아주 천천히 정착 — 여기서 끝
   ];
   const smooth = (k) => k * k * (3 - 2 * k);
   const camPos = new THREE.Vector3(), camLook = new THREE.Vector3(), tmpA = new THREE.Vector3(), tmpB = new THREE.Vector3();
@@ -1971,5 +2008,20 @@ export async function initHero3D(canvas, host) {
   // 검수용 — 1=깊이 2=CoC 3=접지그림자 4=보케. 0 으로 되돌린다.
   function debug(mode) { matComposite.uniforms.uDebug.value = mode || 0; renderFrame(elapsed); }
   function photo(on) { bypassPhoto = !on; renderFrame(elapsed); }
+  // 검수용 — 카메라가 실제로 어디에 있는지. 구도가 의도와 다를 때 추측하지 말고 이걸 찍을 것.
+  try {
+    window.__camInfo = function () {
+      const b = new THREE.Box3().setFromObject(scene);
+      return {
+        cam: camera.position.toArray().map((v) => +v.toFixed(2)),
+        look: camLook.toArray().map((v) => +v.toFixed(2)),
+        fov: +camera.fov.toFixed(2), aspect: +camera.aspect.toFixed(3), fovK: fovK,
+        distToLook: +camera.position.distanceTo(camLook).toFixed(2),
+        sceneMin: b.min.toArray().map((v) => +v.toFixed(1)),
+        sceneMax: b.max.toArray().map((v) => +v.toFixed(1)),
+        levels: LEVELS.map((L) => [L.y, +(L.y + L.h).toFixed(2)]), SECT_Z: SECT_Z, WY0: WY0, WY1: WY1,
+      };
+    };
+  } catch (e) { /* 검수 훅일 뿐 */ }
   return { start, stop, seek, replay, debug, photo, total: TOTAL };
 }
