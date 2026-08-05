@@ -258,11 +258,11 @@ svg { display: block; width: 100%; height: auto; }
 .hero-media {
     position: absolute; inset: 0; overflow: hidden;
     background: #83786f center center / auto 100% no-repeat;
-    background-image: url("../images/hero-poster-p.jpg?v=20260805f");           /*        a < 0.8 */
+    background-image: url("../images/hero-poster-p.jpg?v=20260805g");           /*        a < 0.8 */
 }
-@media (min-aspect-ratio: 4/5) { .hero-media { background-image: url("../images/hero-poster-n.jpg?v=20260805f"); } }  /* 0.8 <= a < 1.2 */
-@media (min-aspect-ratio: 6/5) { .hero-media { background-image: url("../images/hero-poster-m.jpg?v=20260805f"); } }  /* 1.2 <= a < 1.6 */
-@media (min-aspect-ratio: 8/5) { .hero-media { background-image: url("../images/hero-poster-w.jpg?v=20260805f"); } }  /* 1.6 <= a       */
+@media (min-aspect-ratio: 4/5) { .hero-media { background-image: url("../images/hero-poster-n.jpg?v=20260805g"); } }  /* 0.8 <= a < 1.2 */
+@media (min-aspect-ratio: 6/5) { .hero-media { background-image: url("../images/hero-poster-m.jpg?v=20260805g"); } }  /* 1.2 <= a < 1.6 */
+@media (min-aspect-ratio: 8/5) { .hero-media { background-image: url("../images/hero-poster-w.jpg?v=20260805g"); } }  /* 1.6 <= a       */
 
 /* 사실적 3D 캔버스 — 준비되면 폴백 위로 나타난다.
    포스터가 곧 같은 프레임이므로 길게 겹칠 이유가 없다 — 짧게 넘겨야 갈아타는 게 안 보인다 */
@@ -383,10 +383,21 @@ svg { display: block; width: 100%; height: auto; }
     position: relative; width: 100%; margin: 72px auto 0;
     padding: 0 var(--pad-edge); display: flex; justify-content: flex-end;
 }
-.hero-scroll { font-size: 11px; letter-spacing: .28em; color: var(--dim); padding-bottom: 34px; position: relative; }
+/* 스크롤 유도 — 화면 가운데 아래.
+   ⚠️ 흐름에서 빼내 절대 배치한다. .hero-meta 는 flex-end 라 그냥 두면 '다시보기' 버튼과 함께
+      오른쪽 끝으로 밀린다. 버튼은 그대로 두고 이것만 가운데로 보내야 한다.
+   ⚠️ 흰색만 주면 안 된다 — 바닥이 밝은 회색이고 영상이 끝나면 스크림이 아래를 하얗게 눌러서
+      흰 글씨가 배경에 묻힌다(원래 안 보이던 이유도 이것). 어두운 그림자를 깔아
+      **밝은 데서도 어두운 데서도** 읽히게 한다. */
+.hero-scroll {
+    position: absolute; left: 50%; transform: translateX(-50%);
+    font-size: 11px; letter-spacing: .28em; padding-bottom: 34px;
+    color: #fff; text-shadow: 0 1px 12px rgba(0, 0, 0, .55), 0 0 3px rgba(0, 0, 0, .4);
+}
 .hero-scroll::after {
     content: ""; position: absolute; left: 50%; bottom: 0; width: 1px; height: 26px;
-    background: linear-gradient(180deg, var(--dim), transparent);
+    background: linear-gradient(180deg, #fff, rgba(255, 255, 255, 0));
+    filter: drop-shadow(0 0 3px rgba(0, 0, 0, .5));
     animation: scrolldrop 2.2s ease-in-out infinite;
 }
 @keyframes scrolldrop {
