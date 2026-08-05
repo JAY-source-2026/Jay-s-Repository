@@ -1354,6 +1354,12 @@ export async function initHero3D(canvas, host) {
   const matPallet= new THREE.MeshStandardMaterial({ color: 0x8d7a5c, roughness: 0.95 });
   const matDrum  = new THREE.MeshStandardMaterial({ color: 0x9aa3ab, roughness: 0.42, metalness: 0.6, envMapIntensity: 0.9 });
 
+  // ⚠️ **집기는 그림자를 만들지 않는다(castShadow: false).**
+  //    층 슬래브에 castShadow 가 없어서 키라이트가 슬래브를 그냥 통과한다. 그래서 위층 랙의
+  //    그림자가 아래로 새어 **화재층 벽에 네모난 얼룩**으로 찍혔다(사용자 지적).
+  //    슬래브에 castShadow 를 주면 물리적으로는 맞지만 키라이트가 막혀 화재층이 통째로
+  //    어두워진다 — 지금 조명은 그 전제로 맞춰져 있어서 손대면 안 된다.
+  //    집기는 와이드에서만 보이는 배경이라 그림자가 없어도 티가 안 난다. 이쪽을 끄는 게 맞다.
   function buildFloorContents(L, seed) {
     const R = mulberry32(seed);
     const y = L.y;
@@ -1362,32 +1368,32 @@ export async function initHero3D(canvas, host) {
     const rack = (cx, cz, len) => {
       const H = Math.min(L.h - 1.6, 3.6), D = 1.2;
       for (const sx of [-1, 1]) for (const sz of [-1, 1])            // 기둥 4
-        box(0.12, H, 0.12, matRack, cx + sx * (len / 2 - 0.1), y + H / 2, cz + sz * (D / 2 - 0.1), scene, true, true);
+        box(0.12, H, 0.12, matRack, cx + sx * (len / 2 - 0.1), y + H / 2, cz + sz * (D / 2 - 0.1), scene, false, true);
       for (let i = 0; i < 3; i++) {                                   // 선반 3단 + 적재물
         const sy = y + 0.35 + i * (H - 0.5) / 2.6;
-        box(len, 0.07, D, matRack, cx, sy, cz, scene, true, true);
+        box(len, 0.07, D, matRack, cx, sy, cz, scene, false, true);
         if (R() > 0.28) {
           const bw = len * (0.42 + R() * 0.4), bh = 0.5 + R() * 0.35;
-          box(bw, bh, D * 0.8, matCrate, cx + (R() - 0.5) * (len - bw), sy + bh / 2 + 0.04, cz, scene, true, true);
+          box(bw, bh, D * 0.8, matCrate, cx + (R() - 0.5) * (len - bw), sy + bh / 2 + 0.04, cz, scene, false, true);
         }
       }
     };
     const palletStack = (cx, cz) => {
-      box(1.25, 0.14, 1.05, matPallet, cx, y + 0.07, cz, scene, true, true);
+      box(1.25, 0.14, 1.05, matPallet, cx, y + 0.07, cz, scene, false, true);
       const n = 1 + Math.floor(R() * 3);
       for (let i = 0; i < n; i++)
-        box(1.1 - i * 0.06, 0.42, 0.92 - i * 0.05, matCrate, cx, y + 0.14 + 0.21 + i * 0.42, cz, scene, true, true);
+        box(1.1 - i * 0.06, 0.42, 0.92 - i * 0.05, matCrate, cx, y + 0.14 + 0.21 + i * 0.42, cz, scene, false, true);
     };
     const bench = (cx, cz) => {
-      box(2.6, 0.09, 0.95, matRack, cx, y + 0.88, cz, scene, true, true);
+      box(2.6, 0.09, 0.95, matRack, cx, y + 0.88, cz, scene, false, true);
       for (const sx of [-1, 1]) for (const sz of [-1, 1])
-        box(0.09, 0.85, 0.09, matRack, cx + sx * 1.2, y + 0.43, cz + sz * 0.4, scene, true, true);
+        box(0.09, 0.85, 0.09, matRack, cx + sx * 1.2, y + 0.43, cz + sz * 0.4, scene, false, true);
     };
     const drums = (cx, cz) => {
       for (let i = 0; i < 2 + Math.floor(R() * 3); i++) {
         const d = new THREE.Mesh(new THREE.CylinderGeometry(0.31, 0.31, 0.9, 16), matDrum);
         d.position.set(cx + (R() - 0.5) * 1.8, y + 0.45, cz + (R() - 0.5) * 1.4);
-        d.castShadow = true; d.receiveShadow = true; scene.add(d);
+        d.castShadow = false; d.receiveShadow = true; scene.add(d);
       }
     };
     // 벽을 따라 늘어선 랙 한 줄 + 바닥에 흩어진 집기
