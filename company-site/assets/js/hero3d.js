@@ -861,6 +861,12 @@ export async function initHero3D(canvas, host) {
     uniform vec2  uEdge;    // 좌우 감쇠 폭
     uniform float uCurl;    // 혀가 휘말리는 정도 (도메인 워프)
     uniform float uBreak;   // 위쪽에서 조각으로 끊어지는 정도
+    // ⚠️ 불을 **크게** 만들 때 boost 만 올리면 안 된다. 뿌리에서 f 가 1 을 넘어 포화돼
+    //    전폭이 **흰 띠**가 되고 결이 사라진다(2차에 겪은 실패).
+    //    "더 높이 뻗는" 것은 아래 두 값이 담당한다:
+    //      uTaper — 높이에 따른 몸통 감쇠 지수. 낮출수록 위까지 몸통이 남는다.
+    //      uTurbB — 높이에 따라 난류를 빼는 양의 증가율. 낮출수록 위에서 안 깎인다.
+    uniform float uTaper, uTurbA, uTurbB;
 
     float hash(vec2 p) {
       p = fract(p * vec2(233.34, 851.73));
@@ -910,9 +916,9 @@ export async function initHero3D(canvas, host) {
 
       // 기본 형상: 뿌리는 꽉, 위로 갈수록 얇게. 좌우 가장자리도 감쇠
       float ex = smoothstep(0.0, uEdge.x, uv.x) * smoothstep(1.0, 1.0 - uEdge.y, uv.x);
-      float body = pow(max(0.0, 1.0 - h), 1.02) * ex;
+      float body = pow(max(0.0, 1.0 - h), uTaper) * ex;
 
-      float f = clamp(body * uBoost - turb * (1.22 + h * 0.95), 0.0, 1.0);
+      float f = clamp(body * uBoost - turb * (uTurbA + h * uTurbB), 0.0, 1.0);
 
       // 색 램프 — 짙은 적색 → 주황 → 노랑. 흰 심부는 아주 뜨거운 부분에만
       vec3 col = vec3(0.36, 0.04, 0.01);
@@ -967,6 +973,9 @@ export async function initHero3D(canvas, host) {
           // 앞겹일수록 크게 휘고 잘 끊어진다 — 뒤겹은 화염 덩어리의 몸통이라 안정적이어야 한다
           uCurl: { value: (cfg.curl === undefined ? 0.85 : cfg.curl) * (1 + i * 0.35) },
           uBreak: { value: (cfg.brk === undefined ? 1.0 : cfg.brk) * (1 + i * 0.25) },
+          uTaper: { value: cfg.taper === undefined ? 1.02 : cfg.taper },
+          uTurbA: { value: cfg.turbA === undefined ? 1.22 : cfg.turbA },
+          uTurbB: { value: cfg.turbB === undefined ? 0.95 : cfg.turbB },
         },
       });
       const m = new THREE.Mesh(new THREE.PlaneGeometry(w, hh, 1, 1), mat);
@@ -1661,8 +1670,19 @@ export async function initHero3D(canvas, host) {
   const rigDkt = makeFireRig(DUCT, 1.1, 0.25, 36,
     { h: 4.6, wpad: 0.5, z: [0.04, 0.5, 1.0], alpha: [0.96, 0.66, 0.4], boost: 2.02, speed: 1.75 },
     { bottom: DUCT.y + 0.7, h: smokeH(DUCT.y + 0.7), wpad: 4.2, z: [0.28, 0.9], alpha: [0.56, 0.36], density: 3.1, speed: 0.52, narrow: 0.13, flare: 0.5, ceil: 0.72, ceilSpread: 0.9 });
-  const rigBig = makeFireRig(BIG, 2.4, 0.0, 62,
-    { h: 12.0, wpad: 1.0, z: [0.04, 0.75, 1.6], alpha: [0.97, 0.7, 0.44], boost: 1.88, speed: 1.5 },
+  // 셔터 개구부(9.2×10.4m)는 이 필름의 주역이다. 불이 개구부 아래쪽에만 깔려 있으면
+  // "큰 개구부를 막는다"는 규모가 안 산다 → **개구부를 가득 채우도록** 키웠다.
+  // ⚠️ boost 로 키우면 뿌리가 흰 띠가 된다. taper 를 낮춰 위까지 몸통을 남기고,
+  //    turbB 를 낮춰 위에서 난류에 깎이지 않게 하는 게 '높이'를 만드는 올바른 손잡이다.
+  const rigBig = makeFireRig(BIG, 3.1, 0.0, 84,
+    // ⚠️ **"개구부를 채운다"와 "뿌리가 안 탄다"는 서로 당긴다.**
+    //    body = (1-h)^taper 라 위로 갈수록 몸통이 줄고, 난류는 그대로 빼가므로
+    //    위까지 불이 닿게 하려면 boost 를 올려야 하는데 그러면 뿌리가 f=1 로 포화된다.
+    //    → boost 를 올리는 대신 **taper 를 아주 낮춰(0.26) 몸통이 위까지 안 줄게** 하고,
+    //      turbB 를 낮춰 위에서 덜 깎이게 한다. 그러면 낮은 boost 로도 개구부가 채워지고
+    //      뿌리는 f≈0.95 에 머물러 결이 살아 있다.
+    { h: 12.0, wpad: 1.8, z: [0.04, 0.75, 1.6], alpha: [0.97, 0.72, 0.48], boost: 1.72, speed: 1.5,
+      taper: 0.26, turbA: 1.35, turbB: 0.22 },
     // 셔터 개구부는 크고 화재층 와이드에서 주역이라 연기를 가장 짙고 넓게
     { bottom: BIG.y + 1.2, h: smokeH(BIG.y + 1.2), wpad: 9.0, z: [0.4, 1.4], alpha: [0.72, 0.5], density: 3.4, speed: 0.42, narrow: 0.26, flare: 0.62, ceil: 0.66, ceilSpread: 1.5 });
 

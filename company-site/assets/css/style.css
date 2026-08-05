@@ -258,11 +258,11 @@ svg { display: block; width: 100%; height: auto; }
 .hero-media {
     position: absolute; inset: 0; overflow: hidden;
     background: #83786f center center / auto 100% no-repeat;
-    background-image: url("../images/hero-poster-p.jpg?v=20260805e");           /*        a < 0.8 */
+    background-image: url("../images/hero-poster-p.jpg?v=20260805f");           /*        a < 0.8 */
 }
-@media (min-aspect-ratio: 4/5) { .hero-media { background-image: url("../images/hero-poster-n.jpg?v=20260805e"); } }  /* 0.8 <= a < 1.2 */
-@media (min-aspect-ratio: 6/5) { .hero-media { background-image: url("../images/hero-poster-m.jpg?v=20260805e"); } }  /* 1.2 <= a < 1.6 */
-@media (min-aspect-ratio: 8/5) { .hero-media { background-image: url("../images/hero-poster-w.jpg?v=20260805e"); } }  /* 1.6 <= a       */
+@media (min-aspect-ratio: 4/5) { .hero-media { background-image: url("../images/hero-poster-n.jpg?v=20260805f"); } }  /* 0.8 <= a < 1.2 */
+@media (min-aspect-ratio: 6/5) { .hero-media { background-image: url("../images/hero-poster-m.jpg?v=20260805f"); } }  /* 1.2 <= a < 1.6 */
+@media (min-aspect-ratio: 8/5) { .hero-media { background-image: url("../images/hero-poster-w.jpg?v=20260805f"); } }  /* 1.6 <= a       */
 
 /* 사실적 3D 캔버스 — 준비되면 폴백 위로 나타난다.
    포스터가 곧 같은 프레임이므로 길게 겹칠 이유가 없다 — 짧게 넘겨야 갈아타는 게 안 보인다 */
