@@ -1223,8 +1223,21 @@ export async function initHero3D(canvas, host) {
       box(FW, 0.34, 0.1, matWallSide, (WX0 + WX1) / 2, L.y + 0.17, WALL_FRONT + 0.06, scene, false, true);
     }
     // 허리 라인 + 브랜드 파랑 유도 라인 — 화재층에만. 관리되는 시설의 신호다.
-    box(FW, 0.26, 0.12, matCol, (WX0 + WX1) / 2, FIRE_Y + 4.4, WALL_FRONT + 0.07, scene, false, false);
-    box(FW, 0.09, 0.13, matAccent, (WX0 + WX1) / 2, FIRE_Y + 4.24, WALL_FRONT + 0.075, scene, false, false);
+    // ⚠️ **개구부를 가로지르면 안 된다.** 벽에 칠한 선이므로 개구부에서는 끊겨야 하는데,
+    //    폭 전체로 한 번에 그렸더니 셔터 개구부 한가운데를 지나 **공중에 떠 있는 줄**로 보였다.
+    //    (사용자가 지적한 문제) 그 높이에 걸린 개구부만 피해서 토막으로 그린다.
+    const paintLine = (y, h, d, mat, dz) => {
+      const gaps = OPENINGS.filter((o) => y > o.y - o.hh - 0.05 && y < o.y + o.hh + 0.05)
+        .map((o) => [o.x - o.hw, o.x + o.hw]).sort((a, b) => a[0] - b[0]);
+      let x = WX0;
+      const seg = (x0, x1) => {
+        if (x1 - x0 > 0.05) box(x1 - x0, h, d, mat, (x0 + x1) / 2, y, WALL_FRONT + dz, scene, false, false);
+      };
+      for (const [g0, g1] of gaps) { seg(x, g0); x = Math.max(x, g1); }
+      seg(x, WX1);
+    };
+    paintLine(FIRE_Y + 4.4,  0.26, 0.12, matCol,    0.07);
+    paintLine(FIRE_Y + 4.24, 0.09, 0.13, matAccent, 0.075);
 
     // ---- 층 슬래브 ---- 벽에서 카메라 쪽으로 뻗어 나오다 SECT_Z 에서 잘린다.
     //  잘린 단면(두께 0.7)이 그대로 보이는 게 '건물을 잘랐다'는 신호다.
@@ -1316,6 +1329,83 @@ export async function initHero3D(canvas, host) {
     box(WX1 - WX0 + 30, 0.4, 34, matDark, (WX0 + WX1) / 2, FIRE_Y - 0.4, WALL_Z - 17, scene, false, false); // 화재실 바닥
     box(WX1 - WX0 + 30, 0.4, 34, matDark, (WX0 + WX1) / 2, FIRE_CEIL - 0.2, WALL_Z - 17, scene, false, false); // 화재실 천장
   })();
+
+  // =====================================================================
+  //  층 집기 — 단면 와이드에서 위·아래 층이 텅 비어 있으면 '멀쩡한 층'이 아니라
+  //  '아직 안 만든 층'으로 보인다. 집기가 들어가야 층이 **쓰이고 있는 공간**이 되고,
+  //  동시에 사람 없이도 스케일이 읽힌다(마가켐은 사무 가구로 같은 일을 했다).
+  //
+  //  ⚠️ 배치에 Math.random 을 쓰면 안 된다. 페이지를 열 때마다 배열이 달라지는데
+  //     포스터는 한 번 구워 고정이므로, 로딩이 끝나는 순간 집기가 **통째로 재배치**된다.
+  //     → 씨드 난수로 항상 같은 배열이 나오게 한다.
+  // =====================================================================
+  function mulberry32(a) {
+    return function () {
+      a |= 0; a = (a + 0x6D2B79F5) | 0;
+      let t = Math.imul(a ^ (a >>> 15), 1 | a);
+      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+  // ⚠️ 랙 파랑을 진하게 주면 **불보다 먼저 눈에 들어온다.** 마가켐이 건물을 무채색으로 눌러
+  //    불과 제품에만 채도를 준 이유가 이것이다. 집기는 있되 시선을 끌면 안 된다.
+  const matRack  = new THREE.MeshStandardMaterial({ color: 0x5c6b7a, roughness: 0.58, metalness: 0.3, envMapIntensity: 0.65 });
+  const matCrate = new THREE.MeshStandardMaterial({ color: 0xa8977c, roughness: 0.92 });
+  const matPallet= new THREE.MeshStandardMaterial({ color: 0x8d7a5c, roughness: 0.95 });
+  const matDrum  = new THREE.MeshStandardMaterial({ color: 0x9aa3ab, roughness: 0.42, metalness: 0.6, envMapIntensity: 0.9 });
+
+  function buildFloorContents(L, seed) {
+    const R = mulberry32(seed);
+    const y = L.y;
+    // 벽 앞 통행대(안전선 안쪽)와 잘린 면 근처는 비워 둔다 — 동선이 있어야 창고로 읽힌다
+    const z0 = WALL_FRONT + 4.2, z1 = SECT_Z - 3.5;
+    const rack = (cx, cz, len) => {
+      const H = Math.min(L.h - 1.6, 3.6), D = 1.2;
+      for (const sx of [-1, 1]) for (const sz of [-1, 1])            // 기둥 4
+        box(0.12, H, 0.12, matRack, cx + sx * (len / 2 - 0.1), y + H / 2, cz + sz * (D / 2 - 0.1), scene, true, true);
+      for (let i = 0; i < 3; i++) {                                   // 선반 3단 + 적재물
+        const sy = y + 0.35 + i * (H - 0.5) / 2.6;
+        box(len, 0.07, D, matRack, cx, sy, cz, scene, true, true);
+        if (R() > 0.28) {
+          const bw = len * (0.42 + R() * 0.4), bh = 0.5 + R() * 0.35;
+          box(bw, bh, D * 0.8, matCrate, cx + (R() - 0.5) * (len - bw), sy + bh / 2 + 0.04, cz, scene, true, true);
+        }
+      }
+    };
+    const palletStack = (cx, cz) => {
+      box(1.25, 0.14, 1.05, matPallet, cx, y + 0.07, cz, scene, true, true);
+      const n = 1 + Math.floor(R() * 3);
+      for (let i = 0; i < n; i++)
+        box(1.1 - i * 0.06, 0.42, 0.92 - i * 0.05, matCrate, cx, y + 0.14 + 0.21 + i * 0.42, cz, scene, true, true);
+    };
+    const bench = (cx, cz) => {
+      box(2.6, 0.09, 0.95, matRack, cx, y + 0.88, cz, scene, true, true);
+      for (const sx of [-1, 1]) for (const sz of [-1, 1])
+        box(0.09, 0.85, 0.09, matRack, cx + sx * 1.2, y + 0.43, cz + sz * 0.4, scene, true, true);
+    };
+    const drums = (cx, cz) => {
+      for (let i = 0; i < 2 + Math.floor(R() * 3); i++) {
+        const d = new THREE.Mesh(new THREE.CylinderGeometry(0.31, 0.31, 0.9, 16), matDrum);
+        d.position.set(cx + (R() - 0.5) * 1.8, y + 0.45, cz + (R() - 0.5) * 1.4);
+        d.castShadow = true; d.receiveShadow = true; scene.add(d);
+      }
+    };
+    // 벽을 따라 늘어선 랙 한 줄 + 바닥에 흩어진 집기
+    for (let cx = WX0 + 9; cx < WX1 - 6; cx += 9.5) {
+      if (R() > 0.22) rack(cx + (R() - 0.5) * 1.5, z0 + 1.2 + R() * 2.0, 4.2 + R() * 1.6);
+    }
+    for (let i = 0; i < 14; i++) {
+      const cx = WX0 + 6 + R() * (WX1 - WX0 - 12);
+      const cz = z0 + 5.0 + R() * (z1 - z0 - 5.0);
+      const k = R();
+      if (k < 0.42) palletStack(cx, cz);
+      else if (k < 0.74) bench(cx, cz);
+      else drums(cx, cz);
+    }
+  }
+  // 위·아래 층에만 — 화재층은 주역(개구부·보드·셔터)이 가려지면 안 된다
+  buildFloorContents(LEVELS[0], 20260805);
+  buildFloorContents(LEVELS[2], 77712345);
 
   // ---- 관통 배관 + 밴드 ----
   (function buildPipe() {
@@ -1553,15 +1643,22 @@ export async function initHero3D(canvas, host) {
   }
   // sheet: h 불 판 높이 / wpad 개구부보다 넓힐 폭 / z 겹의 z 오프셋 / alpha 겹별 알파 / boost 뻗는 높이 / speed 흐름
   // smoke: bottom 연기가 시작되는 높이 / h 판 높이 / wpad / z / alpha / density 짙기 / speed 상승 속도
+  // ⚠️ **연기 판의 높이는 화재층 천장(FIRE_CEIL)에 맞춰야 한다.**
+  //    단면 구성으로 바뀌기 전에는 층 구분이 없어서 판을 12m 씩 세워뒀는데, 이제 그 높이면
+  //    슬래브를 뚫고 위층까지 올라간다. 슬래브에 가려 **정작 보이는 건 연기가 옅은 아랫부분뿐**이라
+  //    "불은 나는데 연기가 없다"로 보였다(사용자 지적). 천장까지로 잘라야 짙은 구간이 화면에 든다.
+  //    그리고 uCeil 을 천장 바로 아래에 두어 거기서 옆으로 깔리게 한다 — 실제 화재의 천장 제트.
+  const smokeH = (bottom) => FIRE_CEIL - bottom + 0.25;   // 천장에 살짝 물리게
   const rigPen = makeFireRig(PEN, 1.0, 0.25, 34,
     { h: 4.6, wpad: 0.5, z: [0.04, 0.5, 1.0], alpha: [0.96, 0.66, 0.4], boost: 2.02, speed: 1.7 },
-    { bottom: PEN.y + 0.7, h: 10.0, wpad: 4.0, z: [0.28, 0.9], alpha: [0.5, 0.32], density: 2.9, speed: 0.5, narrow: 0.12, flare: 0.4 });
+    { bottom: PEN.y + 0.7, h: smokeH(PEN.y + 0.7), wpad: 4.0, z: [0.28, 0.9], alpha: [0.56, 0.36], density: 3.1, speed: 0.5, narrow: 0.12, flare: 0.5, ceil: 0.72, ceilSpread: 0.9 });
   const rigDkt = makeFireRig(DUCT, 1.1, 0.25, 36,
     { h: 4.6, wpad: 0.5, z: [0.04, 0.5, 1.0], alpha: [0.96, 0.66, 0.4], boost: 2.02, speed: 1.75 },
-    { bottom: DUCT.y + 0.7, h: 10.0, wpad: 4.2, z: [0.28, 0.9], alpha: [0.5, 0.32], density: 2.9, speed: 0.52, narrow: 0.13, flare: 0.4 });
+    { bottom: DUCT.y + 0.7, h: smokeH(DUCT.y + 0.7), wpad: 4.2, z: [0.28, 0.9], alpha: [0.56, 0.36], density: 3.1, speed: 0.52, narrow: 0.13, flare: 0.5, ceil: 0.72, ceilSpread: 0.9 });
   const rigBig = makeFireRig(BIG, 2.4, 0.0, 62,
     { h: 12.0, wpad: 1.0, z: [0.04, 0.75, 1.6], alpha: [0.97, 0.7, 0.44], boost: 1.88, speed: 1.5 },
-    { bottom: BIG.y + 1.2, h: 12.5, wpad: 7.0, z: [0.4, 1.4], alpha: [0.6, 0.4], density: 3.0, speed: 0.42, narrow: 0.2, flare: 0.34 });
+    // 셔터 개구부는 크고 화재층 와이드에서 주역이라 연기를 가장 짙고 넓게
+    { bottom: BIG.y + 1.2, h: smokeH(BIG.y + 1.2), wpad: 9.0, z: [0.4, 1.4], alpha: [0.72, 0.5], density: 3.4, speed: 0.42, narrow: 0.26, flare: 0.62, ceil: 0.66, ceilSpread: 1.5 });
 
   // ---- 조명 ----
   // 앰비언트(hemi)를 낮추고 방향광(key)을 올리면 면마다 명암이 갈려 형태가 또렷해진다.
