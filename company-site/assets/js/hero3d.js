@@ -835,6 +835,8 @@ export async function initHero3D(canvas, host) {
     uniform float uBoost;   // 불꽃이 뻗는 높이
     uniform vec2  uDetail;  // 노이즈 칸 수 (개구부 크기에 맞춰 결 크기를 일정하게)
     uniform vec2  uEdge;    // 좌우 감쇠 폭
+    uniform float uCurl;    // 혀가 휘말리는 정도 (도메인 워프)
+    uniform float uBreak;   // 위쪽에서 조각으로 끊어지는 정도
 
     float hash(vec2 p) {
       p = fract(p * vec2(233.34, 851.73));
@@ -852,14 +854,32 @@ export async function initHero3D(canvas, host) {
       for (int i = 0; i < 4; i++) { v += a * vnoise(p); p = p * 2.04 + vec2(17.3, 9.1); a *= 0.5; }
       return v;
     }
+    // 워프용은 저주파만 있으면 되므로 2옥타브로 싸게 — 불 셰이더는 화면을 크게 덮는다
+    float fbm2(vec2 p) {
+      return 0.62 * vnoise(p) + 0.31 * vnoise(p * 2.04 + vec2(17.3, 9.1));
+    }
 
     void main() {
       vec2 uv = vUv;
       float h = uv.y;                       // 0 = 불의 뿌리, 1 = 꼭대기
 
-      // 위로 갈수록 옆으로 퍼지는 좌표 왜곡 — 불꽃이 원뿔처럼 벌어진다
+      // 위로 갈수록 옆으로 퍼지는 좌표 왜곡 — 불꽃이 원뿔처럼 벌어진다.
+      // ⚠️ 위로 흐르는 속도를 높이에 따라 키운다(부력). 등속으로 흘리면 결이 통째로
+      //    평행 이동해서 '스크롤되는 무늬'로 보인다 — 불이 아니라 커튼이 된다.
       vec2 q = vec2((uv.x - 0.5) * uDetail.x / (0.55 + h * 0.95),
-                    h * uDetail.y - uTime * uSpeed);
+                    h * uDetail.y - uTime * uSpeed * (1.0 + h * 0.55));
+
+      // ── 회전장(curl noise) 워프 — 이게 '혀가 말려 올라가는' 형상을 만드는 핵심이다.
+      //    ⚠️ 노이즈 두 장으로 그냥 밀면(도메인 워프) 결이 **옆으로 흔들리기만** 한다.
+      //       실제 불꽃은 소용돌이를 타고 감기므로 **회전하는 벡터장**이어야 한다.
+      //       스칼라 노이즈의 기울기를 90° 돌리면 발산이 0인 회전장이 된다.
+      vec2 wp = q * 0.62 + vec2(uSeed * 0.7, uTime * 0.33);
+      const float E = 0.14;
+      float na = fbm2(wp);
+      vec2 grad = vec2(fbm2(wp + vec2(E, 0.0)) - na, fbm2(wp + vec2(0.0, E)) - na) / E;
+      // 위로 갈수록 크게 휘어야 뿌리는 안정적이고 끝만 나풀거린다
+      q += vec2(grad.y, -grad.x) * uCurl * (0.20 + h * 1.5);
+
       float n1 = fbm(q + vec2(uSeed, 0.0));
       float n2 = fbm(q * 2.35 + vec2(uSeed * 1.7, -uTime * uSpeed * 1.8));
       float turb = n1 * 0.74 + n2 * 0.40;
@@ -876,12 +896,25 @@ export async function initHero3D(canvas, host) {
       col = mix(col, vec3(1.00, 0.52, 0.07), smoothstep(0.24, 0.52, f));
       col = mix(col, vec3(1.00, 0.82, 0.32), smoothstep(0.52, 0.80, f));
       col = mix(col, vec3(1.00, 0.91, 0.60), smoothstep(0.90, 1.00, f));
+
+      // ── 속이 빈 심부. 불꽃 안쪽은 연료가 아직 안 탄 자리라 **바깥보다 어둡다**.
+      //    이걸 안 넣으면 균일하게 빛나는 '주황 젤리'가 된다.
+      float core = fbm(q * 1.45 + vec2(11.7, uTime * 0.5));
+      col *= 1.0 - 0.42 * smoothstep(0.42, 0.86, core) * smoothstep(0.30, 0.62, f) * (1.0 - h * 0.55);
+
       // ⚠️ 위 색은 눈으로 고른 sRGB 값이다. 이제 HDR 선형 버퍼에 그리므로 선형으로 되돌린다.
       //    그 다음 온도에 따라 1을 훌쩍 넘게 밀어 올린다 — 그래야 심부가 하얗게 타고 블룸이 걸린다.
       //    (이 단계가 없으면 아무리 노랗게 칠해도 '주황색 판'으로만 보인다)
       col = pow(col, vec3(2.2)) * mix(1.35, 4.6, smoothstep(0.10, 0.98, f));
 
-      float a = smoothstep(0.012, 0.19, f) * uAlpha * uOn;
+      // ── 위쪽에서 조각으로 끊어지게.
+      //    실제 불은 끝이 매끄럽게 옅어지며 사라지지 않고 **덩어리가 떨어져 나가** 따로 탄다.
+      //    난류장을 **높은 문턱으로 자르면** 약한 부분이 먼저 끊겨 남은 곳이 섬처럼 분리된다.
+      //    경계 폭까지 같이 좁혀야 조각의 윤곽이 또렷해진다.
+      float bh = clamp(h * uBreak, 0.0, 1.0);
+      float thr  = mix(0.012, 0.20, bh);
+      float band = mix(0.178, 0.05, bh);
+      float a = smoothstep(thr, thr + band, f) * uAlpha * uOn;
       a *= smoothstep(uCut + 0.05, uCut - 0.03, h);   // 셔터 하단 아래로만 남는다
       if (a < 0.004) discard;
       gl_FragColor = vec4(col, a);
@@ -907,6 +940,9 @@ export async function initHero3D(canvas, host) {
           uBoost: { value: cfg.boost * (1 - i * 0.08) },
           uDetail: { value: new THREE.Vector2(w * 0.85, hh * 0.5) },
           uEdge: { value: new THREE.Vector2(0.16, 0.16) },
+          // 앞겹일수록 크게 휘고 잘 끊어진다 — 뒤겹은 화염 덩어리의 몸통이라 안정적이어야 한다
+          uCurl: { value: (cfg.curl === undefined ? 0.85 : cfg.curl) * (1 + i * 0.35) },
+          uBreak: { value: (cfg.brk === undefined ? 1.0 : cfg.brk) * (1 + i * 0.25) },
         },
       });
       const m = new THREE.Mesh(new THREE.PlaneGeometry(w, hh, 1, 1), mat);
@@ -939,6 +975,8 @@ export async function initHero3D(canvas, host) {
     varying vec2 vUv;
     uniform float uTime, uOn, uAlpha, uCut, uSeed, uSpeed, uDensity;
     uniform vec2 uDetail, uEdge;
+    uniform float uCeil;        // 천장에 닿기 시작하는 높이(uv.y)
+    uniform float uCeilSpread;  // 천장에서 옆으로 퍼지는 폭
 
     float hash(vec2 p) {
       p = fract(p * vec2(233.34, 851.73));
@@ -961,10 +999,17 @@ export async function initHero3D(canvas, host) {
       vec2 uv = vUv;
       float h = uv.y;                                  // 0 = 불 바로 위, 1 = 천장 쪽
 
+      // ── 천장 제트(ceiling jet).
+      //    실제 화재 연기는 천장에 부딪히면 더 못 올라가고 **옆으로 깔려 층을 이룬다.**
+      //    이게 없으면 굴뚝처럼 위로만 빠져나가 '연기가 어디로 갔나' 싶은 그림이 된다.
+      float cj = smoothstep(uCeil - 0.18, 1.0, h);
+
       // 위로 갈수록 옆으로 크게 퍼진다(불과 반대로 벌어지는 형상)
       float spread = 0.42 + h * 1.85;
       vec2 q = vec2((uv.x - 0.5) * uDetail.x / spread,
                     h * uDetail.y - uTime * uSpeed);
+      // 천장 근처에서는 결을 세로로 눌러 **가로로 늘어난 층**처럼 보이게 한다
+      q.y = mix(q.y, q.y * 0.32, cj);
       float n1 = fbm(q + vec2(uSeed, 0.0));
       float n2 = fbm(q * 2.15 + vec2(uSeed * 2.3, -uTime * uSpeed * 0.65));
       float d = n1 * 0.78 + n2 * 0.42;
@@ -973,13 +1018,15 @@ export async function initHero3D(canvas, host) {
       // (가로 전체를 채우면 검은 사각 덩어리로 보인다)
       float cx = 0.5 + sin(uTime * 0.33 + uSeed) * 0.06 * h
                      + sin(uTime * 0.19 + uSeed * 2.1) * 0.04 * h;
-      float hw = uEdge.x + h * uEdge.y;   // half 는 GLSL 예약어라 쓸 수 없다
+      // half 는 GLSL 예약어라 쓸 수 없다. 천장에 닿으면 폭이 급격히 벌어진다.
+      float hw = uEdge.x + h * uEdge.y + cj * uCeilSpread;
       float dx = abs(uv.x - cx) / max(0.02, hw);
       float plume = 1.0 - smoothstep(0.12, 1.0, dx);
-      // 올라오면서 짙어졌다가 천장으로 갈수록 흩어진다
-      float rise = smoothstep(0.0, 0.07, h) * (1.0 - smoothstep(0.62, 1.0, h));
+      // 올라오면서 짙어진다. ⚠️ 예전엔 0.62 부터 흩어져 없어졌는데, 그러면 천장에 쌓이질 않는다.
+      //    천장 바로 아래까지 살려두고 맨 끝(슬래브에 묻히는 부분)만 잘라낸다.
+      float rise = smoothstep(0.0, 0.07, h) * (1.0 - smoothstep(0.88, 1.03, h));
 
-      float m = d * uDensity * plume * rise;
+      float m = d * uDensity * plume * rise * mix(1.0, 1.32, cj);
       float a = smoothstep(0.3, 0.66, m) * uAlpha * uOn;
       a *= smoothstep(uCut + 0.06, uCut - 0.03, h);
       if (a < 0.004) discard;
@@ -1007,6 +1054,8 @@ export async function initHero3D(canvas, host) {
           uDensity: { value: cfg.density },
           uDetail: { value: new THREE.Vector2(w * 1.15, hh * 0.78) },
           uEdge: { value: new THREE.Vector2(cfg.narrow, cfg.flare) },
+          uCeil: { value: cfg.ceil === undefined ? 0.70 : cfg.ceil },
+          uCeilSpread: { value: cfg.ceilSpread === undefined ? 0.55 : cfg.ceilSpread },
         },
       });
       const m = new THREE.Mesh(new THREE.PlaneGeometry(w, hh, 1, 1), mat);
