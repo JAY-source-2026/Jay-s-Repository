@@ -6,7 +6,7 @@
     <title>주식회사 디오이엔씨 (DOENC) | 화재차단 전문기업 · 내화채움구조 · 내화구조 · 셔터</title>
     <meta name="description" content="주식회사 디오이엔씨(DOENC)는 화재차단 전문기업입니다. 내화채움구조·내화구조·셔터·설계소프트웨어를 자체기술로 국산화하여 건축물 및 지하구의 화재차단 장치를 제조·시공합니다.">
     <meta name="keywords" content="디오이엔씨, DOENC, 내화채움구조, 내화구조, 방화셔터, 스크린셔터, 화재차단, 지하구, 관통부 방화, 파이어스탑, firestop">
-    <meta name="theme-color" content="#ffffff">
+    <meta name="theme-color" content="#2D5682">
     <link rel="canonical" href="https://jay-source-2026.github.io/Jay-s-Repository/company-site/">
 
     <!-- Open Graph -->
@@ -20,16 +20,7 @@
     <meta name="twitter:card" content="summary">
 
     <link rel="icon" type="image/png" href="assets/images/doenc_mark.png">
-    <!-- 히어로 첫 화면 — 화면 비율 단계별로 한 장만 받는다 (경계는 style.css / hero3d.js resize() 와 동일) -->
-    <link rel="preload" as="image" href="assets/images/hero-poster-w.jpg?v=20260805g" media="(min-aspect-ratio: 8/5)" fetchpriority="high">
-    <link rel="preload" as="image" href="assets/images/hero-poster-m.jpg?v=20260805g" media="(min-aspect-ratio: 6/5) and (max-aspect-ratio: 8/5)" fetchpriority="high">
-    <link rel="preload" as="image" href="assets/images/hero-poster-n.jpg?v=20260805g" media="(min-aspect-ratio: 4/5) and (max-aspect-ratio: 6/5)" fetchpriority="high">
-    <link rel="preload" as="image" href="assets/images/hero-poster-p.jpg?v=20260805g" media="(max-aspect-ratio: 4/5)" fetchpriority="high">
-
-    <!-- 3D 모듈을 미리 받아둔다. 없으면 main.js → hero3d.js → three.module → three.core 로
-         **네 번 순차 왕복**하느라 750KB 를 다 받을 때까지 포스터가 계속 떠 있는다.
-         ⚠️ href 는 실제 import 주소와 **글자 그대로 같아야** 캐시가 재사용된다(쿼리 포함). -->
-    <link rel="modulepreload" href="assets/js/hero3d.js?v=20260805g">
+    <link rel="modulepreload" href="assets/js/hero3d.js?v=20261023d">
     <link rel="modulepreload" href="assets/js/vendor/three.module.min.js">
     <link rel="modulepreload" href="assets/js/vendor/three.core.min.js">
 
@@ -76,7 +67,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"
           media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"></noscript>
-    <link rel="stylesheet" href="assets/css/style.css?v=20260805g">
+    <link rel="stylesheet" href="assets/css/style.css?v=20261023d">
+    <link rel="stylesheet" href="assets/css/home.css?v=20261023d">
     <noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
 </head>
 <body id="top">
@@ -85,7 +77,7 @@
     <!-- ===== Header (공유) ===== -->
     <header class="hd" id="siteHeader">
         <div class="hd-inner">
-            <a class="hd-brand" href="index.html#home" id="brandHome" aria-label="디오이엔씨 홈 — 히어로 영상 처음부터 다시보기">
+            <a class="hd-brand" href="index.html#home" id="brandHome" aria-label="디오이엔씨 홈">
                 <img class="brand-mark" src="assets/images/doenc_mark.png" alt="" width="384" height="220">
                 <span>DOENC</span>
             </a>
@@ -174,657 +166,102 @@
     </header>
 
     <main id="main">
-        <!-- ===== 1. Hero ===== -->
-        <section class="hero" id="home">
-            <!-- ▼ 히어로 미디어 슬롯
-                 실사 영상/사진을 받으면 아래 주석 한 줄만 살리면 도면 그래픽이 자동 교체됩니다.
-                 <video autoplay muted loop playsinline poster="assets/images/hero-poster-w.jpg?v=20260805g">
-                     <source src="assets/images/hero.mp4" type="video/mp4"></video>
-                 또는  <img src="assets/images/hero.jpg" alt="">                        -->
-            <div class="hero-media" id="heroMedia" aria-hidden="true">
-                <!-- 사실적 3D: 배관이 벽체를 관통하고, 우리 하얀 내화보드가 날아와 개구부를 막는 장면.
-                     WebGL 미지원 시 .hero-media 배경(사진)이 그대로 남는다. -->
-                <canvas class="hero-3d" id="hero3d"></canvas>
-                <div class="hero-art">
-                    <div class="ha-glow"></div>
-                    <div class="ha-grid"></div>
-                    <svg class="ha-draw" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" fill="none">
-                        <defs>
-                            <pattern id="wallHatch" width="14" height="14" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
-                                <line x1="0" y1="0" x2="0" y2="14" stroke="rgba(255,255,255,.09)" stroke-width="1"/>
-                            </pattern>
-                        </defs>
-
-                        <!-- 벽체 단면 -->
-                        <rect x="1020" y="-20" width="160" height="940" fill="rgba(255,255,255,.03)"/>
-                        <rect x="1020" y="-20" width="160" height="940" fill="url(#wallHatch)"/>
-                        <path d="M1020 -20 v940 M1180 -20 v940" stroke="rgba(255,255,255,.34)"/>
-
-                        <!-- 관통부 01 · 덕트 -->
-                        <g class="dr-soft" stroke="rgba(255,255,255,.5)">
-                            <path d="M620 236 h1000 M620 344 h1000"/>
-                            <path d="M660 236 v108 M700 236 v108"/>
-                        </g>
-                        <rect class="ha-seal" x="1020" y="216" width="160" height="148" stroke="#69b6fa"/>
-                        <path d="M1032 228 l136 124 M1032 292 l136 60 M1032 352 l60 -124 M1104 228 l64 60"
-                              stroke="rgba(105,182,250,.3)"/>
-
-                        <!-- 관통부 02 · 배관 -->
-                        <g class="dr-soft" stroke="rgba(255,255,255,.44)">
-                            <path d="M700 486 h920 M700 546 h920"/>
-                            <circle cx="1420" cy="516" r="30"/>
-                        </g>
-                        <rect class="ha-seal" x="1020" y="466" width="160" height="100" stroke="#69b6fa"/>
-                        <path d="M1032 478 l136 76 M1032 526 l136 28" stroke="rgba(105,182,250,.3)"/>
-
-                        <!-- 관통부 03 · 케이블 트레이 -->
-                        <g class="dr-soft" stroke="rgba(255,255,255,.4)">
-                            <path d="M760 690 h860 M760 766 h860 M760 690 v76"/>
-                            <circle cx="1300" cy="712" r="9"/><circle cx="1332" cy="712" r="9"/>
-                            <circle cx="1364" cy="712" r="9"/><circle cx="1316" cy="742" r="9"/>
-                            <circle cx="1348" cy="742" r="9"/>
-                        </g>
-                        <rect class="ha-seal" x="1020" y="670" width="160" height="116" stroke="#69b6fa"/>
-                        <path d="M1032 682 l136 92 M1032 738 l136 36" stroke="rgba(105,182,250,.3)"/>
-
-                        <!-- 바닥 슬래브 -->
-                        <path d="M560 860 h1080" stroke="rgba(255,255,255,.22)"/>
-                        <path d="M600 890 l24 -30 M660 890 l24 -30 M720 890 l24 -30 M780 890 l24 -30 M840 890 l24 -30"
-                              stroke="rgba(255,255,255,.12)"/>
-
-                        <!-- 화염측 열기류 -->
-                        <g class="ha-heat" stroke="rgba(255,255,255,.3)">
-                            <path d="M812 180 q26 -46 0 -84 M868 180 q26 -46 0 -84 M924 180 q26 -46 0 -84"/>
-                            <path d="M840 430 q26 -46 0 -84 M896 430 q26 -46 0 -84"/>
-                            <path d="M824 632 q26 -46 0 -84 M880 632 q26 -46 0 -84"/>
-                        </g>
-
-                        <!-- 우측 설비 상세 (원경) -->
-                        <g class="dr-soft" stroke="rgba(255,255,255,.2)">
-                            <path d="M1500 236 v250 M1560 344 v142"/>
-                            <path d="M1476 486 h108 M1476 546 h108"/>
-                            <rect x="1440" y="640" width="150" height="126"/>
-                            <path d="M1440 690 h150 M1515 640 v126"/>
-                        </g>
-
-                        <!-- 치수·주기 -->
-                        <g stroke="rgba(255,255,255,.3)">
-                            <path d="M1020 430 h160 M1020 418 v24 M1180 418 v24"/>
-                            <path d="M960 216 v148 M948 216 h24 M948 364 h24"/>
-                        </g>
-                        <text x="1100" y="410" fill="rgba(255,255,255,.55)" font-size="17" letter-spacing="2" text-anchor="middle">SEALED</text>
-                        <text x="700" y="806" fill="rgba(255,255,255,.45)" font-size="18" letter-spacing="3">FIRE SIDE</text>
-                        <text x="1230" y="806" fill="rgba(105,182,250,.85)" font-size="18" letter-spacing="3">PROTECTED</text>
-                        <text x="1230" y="200" fill="rgba(255,255,255,.34)" font-size="15" letter-spacing="3">PENETRATION SEAL SYSTEM</text>
-                    </svg>
-                    <div class="ha-sweep"></div>
-                    <div class="ha-veil"></div>
-                </div>
-                <!-- .on 은 흰 스크림(뿌연 층). 3D 재생 중에는 main.js 가 벗겨 화면을 선명하게 두고,
-                     영상이 끝나면 다시 씌워 문구가 읽히게 한다. 3D를 못 쓰는 환경에서는 그대로 유지된다. -->
-                <div class="hero-scrim on" id="heroScrim"></div>
-            </div>
-            <!-- 문구는 3D 영상이 끝난 뒤 순서대로 들어온다 (main.js 가 .await → .in 으로 전환).
-                 3D를 못 쓰는 환경에서는 클래스가 붙지 않아 처음부터 그대로 보인다. -->
-            <div class="hero-body" id="heroBody">
-                <p class="hero-kicker"><b>DOENC</b><i aria-hidden="true"></i>화재차단 TOTAL SOLUTION</p>
-                <h1 class="hero-title"><span>우리는 기술을 만들고</span>기술은 안전을 만듭니다</h1>
-                <p class="hero-lede">
-                    <span>내화채움구조</span><span>내화구조</span><span>방화셔터</span><span>설계 소프트웨어</span>
-                </p>
-            </div>
-            <div class="hero-meta">
-                <button type="button" class="hero-replay" id="heroReplay">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
-                        <path d="M3 12a9 9 0 1 0 3.2-6.9"/><path d="M3 4.5V10h5.5"/>
-                    </svg>
-                    영상 다시보기
-                </button>
-                <span class="hero-scroll" aria-hidden="true">SCROLL</span>
-            </div>
-        </section>
-
-        <!-- ===== 2. Business ===== -->
-        <section class="sec sec-business" id="business">
-            <div class="wrap">
-                <div class="sec-head reveal">
-                    <p class="label">사업영역</p>
-                    <h2 class="sec-title">자체기술 국산화로<br>화재 확산을 차단합니다</h2>
-                </div>
-
-                <ul class="biz">
-                    <li class="biz-item reveal">
-                        <a href="#firestop" class="biz-link">
-                            <!-- 사진 준비 시: 아래 svg 앞에 <img src="assets/images/biz-firestop.jpg" alt=""> 추가 -->
-                            <span class="biz-media">
-                                <svg viewBox="0 0 320 400" preserveAspectRatio="xMidYMid slice" fill="none" aria-hidden="true">
-                                    <defs>
-                                        <pattern id="h1" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
-                                            <line x1="0" y1="0" x2="0" y2="10" stroke="rgba(255,255,255,.08)"/>
-                                        </pattern>
-                                    </defs>
-                                    <rect x="118" y="-10" width="84" height="420" fill="url(#h1)"/>
-                                    <path d="M118 -10 v420 M202 -10 v420" stroke="rgba(255,255,255,.3)"/>
-                                    <g stroke="rgba(255,255,255,.45)">
-                                        <path d="M-10 178 h128 M202 178 h128 M-10 222 h128 M202 222 h128"/>
-                                        <path d="M-10 96 h128 M202 96 h128 M-10 124 h128 M202 124 h128"/>
-                                        <circle cx="272" cy="200" r="16"/>
-                                    </g>
-                                    <rect class="ac-fill" x="118" y="158" width="84" height="84" stroke="#69b6fa"/>
-                                    <rect class="ac-fill" x="118" y="86" width="84" height="48" stroke="#69b6fa"/>
-                                    <path d="M126 166 l68 68 M126 202 l68 32 M126 234 l36 -68 M126 94 l68 32 M126 126 l36 -32"
-                                          stroke="rgba(105,182,250,.35)"/>
-                                    <g stroke="rgba(255,255,255,.26)">
-                                        <path d="M34 300 q14 -26 0 -46 M58 300 q14 -26 0 -46 M82 300 q14 -26 0 -46"/>
-                                        <path d="M-10 352 h340"/>
-                                    </g>
-                                    <path d="M118 40 h84 M118 32 v16 M202 32 v16" stroke="rgba(255,255,255,.25)"/>
-                                </svg>
-                                <em class="biz-ghost">01</em>
-                            </span>
-                            <span class="biz-body">
-                                <em class="biz-num">01</em>
-                                <h3>내화채움구조</h3>
-                                <p>벽·바닥 관통부를 밀실하게 채워 화염과 유독가스의 이동 경로를 차단합니다.</p>
-                                <span class="more">VIEW MORE <i aria-hidden="true">+</i></span>
-                            </span>
-                        </a>
-                    </li>
-                    <li class="biz-item reveal">
-                        <a href="#fireproof" class="biz-link">
-                            <!-- 사진 준비 시: 아래 svg 앞에 <img src="assets/images/biz-structure.jpg" alt=""> 추가 -->
-                            <span class="biz-media">
-                                <svg viewBox="0 0 320 400" preserveAspectRatio="xMidYMid slice" fill="none" aria-hidden="true">
-                                    <defs>
-                                        <pattern id="h2" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
-                                            <line x1="0" y1="0" x2="0" y2="10" stroke="rgba(255,255,255,.07)"/>
-                                        </pattern>
-                                    </defs>
-                                    <rect x="96" y="86" width="128" height="228" fill="url(#h2)"/>
-                                    <path d="M96 86 h128 M96 314 h128 M160 86 v228" stroke="rgba(255,255,255,.45)"/>
-                                    <rect x="78" y="68" width="164" height="264" stroke="rgba(255,255,255,.26)"/>
-                                    <rect class="ac-fill" x="60" y="50" width="200" height="300" stroke="#69b6fa"/>
-                                    <g stroke="rgba(255,255,255,.18)">
-                                        <path d="M-10 50 h70 M260 50 h70 M-10 350 h70 M260 350 h70"/>
-                                        <path d="M30 26 v348 M290 26 v348"/>
-                                    </g>
-                                    <g stroke="rgba(105,182,250,.4)">
-                                        <path d="M30 200 h30 M260 200 h30"/>
-                                        <path d="M52 194 l8 6 -8 6 M268 194 l-8 6 8 6"/>
-                                    </g>
-                                    <path d="M-10 372 h340" stroke="rgba(255,255,255,.22)"/>
-                                    <text x="160" y="392" fill="rgba(255,255,255,.32)" font-size="11" letter-spacing="3" text-anchor="middle">FIRE RESISTANCE</text>
-                                </svg>
-                                <em class="biz-ghost">02</em>
-                            </span>
-                            <span class="biz-body">
-                                <em class="biz-num">02</em>
-                                <h3>내화구조</h3>
-                                <p>지하 공동구·통신구·전력구의 방화벽과 층간 방화구획으로 구획을 완성합니다.</p>
-                                <span class="more">VIEW MORE <i aria-hidden="true">+</i></span>
-                            </span>
-                        </a>
-                    </li>
-                    <li class="biz-item reveal">
-                        <a href="#shutter" class="biz-link">
-                            <!-- 사진 준비 시: 아래 svg 앞에 <img src="assets/images/biz-shutter.jpg" alt=""> 추가 -->
-                            <span class="biz-media">
-                                <svg viewBox="0 0 320 400" preserveAspectRatio="xMidYMid slice" fill="none" aria-hidden="true">
-                                    <rect x="40" y="26" width="240" height="30" fill="rgba(255,255,255,.05)" stroke="rgba(255,255,255,.45)"/>
-                                    <g stroke="rgba(255,255,255,.26)">
-                                        <path d="M40 74 h240 M40 100 h240 M40 126 h240 M40 152 h240 M40 178 h240 M40 204 h240"/>
-                                    </g>
-                                    <g stroke="rgba(255,255,255,.1)">
-                                        <path d="M40 87 h240 M40 113 h240 M40 139 h240 M40 165 h240 M40 191 h240"/>
-                                    </g>
-                                    <path class="ac-fill" d="M40 230 h240" stroke="#69b6fa" stroke-width="1.6"/>
-                                    <path d="M40 26 v320 M280 26 v320" stroke="rgba(255,255,255,.26)"/>
-                                    <path d="M160 254 v58 M146 298 l14 14 14 -14" stroke="rgba(105,182,250,.6)"/>
-                                    <g stroke="rgba(255,255,255,.14)">
-                                        <path d="M-10 346 h340"/>
-                                        <path d="M20 346 l-14 20 M60 346 l-14 20 M100 346 l-14 20 M140 346 l-14 20
-                                                 M180 346 l-14 20 M220 346 l-14 20 M260 346 l-14 20 M300 346 l-14 20"/>
-                                    </g>
-                                    <text x="40" y="392" fill="rgba(255,255,255,.32)" font-size="11" letter-spacing="3">FIRE COMPARTMENT</text>
-                                </svg>
-                                <em class="biz-ghost">03</em>
-                            </span>
-                            <span class="biz-body">
-                                <em class="biz-num">03</em>
-                                <h3>방화셔터</h3>
-                                <p>방화셔터·스크린셔터로 대공간을 구획해 화재 확산을 막고 피난 시간을 확보합니다.</p>
-                                <span class="more">VIEW MORE <i aria-hidden="true">+</i></span>
-                            </span>
-                        </a>
-                    </li>
-                    <li class="biz-item reveal">
-                        <a href="#software" class="biz-link">
-                            <!-- 사진 준비 시: 아래 svg 앞에 <img src="assets/images/biz-software.jpg" alt=""> 추가 -->
-                            <span class="biz-media">
-                                <svg viewBox="0 0 320 400" preserveAspectRatio="xMidYMid slice" fill="none" aria-hidden="true">
-                                    <g stroke="rgba(255,255,255,.07)">
-                                        <path d="M-10 40 h340 M-10 80 h340 M-10 120 h340 M-10 160 h340 M-10 200 h340
-                                                 M-10 240 h340 M-10 280 h340 M-10 320 h340 M-10 360 h340"/>
-                                        <path d="M40 -10 v420 M80 -10 v420 M120 -10 v420 M160 -10 v420
-                                                 M200 -10 v420 M240 -10 v420 M280 -10 v420"/>
-                                    </g>
-                                    <rect class="ac-fill" x="80" y="110" width="120" height="140" stroke="#69b6fa"/>
-                                    <path d="M80 110 l120 140 M80 180 l120 70 M150 110 l50 58" stroke="rgba(105,182,250,.22)"/>
-                                    <path d="M200 150 h64 v104 h-64" stroke="rgba(255,255,255,.45)"/>
-                                    <path d="M40 84 h120 v-40" stroke="rgba(255,255,255,.35)"/>
-                                    <g stroke="rgba(255,255,255,.3)">
-                                        <path d="M80 284 h184 M80 278 v12 M264 278 v12"/>
-                                        <path d="M56 110 v140 M50 110 h12 M50 250 h12"/>
-                                    </g>
-                                    <g fill="none" stroke="rgba(105,182,250,.75)">
-                                        <circle cx="200" cy="110" r="5"/><circle cx="80" cy="250" r="5"/>
-                                        <circle cx="264" cy="150" r="5"/>
-                                    </g>
-                                    <text x="80" y="308" fill="rgba(255,255,255,.32)" font-size="11" letter-spacing="3">AUTO LAYOUT</text>
-                                </svg>
-                                <em class="biz-ghost">04</em>
-                            </span>
-                            <span class="biz-body">
-                                <em class="biz-num">04</em>
-                                <h3>설계소프트웨어</h3>
-                                <p>현장 조건에 맞는 인정구조 선정과 물량 산출을 지원하는 DESkey를 자체 개발했습니다.</p>
-                                <span class="more">VIEW MORE <i aria-hidden="true">+</i></span>
-                            </span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </section>
-
-        <!-- ===== 3. Figures ===== -->
-        <section class="sec-figures" aria-label="회사 강점">
-            <div class="wrap">
-                <ul class="figures">
-                    <li class="reveal"><strong>다수</strong><span>내화채움구조 · 스크린셔터 특허 보유</span></li>
-                    <li class="reveal"><strong>4</strong><span>자체기술로 국산화한 제품 분야</span></li>
-                    <li class="reveal"><strong>ONE-STOP</strong><span>자재생산 · 설계 · 시공 일괄 수행</span></li>
-                    <li class="reveal"><strong>불연</strong><span>무기 화합물 기반 친환경 소재</span></li>
-                </ul>
-            </div>
-        </section>
-
-        <!-- ===== 4. Firestop ===== -->
-        <section class="sec detail" id="firestop">
-          <div class="wrap">
-           <div class="anim" data-anim data-step="1">
-            <div class="detail-inner">
-                <div class="detail-text reveal">
-                    <p class="label">01 &nbsp;내화채움구조</p>
-                    <h2 class="sec-title">관통부의 빈틈이<br>화재의 통로가 됩니다</h2>
-                    <p class="detail-lead">
-                        벽과 바닥을 지나는 배관·케이블·덕트 주변의 틈은 화염과 유독가스가
-                        퍼지는 길이 됩니다. 디오이엔씨의 내화채움구조는 이 관통부를 빈틈없이
-                        채워 방화구획의 성능을 유지합니다.
-                    </p>
-                    <dl class="spec">
-                        <div><dt>차단 원리</dt><dd>화재 시 발포하여 탄화층을 생성, 화염과 유독가스를 차단</dd></div>
-                        <div><dt>소재</dt><dd>불연성 친환경 무기 화합물 — 유해가스 발생 최소화</dd></div>
-                        <div><dt>적용</dt><dd>배관 · 케이블 · 복합관통 등 현장 조건별 인정구조 보유</dd></div>
-                        <div><dt>기술</dt><dd>관련 특허 다수 보유, 자체기술 국산화 제품</dd></div>
-                    </dl>
-                    <a class="more" href="#contact" data-product="내화채움구조">적용 문의 <i aria-hidden="true">+</i></a>
-                </div>
-                <div class="detail-visual anim-stage reveal" aria-hidden="true">
-                    <svg viewBox="0 0 640 520" fill="none">
-                        <defs>
-                            <pattern id="fsWall" width="12" height="12" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
-                                <line x1="0" y1="0" x2="0" y2="12" stroke="rgba(255,255,255,.09)"/>
-                            </pattern>
-                            <pattern id="fsChar" width="8" height="8" patternUnits="userSpaceOnUse">
-                                <circle cx="2" cy="2" r="1.1" fill="rgba(255,138,60,.45)"/>
-                                <circle cx="6" cy="6" r="1.1" fill="rgba(255,255,255,.16)"/>
-                            </pattern>
-                        </defs>
-
-                        <!-- 바닥 -->
-                        <path d="M0 468 h640" stroke="rgba(255,255,255,.28)"/>
-                        <path d="M12 496 l18 -24 M52 496 l18 -24 M92 496 l18 -24 M132 496 l18 -24 M172 496 l18 -24
-                                 M212 496 l18 -24 M252 496 l18 -24 M292 496 l18 -24 M332 496 l18 -24 M372 496 l18 -24
-                                 M412 496 l18 -24 M452 496 l18 -24 M492 496 l18 -24 M532 496 l18 -24 M572 496 l18 -24"
-                              stroke="rgba(255,255,255,.11)"/>
-
-                        <!-- 벽체 단면 -->
-                        <rect x="250" y="0" width="140" height="468" fill="url(#fsWall)"/>
-                        <path d="M250 0 v468 M390 0 v468" stroke="rgba(255,255,255,.32)"/>
-
-                        <!-- 관통 설비: 배관 -->
-                        <g stroke="rgba(255,255,255,.42)">
-                            <path d="M0 168 h640 M0 228 h640"/>
-                            <path d="M52 160 v76 M84 160 v76"/>
-                            <circle cx="576" cy="198" r="24"/>
-                            <path d="M576 174 v48 M552 198 h48"/>
-                        </g>
-                        <!-- 관통 설비: 케이블 트레이 -->
-                        <g stroke="rgba(255,255,255,.38)">
-                            <path d="M0 330 h640 M0 398 h640 M0 330 v68"/>
-                            <circle cx="470" cy="352" r="9"/><circle cx="500" cy="352" r="9"/>
-                            <circle cx="530" cy="352" r="9"/><circle cx="485" cy="378" r="9"/>
-                            <circle cx="515" cy="378" r="9"/>
-                        </g>
-
-                        <!-- 우리 자재 (내화채움구조) -->
-                        <g class="seal">
-                            <rect class="seal-box" x="250" y="140" width="140" height="116" fill="rgba(105,182,250,.12)" stroke="#69b6fa"/>
-                            <path class="seal-x" d="M262 152 l116 92 M262 200 l116 44 M262 244 l58 -92" stroke="rgba(105,182,250,.4)"/>
-                            <rect class="char fx" data-on="4" x="250" y="140" width="140" height="116" fill="url(#fsChar)"/>
-                        </g>
-                        <g class="seal seal-b">
-                            <rect class="seal-box" x="250" y="306" width="140" height="116" fill="rgba(105,182,250,.12)" stroke="#69b6fa"/>
-                            <path class="seal-x" d="M262 318 l116 92 M262 366 l116 44 M262 410 l58 -92" stroke="rgba(105,182,250,.4)"/>
-                            <rect class="char fx" data-on="4" x="250" y="306" width="140" height="116" fill="url(#fsChar)"/>
-                        </g>
-
-                        <!-- 02 빈틈 발생 위험 -->
-                        <g class="fx" data-on="2" stroke="#ff8a3c">
-                            <rect x="242" y="132" width="24" height="132" stroke-dasharray="5 5"/>
-                            <rect x="242" y="298" width="24" height="132" stroke-dasharray="5 5"/>
-                        </g>
-                        <!-- 03 발포 방향 -->
-                        <g class="fx" data-on="3,4" stroke="#69b6fa">
-                            <path d="M320 128 v-22 M310 116 l10 -12 10 12"/>
-                            <path d="M320 268 v22 M310 280 l10 12 10 -12"/>
-                            <path d="M320 294 v-22 M310 282 l10 -12 10 12"/>
-                            <path d="M320 434 v22 M310 446 l10 12 10 -12"/>
-                        </g>
-
-                        <!-- 화염 -->
-                        <g class="flames fx" data-on="2,3,4" stroke="#ff8a3c">
-                            <path class="fl1" d="M96 452 q-30 -54 6 -92 q-6 42 26 58 q24 -34 8 -76 q54 44 34 110"/>
-                            <path class="fl2" d="M158 452 q-24 -42 4 -72 q-4 32 20 44 q18 -26 6 -58 q42 34 26 86"/>
-                            <path class="fl3" d="M44 452 q-18 -32 4 -56 q-2 24 14 34 q14 -20 4 -44 q32 26 20 66"/>
-                        </g>
-                        <!-- 열기류 -->
-                        <g class="fx heat" data-on="2,3" stroke="rgba(255,138,60,.55)">
-                            <path d="M150 198 h72 M206 190 l16 8 -16 8"/>
-                            <path d="M150 364 h72 M206 356 l16 8 -16 8"/>
-                        </g>
-                        <!-- 04 차단 -->
-                        <g class="fx" data-on="4">
-                            <g stroke="rgba(255,138,60,.7)">
-                                <path d="M170 198 h60 M214 190 l16 8 -16 8"/>
-                                <path d="M170 364 h60 M214 356 l16 8 -16 8"/>
-                            </g>
-                            <path d="M240 150 v96 M240 316 v96" stroke="#ff8a3c" stroke-width="2.5"/>
-                        </g>
-
-                        <text class="lbl" x="24" y="60" fill="rgba(255,138,60,.85)" font-size="16">화염측</text>
-                        <text class="lbl fx" data-on="4" x="616" y="60" fill="#69b6fa" font-size="16" text-anchor="end">안전측 유지</text>
-                    </svg>
-                </div>
-            </div>
-
-            <ol class="anim-steps">
-                <li><button type="button" class="anim-step" data-go="1">
-                    <em>01</em><b>평상시</b><span>벽·바닥 관통부에 자재를 밀실하게 충전한 상태로 방화구획을 유지합니다.</span></button></li>
-                <li><button type="button" class="anim-step" data-go="2">
-                    <em>02</em><b>화재 발생</b><span>화염이 관통부에 도달합니다. 배관이 녹거나 수축하면 그 자리에 빈틈이 생깁니다.</span></button></li>
-                <li><button type="button" class="anim-step" data-go="3">
-                    <em>03</em><b>발포 · 팽창</b><span>열을 받은 자재가 부풀어 오르며 생긴 빈틈까지 스스로 채웁니다.</span></button></li>
-                <li><button type="button" class="anim-step" data-go="4">
-                    <em>04</em><b>차단 완료</b><span>탄화층이 형성되어 화염과 유독가스의 이동 경로를 끊습니다.</span></button></li>
-            </ol>
-           </div>
-          </div>
-        </section>
-
-        <!-- ===== 4-2. 내화구조 ===== -->
-        <section class="sec detail detail-alt" id="fireproof">
-            <div class="wrap">
-                <div class="sec-head reveal">
-                    <p class="label">02 &nbsp;내화구조</p>
-                    <h2 class="sec-title">지하구의 화재를<br>구획 안에 가둡니다</h2>
-                </div>
-                <div class="brief">
-                    <div class="reveal">
-                        <ul class="brief-list">
-                            <li>
-                                <em>01</em>
-                                <div>
-                                    <h4>지하 공동구 · 통신구 · 전력구 방화벽</h4>
-                                    <p>케이블이 밀집한 지하구는 한 번 불이 붙으면 구획이 없어 끝까지 번집니다. 구간마다 내화 방화벽을 세워 화재를 한 구획 안에 가둡니다. 2004년 지하공동구 방화구획 내화장치 특허를 등록한 이후 축적한 구조입니다.</p>
-                                </div>
-                            </li>
-                            <li>
-                                <em>02</em>
-                                <div>
-                                    <h4>KT 통신구 방화벽 사업</h4>
-                                    <p>2020년 시범사업을 시작으로 2021년 1차, 2022년 2차 사업까지 통신구 방화구획 설치공사를 수행했습니다.</p>
-                                </div>
-                            </li>
-                            <li>
-                                <em>03</em>
-                                <div>
-                                    <h4>층간 방화구획</h4>
-                                    <p>커튼월·외벽 층간 틈을 막아 층 사이로 화염이 올라타는 것을 막습니다. 2014년 층간방화구획 성능인증(IS보드 TYPE)을 취득했습니다.</p>
-                                </div>
-                            </li>
-                            <li>
-                                <em>04</em>
-                                <div>
-                                    <h4>제연덕트</h4>
-                                    <p>연기를 배출하는 경로 자체가 화재 확산 통로가 되지 않도록 구조체를 설계합니다. 2005년 제연덕트 구조체 및 시공방법 특허를 등록했습니다.</p>
-                                </div>
-                            </li>
-                        </ul>
-                        <a class="more more-lg" href="archive.html#fireproof" style="margin-top:36px">내화구조 자료실 <i aria-hidden="true">+</i></a>
+        <section class="intro-section" id="home" aria-labelledby="introHeading">
+            <div class="home-wrap">
+                <div class="intro-copy">
+                    <div>
+                        <p class="eyebrow"><span></span> ENGINEERING A SAFER TOMORROW</p>
+                        <h1 id="introHeading">기술을 만들고,<br><em>안전을 완성합니다.</em></h1>
                     </div>
-                    <div class="brief-shot reveal">
-                        <img src="assets/media/archive/fireproof/telecom-mockup-1.jpg" alt="지하 통신구 방화벽 목업" width="600" height="584" loading="lazy">
-                        <p class="brief-cap">지하 통신구 방화벽 목업 — 자료실에서 전체 사진을 볼 수 있습니다.</p>
+                    <div class="intro-aside">
+                        <p>보이지 않는 틈부터, 공간의 경계까지.<br>디오이엔씨의 기술은 건물 곳곳에서<br>화재의 확산을 막고 일상을 지킵니다.</p>
+                        <a class="text-link" href="#business">디오이엔씨의 기술 <span aria-hidden="true">↗</span></a>
                     </div>
                 </div>
-            </div>
-        </section>
-
-        <!-- ===== 5. Shutter ===== -->
-        <section class="sec detail detail-alt" id="shutter">
-          <div class="wrap">
-           <div class="anim" data-anim data-step="1">
-            <div class="detail-inner">
-                <div class="detail-visual anim-stage reveal" aria-hidden="true">
-                    <svg viewBox="0 0 640 520" fill="none">
-                        <defs>
-                            <pattern id="shHatch" width="12" height="12" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
-                                <line x1="0" y1="0" x2="0" y2="12" stroke="rgba(255,255,255,.08)"/>
-                            </pattern>
-                            <clipPath id="shClip"><rect x="152" y="92" width="336" height="376"/></clipPath>
-                        </defs>
-
-                        <!-- 슬래브 -->
-                        <rect x="0" y="0" width="640" height="46" fill="url(#shHatch)"/>
-                        <path d="M0 46 h640" stroke="rgba(255,255,255,.3)"/>
-                        <path d="M0 468 h640" stroke="rgba(255,255,255,.3)"/>
-                        <path d="M12 496 l18 -24 M92 496 l18 -24 M172 496 l18 -24 M252 496 l18 -24
-                                 M332 496 l18 -24 M412 496 l18 -24 M492 496 l18 -24 M572 496 l18 -24"
-                              stroke="rgba(255,255,255,.11)"/>
-
-                        <!-- 셔터 박스 · 가이드레일 -->
-                        <rect x="146" y="46" width="348" height="46" fill="rgba(255,255,255,.04)" stroke="rgba(255,255,255,.42)"/>
-                        <path d="M152 92 v376 M488 92 v376" stroke="rgba(255,255,255,.22)"/>
-
-                        <!-- 셔터 슬랫 (단계에 따라 하강) -->
-                        <g clip-path="url(#shClip)">
-                            <g class="slats">
-                                <rect x="152" y="92" width="336" height="376" fill="rgba(255,255,255,.05)"/>
-                                <g stroke="rgba(255,255,255,.3)">
-                                    <path d="M152 118 h336 M152 144 h336 M152 170 h336 M152 196 h336 M152 222 h336
-                                             M152 248 h336 M152 274 h336 M152 300 h336 M152 326 h336 M152 352 h336
-                                             M152 378 h336 M152 404 h336 M152 430 h336"/>
-                                </g>
-                                <path d="M152 466 h336" stroke="#69b6fa" stroke-width="3"/>
-                            </g>
-                        </g>
-
-                        <!-- 감지기 -->
-                        <g class="detector">
-                            <path d="M566 46 v14" stroke="rgba(255,255,255,.35)"/>
-                            <circle cx="566" cy="70" r="11" stroke="rgba(255,255,255,.5)"/>
-                            <circle class="det-dot fx" data-on="2,3,4" cx="566" cy="70" r="4" fill="#ff8a3c"/>
-                            <g class="det-wave fx" data-on="2,3,4" stroke="rgba(255,138,60,.6)">
-                                <path d="M544 92 q22 18 44 0" opacity=".9"/>
-                                <path d="M534 106 q32 26 64 0" opacity=".5"/>
-                            </g>
-                            <path class="fx" data-on="2,3,4" d="M556 70 h-40" stroke="rgba(255,138,60,.5)" stroke-dasharray="4 4"/>
-                        </g>
-
-                        <!-- 화염 (좌측 공간) -->
-                        <g class="flames fx" data-on="3,4" stroke="#ff8a3c">
-                            <path class="fl1" d="M70 452 q-28 -50 6 -86 q-6 40 24 54 q22 -32 8 -70 q50 40 32 102"/>
-                            <path class="fl2" d="M118 452 q-22 -38 4 -66 q-4 30 18 40 q16 -24 6 -54 q38 32 24 80"/>
-                        </g>
-
-                        <!-- 피난 동선 (우측) — 출구까지 이동 -->
-                        <g class="fx" data-on="4" stroke="#69b6fa">
-                            <path d="M512 340 h72 M568 328 l16 12 -16 12"/>
-                            <path d="M624 250 v218 M624 250 h-32" stroke="rgba(105,182,250,.55)"/>
-                            <path d="M600 340 h24" stroke="rgba(105,182,250,.55)"/>
-                        </g>
-
-                        <text class="lbl fx" data-on="1" x="320" y="270" fill="rgba(255,255,255,.4)" font-size="16" text-anchor="middle">대공간 개방</text>
-                        <text class="lbl fx" data-on="3,4" x="24" y="440" fill="rgba(255,138,60,.85)" font-size="16">화재구역</text>
-                        <text class="lbl fx" data-on="4" x="512" y="404" fill="#69b6fa" font-size="16">피난</text>
-                    </svg>
-                </div>
-                <div class="detail-text reveal">
-                    <p class="label">03 &nbsp;방화셔터</p>
-                    <h2 class="sec-title">넓은 공간일수록<br>구획이 필요합니다</h2>
-                    <p class="detail-lead">
-                        대형 매장, 물류창고, 주차장처럼 트인 공간은 화재가 빠르게 번집니다.
-                        방화셔터와 스크린셔터는 화재 감지 시 자동으로 내려와 공간을
-                        방화구획으로 나누고 피난 시간을 확보합니다.
-                    </p>
-                    <dl class="spec">
-                        <div><dt>특허</dt><dd>스크린셔터 특허 보유 — 대공간 구획 대응</dd></div>
-                        <div><dt>작동</dt><dd>화재 감지 설비와 연동한 자동 폐쇄</dd></div>
-                        <div><dt>설계</dt><dd>피난 동선을 고려한 설계 및 시공</dd></div>
-                        <div><dt>제작</dt><dd>현장 규격에 맞춘 자체 생산 맞춤 제작</dd></div>
-                    </dl>
-                    <a class="more" href="#contact" data-product="셔터">제품 문의 <i aria-hidden="true">+</i></a>
-                </div>
-            </div>
-
-            <ol class="anim-steps">
-                <li><button type="button" class="anim-step" data-go="1">
-                    <em>01</em><b>평상시</b><span>셔터는 상부에 수납되어 있고, 대공간은 그대로 열린 채 사용됩니다.</span></button></li>
-                <li><button type="button" class="anim-step" data-go="2">
-                    <em>02</em><b>화재 감지</b><span>화재 감지 설비가 연동 신호를 보내면 셔터가 폐쇄 동작을 시작합니다.</span></button></li>
-                <li><button type="button" class="anim-step" data-go="3">
-                    <em>03</em><b>자동 폐쇄</b><span>셔터가 자동으로 내려와 대공간을 나눕니다.</span></button></li>
-                <li><button type="button" class="anim-step" data-go="4">
-                    <em>04</em><b>구획 완성</b><span>공간이 방화구획으로 분리되어 확산을 막고, 반대편의 피난 시간을 확보합니다.</span></button></li>
-            </ol>
-           </div>
-          </div>
-        </section>
-
-        <!-- ===== 5-2. 설계소프트웨어 ===== -->
-        <section class="sec detail" id="software">
-            <div class="wrap">
-                <div class="sec-head reveal">
-                    <p class="label">04 &nbsp;설계소프트웨어</p>
-                    <h2 class="sec-title">인정구조 선정을<br>소프트웨어가 대신합니다</h2>
-                </div>
-                <div class="brief">
-                    <div class="reveal">
-                        <ul class="brief-list">
-                            <li>
-                                <em>01</em>
-                                <div>
-                                    <h4>DESkey — 내화채움구조 자동 설계</h4>
-                                    <p>관통재 종류·규격, 사용부위(벽체/바닥), 요구 내화성능을 입력하면 조건에 맞는 인정구조를 자동으로 찾아줍니다. 인정번호와 시공 상세가 함께 나오므로 그대로 제출도면에 쓸 수 있습니다.</p>
-                                </div>
-                            </li>
-                            <li>
-                                <em>02</em>
-                                <div>
-                                    <h4>물량 산출</h4>
-                                    <p>선정된 인정구조를 기준으로 필요한 자재와 수량을 계산합니다. 견적과 발주 물량이 설계 단계에서 바로 나옵니다.</p>
-                                </div>
-                            </li>
-                            <li>
-                                <em>03</em>
-                                <div>
-                                    <h4>왜 직접 만들었나</h4>
-                                    <p>인정구조는 관통재·규격·부위·성능의 조합으로 결정되고, 조합 수가 많아 사람이 표에서 찾으면 틀립니다. 2015년 기업부설연구소를 설립하고 이 작업을 소프트웨어로 옮겼습니다.</p>
-                                </div>
-                            </li>
-                        </ul>
-                        <a class="more more-lg" href="archive.html#software" style="margin-top:36px">설계소프트웨어 자료실 <i aria-hidden="true">+</i></a>
+                <div class="system-explorer" aria-label="층별 화재차단 시스템 둘러보기">
+                    <div class="explorer-heading"><span><i></i> DOENC SYSTEM BUILDING</span><span>4 FLOORS. ONE SAFER SPACE.</span></div>
+                    <div class="explorer-viewport" id="heroMedia" role="img" aria-label="1층 금속배관, 2층 비금속배관, 3층 금속덕트, 4층 스크린셔터가 배치된 건물 모형">
+                        <canvas class="explorer-canvas" id="hero3d" aria-hidden="true"></canvas>
+                        <div class="explorer-fallback" aria-hidden="true">
+                            <svg viewBox="0 0 800 640" fill="none"><g stroke="#2D5682" stroke-width="2"><path fill="#e0e8ef" d="M260 110 470 50 590 110 380 170Z"/><path fill="#f5f8fb" d="M260 110 380 170V570L260 510Z"/><path fill="#eef3f8" d="M380 170 590 110V510L380 570Z"/><path d="M260 210 380 270 590 210M260 310 380 370 590 310M260 410 380 470 590 410M280 120V520M565 120V520"/><path d="M410 190 555 150V210L410 250ZM410 290 555 250V290L410 330Z"/><ellipse cx="480" cy="390" rx="22" ry="15"/><ellipse cx="480" cy="490" rx="28" ry="20"/></g></svg>
+                            <p id="explorerLoadStatus">건물의 시스템을 준비하고 있습니다.</p>
+                        </div>
+                        <div class="explorer-caption"><span id="sceneNumber">01—04 / BUILDING OVERVIEW</span><strong id="sceneCaption">하나의 건물, 네 가지 화재차단 기술.</strong></div>
+                        <div class="building-key" id="buildingKey" aria-hidden="true">
+                            <span><b>4F</b> 스크린셔터</span><span><b>3F</b> 금속덕트</span><span><b>2F</b> 비금속배관</span><span><b>1F</b> 금속배관</span>
+                        </div>
+                        <span class="explorer-scale" aria-hidden="true">DOENC <i></i> SYSTEM ARCHITECTURE</span>
                     </div>
-                    <div class="brief-shot reveal">
-                        <img src="assets/media/archive/software/deskey-catalog.jpg" alt="DESkey 카달로그 표지" width="600" height="868" loading="lazy">
-                        <p class="brief-cap">DESkey 카달로그 — 사용설명서와 함께 자료실에 있습니다.</p>
+                    <div class="explorer-toolbar">
+                        <p id="explorerHint" role="status">아래 층별 시스템을 선택하면 확대하여 시공과 작동 과정을 보여드립니다.</p>
+                        <div><button id="explorerOverview" type="button" disabled>건물 전체 <span aria-hidden="true">⊞</span></button><button id="explorerReplay" type="button" disabled>다시 재생 <span aria-hidden="true">↻</span></button></div>
                     </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ===== 6. Technology ===== -->
-        <section class="sec sec-tech" id="tech">
-            <div class="wrap">
-                <div class="sec-head reveal">
-                    <p class="label">기술력</p>
-                    <h2 class="sec-title">기술개발부터 시공까지<br>한 번에 책임집니다</h2>
-                </div>
-                <p class="tech-lead reveal">
-                    자재를 사오는 회사가 아닙니다. 기술을 직접 개발하고, 자재를 직접 만들고,
-                    설계하고, 현장에 직접 시공합니다. <strong>ONE-STOP SYSTEM</strong>이 성능의 편차를 없앱니다.
-                </p>
-                <ol class="steps">
-                    <li class="reveal"><em>01</em><h3>기술개발</h3><p>자체 연구개발로 화재차단 기술을 국산화하고 특허를 확보합니다.</p></li>
-                    <li class="reveal"><em>02</em><h3>자재생산</h3><p>불연성 친환경 무기 화합물 기반 자재를 직접 생산합니다.</p></li>
-                    <li class="reveal"><em>03</em><h3>설계</h3><p>설계소프트웨어로 현장 조건에 맞는 인정구조를 선정합니다.</p></li>
-                    <li class="reveal"><em>04</em><h3>시공</h3><p>건축물과 지하구 현장에 직접 시공하여 성능을 완성합니다.</p></li>
-                </ol>
-            </div>
-        </section>
-
-        <!-- ===== 7. About ===== -->
-        <section class="sec sec-about" id="about">
-            <div class="wrap">
-                <div class="sec-head reveal">
-                    <p class="label">회사소개</p>
-                    <h2 class="sec-title">기술을 직접 만드는<br>회사입니다</h2>
-                </div>
-                <div class="about-grid">
-                    <div class="about-text reveal">
-                        <p class="about-lead">
-                            (주)디오이엔씨는 방화 · 내화구조 · 소방시설 전문기업입니다.
-                            특화된 기술개발로 내화채움구조와 스크린셔터 등 다수의 특허를 보유하고 있으며,
-                            차별화된 방화 성능으로 건축물과 지하구의 화재 차단장치를 주기술로 합니다.
-                        </p>
-                        <p class="about-sub">디오인의 열정과 창의력이 새로운 기술을 만듭니다.</p>
-                        <a class="more more-lg" href="about.html#ceo" style="margin-top:34px">회사소개 자세히 보기 <i aria-hidden="true">+</i></a>
+                    <div class="system-options" role="group" aria-label="층별 시스템 선택">
+                        <button class="system-option" data-system="metal" type="button" aria-pressed="false" aria-controls="systemDetail" disabled><span class="system-index">1F <i>↗</i></span><strong>금속배관</strong><span class="system-en">METAL PIPE</span></button>
+                        <button class="system-option" data-system="polymer" type="button" aria-pressed="false" aria-controls="systemDetail" disabled><span class="system-index">2F <i>↗</i></span><strong>비금속배관</strong><span class="system-en">NON-METAL PIPE</span></button>
+                        <button class="system-option" data-system="duct" type="button" aria-pressed="false" aria-controls="systemDetail" disabled><span class="system-index">3F <i>↗</i></span><strong>금속덕트</strong><span class="system-en">METAL DUCT</span></button>
+                        <button class="system-option" data-system="shutter" type="button" aria-pressed="false" aria-controls="systemDetail" disabled><span class="system-index">4F <i>↗</i></span><strong>스크린셔터</strong><span class="system-en">SCREEN SHUTTER</span></button>
                     </div>
-                    <table class="info reveal">
-                        <caption class="sr-only">회사 기본 정보</caption>
-                        <tbody>
-                            <tr><th scope="row">상호</th><td>주식회사 디오이엔씨 (DOENC Co., Ltd.)</td></tr>
-                            <tr><th scope="row">설립</th><td>1999년 5월</td></tr>
-                            <tr><th scope="row">대표이사</th><td>원철희</td></tr>
-                            <tr><th scope="row">사업분야</th><td>내화채움구조 · 내화구조 · 방화셔터 · 설계소프트웨어</td></tr>
-                            <tr><th scope="row">사업자번호</th><td>111-81-32572</td></tr>
-                            <tr><th scope="row">주소</th><td>경기 화성시 정남면 안념길 121-12 (내리)</td></tr>
-                            <tr><th scope="row">전화</th><td><a href="tel:0299252992">02-925-2992</a></td></tr>
-                            <tr><th scope="row">팩스</th><td>02-929-5927</td></tr>
-                        </tbody>
-                    </table>
+                    <div class="system-detail" id="systemDetail">
+                        <div class="detail-title"><span class="eyebrow" id="systemKicker">A CLOSER LOOK AT SAFETY</span><h2 id="systemTitle">건물 속 안전을,<br>한 층씩 살펴보세요.</h2><div class="system-documents" id="systemDocuments"></div></div>
+                        <div class="detail-copy"><p id="systemDescription">배관과 덕트가 벽을 지나는 곳, 그리고 넓게 열린 공간. 각 층의 시스템을 선택하면 실제 제품과 인정도면을 바탕으로 구성한 구조를 자세히 볼 수 있습니다.</p><ul class="system-facts" id="systemFacts"><li>1F · 금속배관 / 양면 보드와 블랭킷</li><li>2F · 비금속배관 / 내화자켓과 팽창재</li><li>3F · 금속덕트 / 중공부 및 외곽 보호</li><li>4F · 스크린셔터 / 두 개의 스크린 하강</li></ul></div>
+                        <div class="system-materials" id="systemMaterials"></div>
+                    </div>
+                    <div class="system-timeline" id="systemTimeline" hidden>
+                        <div class="system-progress" role="progressbar" aria-label="시공 및 작동 과정 재생" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span id="systemProgress"></span></div>
+                        <div class="system-steps" id="systemSteps"></div>
+                    </div>
+                    <p class="system-note">인정도면과 시방서에 따른 구조 이해용 표현입니다. 시공 순서와 동작 시간은 설명을 위해 압축했으며, 실제 시공은 해당 인정서의 규격과 시방서를 따라야 합니다.</p>
                 </div>
             </div>
         </section>
 
-        <!-- ===== 8. Marquee ===== -->
-        <div class="marquee" aria-hidden="true">
-            <div class="marquee-track">
-                <span>FIRE SAFETY SOLUTION <b>·</b> DOENC <b>·</b></span>
-                <span>FIRE SAFETY SOLUTION <b>·</b> DOENC <b>·</b></span>
+        <section class="brand-statement" aria-label="디오이엔씨의 철학">
+            <div class="home-wrap"><span class="eyebrow">CREATIVE DOENC</span><p>세상에 없는 기술에 <strong>도전하자.</strong></p><a href="about.html#ceo">기술을 향한 우리의 생각 <span aria-hidden="true">↗</span></a></div>
+        </section>
+
+        <section class="home-section" id="firestop" aria-labelledby="materialsHeading">
+            <div class="home-wrap">
+                <div class="section-intro"><div><p class="eyebrow">MATERIALS THAT MAKE THE DIFFERENCE</p><h2 id="materialsHeading">정확한 구조는,<br>정확한 자재에서 시작됩니다.</h2></div><p>디오이엔씨의 실제 제품을 확인하세요.<br>보드, 자켓, 실란트, 블랭킷, 밴드가<br>각 현장에 맞는 내화채움구조를 완성합니다.</p></div>
+                <div class="material-grid">
+                    <a class="material-card" href="assets/docs/doenc-catalog-2025-web.pdf#page=6" target="_blank" rel="noopener"><span class="material-num">01 / BOARD</span><div class="material-photo"><img src="assets/images/products/board.webp" alt="반원형 관통부가 있는 흰색 분할 내화채움보드 실제 제품" loading="lazy" width="900" height="621"></div><span class="material-code">SFB-100F</span><h3>내화채움보드 <span>↗</span></h3><p>공장 제작된 규격 부재로<br>관통부 주변을 정밀하게 마감합니다.</p></a>
+                    <a class="material-card" href="assets/docs/doenc-catalog-2025-web.pdf#page=7" target="_blank" rel="noopener"><span class="material-num">02 / JACKET</span><div class="material-photo"><img src="assets/images/products/jacket.webp" alt="금속 외피와 검은 내화밴드로 구성된 250A 내화자켓 실제 제품" loading="lazy" width="900" height="740"></div><span class="material-code">SFBA-200</span><h3>내화자켓 <span>↗</span></h3><p>비금속배관 둘레를 감싸는<br>금속 외피와 팽창성 내화밴드.</p></a>
+                    <a class="material-card" href="assets/docs/doenc-catalog-2025-web.pdf#page=8" target="_blank" rel="noopener"><span class="material-num">03 / SEALANT</span><div class="material-photo"><img src="assets/images/products/sealant.webp" alt="파란 라벨의 SFS-100 내화실리콘실란트 카트리지" loading="lazy" width="293" height="750"></div><span class="material-code">SFS-100</span><h3>내화실리콘실란트 <span>↗</span></h3><p>보드의 이음매와 접촉부를<br>밀실하게 채우는 마감재.</p></a>
+                    <a class="material-card" href="assets/docs/doenc-catalog-2025-web.pdf#page=9" target="_blank" rel="noopener"><span class="material-num">04 / BLANKET</span><div class="material-photo"><img src="assets/images/products/blanket.webp" alt="디오이엔씨 로고가 인쇄된 은박 세라믹섬유블랭킷 롤" loading="lazy" width="754" height="750"></div><span class="material-code">SFI-100</span><h3>세라믹섬유블랭킷 <span>↗</span></h3><p>은박으로 감싼 단열층이<br>배관과 덕트의 외곽을 보호합니다.</p></a>
+                    <a class="material-card" href="assets/docs/doenc-catalog-2025-web.pdf#page=10" target="_blank" rel="noopener"><span class="material-num">05 / BAND</span><div class="material-photo"><img src="assets/images/products/band.webp" alt="파란 포장의 SFBA-120 내화밴드 실제 제품" loading="lazy" width="900" height="424"></div><span class="material-code">SFBA-120</span><h3>내화밴드 <span>↗</span></h3><p>덕트 개구부 안쪽에 설치하는<br>팽창성 내화 자재.</p></a>
+                </div>
+                <div class="section-footnote"><span>카탈로그 수록 제품 사진 · 적용 규격은 시스템별 인정서 참조</span><a class="text-link" href="assets/docs/doenc-catalog-2025-web.pdf" target="_blank" rel="noopener">제품 카탈로그 PDF <span>↗</span></a></div>
             </div>
-        </div>
+        </section>
+
+        <section class="shutter-section" id="shutter" aria-labelledby="shutterHeading">
+            <div class="home-wrap shutter-layout">
+                <div class="shutter-copy"><p class="eyebrow">IN MOTION / SCREEN SHUTTER</p><h2 id="shutterHeading">공간은 열어두고,<br>필요한 순간<br>안전을 내립니다.</h2><p>중앙 가이드를 따라 두 장의 스크린이<br>부드럽게 하강하는 실제 구동 모습을 확인하세요.</p><a class="text-link" href="#home" data-view-system="shutter">4층 시스템 살펴보기 <span>↗</span></a><span class="video-label">DOENC · ACTUAL OPERATION FOOTAGE</span></div>
+                <figure class="shutter-film"><video controls playsinline preload="metadata" poster="assets/images/products/shutter-site.webp" aria-label="디오이엔씨 스크린셔터 실제 하강 영상" src="assets/자료/%EC%85%94%ED%84%B0%20%EC%98%81%EC%83%81.mp4"></video><figcaption><span>스크린셔터 실제 구동 영상</span><span>00:47</span></figcaption></figure>
+            </div>
+        </section>
+
+        <section class="home-section business-section" id="business" aria-labelledby="businessHeading">
+            <div class="home-wrap">
+                <div class="section-intro"><div><p class="eyebrow">OUR EXPERTISE</p><h2 id="businessHeading">설계에서 시공까지,<br>안전을 연결하는 기술.</h2></div><p>자체기술의 국산화를 바탕으로<br>건축물과 지하구에 필요한<br>화재차단 솔루션을 제공합니다.</p></div>
+                <div class="expertise-list">
+                    <a href="#home" class="expertise-row"><span>01</span><h3>내화채움구조</h3><p>금속·비금속배관과 덕트 등 방화구획 관통부의 화재 확산을 차단합니다.</p><i>↗</i></a>
+                    <a href="archive.html#fireproof" class="expertise-row" id="fireproof"><span>02</span><h3>내화구조</h3><p>건축물의 부재와 적용 조건에 맞는 내화구조를 제안합니다.</p><i>↗</i></a>
+                    <a href="#shutter" class="expertise-row"><span>03</span><h3>방화셔터</h3><p>평소의 공간 활용과 화재 시의 구획 기능을 함께 고려합니다.</p><i>↗</i></a>
+                    <a href="archive.html#software" class="expertise-row" id="software"><span>04</span><h3>설계소프트웨어</h3><p>현장 조건을 반영한 설계를 지원하고 기술과 시공을 연결합니다.</p><i>↗</i></a>
+                </div>
+            </div>
+        </section>
+
+        <section class="document-section" id="technical" aria-labelledby="documentHeading">
+            <div class="home-wrap"><div class="section-intro"><div><p class="eyebrow">TECHNICAL LIBRARY</p><h2 id="documentHeading">도면으로 확인하는 기술.</h2></div><a class="text-link" href="assets/자료/3.%20%EB%82%B4%ED%99%94%EC%B1%84%EC%9B%80%EA%B5%AC%EC%A1%B0%20%EC%9D%B8%EC%A0%95%EC%A0%9C%EB%8F%84%20%EA%B8%B0%EC%88%A0%EC%9E%90%EB%A3%8C_%28%EC%A3%BC%29%EB%94%94%EC%98%A4%EC%9D%B4%EC%97%94%EC%94%A8%20%2807.08%29.pdf" target="_blank" rel="noopener">기술자료 PDF <span>↗</span></a></div>
+                <div class="document-grid">
+                    <a class="document-card" href="assets/자료/5%29%20FS-MP23-1103-3%20%EB%B2%BD%EC%B2%B4%20%EB%B9%84%EB%B3%B4%EC%98%A8%20%EA%B8%88%EC%86%8D%EB%B0%B0%EA%B4%80%20%EC%A0%84%EA%B7%9C%EA%B2%A9%20%EC%9D%B8%EC%A0%95%EC%84%9C.pdf#page=4" target="_blank" rel="noopener"><img src="assets/images/products/metal-drawing.webp" alt="금속배관 인정서의 양면 보드 및 블랭킷 설치 도면" width="850" height="1203" loading="lazy"><div><span>FS-MP23-1103-3</span><h3>금속배관 <i>↗</i></h3><p>DO-SW400-2H-F · 도면 및 시방서</p></div></a>
+                    <a class="document-card" href="assets/자료/36%29%20FS-NP24-0617-5%20%EB%B2%BD%EC%B2%B4%20%EB%B9%84%EA%B8%88%EC%86%8D%EB%B0%B0%EA%B4%80%20250A%20%EC%9D%B8%EC%A0%95%EC%84%9C%28%EB%82%B4%ED%99%94%EC%9E%90%EC%BC%93%29.pdf#page=4" target="_blank" rel="noopener"><img src="assets/images/products/polymer-drawing.webp" alt="비금속배관 250A 내화자켓 인정도면" width="850" height="1203" loading="lazy"><div><span>FS-NP24-0617-5</span><h3>비금속배관 <i>↗</i></h3><p>DO-NW250-2H-J · 도면 및 시방서</p></div></a>
+                    <a class="document-card" href="assets/자료/51%29%20FS-MP25-0224-06%20%EB%B2%BD%EC%B2%B4%20%EA%B8%88%EC%86%8D%EB%8D%95%ED%8A%B8%20%EC%A4%91%EA%B3%B5%EB%B6%80%EA%B4%80%ED%86%B5%20%EC%A0%84%EA%B7%9C%EA%B2%A9%20%EC%9D%B8%EC%A0%95%EC%84%9C.pdf#page=4" target="_blank" rel="noopener"><img src="assets/images/products/duct-drawing.webp" alt="금속덕트 중공부 및 양면 보온재 인정도면" width="850" height="1203" loading="lazy"><div><span>FS-MP25-0224-06</span><h3>금속덕트 <i>↗</i></h3><p>DO-DW2600-2H-F · 도면 및 시방서</p></div></a>
+                </div>
+            </div>
+        </section>
 
         <!-- ===== 9. Contact ===== -->
         <section class="sec sec-contact" id="contact">
@@ -835,7 +272,7 @@
                 </div>
                 <div class="ct-grid">
                     <div class="ct-side reveal">
-                        <a class="ct-call" href="tel:0299252992">
+                        <a class="ct-call" href="tel:029252992">
                             <span class="ct-call-label">전화 문의가 가장 빠릅니다</span>
                             <strong>02-925-2992</strong>
                             <span class="ct-call-more">전화 걸기 <i aria-hidden="true">+</i></span>
@@ -886,7 +323,7 @@
                         </div>
                         <button type="submit" class="btn-send">메일 보내기 <i aria-hidden="true">+</i></button>
                         <p class="fld-note" id="formNote" role="status"></p>
-                        <p class="fld-fallback">메일 앱이 열리지 않으면 <a href="tel:0299252992">02-925-2992</a>로 전화 주세요.</p>
+                        <p class="fld-fallback">메일 앱이 열리지 않으면 <a href="tel:029252992">02-925-2992</a>로 전화 주세요.</p>
                     </form>
                 </div>
             </div>
@@ -910,27 +347,14 @@
             <address class="ft-info">
                 주식회사 디오이엔씨 &nbsp;|&nbsp; 사업자번호 111-81-32572<br>
                 경기 화성시 정남면 안념길 121-12 (내리)<br>
-                TEL. <a href="tel:0299252992">02-925-2992</a> &nbsp;|&nbsp; FAX. 02-929-5927
+                TEL. <a href="tel:029252992">02-925-2992</a> &nbsp;|&nbsp; FAX. 02-929-5927
             </address>
             <p class="ft-copy">© <span id="year"></span> DOENC Co., Ltd. All rights reserved.</p>
         </div>
         <a class="to-top" href="#top" aria-label="맨 위로">↑</a>
     </footer>
 
-    <script src="assets/js/main.js?v=20260805g"></script>
-    <script type="module">
-      // 히어로 3D는 첫 화면이 그려진 뒤에 불러온다 (본문 표시를 늦추지 않도록)
-      var canvas = document.getElementById("hero3d");
-      var host = document.getElementById("heroMedia");
-      var gl = canvas && canvas.getContext && (canvas.getContext("webgl2") || canvas.getContext("webgl"));
-      if (gl) {
-        import("./assets/js/hero3d.js?v=20260805g")
-          .then(function (m) { return m.initHero3D(canvas, host); })
-          // 1회 재생이라 replay()로 다시 볼 수 있게 API를 전역에 둔다.
-          // ⚠️ window.hero3d 는 <canvas id="hero3d"> 와 이름이 겹치므로 heroFilm 을 정식 이름으로 쓴다.
-          .then(function (api) { window.heroFilm = api; window.hero3d = api; })
-          .catch(function () { /* 실패하면 폴백 배경이 그대로 남는다 */ });
-      }
-    </script>
+    <script src="assets/js/main.js?v=20261023d"></script>
+    <script type="module" src="assets/js/explorer.js?v=20261023d"></script>
 </body>
 </html>

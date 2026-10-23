@@ -1,2150 +1,577 @@
-// ===== 히어로 3D — 하나의 연속된 공간, 카메라가 이동하는 1테이크 =====
-//  ① 확립샷: 건물 내부. 벽 전체를 멀리서. 배관·덕트 관통부와 넓은 개구부 모두에서
-//     불이 개구부 밖으로 삐져나와 벽면을 핥는다. 앞쪽에는 사람들이 지나다닌다.
-//  ② 시선이 관통부로 다가가고 → 하얀 내화보드가 상·하로 날아와 배관과 덕트를 각각 감싸며 밀착.
-//     보드가 밀착된 뒤에야 그쪽 불이 꺼진다.
-//  ③ 시선이 벽을 따라 넓은 개구부로 이동하고 → 스크린셔터가 한 장으로 쭉 내려와 막는다.
-//     셔터가 다 닫힌 뒤에야 그쪽 불이 꺼진다.
-//  ④ 다시 뒤로 빠지며 전부 막힌 벽을 보여주고 루프.
-// 매 프레임 렌더 — 영상 아님. 배치·타이밍은 상단 상수로 조정.
+import { SYSTEMS } from './systems.js?v=20261023d';
+// Product-scale fire protection demonstrator. No people or full-screen film.
+// All dimensions and timing are illustrative; this is not a fire-rating simulation.
+export async function initHero3D(canvas, host, { onUpdate = () => {} } = {}) {
+  const T = await import('./vendor/three.module.min.js');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)');
+  const renderer = new T.WebGLRenderer({ canvas, antialias: true, alpha: false, powerPreference: 'high-performance' });
+  renderer.setPixelRatio(Math.min(devicePixelRatio || 1, 1.7));
+  renderer.outputColorSpace = T.SRGBColorSpace;
+  renderer.toneMapping = T.ACESFilmicToneMapping;
+  renderer.toneMappingExposure = 1.05;
+  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.type = T.PCFShadowMap;
+  const scene = new T.Scene();
+  scene.background = new T.Color('#e6edf4');
+  scene.fog = new T.Fog('#e6edf4', 45, 110);
+  const camera = new T.PerspectiveCamera(34, 1, .1, 80);
+  const target = new T.Vector3(0, 1.2, 0);
+  const clock = { selected: null, elapsed: 0, duration: 18, phase: -1, running: false };
+  let raf = 0, last = null, visible = true, disposed = false;
+  let transition = 1, fromPosition = new T.Vector3(), fromTarget = new T.Vector3();
+  let toPosition = new T.Vector3(), toTarget = new T.Vector3();
+  const ids = ['metal', 'polymer', 'duct', 'shutter'];
+  const models = {};
+  const smooth = x => { x = Math.max(0, Math.min(1, x)); return x * x * (3 - 2 * x); };
+  const ramp = (t, start, end) => smooth((t - start) / (end - start));
+  const mat = (color, roughness = .5, metalness = 0) => new T.MeshStandardMaterial({ color, roughness, metalness });
 
-export async function initHero3D(canvas, host) {
-  const THREE = await import("./vendor/three.module.min.js");
+  // Large studio softboxes in an environment map give metal a continuous reflection.
+  const envScene = new T.Scene();
+  envScene.background = new T.Color('#233039');
+  const softbox = (w, h, pos, power) => {
+    const p = new T.Mesh(new T.PlaneGeometry(w, h), new T.MeshBasicMaterial({ color: new T.Color().setScalar(power), side: T.DoubleSide }));
+    p.position.set(...pos); p.lookAt(0, 0, 0); envScene.add(p);
+  };
+  softbox(8, 14, [-8, 5, 5], 4);
+  softbox(3, 12, [9, 2, 0], 2.5);
+  softbox(16, 3, [0, 9, -5], 3);
+  const pmrem = new T.PMREMGenerator(renderer);
+  const env = pmrem.fromScene(envScene, .025);
+  scene.environment = env.texture;
+  scene.environmentIntensity = .85;
+  envScene.traverse(o => { if (o.isMesh) { o.geometry.dispose(); o.material.dispose(); } });
+  pmrem.dispose();
 
-  // ---- 배치 (1 단위 = 1m) ----
-  const WALL_Z = -4.0, WALL_T = 0.5, WALL_FRONT = WALL_Z + WALL_T / 2;
+  // Seeded surface maps: restrained grain on concrete and woven screen fabric.
+  function surface(kind) {
+    const c = document.createElement('canvas'); c.width = c.height = 256;
+    const g = c.getContext('2d');
+    g.fillStyle = kind === 'concrete' ? '#c5c9c7' : '#e0dbcc'; g.fillRect(0, 0, 256, 256);
+    let seed = 19;
+    const random = () => { seed = (seed * 16807) % 2147483647; return seed / 2147483647; };
+    for (let i = 0; i < 19000; i++) {
+      const v = Math.floor(110 + random() * 120);
+      g.fillStyle = `rgba(${v},${v},${v},.15)`;
+      g.fillRect(random() * 256, random() * 256, 1, 1);
+    }
+    if (kind === 'fabric') {
+      g.strokeStyle = 'rgba(70,60,44,.12)'; g.lineWidth = .6;
+      for (let j = 0; j < 256; j += 3) { g.beginPath(); g.moveTo(j, 0); g.lineTo(j, 256); g.moveTo(0, j); g.lineTo(256, j); g.stroke(); }
+    }
+    const texture = new T.CanvasTexture(c); texture.colorSpace = T.SRGBColorSpace;
+    texture.wrapS = texture.wrapT = T.RepeatWrapping;
+    texture.anisotropy = Math.min(8, renderer.capabilities.getMaxAnisotropy());
+    return texture;
+  }
+  const concreteTex = surface('concrete'), fabricTex = surface('fabric');
+  const concrete = new T.MeshStandardMaterial({ color: '#d5dbe0', map: concreteTex, bumpMap: concreteTex, bumpScale: .012, roughness: .86 });
+  const steel = mat('#d6e0e4', .23, .95);
+  const zinc = mat('#9cabb2', .38, .8);
+  const edgeMetal = mat('#65767d', .28, .88);
+  const mineral = mat('#e9edef', .64);
+  const pvc = mat('#eeeeea', .5, 0);
+  const screwMat = mat('#d4dcd9', .2, .92);
 
-  // =====================================================================
-  //  건물 단면 — 경쟁사(마가켐) 히어로의 설명력이 여기서 온다.
-  //   벽 하나만 보여주면 "무엇으로부터 막는지"가 화면에 없다. 층을 잘라서 보여주면
-  //   **불난 층**과 **멀쩡한 위·아래 층**이 한 화면에 들어와, 구획이 왜 필요한지가 저절로 읽힌다.
-  //
-  //   구성: 방화구획벽(z = WALL_Z)이 화면 안쪽에 서 있고, 그 앞으로 바닥 슬래브가
-  //        카메라 쪽으로 뻗어 나오다가 SECT_Z 에서 **뚝 잘린다**(단면).
-  //        주역인 화재층이 가운데, 위·아래로 한 층씩.
-  // =====================================================================
-  const SECT_D = 27;                                  // 벽 앞면 → 잘린 면 (실내 깊이)
-  const SECT_Z = WALL_Z + WALL_T / 2 + SECT_D;
-  const SLAB_T = 0.7;                                 // 층 슬래브 두께
-  const FIRE_Y = -5;                                  // 화재층 바닥 상단 (기존 바닥 높이를 그대로 쓴다)
-  const FIRE_CEIL = 6.9;                              // 화재층 천장(슬래브 하단) — 개구부 BIG 이 5.8 까지라 여유를 둔다
-  const SIDE_H = 9.5;                                 // 위·아래 층의 실내 높이 (화재층 11.9 와 너무 차이 나면 층이 들쭉날쭉해 보인다)
-  // 각 층: y = 바닥 상단, h = 실내 높이. 가운데(index 1)가 화재층 = 주역
-  const LEVELS = [
-    { y: FIRE_Y - SLAB_T - SIDE_H, h: SIDE_H },
-    { y: FIRE_Y,                   h: FIRE_CEIL - FIRE_Y },
-    { y: FIRE_CEIL + SLAB_T,       h: SIDE_H },
-  ];
-  const WX0 = -46, WX1 = 34;                               // 벽 좌우 범위
-  const WY0 = LEVELS[0].y - SLAB_T;                        // 벽 아래끝 = 맨 아래 슬래브 바닥
-  const WY1 = LEVELS[2].y + LEVELS[2].h + SLAB_T;          // 벽 위끝 = 지붕 슬래브 위
-  const PEN  = { x: 9.0, y: 1.7, hw: 1.35, hh: 1.35 };     // 가까운 쪽 — 원형 배관 관통부
-  const DUCT = { x: 4.6, y: 1.9, hw: 1.95, hh: 1.25 };     // 그 옆 — 사각덕트 관통부
-  const BIG  = { x: -13, y: 0.6, hw: 4.6,  hh: 5.2 };      // 먼 쪽 — 셔터가 막을 대형 개구부(바닥까지)
-  const OPENINGS = [PEN, DUCT, BIG];
-  const PIPE_R = 0.58, RH = PIPE_R + 0.02;                 // 보드 반원 노치 — 배관에 꼭 맞게
-  const DUCT_W = 3.0, DUCT_H = 1.75;                       // 사각덕트 단면
-  const NW = DUCT_W / 2 + 0.03, NH = DUCT_H / 2 + 0.03;    // 보드 사각 노치
-
-  // ---- 타임라인(초) — **루프 없음.** 한 번 재생하고 전부 막힌 상태로 끝난다 ----
-  const TOTAL = 31.5;
-  // ⚠️ 보드는 **등장하는 순간이 곧 시공 시작**이다. 미리 띄워두면 공중에서 멈췄다 가는 것처럼 보인다.
-  const BOARD_IN = 8.6,  BOARD_DUR = 2.3;    // 배관 내화보드 진입 → 10.9에 밀착 완료
-  const DKB_IN   = 11.1, DKB_DUR   = 2.3;    // 덕트 내화보드 4조각(상·하·좌·우) — 배관 보드가 밀착된 뒤
-  const PEN_OUT  = 14.2, PEN_OUT_D = 1.5;    // 두 보드 다 밀착된 뒤 진화
-  const SHUT_IN  = 19.8, SHUT_DUR  = 3.6;    // 셔터 하강 → 23.4에 완전히 닫힘
-  const BIG_OUT  = 23.6, BIG_OUT_D = 1.7;    // 셔터 닫힌 뒤 진화
-
-  const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false, powerPreference: "high-performance" });
-  renderer.shadowMap.enabled = true; renderer.shadowMap.type = THREE.PCFSoftShadowMap;
-  // ⚠️ 톤매핑·색공간 변환은 **마지막 합성 패스에서 한 번만** 한다.
-  //    씬은 HDR 버퍼(HalfFloat)에 선형으로 그려야 1을 넘는 밝기가 살아남고, 그래야 블룸이 걸린다.
-  //    여기서 톤매핑을 켜면 불이 버퍼에 담기기 전에 이미 눌려서 아무리 밝혀도 베이지색이 된다.
-  renderer.toneMapping = THREE.NoToneMapping;
-  renderer.outputColorSpace = THREE.LinearSRGBColorSpace;
-  const EXPOSURE = 0.68;   // 노출 — 벽이 날아가면 하얀 내화보드도 크림색 셔터 원단도 안 보인다
-
-  // 저사양 판별 — 블룸 해상도·MSAA·심도·접지그림자를 여기서 한 번에 낮춘다
-  // (재생이 20fps 밑으로 떨어지면 문구가 먼저 튀어나온다)
-  //
-  // ⚠️ **`?gfx=high` 를 붙이면 강제로 고품질**이 된다. 반드시 필요하다:
-  //    헤드리스 컨테이너는 코어가 2개라 무조건 저사양으로 잡힌다. 그 상태로 포스터를 구우면
-  //    **저품질로 구운 첫 화면 위에 고품질 3D 가 뜨면서 화면이 끊기듯 바뀐다** —
-  //    사용자가 두 번 지적한 그 증상의 원인이 바로 이것이다. 검수·포스터는 항상 gfx=high 로.
-  let LOWEND = (navigator.hardwareConcurrency || 4) <= 4 ||
-               /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent || "");
-  try {
-    const gfx = new URLSearchParams(location.search).get("gfx");
-    if (gfx === "high") LOWEND = false;
-    else if (gfx === "low") LOWEND = true;
-  } catch (e) { /* 구형 브라우저 */ }
-
-  const scene = new THREE.Scene();
-  scene.background = new THREE.Color(0xd3d8e1);
-  // ⚠️ 안개는 '거리감'용이지 '뿌옇게'용이 아니다. 확립샷에서 벽 왼쪽 끝까지가 약 72m라
-  //    near 를 그보다 뒤(85)로 물려야 주역이 안개를 타지 않고 또렷하게 남는다.
-  scene.fog = new THREE.Fog(0xd6dae2, 150, 380);
-
-  // 간이 환경맵 — 금속(배관·덕트·레일)에 또렷한 은빛 반사를 준다
-  (function () {
-    const W = 256, H = 128;
-    const c = document.createElement("canvas"); c.width = W; c.height = H; const g = c.getContext("2d");
-    const grd = g.createLinearGradient(0, 0, 0, H);
-    grd.addColorStop(0.00, "#ffffff");
-    grd.addColorStop(0.42, "#dfe5ec");
-    grd.addColorStop(0.52, "#6e747d");
-    grd.addColorStop(1.00, "#20232a"); // 어두운 바닥 — 금속에 명암 대비를 만든다
-    g.fillStyle = grd; g.fillRect(0, 0, W, H);
-    g.fillStyle = "#ffffff"; g.fillRect(0, Math.round(H * 0.30), W, Math.round(H * 0.05));
-    g.fillStyle = "rgba(255,255,255,0.85)"; g.fillRect(0, Math.round(H * 0.46), W, 2);
-    for (let i = 0; i < 6; i++) { g.fillStyle = "rgba(255,255,255,0.7)"; g.fillRect(Math.round((i + 0.15) * W / 6), 0, Math.round(W / 26), Math.round(H * 0.42)); }
-    const tex = new THREE.CanvasTexture(c); tex.mapping = THREE.EquirectangularReflectionMapping;
-    tex.colorSpace = THREE.SRGBColorSpace;   // 눈으로 고른 색 = sRGB. 안 붙이면 선형으로 읽혀 반사가 들뜬다
-    const pmrem = new THREE.PMREMGenerator(renderer);
-    scene.environment = pmrem.fromEquirectangular(tex).texture;
-  })();
-
-  const camera = new THREE.PerspectiveCamera(38, 1, 0.1, 320);
-
-  // =====================================================================
-  //  포스트 프로세싱 — 형태를 아무리 잘 만들어도 이게 없으면 '옛날 게임 화면'이 된다.
-  //   ① 씬을 HDR 버퍼에 그린다      → 1을 넘는 밝기가 살아남는다
-  //   ② 밝은 부분만 뽑아 단계별로 흐려 더한다(블룸) → 불·등기구가 공기 중으로 번진다
-  //   ③ 마지막에 한 번만 톤매핑 → 비네팅 → 그레인 → sRGB
-  //  three 애드온(EffectComposer 등)은 안 쓴다 — 벤더 용량을 안 늘리고,
-  //  단계마다 해상도를 직접 정해 저사양에서 깎을 수 있게 하려고 직접 짰다.
-  // =====================================================================
-  const BLOOM_MIPS = LOWEND ? 3 : 5;   // 단계가 많을수록 넓게 번진다
-  const BLOOM_DIV  = LOWEND ? 4 : 2;   // 첫 단계 해상도 = 화면 / 이 값
-  const rtOpt = { type: THREE.HalfFloatType, depthBuffer: false, stencilBuffer: false };
-  const rtScene = new THREE.WebGLRenderTarget(2, 2, {
-    type: THREE.HalfFloatType, depthBuffer: true, stencilBuffer: false,
-    samples: LOWEND ? 0 : 4,   // 캔버스 antialias 는 렌더타깃에 안 먹는다 → MSAA 는 여기서
-  });
-  // ⚠️ **MSAA 렌더타깃에 깊이 텍스처를 붙여도 값이 안 나온다** — 확인해보니 전부 0 이었다.
-  //    멀티샘플 깊이는 텍스처로 해석(resolve)되지 않는다. 그렇다고 MSAA 를 끄면 이 씬은
-  //    가느다란 모서리·줄눈이 잔뜩이라 계단이 심해진다(모따기를 넣은 의미가 없어진다).
-  //    → 색은 MSAA 로 그대로 두고, **깊이만 따로 한 번 더** 그린다. 조명·텍스처가 없는
-  //      패스라 전체 렌더의 1/4 수준이고, 무엇보다 어느 환경에서나 똑같이 동작한다.
-  const depthTex = new THREE.DepthTexture(2, 2);
-  depthTex.type = THREE.UnsignedIntType;   // 24비트 — near 0.1/far 320 에서 20m 지점 분해능 0.3mm
-  const rtDepth = new THREE.WebGLRenderTarget(2, 2, {
-    depthTexture: depthTex, depthBuffer: true, stencilBuffer: false, samples: 0,
-  });
-  // 색은 안 쓴다 — 깊이만 채우면 된다.
-  // ⚠️ **양면으로 둔다.** 셔터 원단은 열린 면(PlaneGeometry, DoubleSide)이라 앞면 판정이
-  //    뒤집히면 깊이가 통째로 비고, 그 자리만 초점·그늘이 배경 값으로 계산된다.
-  //    닫힌 입체는 앞면이 어차피 더 가까우므로 양면으로 그려도 결과가 같다.
-  const matDepthOnly = new THREE.MeshBasicMaterial({ side: THREE.DoubleSide });
-  // 불·연기·글로우·접지원판은 반투명이라 본 패스에서도 깊이를 안 쓴다(depthWrite:false).
-  // 깊이 패스에서는 override 재질이 씌워져 **불투명하게 깊이를 써버리므로** 잠시 꺼야 한다.
-  // 안 그러면 불꽃이 벽처럼 취급돼 개구부 앞이 통째로 초점·그늘 판정을 먹는다.
-  const noDepth = [];
-  function collectNoDepth() {
-    noDepth.length = 0;
-    scene.traverse(function (o) {
-      if (!o.isMesh && !o.isSprite) return;
-      const arr = Array.isArray(o.material) ? o.material : [o.material];
-      if (arr.some((m) => m && (m.transparent === true || m.depthWrite === false))) noDepth.push(o);
+  function mesh(geometry, material, parent, x = 0, y = 0, z = 0) {
+    const m = new T.Mesh(geometry, material);
+    m.position.set(x, y, z); m.castShadow = true; m.receiveShadow = true; parent.add(m); return m;
+  }
+  const boxCache = new Map();
+  function box(w, h, d, material, parent, x = 0, y = 0, z = 0) {
+    const key = `${w}:${h}:${d}`;
+    let geometry = boxCache.get(key);
+    if (!geometry) {
+      if (Math.min(w, h, d) > .12) {
+        const b = .012;
+        const s = new T.Shape(); s.moveTo(-w / 2 + b, -h / 2 + b); s.lineTo(w / 2 - b, -h / 2 + b); s.lineTo(w / 2 - b, h / 2 - b); s.lineTo(-w / 2 + b, h / 2 - b); s.closePath();
+        geometry = new T.ExtrudeGeometry(s, { depth: d - 2 * b, bevelEnabled: true, bevelSize: b, bevelThickness: b, bevelSegments: 2, steps: 1 });
+        geometry.translate(0, 0, -d / 2 + b);
+      } else geometry = new T.BoxGeometry(w, h, d);
+      boxCache.set(key, geometry);
+    }
+    return mesh(geometry, material, parent, x, y, z);
+  }
+  function ring(outer, inner, depth, material, parent, x, y, z) {
+    const shape = new T.Shape(); shape.absarc(0, 0, outer, 0, Math.PI * 2, false);
+    const hole = new T.Path(); hole.absarc(0, 0, inner, 0, Math.PI * 2, true); shape.holes.push(hole);
+    const geometry = new T.ExtrudeGeometry(shape, { depth, bevelEnabled: false, curveSegments: 64 });
+    return mesh(geometry, material, parent, x, y, z);
+  }
+  function tube(radius, inner, length, material, parent, x, y, z) { return ring(radius, inner, length, material, parent, x, y, z); }
+  function bolt(parent, x, y, z, r = .035) {
+    const b = mesh(new T.CylinderGeometry(r, r, .035, 6), screwMat, parent, x, y, z);
+    b.rotation.x = Math.PI / 2; return b;
+  }
+  // A softly layered procedural flame, visible on the exposed side of the sample.
+  const fireVertex = `varying vec2 vUv; void main(){vUv=uv;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}`;
+  const fireFragment = `
+    precision highp float; varying vec2 vUv; uniform float uTime; uniform float uStrength;
+    float hash(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
+    float noise(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(hash(i),hash(i+vec2(1,0)),f.x),mix(hash(i+vec2(0,1)),hash(i+1.),f.x),f.y);}
+    float fbm(vec2 p){return noise(p)*.57+noise(p*2.13)*.28+noise(p*4.27)*.15;}
+    void main(){
+      vec2 p=vUv; float flow=uTime*1.25;
+      float warp=fbm(vec2(p.x*6.,p.y*4.-flow))-.5;
+      float tongues=fbm(vec2(p.x*9.+warp*2.,p.y*4.-flow*1.7));
+      float core=(1.-p.y)*.9+tongues*.65;
+      float edge=smoothstep(0.,.12,p.x)*(1.-smoothstep(.85,1.,p.x));
+      float body=smoothstep(.58,.78,core)*edge*(1.-smoothstep(.82,1.,p.y));
+      vec3 col=mix(vec3(.75,.12,.025),vec3(1.,.56,.12),clamp(core-.5,0.,1.)*2.);
+      col=mix(col,vec3(1.,.88,.52),smoothstep(1.04,1.4,core));
+      gl_FragColor=vec4(col,body*uStrength*.85);
+    }`;
+  function fire(parent, width, height, y, z) {
+    const material = new T.ShaderMaterial({
+      vertexShader: fireVertex, fragmentShader: fireFragment,
+      uniforms: { uTime: { value: 0 }, uStrength: { value: 0 } },
+      transparent: true, depthWrite: false, side: T.DoubleSide,
+      blending: T.AdditiveBlending,
     });
-  }
-  function renderDepth() {
-    const saved = [];
-    for (let i = 0; i < noDepth.length; i++) { saved[i] = noDepth[i].visible; noDepth[i].visible = false; }
-    scene.overrideMaterial = matDepthOnly;
-    // ⚠️ 이 패스에서도 three 는 그림자맵을 다시 굽는다 — 끄지 않으면 그림자 비용이 **두 배**가 된다.
-    //    바로 뒤 본 렌더에서 어차피 갱신되므로 여기서는 꺼도 결과가 같다.
-    renderer.shadowMap.autoUpdate = false;
-    renderer.setRenderTarget(rtDepth);
-    renderer.clear();
-    renderer.render(scene, camera);
-    renderer.shadowMap.autoUpdate = true;
-    scene.overrideMaterial = null;
-    for (let i = 0; i < noDepth.length; i++) noDepth[i].visible = saved[i];
-  }
-  const bloomMip = [];
-  for (let i = 0; i < BLOOM_MIPS; i++) {
-    bloomMip.push({ a: new THREE.WebGLRenderTarget(2, 2, rtOpt), b: new THREE.WebGLRenderTarget(2, 2, rtOpt) });
-  }
-
-  const fsCam = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
-  const fsScene = new THREE.Scene();
-  const fsQuad = new THREE.Mesh(new THREE.PlaneGeometry(2, 2), null);
-  fsQuad.frustumCulled = false; fsScene.add(fsQuad);
-  function blit(mat, target) {
-    fsQuad.material = mat;
-    renderer.setRenderTarget(target || null);
-    renderer.render(fsScene, fsCam);
-  }
-  const FS_VERT = `
-    varying vec2 vUv;
-    void main() { vUv = uv; gl_Position = vec4(position.xy, 0.0, 1.0); }
-  `;
-  // 밝은 곳만 뽑아낸다. 무릎(knee)을 둬서 문턱 근처가 계단처럼 끊기지 않게.
-  const matBright = new THREE.ShaderMaterial({
-    uniforms: { tSrc: { value: null }, uThresh: { value: 1.35 }, uKnee: { value: 0.5 } },
-    vertexShader: FS_VERT,
-    fragmentShader: `
-      precision highp float;
-      varying vec2 vUv; uniform sampler2D tSrc; uniform float uThresh, uKnee;
-      void main() {
-        vec3 c = texture2D(tSrc, vUv).rgb;
-        float l = max(c.r, max(c.g, c.b));
-        float k = uKnee;
-        float soft = clamp(l - uThresh + k, 0.0, 2.0 * k);
-        soft = soft * soft / (4.0 * k + 1e-4);
-        float w = max(soft, l - uThresh) / max(l, 1e-4);
-        gl_FragColor = vec4(c * w, 1.0);
-      }
-    `,
-  });
-  // 분리형 가우시안 — 가로 한 번, 세로 한 번. 2D 로 한 번에 하는 것보다 훨씬 싸다.
-  const matBlur = new THREE.ShaderMaterial({
-    uniforms: { tSrc: { value: null }, uDir: { value: new THREE.Vector2() } },
-    vertexShader: FS_VERT,
-    fragmentShader: `
-      precision highp float;
-      varying vec2 vUv; uniform sampler2D tSrc; uniform vec2 uDir;
-      void main() {
-        vec3 s = texture2D(tSrc, vUv).rgb * 0.227027;
-        s += (texture2D(tSrc, vUv + uDir * 1.3846).rgb + texture2D(tSrc, vUv - uDir * 1.3846).rgb) * 0.316216;
-        s += (texture2D(tSrc, vUv + uDir * 3.2308).rgb + texture2D(tSrc, vUv - uDir * 3.2308).rgb) * 0.070270;
-        gl_FragColor = vec4(s, 1.0);
-      }
-    `,
-  });
-  // =====================================================================
-  //  렌즈 — 심도(피사계심도) · 접지 그림자
-  //   3D 가 3D 로 보이는 가장 큰 이유는 **모든 것이 똑같이 선명하기 때문**이다.
-  //   실제 카메라는 한 거리에만 초점이 맞고 나머지는 부드럽게 풀린다. 그리고 실제 공간에는
-  //   물체가 바닥·벽과 만나는 자리마다 빛이 못 들어가 생기는 어두운 틈이 있다.
-  //   이 둘이 없으면 아무리 재질을 잘 만들어도 "떠 있는 모형"으로 읽힌다.
-  //
-  //   ⚠️ 접지 그림자를 세게 주면 **때가 낀 폐건물**이 된다(14차에 이미 겪은 실패).
-  //      반경을 작게(0.55m) 잡아 '닿는 자리'만 어두워지게 하고 세기는 눌러 둔다.
-  // =====================================================================
-  const PHOTO = !LOWEND;               // 패스가 4개 늘어난다 — 저사양에서는 통째로 끈다
-  const rtDof = [new THREE.WebGLRenderTarget(2, 2, rtOpt), new THREE.WebGLRenderTarget(2, 2, rtOpt)];
-  const rtAO  = [new THREE.WebGLRenderTarget(2, 2, rtOpt), new THREE.WebGLRenderTarget(2, 2, rtOpt)];
-
-  // 깊이 버퍼(0~1 비선형)에서 **눈에서 떨어진 실제 거리(m)** 를 되찾는 공통 코드
-  const GLSL_DEPTH = `
-    uniform sampler2D tDepth;
-    uniform float uNear, uFar, uTanHalf, uAspect;
-    float viewZ(vec2 uv) {
-      float d = texture2D(tDepth, uv).x;
-      return (2.0 * uNear * uFar) / (uFar + uNear - (d * 2.0 - 1.0) * (uFar - uNear));
-    }
-    // 화면 좌표 + 거리 → 카메라 좌표계의 위치. 법선을 되살리는 데 쓴다
-    vec3 viewPos(vec2 uv) {
-      float z = viewZ(uv);
-      vec2 ndc = uv * 2.0 - 1.0;
-      return vec3(ndc * uTanHalf * vec2(uAspect, 1.0) * z, -z);
-    }
-    // 착란원(CoC) — 0 이면 초점이 맞은 것, ±1 이면 최대로 풀린 것.
-    // 앞·뒤 세기를 따로 둔다: 뒷배경은 시원하게 풀되 앞쪽 인물까지 뭉개지면 장면을 못 읽는다.
-    uniform float uFocus, uKFar, uKNear;
-    float cocOf(float z) {
-      float s = (z - uFocus) / max(z, 0.001);
-      return clamp(s * (s > 0.0 ? uKFar : uKNear), -1.0, 1.0);
-    }
-  `;
-
-  // ① 절반 해상도로 줄이면서 알파에 CoC 를 실어 보낸다 — 게더 패스가 깊이를 다시 안 읽어도 되게
-  const matCoc = new THREE.ShaderMaterial({
-    uniforms: {
-      tSrc: { value: null }, tDepth: { value: null },
-      uNear: { value: 0.1 }, uFar: { value: 320 }, uTanHalf: { value: 0.36 }, uAspect: { value: 1.78 },
-      uFocus: { value: 24 }, uKFar: { value: 1.25 }, uKNear: { value: 0.42 },
-    },
-    vertexShader: FS_VERT,
-    fragmentShader: `
-      precision highp float;
-      varying vec2 vUv; uniform sampler2D tSrc;
-      ${GLSL_DEPTH}
-      void main() {
-        vec3 c = texture2D(tSrc, vUv).rgb;
-        gl_FragColor = vec4(c, cocOf(viewZ(vUv)) * 0.5 + 0.5);
-      }
-    `,
-  });
-
-  // ② 보케 게더 — 황금각 나선으로 흩뿌린다. 격자로 뽑으면 흐림에 격자무늬가 그대로 남는다.
-  const matBokeh = new THREE.ShaderMaterial({
-    uniforms: { tSrc: { value: null }, uRadius: { value: 0.011 }, uAspect: { value: 1.78 } },
-    vertexShader: FS_VERT,
-    fragmentShader: `
-      precision highp float;
-      varying vec2 vUv; uniform sampler2D tSrc; uniform float uRadius, uAspect;
-      void main() {
-        vec4 c0 = texture2D(tSrc, vUv);
-        float coc0 = c0.a * 2.0 - 1.0;
-        float r0 = abs(coc0);
-        vec3 sum = c0.rgb; float wsum = 1.0;
-        for (int i = 0; i < 16; i++) {
-          float fi = float(i) + 0.5;
-          float ang = fi * 2.39996323;              // 황금각
-          float rad = sqrt(fi / 16.0);              // 원판에 고르게 퍼지도록
-          vec2 off = vec2(cos(ang), sin(ang)) * rad * uRadius * r0;
-          off.x /= uAspect;                          // 가로로 늘어난 보케가 되지 않게
-          vec4 cs = texture2D(tSrc, vUv + off);
-          float cocS = cs.a * 2.0 - 1.0;
-          // 흐린 배경이 **선명한 앞쪽 물체**를 끌어오면 윤곽에 후광이 생긴다 → 그 표본만 눌러준다
-          float w = mix(0.12, 1.0, smoothstep(coc0 - 0.30, coc0 + 0.02, cocS));
-          sum += cs.rgb * w; wsum += w;
-        }
-        gl_FragColor = vec4(sum / wsum, c0.a);
-      }
-    `,
-  });
-
-  // ③ 접지 그림자 — 깊이에서 법선을 되살려 반구 표본을 던진다(법선 없이 하면 비스듬한 벽이 통째로 어두워진다)
-  const matSSAO = new THREE.ShaderMaterial({
-    uniforms: {
-      tDepth: { value: null },
-      uNear: { value: 0.1 }, uFar: { value: 320 }, uTanHalf: { value: 0.36 }, uAspect: { value: 1.78 },
-      uFocus: { value: 24 }, uKFar: { value: 1.25 }, uKNear: { value: 0.42 },
-      // ⚠️ 반경을 '접지'만 생각해 0.55m 로 잡았더니 **윤곽선만 그리는 필터**가 됐다.
-      //    카메라가 20~45m 밖에 있어서 0.5m 는 화면에서 2px 남짓이기 때문이다.
-      //    이 장면에서 실제로 읽히는 건 벽·바닥이 만나는 구석, 천장보 밑, 개구부 안쪽처럼
-      //    **몇 미터 규모의 그늘**이다. 그래서 반경을 공간 스케일(3m)로 잡는다.
-      uAoRad: { value: 3.0 }, uAoStr: { value: 0.5 }, uTexel: { value: new THREE.Vector2() },
-    },
-    vertexShader: FS_VERT,
-    fragmentShader: `
-      precision highp float;
-      varying vec2 vUv;
-      uniform float uAoRad, uAoStr; uniform vec2 uTexel;
-      ${GLSL_DEPTH}
-      void main() {
-        vec3 p = viewPos(vUv);
-        // 이웃 두 점으로 면의 기울기를 잡는다
-        vec3 dx = viewPos(vUv + vec2(uTexel.x, 0.0)) - p;
-        vec3 dy = viewPos(vUv + vec2(0.0, uTexel.y)) - p;
-        vec3 n = normalize(cross(dx, dy));
-        if (n.z < 0.0) n = -n;
-        // 화면상 반경 = 실제 반경 / 거리 / 화각. 멀수록 작게 뿌려야 실제 크기가 일정해 보인다
-        float sr = uAoRad / max(-p.z, 0.5) / (2.0 * uTanHalf);
-        float occ = 0.0;
-        for (int i = 0; i < 12; i++) {
-          float fi = float(i) + 0.5;
-          float ang = fi * 2.39996323;
-          float rad = sqrt(fi / 12.0);
-          vec2 off = vec2(cos(ang), sin(ang)) * rad * sr;
-          off.x /= uAspect;
-          vec3 s = viewPos(vUv + off);
-          vec3 v = s - p;
-          float d = length(v);
-          if (d > 0.0001) {
-            // 표본이 이 면보다 앞에 있을수록(=위를 덮을수록) 가려진다.
-            // 반경 밖은 선형으로 끊어낸다 — 안 그러면 멀리 있는 물체가 배경에 후광을 남긴다
-            occ += max(0.0, dot(n, v / d) - 0.05) * max(0.0, 1.0 - d / uAoRad);
-          }
-        }
-        float ao = clamp(1.0 - uAoStr * occ / 12.0 * 3.0, 0.0, 1.0);
-        gl_FragColor = vec4(vec3(ao), 1.0);
-      }
-    `,
-  });
-
-  // 최종 합성 — 톤매핑은 three 의 ACESFilmic 과 같은 식을 써서 지금까지 맞춰둔 색이 안 틀어지게 한다
-  const matComposite = new THREE.ShaderMaterial({
-    uniforms: {
-      tScene: { value: null },
-      tB0: { value: null }, tB1: { value: null }, tB2: { value: null }, tB3: { value: null }, tB4: { value: null },
-      uMips: { value: BLOOM_MIPS },
-      uBloom: { value: 0.30 },
-      uExposure: { value: EXPOSURE },
-      uVignette: { value: 0.26 },
-      uGrain: { value: 0.022 },
-      uTime: { value: 0 },
-      uAberr: { value: 0.0016 },
-      tDof: { value: null }, tAO: { value: null }, tDepth: { value: null },
-      uPhoto: { value: 0 },        // 0 이면 심도·접지그림자를 통째로 건너뛴다(저사양)
-      uNear: { value: 0.1 }, uFar: { value: 320 }, uTanHalf: { value: 0.36 }, uAspect: { value: 1.78 },
-      uFocus: { value: 24 }, uKFar: { value: 1.25 }, uKNear: { value: 0.42 },
-      uAoMix: { value: 0.85 },
-      // 검수용 — window.heroFilm.debug(n) 로 중간 버퍼를 그대로 화면에 띄운다.
-      // 1=깊이 2=착란원(CoC) 3=접지그림자 4=보케 버퍼
-      uDebug: { value: 0 },
-    },
-    vertexShader: FS_VERT,
-    fragmentShader: `
-      precision highp float;
-      varying vec2 vUv;
-      uniform sampler2D tScene, tB0, tB1, tB2, tB3, tB4, tDof, tAO;
-      uniform float uMips, uBloom, uExposure, uVignette, uGrain, uTime, uAberr, uPhoto, uAoMix, uDebug;
-      ${GLSL_DEPTH}
-
-      // three 의 ACESFilmicToneMapping 과 동일한 근사식
-      vec3 rrt(vec3 v) { vec3 a = v * (v + 0.0245786) - 0.000090537;
-                         vec3 b = v * (0.983729 * v + 0.4329510) + 0.238081; return a / b; }
-      vec3 aces(vec3 c) {
-        const mat3 IN  = mat3(0.59719, 0.07600, 0.02840, 0.35458, 0.90834, 0.13383, 0.04823, 0.01566, 0.83777);
-        const mat3 OUT = mat3(1.60475, -0.10208, -0.00327, -0.53108, 1.10813, -0.07276, -0.07367, -0.00605, 1.07602);
-        c *= uExposure / 0.6;
-        return clamp(OUT * rrt(IN * c), 0.0, 1.0);
-      }
-      vec3 lin2srgb(vec3 c) {
-        return mix(pow(c, vec3(0.4166667)) * 1.055 - 0.055, c * 12.92, step(c, vec3(0.0031308)));
-      }
-      float hash(vec2 p) { return fract(sin(dot(p, vec2(12.9898, 78.233))) * 43758.5453); }
-
-      void main() {
-        vec2 uv = vUv;
-        vec2 d = uv - 0.5;
-        float r2 = dot(d, d);
-
-        if (uDebug > 0.5) {
-          if (uDebug < 1.5) { float z = viewZ(uv); gl_FragColor = vec4(vec3(z / 90.0), 1.0); return; }
-          if (uDebug < 2.5) { float c = cocOf(viewZ(uv));
-                              gl_FragColor = vec4(max(0.0, c), max(0.0, -c), 0.0, 1.0); return; }
-          if (uDebug < 3.5) { gl_FragColor = vec4(vec3(texture2D(tAO, uv).r), 1.0); return; }
-          gl_FragColor = vec4(texture2D(tDof, uv).rgb * uExposure, 1.0); return;
-        }
-
-        // 아주 약한 색수차 — 가장자리에서만. 렌즈로 찍은 느낌을 준다(과하면 싸구려가 된다)
-        vec2 off = d * r2 * uAberr;
-        vec3 col = vec3(
-          texture2D(tScene, uv - off).r,
-          texture2D(tScene, uv).g,
-          texture2D(tScene, uv + off).b
-        );
-
-        // 렌즈: 초점이 맞은 곳은 원본 그대로, 벗어날수록 보케 버퍼로 넘어간다.
-        // 접지 그림자는 저주파라 절반 해상도 그대로 곱해도 티가 안 난다.
-        // ⚠️ 블룸을 **더하기 전에** 적용한다 — 빛 번짐은 렌즈에서 생기는 거라 가려지지 않는다.
-        if (uPhoto > 0.5) {
-          float coc = abs(cocOf(viewZ(uv)));
-          col = mix(col, texture2D(tDof, uv).rgb, smoothstep(0.02, 0.26, coc));
-          col *= mix(1.0, texture2D(tAO, uv).r, uAoMix);
-        }
-
-        // 블룸 — 단계가 커질수록 넓고 옅게
-        vec3 b = texture2D(tB0, uv).rgb * 1.0;
-        if (uMips > 1.5) b += texture2D(tB1, uv).rgb * 0.78;
-        if (uMips > 2.5) b += texture2D(tB2, uv).rgb * 0.56;
-        if (uMips > 3.5) b += texture2D(tB3, uv).rgb * 0.38;
-        if (uMips > 4.5) b += texture2D(tB4, uv).rgb * 0.24;
-        col += b * uBloom;
-
-        col = aces(col);
-
-        // 비네팅 — 시선을 가운데로 모은다
-        col *= 1.0 - uVignette * smoothstep(0.12, 0.78, r2);
-
-        col = lin2srgb(col);
-
-        // 필름 그레인 — 어두운 쪽에만 살짝. 디지털 특유의 '너무 매끈한' 느낌을 깬다
-        float g = hash(uv * vec2(1024.0, 1024.0) + fract(uTime) * 91.7) - 0.5;
-        col += g * uGrain * (1.0 - 0.7 * dot(col, vec3(0.333)));
-
-        gl_FragColor = vec4(col, 1.0);
-      }
-    `,
-  });
-
-  function postSetSize(w, h, dpr) {
-    const pw = Math.max(2, Math.round(w * dpr)), ph = Math.max(2, Math.round(h * dpr));
-    rtScene.setSize(pw, ph);
-    rtDepth.setSize(pw, ph);
-    // 심도·접지그림자는 절반 해상도. 둘 다 저주파라 눈에 안 띄고 비용은 1/4 이 된다.
-    const hw = Math.max(2, pw >> 1), hh = Math.max(2, ph >> 1);
-    for (const rt of rtDof) rt.setSize(hw, hh);
-    for (const rt of rtAO) rt.setSize(hw, hh);
-    matSSAO.uniforms.uTexel.value.set(1 / hw, 1 / hh);
-    halfW = hw; halfH = hh;
-    let mw = Math.max(2, Math.round(pw / BLOOM_DIV)), mh = Math.max(2, Math.round(ph / BLOOM_DIV));
-    for (let i = 0; i < BLOOM_MIPS; i++) {
-      bloomMip[i].a.setSize(mw, mh); bloomMip[i].b.setSize(mw, mh);
-      bloomMip[i].w = mw; bloomMip[i].h = mh;
-      mw = Math.max(2, mw >> 1); mh = Math.max(2, mh >> 1);
-    }
-  }
-
-  const BKEY = ["tB0", "tB1", "tB2", "tB3", "tB4"];
-  let halfW = 2, halfH = 2;
-  let bypassPhoto = false;   // 검수용 — 심도·접지그림자만 끄고 같은 프레임을 비교할 때
-  // 카메라가 매 프레임 화각·위치를 바꾸므로 렌즈 상수도 매 프레임 따라가야 한다
-  function syncLens() {
-    const tanHalf = Math.tan((camera.fov * Math.PI / 180) / 2);
-    // 초점은 **지금 카메라가 보고 있는 지점**에 맞춘다 — 연출상 주역이 늘 거기에 있다
-    const focus = Math.max(1, camera.position.distanceTo(camLook));
-    for (const m of [matCoc, matSSAO, matComposite]) {
-      m.uniforms.uNear.value = camera.near; m.uniforms.uFar.value = camera.far;
-      m.uniforms.uTanHalf.value = tanHalf; m.uniforms.uAspect.value = camera.aspect;
-      m.uniforms.uFocus.value = focus;
-    }
-    matBokeh.uniforms.uAspect.value = camera.aspect;
-  }
-
-  function renderFrame(t) {
-    const usePhoto = PHOTO && !bypassPhoto;
-    if (usePhoto) renderDepth();       // ⚠️ 본 렌더보다 **먼저** — 같은 프레임의 카메라로 찍어야 한다
-    renderer.setRenderTarget(rtScene);
-    renderer.clear();
-    renderer.render(scene, camera);
-
-    if (usePhoto) {
-      syncLens();
-      // ① 절반 해상도 + CoC → ② 보케 게더
-      matCoc.uniforms.tSrc.value = rtScene.texture;
-      matCoc.uniforms.tDepth.value = rtDepth.depthTexture;
-      blit(matCoc, rtDof[0]);
-      matBokeh.uniforms.tSrc.value = rtDof[0].texture;
-      blit(matBokeh, rtDof[1]);
-      // ③ 접지 그림자 → 표본이 12개뿐이라 얼룩진다. 가로·세로로 한 번씩 흐려 편다.
-      matSSAO.uniforms.tDepth.value = rtDepth.depthTexture;
-      blit(matSSAO, rtAO[0]);
-      matBlur.uniforms.tSrc.value = rtAO[0].texture;
-      matBlur.uniforms.uDir.value.set(1 / halfW, 0);
-      blit(matBlur, rtAO[1]);
-      matBlur.uniforms.tSrc.value = rtAO[1].texture;
-      matBlur.uniforms.uDir.value.set(0, 1 / halfH);
-      blit(matBlur, rtAO[0]);
-      matComposite.uniforms.tDof.value = rtDof[1].texture;
-      matComposite.uniforms.tAO.value = rtAO[0].texture;
-      matComposite.uniforms.tDepth.value = rtDepth.depthTexture;
-    }
-    matComposite.uniforms.uPhoto.value = usePhoto ? 1 : 0;
-
-    // 밝은 부분 추출 → 첫 단계로
-    matBright.uniforms.tSrc.value = rtScene.texture;
-    blit(matBright, bloomMip[0].a);
-    // 단계마다 가로·세로 블러. 다음 단계는 이전 단계 결과를 반으로 줄여 받는다.
-    for (let i = 0; i < BLOOM_MIPS; i++) {
-      const m = bloomMip[i];
-      if (i > 0) { matBright.uniforms.tSrc.value = bloomMip[i - 1].a.texture; }
-      if (i > 0) {
-        // 축소만 하면 되므로 임계값 0 으로 통과시킨다
-        matBright.uniforms.uThresh.value = 0.0;
-        blit(matBright, m.a);
-        matBright.uniforms.uThresh.value = 1.35;
-      }
-      matBlur.uniforms.tSrc.value = m.a.texture;
-      matBlur.uniforms.uDir.value.set(1 / m.w, 0);
-      blit(matBlur, m.b);
-      matBlur.uniforms.tSrc.value = m.b.texture;
-      matBlur.uniforms.uDir.value.set(0, 1 / m.h);
-      blit(matBlur, m.a);
-    }
-    for (let i = 0; i < 5; i++) {
-      matComposite.uniforms[BKEY[i]].value = bloomMip[Math.min(i, BLOOM_MIPS - 1)].a.texture;
-    }
-    matComposite.uniforms.tScene.value = rtScene.texture;
-    matComposite.uniforms.uTime.value = t || 0;
-    blit(matComposite, null);
-  }
-
-  // =====================================================================
-  //  표면 결 — 이게 없으면 아무리 형태를 만들어도 '색종이로 접은 방'으로 보인다.
-  //   콘크리트는 단색이 아니다: 타설 얼룩(큰 반점) + 미세 입자 + 얼룩진 거칠기.
-  //   albedo 와 roughnessMap 을 **같은 결로** 넣어야 빛이 면 위에서 균일하게 깔리지 않는다.
-  // =====================================================================
-  function makeSurfaceTex(S, o) {
-    const c = document.createElement("canvas"); c.width = c.height = S;
-    const g = c.getContext("2d");
-    g.fillStyle = o.base; g.fillRect(0, 0, S, S);
-    // 큰 얼룩 — 타설 자국·물 자국·때
-    for (let i = 0; i < o.blobs; i++) {
-      const x = Math.random() * S, y = Math.random() * S, r = S * (0.04 + Math.random() * 0.24);
-      const grd = g.createRadialGradient(x, y, 0, x, y, r);
-      grd.addColorStop(0, Math.random() < 0.55 ? o.dark : o.light);
-      grd.addColorStop(1, "rgba(0,0,0,0)");
-      g.fillStyle = grd; g.beginPath(); g.arc(x, y, r, 0, Math.PI * 2); g.fill();
-    }
-    // 세로로 흘러내린 자국(빗물·먼지) — 벽에서 특히 사실감을 준다
-    for (let i = 0; i < (o.streaks || 0); i++) {
-      const x = Math.random() * S, w = S * (0.004 + Math.random() * 0.010), h = S * (0.2 + Math.random() * 0.5);
-      const grd = g.createLinearGradient(0, 0, 0, h);
-      grd.addColorStop(0, o.dark); grd.addColorStop(1, "rgba(0,0,0,0)");
-      g.fillStyle = grd; g.save(); g.translate(x, Math.random() * S * 0.5); g.fillRect(0, 0, w, h); g.restore();
-    }
-    if (o.grid) {  // 바닥 줄눈 — 타일 경계를 이미지에 구워 넣는다
-      g.strokeStyle = o.gridColor; g.lineWidth = Math.max(1, S / 340);
-      for (let i = 1; i < o.grid; i++) {
-        const p = (i / o.grid) * S;
-        g.beginPath(); g.moveTo(p, 0); g.lineTo(p, S); g.stroke();
-        g.beginPath(); g.moveTo(0, p); g.lineTo(S, p); g.stroke();
-      }
-    }
-    // 미세 입자
-    const img = g.getImageData(0, 0, S, S), d = img.data;
-    // ⚠️ 노멀맵은 **입자를 넣기 전** 그림에서 뽑는다. 픽셀 단위 난수로 노멀을 만들면
-    //    표면이 지글거리고 오히려 싸구려로 보인다. 굴곡은 얼룩·줄눈 같은 큰 결에서만 온다.
-    const pre = new Uint8ClampedArray(d);
-    for (let i = 0; i < d.length; i += 4) {
-      const n = (Math.random() - 0.5) * o.grain;
-      d[i] += n; d[i + 1] += n; d[i + 2] += n;
-    }
-    g.putImageData(img, 0, 0);
-    const tex = new THREE.CanvasTexture(c);
-    tex.wrapS = tex.wrapT = THREE.RepeatWrapping; tex.anisotropy = 8;
-    tex.colorSpace = THREE.SRGBColorSpace;   // albedo — 눈으로 고른 색이므로 sRGB 로 읽어야 한다
-    // ⚠️ 같은 그림을 roughness 로도 쓰는데, 거칠기는 **색이 아니다**.
-    //    같은 캔버스를 그냥 재사용하면 두 가지가 한꺼번에 어긋난다.
-    //     ① colorSpace 는 텍스처당 하나뿐이라 sRGB 디코드가 거칠기에도 끼어든다
-    //     ② albedo 를 밝게/어둡게 고치는 순간 거칠기까지 같이 움직인다
-    //    → 같은 무늬를 쓰되 **평균값을 따로 정한** 선형 사본을 만든다.
-    //      (roughBase 가 곧 이 면의 기본 거칠기 배율. 재질의 roughness 와 곱해진다)
-    const rc = document.createElement("canvas"); rc.width = rc.height = S;
-    const rg = rc.getContext("2d");
-    rg.fillStyle = o.roughBase || "#8d8d8d"; rg.fillRect(0, 0, S, S);
-    rg.globalAlpha = 0.45; rg.globalCompositeOperation = "overlay";
-    rg.drawImage(c, 0, 0);
-    const data = new THREE.CanvasTexture(rc);
-    data.wrapS = data.wrapT = THREE.RepeatWrapping; data.anisotropy = 8;
-    tex.dataTwin = data;
-
-    // 노멀맵 — 같은 무늬의 밝기 기울기(소벨)에서 뽑는다.
-    // 색만 있는 면은 아무리 잘 칠해도 '인쇄된 판'이다. 빛이 굴곡을 타야 표면이 된다.
-    const nc = document.createElement("canvas"); nc.width = nc.height = S;
-    const ng = nc.getContext("2d");
-    const out = ng.createImageData(S, S), od = out.data;
-    const lum = (x, y) => {
-      x = (x + S) % S; y = (y + S) % S; const i = (y * S + x) * 4;
-      return (pre[i] * 0.299 + pre[i + 1] * 0.587 + pre[i + 2] * 0.114) / 255;
-    };
-    const st = o.normalStrength === undefined ? 2.4 : o.normalStrength;
-    for (let y = 0; y < S; y++) {
-      for (let x = 0; x < S; x++) {
-        const dx = (lum(x + 1, y) - lum(x - 1, y)) * st;
-        const dy = (lum(x, y + 1) - lum(x, y - 1)) * st;
-        const inv = 1 / Math.sqrt(dx * dx + dy * dy + 1);
-        const i = (y * S + x) * 4;
-        od[i]     = (-dx * inv * 0.5 + 0.5) * 255;
-        od[i + 1] = ( dy * inv * 0.5 + 0.5) * 255;
-        od[i + 2] = ( inv * 0.5 + 0.5) * 255;
-        od[i + 3] = 255;
-      }
-    }
-    ng.putImageData(out, 0, 0);
-    const nrm = new THREE.CanvasTexture(nc);
-    nrm.wrapS = nrm.wrapT = THREE.RepeatWrapping; nrm.anisotropy = 8;
-    tex.normalTwin = nrm;
-    return tex;
-  }
-  // ⚠️⚠️ 여기가 '폐건물로 보인다'의 진짜 원인이었다.
-  //   세로로 흘러내린 물자국(streaks)과 큰 얼룩(blobs)은 **방치된 건물의 신호**다.
-  //   아무리 렌더링을 올려도 이게 있으면 버려진 곳으로 읽힌다.
-  //   → 벽은 도장 마감으로 바꾼다. 결은 롤러 자국 수준으로만 남기고 얼룩·물자국은 없앤다.
-  //   색도 갈회색(때 낀 콘크리트) → 중성 회색(관리되는 시설)으로 옮긴다.
-  const texPaint = makeSurfaceTex(512, {
-    base: "#d9d9d7", roughBase: "#7d7d7d",
-    dark: "rgba(150,150,148,.05)", light: "rgba(255,255,255,.06)",   // 대비를 거의 없앤다
-    blobs: 9, grain: 4, normalStrength: 0.55,                        // 롤러 자국 정도의 아주 얕은 굴곡
-  });
-  // 바닥은 에폭시 코팅 — 구워 넣던 굵은 타일 격자를 빼고 매끈하게. 반사는 재질 쪽에서 준다.
-  const texFloor    = makeSurfaceTex(512, { base: "#dbdde0", roughBase: "#6a6a6a", dark: "rgba(96,100,106,.06)", light: "rgba(255,255,255,.08)", blobs: 12, grain: 5, normalStrength: 0.35 });
-  // 천장은 노출 콘크리트로 남긴다 — 벽이 밝아진 만큼 위가 눌려야 공간이 안 뜬다(실제 설비실도 이렇다)
-  const texCeil     = makeSurfaceTex(256, { base: "#afaba6", roughBase: "#b4b4b4", dark: "rgba(28,26,24,.18)", light: "rgba(150,146,140,.12)", blobs: 16, grain: 9 });
-
-  // 같은 결 이미지를 쓰되 **면의 월드 좌표에 맞춰** 반복·오프셋을 정한다.
-  //  · 크기에 비례한 repeat  → 큰 벽과 작은 조각의 결 크기가 같아진다
-  //  · 위치에 따른 offset    → 벽을 여러 조각으로 나눠 만들어도 결이 조각 경계에서 끊기지 않는다
-  //    (이걸 안 하면 개구부 위·아래 슬래브가 서로 다른 패널을 붙인 것처럼 단차가 보인다)
-  function scaled(mat, w, h, unit, u0, v0) {
-    const m = mat.clone();
-    const rx = Math.max(0.35, w / unit), ry = Math.max(0.35, h / unit);
-    const ox = (u0 || 0) / unit, oy = (v0 || 0) / unit;
-    if (mat.map) {
-      m.map = mat.map.clone();
-      m.map.repeat.set(rx, ry); m.map.offset.set(ox, oy);
-    }
-    // ⚠️ 예전엔 roughnessMap 에 map 사본을 그대로 물렸는데, 이제 albedo 는 sRGB 라 그러면 안 된다.
-    //    선형 사본(dataTwin)을 따로 복제해 같은 반복·오프셋을 준다.
-    if (mat.roughnessMap) {
-      m.roughnessMap = mat.roughnessMap.clone();
-      m.roughnessMap.repeat.set(rx, ry); m.roughnessMap.offset.set(ox, oy);
-    }
-    if (mat.normalMap) {
-      m.normalMap = mat.normalMap.clone();
-      m.normalMap.repeat.set(rx, ry); m.normalMap.offset.set(ox, oy);
-    }
+    const m = mesh(new T.PlaneGeometry(width, height), material, parent, 0, y, z);
+    m.castShadow = false; m.receiveShadow = false; m.visible = false;
     return m;
   }
-
-  // ---- 재질 ----
-  // 벽체 = 노출 콘크리트 톤의 건축 마감. 하얀 내화보드가 확실히 대비되도록 중간 명도의 웜그레이
-  // 도장 마감 — 무광에 가깝지만 완전 무광은 아니다(0.9 는 종이가 된다). 살짝 남긴 반사가 '칠한 면'을 만든다.
-  // ⚠️ 명도는 크게 못 올린다. 하얀 내화보드가 벽에 묻히면 주역이 사라진다 → 중간 회색을 유지하되 색상만 중성으로.
-  const matWall     = new THREE.MeshStandardMaterial({ color: 0x767c80, roughness: 0.82, envMapIntensity: 0.55, map: texPaint, roughnessMap: texPaint.dataTwin, normalMap: texPaint.normalTwin, normalScale: new THREE.Vector2(0.35, 0.35) });
-  const matWallSide = new THREE.MeshStandardMaterial({ color: 0x6e7478, roughness: 0.84, envMapIntensity: 0.55, map: texPaint, roughnessMap: texPaint.dataTwin, normalMap: texPaint.normalTwin, normalScale: new THREE.Vector2(0.35, 0.35) });
-  const matCol      = new THREE.MeshStandardMaterial({ color: 0x838a8e, roughness: 0.8,  envMapIntensity: 0.6,  map: texPaint, roughnessMap: texPaint.dataTwin, normalMap: texPaint.normalTwin, normalScale: new THREE.Vector2(0.35, 0.35) });  // 기둥(빛 받는 면)
-  const matBeam     = new THREE.MeshStandardMaterial({ color: 0x72787c, roughness: 0.82, envMapIntensity: 0.55, map: texPaint, roughnessMap: texPaint.dataTwin, normalMap: texPaint.normalTwin, normalScale: new THREE.Vector2(0.35, 0.35) }); // 보·인방
-  const matReveal   = new THREE.MeshStandardMaterial({ color: 0x71777b, roughness: 0.88 }); // 패널 줄눈
-  const matAccent   = new THREE.MeshStandardMaterial({ color: 0x2e5f8f, roughness: 0.68, envMapIntensity: 0.4 });  // 브랜드 파랑 — 유도 라인
-  const matSafety   = new THREE.MeshStandardMaterial({ color: 0xc9a327, roughness: 0.66, envMapIntensity: 0.35 });  // 바닥 안전선
-  // 바닥은 도장 콘크리트 — 살짝 반사가 있어야 실내로 읽힌다(완전 무광이면 종이가 된다)
-  const matFloor    = new THREE.MeshStandardMaterial({ color: 0x9298a0, roughness: 0.3, metalness: 0.05, envMapIntensity: 1.05, map: texFloor, roughnessMap: texFloor.dataTwin, normalMap: texFloor.normalTwin, normalScale: new THREE.Vector2(0.22, 0.22) });
-  const matFJoint   = new THREE.MeshStandardMaterial({ color: 0x7c828a, roughness: 0.6 });
-  const matCeil     = new THREE.MeshStandardMaterial({ color: 0x5e6164, roughness: 1.0, envMapIntensity: 0.35, map: texCeil, roughnessMap: texCeil.dataTwin });  // 완전 검정은 멀리서 화면을 눌러버린다
-  const matCeilBeam = new THREE.MeshStandardMaterial({ color: 0x4d5053, roughness: 1.0, envMapIntensity: 0.3, map: texCeil });
-  const matDark     = new THREE.MeshStandardMaterial({ color: 0x161210, roughness: 1.0 });
-  // 반짝이는 은빛 스테인리스 배관 / 아연도 사각덕트
-  const matPipe = new THREE.MeshStandardMaterial({ color: 0xccd3dc, roughness: 0.16, metalness: 1.0, envMapIntensity: 1.05 });
-  const matDuct = new THREE.MeshStandardMaterial({ color: 0xbcc3cb, roughness: 0.36, metalness: 0.92, envMapIntensity: 0.85 });
-  const matBand = new THREE.MeshStandardMaterial({ color: 0xa8b0ba, roughness: 0.24, metalness: 1.0, envMapIntensity: 0.95 });
-  // 내화보드 — 흰색이지만 **하얗게 날아가면 안 된다**. 밝은 환경맵을 그대로 받으면
-  // 종이를 오려 붙인 것처럼 면이 다 뭉개진다. 톤을 살짝 내리고 환경 반사도 절반만 받는다.
-  const matBoard = new THREE.MeshStandardMaterial({ color: 0xe6e2d8, roughness: 0.78, metalness: 0.0, envMapIntensity: 0.5 });
-
-  // =====================================================================
-  //  모따기 상자 — CG 티가 가장 많이 나던 부분
-  //   현실에 **완벽하게 날카로운 모서리는 없다.** 콘크리트 기둥에도 거푸집 면귀가 있고
-  //   도장면은 모서리에서 도료가 얇아진다. 그래서 실제 사진에서는 모든 모서리에
-  //   가느다란 밝은 선(하이라이트)이 하나 얹힌다. 각진 BoxGeometry 는 그 선이 없어서
-  //   아무리 재질을 잘 만들어도 "면과 면이 그냥 만난" 렌더로 읽힌다.
-  //
-  //   구성: 면 6장(안쪽으로 r 만큼 줄인 사각형) + 모서리 띠 12장 + 꼭짓점 삼각형 8장.
-  //   ⚠️ 정점을 구면으로 밀어내는 흔한 방식(RoundedBoxGeometry)은 쓰지 않는다 —
-  //      면이 도톰하게 부풀고 법선이 면 전체에 번져 **베개처럼** 보인다. 여기서는
-  //      면은 완전히 평평하게 두고 **모따기 띠에만** 법선을 주는 게 맞다.
-  //   ⚠️ UV 는 BoxGeometry 와 **완전히 같은 식**으로 계산한다. 벽·기둥 재질이
-  //      scaled() 로 repeat/offset 을 월드좌표에 맞춰 놓았기 때문에, UV 규약이 달라지면
-  //      슬래브마다 결이 어긋나 패널을 덧댄 것처럼 단차가 보인다(7차에 겪은 문제).
-  // =====================================================================
-  const CHAMFER = 0.022;                       // 실제 콘크리트 면귀와 같은 정도(약 2cm)
-  const chamferCache = new Map();
-  function chamferBoxGeom(w, h, d, rIn) {
-    // 얇은 줄눈(두께 0.03)이 모따기에 먹혀 사라지지 않게 각 변의 1/4 로 상한을 건다
-    const r = Math.max(0.0015, Math.min(rIn === undefined ? CHAMFER : rIn, w * 0.25, h * 0.25, d * 0.25));
-    const key = `${w.toFixed(4)}|${h.toFixed(4)}|${d.toFixed(4)}|${r.toFixed(4)}`;
-    const hit = chamferCache.get(key);
-    if (hit) return hit;
-
-    const a = w / 2, b = h / 2, c = d / 2;      // 바깥 반치수
-    const ax = a - r, by = b - r, cz = c - r;   // 면이 평평하게 남는 범위
-    const pos = [], nor = [], uvs = [];
-
-    // BoxGeometry 의 면별 UV 규약 그대로. 0=+X 1=-X 2=+Y 3=-Y 4=+Z 5=-Z
-    const UV = [
-      (x, y, z) => [(c - z) / (2 * c), (y + b) / (2 * b)],
-      (x, y, z) => [(z + c) / (2 * c), (y + b) / (2 * b)],
-      (x, y, z) => [(x + a) / (2 * a), (c - z) / (2 * c)],
-      (x, y, z) => [(x + a) / (2 * a), (z + c) / (2 * c)],
-      (x, y, z) => [(x + a) / (2 * a), (y + b) / (2 * b)],
-      (x, y, z) => [(a - x) / (2 * a), (y + b) / (2 * b)],
-    ];
-    // p = [x,y,z] 꼭짓점 배열(3개 또는 4개), n = 법선, face = UV 를 빌려올 면 번호
-    // ⚠️ 감김 방향(winding)을 손으로 맞추지 않는다 — 모따기 띠 12장의 부호를 사람이 따지면
-    //    반드시 몇 장이 뒤집히고, 뒤집힌 면은 back-face culling 으로 **구멍처럼 사라진다**.
-    //    첫 삼각형의 외적이 원하는 법선과 반대면 여기서 그냥 순서를 뒤집는다.
-    function poly(p, n, face) {
-      const len = Math.hypot(n[0], n[1], n[2]) || 1;
-      const nx = n[0] / len, ny = n[1] / len, nz = n[2] / len;
-      const e1 = [p[1][0] - p[0][0], p[1][1] - p[0][1], p[1][2] - p[0][2]];
-      const e2 = [p[2][0] - p[0][0], p[2][1] - p[0][1], p[2][2] - p[0][2]];
-      const cx = e1[1] * e2[2] - e1[2] * e2[1];
-      const cy = e1[2] * e2[0] - e1[0] * e2[2];
-      const cz2 = e1[0] * e2[1] - e1[1] * e2[0];
-      if (cx * nx + cy * ny + cz2 * nz < 0) p = p.slice().reverse();
-      const fan = p.length === 4 ? [0, 1, 2, 0, 2, 3] : [0, 1, 2];
-      for (const i of fan) {
-        const v = p[i];
-        pos.push(v[0], v[1], v[2]);
-        nor.push(nx, ny, nz);
-        const t = UV[face](v[0], v[1], v[2]);
-        uvs.push(t[0], t[1]);
+  // Building is an architectural cutaway. Installation dimensions below are metres.
+  // Each floor contains one wall assembly from the supplied certificates.
+  const LEVEL = 3.3, WALL_Z = -.55, WALL_T = .15, CY = 1.65;
+  const blue = mat('#2d5682', .34, .38), white = mat('#e1e7ec', .72);
+  const dark = mat('#344555', .38, .72), whiteSeal = mat('#f3f2ed', .85);
+  const bandBlue = mat('#2d5682', .56, .1), bandCore = mat('#222529', .96);
+  const glass = new T.MeshStandardMaterial({ color: '#a2c3dc', metalness: .35, roughness: .12, transparent: true, opacity: .33, side: T.DoubleSide, depthWrite: false });
+  const architecture = new T.Group(); scene.add(architecture);
+  const floors = [];
+  const textures = [concreteTex, fabricTex];
+  function textPlate(text, w, h, color = '#2d5682', bg = '#e8edf2') {
+    const c = document.createElement('canvas'); c.width = 512; c.height = 128;
+    const g = c.getContext('2d'); g.fillStyle = bg; g.fillRect(0, 0, 512, 128);
+    g.fillStyle = color; g.font = '600 62px sans-serif'; g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillText(text, 256, 68, 475);
+    const tex = new T.CanvasTexture(c); tex.colorSpace = T.SRGBColorSpace; textures.push(tex);
+    return new T.Mesh(new T.PlaneGeometry(w, h), new T.MeshBasicMaterial({ map: tex }));
+  }
+  // Foil appearance is based on the supplied SFI-100 product photographs: wrinkled
+  // aluminium with restrained blue DOENC printing, rather than plain white foam.
+  function foilSurface() {
+    const c = document.createElement('canvas'); c.width = c.height = 512; const g = c.getContext('2d');
+    g.fillStyle = '#c6ced4'; g.fillRect(0, 0, 512, 512);
+    let seed = 31; const rand = () => { seed = seed * 16807 % 2147483647; return seed / 2147483647; };
+    for (let i = 0; i < 950; i++) {
+      const x = rand() * 512, y = rand() * 512;
+      g.strokeStyle = `rgba(${i % 2 ? '255,255,255' : '65,75,84'},${.05 + rand() * .22})`;
+      g.lineWidth = .3 + rand() * 1.4; g.beginPath(); g.moveTo(x, y); g.lineTo(x + (rand() - .5) * 50, y + rand() * 13); g.stroke();
+    }
+    g.fillStyle = 'rgba(45,86,130,.65)'; g.font = '13px sans-serif';
+    for (let y = 45; y < 512; y += 110) for (let x = 20; x < 512; x += 170) { g.save(); g.translate(x, y); g.rotate(-.4); g.fillText('DOENC', 0, 0); g.restore(); }
+    const t = new T.CanvasTexture(c); t.colorSpace = T.SRGBColorSpace; t.wrapS = t.wrapT = T.RepeatWrapping; textures.push(t); return t;
+  }
+  let foilTex = foilSurface();
+  try {
+    const photograph = await new T.TextureLoader().loadAsync(new URL('../images/products/blanket.webp', import.meta.url).href);
+    const c = document.createElement('canvas'); c.width = c.height = 512;
+    const img = photograph.image;
+    // Central foil area of the actual SFI-100 photograph, excluding the white background.
+    c.getContext('2d').drawImage(img, img.width * .2, img.height * .22, img.width * .56, img.height * .44, 0, 0, 512, 512);
+    foilTex = new T.CanvasTexture(c); foilTex.colorSpace = T.SRGBColorSpace;
+    foilTex.wrapS = foilTex.wrapT = T.RepeatWrapping; textures.push(foilTex); photograph.dispose();
+  } catch { /* The photo-inspired procedural texture remains available offline. */ }
+  const foil = new T.MeshStandardMaterial({ color: '#eef1f3', map: foilTex, bumpMap: foilTex, bumpScale: .0015, metalness: .55, roughness: .58 });
+  const wool = mat('#eee9da', .99);
+  function group(parent, x = 0, y = 0, z = 0) { const g = new T.Group(); g.position.set(x, y, z); parent.add(g); return g; }
+  function animated(model, object, start, end, offset = [0, 0, 0], mode = 'slide') {
+    model.parts.push({ object, home: object.position.clone(), offset: new T.Vector3(...offset), start, end, mode }); return object;
+  }
+  function sectionWall(parent, opening) {
+    const s = new T.Shape(); s.moveTo(-3.2, .01); s.lineTo(3.2, .01); s.lineTo(3.2, 3.05); s.lineTo(-3.2, 3.05); s.closePath();
+    const h = new T.Path();
+    if (opening.radius) h.absarc(0, CY, opening.radius, 0, 2 * Math.PI, true);
+    else { const { w, h: height, y = CY } = opening; h.moveTo(-w / 2, y - height / 2); h.lineTo(-w / 2, y + height / 2); h.lineTo(w / 2, y + height / 2); h.lineTo(w / 2, y - height / 2); h.closePath(); }
+    s.holes.push(h);
+    return mesh(new T.ExtrudeGeometry(s, { depth: WALL_T, bevelEnabled: false, curveSegments: 48 }), concrete.clone(), parent, 0, 0, WALL_Z - WALL_T / 2);
+  }
+  function mark(parent, text, x, y, z, w = .15) {
+    const m = textPlate(text, w, w / 4, '#2d5682', '#e7ebec'); m.position.set(x, y, z); parent.add(m); return m;
+  }
+  // Thin factory-made half-boards: the semicircular notch is part of the supplied part.
+  function halfBoard(parent, top, radius, z) {
+    const s = new T.Shape();
+    s.moveTo(-.35, 0); s.lineTo(-radius, 0); s.absarc(0, 0, radius, Math.PI, 0, true);
+    s.lineTo(.35, 0); s.lineTo(.35, .35); s.lineTo(-.35, .35); s.closePath();
+    const board = mesh(new T.ExtrudeGeometry(s, { depth: .00884, bevelEnabled: false, curveSegments: 64 }), mineral, parent, 0, CY, z);
+    board.userData.component = 'metal-board';
+    if (!top) board.rotation.z = Math.PI;
+    return board;
+  }
+  function bead(parent, a, b, radius = .005) {
+    const A = new T.Vector3(...a), B = new T.Vector3(...b), mid = A.clone().add(B).multiplyScalar(.5);
+    const m = mesh(new T.CylinderGeometry(radius, radius, A.distanceTo(B), 8), whiteSeal, parent, ...mid.toArray());
+    m.quaternion.setFromUnitVectors(new T.Vector3(0, 1, 0), B.sub(A).normalize()); return m;
+  }
+  function metalSystem(m) {
+    tube(.2032, .1953, 3.45, steel, m.service, 0, CY, -1.75);
+    for (const sign of [1, -1]) {
+      const face = sign * .075;
+      const boards = group(m.service);
+      halfBoard(boards, true, .205, face + (sign < 0 ? -.009 : 0));
+      halfBoard(boards, false, .205, face + (sign < 0 ? -.009 : 0));
+      animated(m, boards, 2, 3.25, [0, 0, sign * .23]);
+      const screwGroup = group(m.service);
+      // Edge fixing pattern follows the drawing; tiny heads are enlarged for readability.
+      for (const x of [-.33, -.11, .11, .33]) for (const dy of [-.33, .33]) bolt(screwGroup, x, CY + dy, face + sign * .012, .0045);
+      for (const x of [-.33, .33]) for (const dy of [-.165, 0, .165]) bolt(screwGroup, x, CY + dy, face + sign * .012, .0045);
+      animated(m, screwGroup, 3.25, 4.2);
+      const caulk = group(m.service), z = face + sign * .013;
+      for (const x of [-.35, .35]) bead(caulk, [x, CY - .35, z], [x, CY + .35, z]);
+      for (const y of [CY - .35, CY + .35]) bead(caulk, [-.35, y, z], [.35, y, z]);
+      bead(caulk, [-.35, CY, z], [-.205, CY, z], .0075); bead(caulk, [.205, CY, z], [.35, CY, z], .0075);
+      ring(.211, .2032, .009, whiteSeal, caulk, 0, CY, z);
+      animated(m, caulk, 4.4, 6.1);
+      for (let layer = 0; layer < 2; layer++) for (let segment = 0; segment < 2; segment++) {
+        const len = segment ? .3 : .7, inner = .2032 + layer * .025;
+        const start = .085 + (segment ? .7 : 0), frontZ = sign > 0 ? start : -start - len;
+        const wrap = group(m.service, 0, CY, frontZ);
+        ring(inner + .025, inner, len, foil, wrap, 0, 0, 0);
+        ring(inner + .0245, inner + .0005, .002, wool, wrap, 0, 0, sign > 0 ? len : -.002);
+        const begin = 6.4 + layer * 2.6 + segment * 1.15;
+        animated(m, wrap, begin, begin + 1, [0, .1, sign * .08]);
       }
-    }
-
-    // ---- 면 6장 (r 만큼 안으로 줄인 평면) ----
-    poly([[a, -by, cz], [a, -by, -cz], [a, by, -cz], [a, by, cz]], [1, 0, 0], 0);
-    poly([[-a, -by, -cz], [-a, -by, cz], [-a, by, cz], [-a, by, -cz]], [-1, 0, 0], 1);
-    poly([[-ax, b, cz], [ax, b, cz], [ax, b, -cz], [-ax, b, -cz]], [0, 1, 0], 2);
-    poly([[-ax, -b, -cz], [ax, -b, -cz], [ax, -b, cz], [-ax, -b, cz]], [0, -1, 0], 3);
-    poly([[-ax, -by, c], [ax, -by, c], [ax, by, c], [-ax, by, c]], [0, 0, 1], 4);
-    poly([[ax, -by, -c], [-ax, -by, -c], [-ax, by, -c], [ax, by, -c]], [0, 0, -1], 5);
-
-    // ---- 모서리 띠 12장 ---- (감김은 poly 가 알아서 맞춘다)
-    // z 를 따라 뻗는 4개 (x·y 모서리)
-    for (const sx of [1, -1]) for (const sy of [1, -1]) {
-      poly([[sx * a, sy * by, -cz], [sx * a, sy * by, cz], [sx * ax, sy * b, cz], [sx * ax, sy * b, -cz]],
-        [sx, sy, 0], sx > 0 ? 0 : 1);
-    }
-    // x 를 따라 뻗는 4개 (y·z 모서리)
-    for (const sy of [1, -1]) for (const sz of [1, -1]) {
-      poly([[-ax, sy * b, sz * cz], [ax, sy * b, sz * cz], [ax, sy * by, sz * c], [-ax, sy * by, sz * c]],
-        [0, sy, sz], sz > 0 ? 4 : 5);
-    }
-    // y 를 따라 뻗는 4개 (x·z 모서리)
-    for (const sx of [1, -1]) for (const sz of [1, -1]) {
-      poly([[sx * a, -by, sz * cz], [sx * a, by, sz * cz], [sx * ax, by, sz * c], [sx * ax, -by, sz * c]],
-        [sx, 0, sz], sx > 0 ? 0 : 1);
-    }
-    // ---- 꼭짓점 삼각형 8장 ----
-    for (const sx of [1, -1]) for (const sy of [1, -1]) for (const sz of [1, -1]) {
-      poly([[sx * a, sy * by, sz * cz], [sx * ax, sy * b, sz * cz], [sx * ax, sy * by, sz * c]],
-        [sx, sy, sz], sx > 0 ? 0 : 1);
-    }
-
-    const g = new THREE.BufferGeometry();
-    g.setAttribute("position", new THREE.Float32BufferAttribute(pos, 3));
-    g.setAttribute("normal", new THREE.Float32BufferAttribute(nor, 3));
-    g.setAttribute("uv", new THREE.Float32BufferAttribute(uvs, 2));
-    g.computeBoundingSphere();
-    chamferCache.set(key, g);
-    return g;
-  }
-
-  function box(w, h, d, mat, x, y, z, parent, cast, rec) {
-    const m = new THREE.Mesh(chamferBoxGeom(w, h, d), mat);
-    m.position.set(x, y, z); m.castShadow = cast !== false; m.receiveShadow = rec !== false;
-    (parent || scene).add(m); return m;
-  }
-  // 어떤 x가 개구부(또는 그 주변 여유)에 걸리는지 — 기둥·줄눈을 피해 배치하기 위한 판정
-  function nearOpening(x, margin) {
-    for (const o of OPENINGS) if (x > o.x - o.hw - margin && x < o.x + o.hw + margin) return true;
-    return false;
-  }
-
-  // =====================================================================
-  //  불·연기 — 수명 기반 파티클. 개구부에서 **밖으로 뿜어져 나와** 위로 핥고 올라간다
-  // =====================================================================
-  function softDraw(S, paint, blur) {
-    const c = document.createElement("canvas"); c.width = c.height = S;
-    paint(c.getContext("2d"), S);
-    const c2 = document.createElement("canvas"); c2.width = c2.height = S;
-    const g2 = c2.getContext("2d");
-    try { g2.filter = "blur(" + (blur === undefined ? 4 : blur) + "px)"; } catch (e) { /* 미지원 브라우저는 그대로 */ }
-    g2.drawImage(c, 0, 0);
-    const t = new THREE.CanvasTexture(c2);
-    t.colorSpace = THREE.SRGBColorSpace;   // 색 맵 — 선형으로 읽히면 하얗게 뜬다
-    return t;
-  }
-  // 불티 — 작고 아주 밝은 점
-  const emberTex = softDraw(64, (g, S) => {
-    const grd = g.createRadialGradient(S / 2, S / 2, 0.5, S / 2, S / 2, S * 0.44);
-    grd.addColorStop(0.00, "rgba(255,214,132,0.92)");
-    grd.addColorStop(0.30, "rgba(255,152,44,0.72)");
-    grd.addColorStop(1.00, "rgba(230,90,16,0)");
-    g.fillStyle = grd; g.beginPath(); g.arc(S / 2, S / 2, S * 0.44, 0, Math.PI * 2); g.fill();
-  });
-  // 밝은 배경에서 흰 연무로 번지지 않도록 진한 회색
-  const smokeTex = softDraw(128, (g, S) => {
-    const grd = g.createRadialGradient(S / 2, S / 2, 2, S / 2, S / 2, S * 0.48);
-    grd.addColorStop(0.00, "rgba(66,68,74,0.74)");
-    grd.addColorStop(0.42, "rgba(84,86,94,0.3)");
-    grd.addColorStop(1.00, "rgba(96,98,108,0)");
-    g.fillStyle = grd; g.beginPath(); g.arc(S / 2, S / 2, S * 0.48, 0, Math.PI * 2); g.fill();
-  });
-
-  const rnd = (a, b) => a + Math.random() * (b - a);
-  const clampFire = (v) => (v < 0 ? 0 : v > 1 ? 1 : v);
-
-  // =====================================================================
-  //  화염 = 셰이더 노이즈 (스프라이트 방식은 '떠다니는 혀'로 보여서 폐기)
-  //   fbm 난류를 위로 흘리고, 뿌리는 꽉 차고 위로 갈수록 얇아지는 형상에서 빼서
-  //   경계를 만든다 — 불꽃 하나하나를 배치하는 게 아니라 불 자체가 계산된다.
-  //   깊이는 z를 달리한 여러 겹으로 만든다(앞겹이 개구부 밖으로 삐져나온 불).
-  //   ⚠️ ShaderMaterial 출력은 톤매핑을 타지 않는다 → 주황이 베이지로 죽지 않음.
-  // =====================================================================
-  const FIRE_VERT = `
-    varying vec2 vUv;
-    void main() {
-      vUv = uv;
-      gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-    }
-  `;
-  const FIRE_FRAG = `
-    precision highp float;
-    varying vec2 vUv;
-    uniform float uTime;    // 초
-    uniform float uOn;      // 세기 0~1 (진화하면 0)
-    uniform float uAlpha;   // 겹별 기본 알파
-    uniform float uCut;     // 이 높이(uv.y) 위로는 불이 없다 — 셔터가 내려온 만큼
-    uniform float uSeed;
-    uniform float uSpeed;   // 난류가 위로 흐르는 속도
-    uniform float uBoost;   // 불꽃이 뻗는 높이
-    uniform vec2  uDetail;  // 노이즈 칸 수 (개구부 크기에 맞춰 결 크기를 일정하게)
-    uniform vec2  uEdge;    // 좌우 감쇠 폭
-    uniform float uCurl;    // 혀가 휘말리는 정도 (도메인 워프)
-    uniform float uBreak;   // 위쪽에서 조각으로 끊어지는 정도
-    // ⚠️ 불을 **크게** 만들 때 boost 만 올리면 안 된다. 뿌리에서 f 가 1 을 넘어 포화돼
-    //    전폭이 **흰 띠**가 되고 결이 사라진다(2차에 겪은 실패).
-    //    "더 높이 뻗는" 것은 아래 두 값이 담당한다:
-    //      uTaper — 높이에 따른 몸통 감쇠 지수. 낮출수록 위까지 몸통이 남는다.
-    //      uTurbB — 높이에 따라 난류를 빼는 양의 증가율. 낮출수록 위에서 안 깎인다.
-    uniform float uTaper, uTurbA, uTurbB;
-
-    float hash(vec2 p) {
-      p = fract(p * vec2(233.34, 851.73));
-      p += dot(p, p + 23.45);
-      return fract(p.x * p.y);
-    }
-    float vnoise(vec2 p) {
-      vec2 i = floor(p), f = fract(p);
-      f = f * f * (3.0 - 2.0 * f);
-      return mix(mix(hash(i), hash(i + vec2(1.0, 0.0)), f.x),
-                 mix(hash(i + vec2(0.0, 1.0)), hash(i + vec2(1.0, 1.0)), f.x), f.y);
-    }
-    float fbm(vec2 p) {
-      float v = 0.0, a = 0.56;
-      for (int i = 0; i < 4; i++) { v += a * vnoise(p); p = p * 2.04 + vec2(17.3, 9.1); a *= 0.5; }
-      return v;
-    }
-    // 워프용은 저주파만 있으면 되므로 2옥타브로 싸게 — 불 셰이더는 화면을 크게 덮는다
-    float fbm2(vec2 p) {
-      return 0.62 * vnoise(p) + 0.31 * vnoise(p * 2.04 + vec2(17.3, 9.1));
-    }
-
-    void main() {
-      vec2 uv = vUv;
-      float h = uv.y;                       // 0 = 불의 뿌리, 1 = 꼭대기
-
-      // 위로 갈수록 옆으로 퍼지는 좌표 왜곡 — 불꽃이 원뿔처럼 벌어진다.
-      // ⚠️ 위로 흐르는 속도를 높이에 따라 키운다(부력). 등속으로 흘리면 결이 통째로
-      //    평행 이동해서 '스크롤되는 무늬'로 보인다 — 불이 아니라 커튼이 된다.
-      vec2 q = vec2((uv.x - 0.5) * uDetail.x / (0.55 + h * 0.95),
-                    h * uDetail.y - uTime * uSpeed * (1.0 + h * 0.55));
-
-      // ── 회전장(curl noise) 워프 — 이게 '혀가 말려 올라가는' 형상을 만드는 핵심이다.
-      //    ⚠️ 노이즈 두 장으로 그냥 밀면(도메인 워프) 결이 **옆으로 흔들리기만** 한다.
-      //       실제 불꽃은 소용돌이를 타고 감기므로 **회전하는 벡터장**이어야 한다.
-      //       스칼라 노이즈의 기울기를 90° 돌리면 발산이 0인 회전장이 된다.
-      vec2 wp = q * 0.62 + vec2(uSeed * 0.7, uTime * 0.33);
-      const float E = 0.14;
-      float na = fbm2(wp);
-      vec2 grad = vec2(fbm2(wp + vec2(E, 0.0)) - na, fbm2(wp + vec2(0.0, E)) - na) / E;
-      // 위로 갈수록 크게 휘어야 뿌리는 안정적이고 끝만 나풀거린다
-      q += vec2(grad.y, -grad.x) * uCurl * (0.20 + h * 1.5);
-
-      float n1 = fbm(q + vec2(uSeed, 0.0));
-      float n2 = fbm(q * 2.35 + vec2(uSeed * 1.7, -uTime * uSpeed * 1.8));
-      float turb = n1 * 0.74 + n2 * 0.40;
-
-      // 기본 형상: 뿌리는 꽉, 위로 갈수록 얇게. 좌우 가장자리도 감쇠
-      float ex = smoothstep(0.0, uEdge.x, uv.x) * smoothstep(1.0, 1.0 - uEdge.y, uv.x);
-      float body = pow(max(0.0, 1.0 - h), uTaper) * ex;
-
-      float f = clamp(body * uBoost - turb * (uTurbA + h * uTurbB), 0.0, 1.0);
-
-      // 색 램프 — 짙은 적색 → 주황 → 노랑. 흰 심부는 아주 뜨거운 부분에만
-      vec3 col = vec3(0.36, 0.04, 0.01);
-      col = mix(col, vec3(0.95, 0.24, 0.025), smoothstep(0.02, 0.26, f));
-      col = mix(col, vec3(1.00, 0.52, 0.07), smoothstep(0.24, 0.52, f));
-      col = mix(col, vec3(1.00, 0.82, 0.32), smoothstep(0.52, 0.80, f));
-      col = mix(col, vec3(1.00, 0.91, 0.60), smoothstep(0.90, 1.00, f));
-
-      // ── 속이 빈 심부. 불꽃 안쪽은 연료가 아직 안 탄 자리라 **바깥보다 어둡다**.
-      //    이걸 안 넣으면 균일하게 빛나는 '주황 젤리'가 된다.
-      float core = fbm(q * 1.45 + vec2(11.7, uTime * 0.5));
-      col *= 1.0 - 0.42 * smoothstep(0.42, 0.86, core) * smoothstep(0.30, 0.62, f) * (1.0 - h * 0.55);
-
-      // ⚠️ 위 색은 눈으로 고른 sRGB 값이다. 이제 HDR 선형 버퍼에 그리므로 선형으로 되돌린다.
-      //    그 다음 온도에 따라 1을 훌쩍 넘게 밀어 올린다 — 그래야 심부가 하얗게 타고 블룸이 걸린다.
-      //    (이 단계가 없으면 아무리 노랗게 칠해도 '주황색 판'으로만 보인다)
-      col = pow(col, vec3(2.2)) * mix(1.35, 4.6, smoothstep(0.10, 0.98, f));
-
-      // ── 위쪽에서 조각으로 끊어지게.
-      //    실제 불은 끝이 매끄럽게 옅어지며 사라지지 않고 **덩어리가 떨어져 나가** 따로 탄다.
-      //    난류장을 **높은 문턱으로 자르면** 약한 부분이 먼저 끊겨 남은 곳이 섬처럼 분리된다.
-      //    경계 폭까지 같이 좁혀야 조각의 윤곽이 또렷해진다.
-      float bh = clamp(h * uBreak, 0.0, 1.0);
-      float thr  = mix(0.012, 0.20, bh);
-      float band = mix(0.178, 0.05, bh);
-      float a = smoothstep(thr, thr + band, f) * uAlpha * uOn;
-      a *= smoothstep(uCut + 0.05, uCut - 0.03, h);   // 셔터 하단 아래로만 남는다
-      if (a < 0.004) discard;
-      gl_FragColor = vec4(col, a);
-    }
-  `;
-  // 개구부 하나에 대해 z를 달리한 여러 겹의 불 판을 만든다.
-  // 앞겹일수록 얇고 흐리게 — 개구부에서 앞으로 뿜어 나온 불로 읽힌다.
-  function makeFireSheets(o, cfg) {
-    const bottom = o.y - o.hh - 0.12, H = cfg.h, W = 2 * o.hw + cfg.wpad;
-    const layers = [];
-    cfg.z.forEach((dz, i) => {
-      const shrink = 1 - i * 0.13;                   // 앞겹은 좁게
-      const w = W * shrink, hh = H * (1 - i * 0.1);
-      const mat = new THREE.ShaderMaterial({
-        vertexShader: FIRE_VERT, fragmentShader: FIRE_FRAG,
-        transparent: true, depthWrite: false, side: THREE.DoubleSide,
-        blending: THREE.NormalBlending,
-        uniforms: {
-          uTime: { value: 0 }, uOn: { value: 0 }, uCut: { value: 2 },
-          uAlpha: { value: cfg.alpha[i] },
-          uSeed: { value: 3.7 + i * 11.3 + Math.abs(o.x) * 0.21 },
-          uSpeed: { value: cfg.speed * (1 + i * 0.16) },
-          uBoost: { value: cfg.boost * (1 - i * 0.08) },
-          uDetail: { value: new THREE.Vector2(w * 0.85, hh * 0.5) },
-          uEdge: { value: new THREE.Vector2(0.16, 0.16) },
-          // 앞겹일수록 크게 휘고 잘 끊어진다 — 뒤겹은 화염 덩어리의 몸통이라 안정적이어야 한다
-          uCurl: { value: (cfg.curl === undefined ? 0.85 : cfg.curl) * (1 + i * 0.35) },
-          uBreak: { value: (cfg.brk === undefined ? 1.0 : cfg.brk) * (1 + i * 0.25) },
-          uTaper: { value: cfg.taper === undefined ? 1.02 : cfg.taper },
-          uTurbA: { value: cfg.turbA === undefined ? 1.22 : cfg.turbA },
-          uTurbB: { value: cfg.turbB === undefined ? 0.95 : cfg.turbB },
-        },
-      });
-      const m = new THREE.Mesh(new THREE.PlaneGeometry(w, hh, 1, 1), mat);
-      m.position.set(o.x, bottom + hh / 2, WALL_FRONT + dz);
-      m.renderOrder = 3 - i;                          // 뒤겹을 먼저
-      scene.add(m);
-      layers.push({ mesh: m, mat: mat, bottom: bottom, h: hh, fwd: i });
-    });
-    return layers;
-  }
-  function animSheets(layers, t, on, reach, maxY) {
-    for (const L of layers) {
-      // 앞겹은 '밖으로 나온' 불 — 막히면 앞겹부터 사라진다
-      const vis = on * Math.pow(Math.max(0, reach === undefined ? 1 : reach), L.fwd * 1.15);
-      L.mesh.visible = vis > 0.012;
-      if (!L.mesh.visible) continue;
-      const u = L.mat.uniforms;
-      u.uTime.value = t;
-      u.uOn.value = vis;
-      u.uCut.value = maxY === undefined ? 2 : (maxY - L.bottom) / L.h;
-    }
-  }
-
-  // =====================================================================
-  //  연기 — 불과 같은 방식(셰이더 노이즈). 불 위에서 피어올라 위로 갈수록 넓게 퍼진다.
-  //  스프라이트 연기는 동그란 얼룩으로 보여서 폐기.
-  // =====================================================================
-  const SMOKE_FRAG = `
-    precision highp float;
-    varying vec2 vUv;
-    uniform float uTime, uOn, uAlpha, uCut, uSeed, uSpeed, uDensity;
-    uniform vec2 uDetail, uEdge;
-    uniform float uCeil;        // 천장에 닿기 시작하는 높이(uv.y)
-    uniform float uCeilSpread;  // 천장에서 옆으로 퍼지는 폭
-
-    float hash(vec2 p) {
-      p = fract(p * vec2(233.34, 851.73));
-      p += dot(p, p + 23.45);
-      return fract(p.x * p.y);
-    }
-    float vnoise(vec2 p) {
-      vec2 i = floor(p), f = fract(p);
-      f = f * f * (3.0 - 2.0 * f);
-      return mix(mix(hash(i), hash(i + vec2(1.0, 0.0)), f.x),
-                 mix(hash(i + vec2(0.0, 1.0)), hash(i + vec2(1.0, 1.0)), f.x), f.y);
-    }
-    float fbm(vec2 p) {
-      float v = 0.0, a = 0.56;
-      for (int i = 0; i < 4; i++) { v += a * vnoise(p); p = p * 2.04 + vec2(11.7, 5.3); a *= 0.5; }
-      return v;
-    }
-
-    void main() {
-      vec2 uv = vUv;
-      float h = uv.y;                                  // 0 = 불 바로 위, 1 = 천장 쪽
-
-      // ── 천장 제트(ceiling jet).
-      //    실제 화재 연기는 천장에 부딪히면 더 못 올라가고 **옆으로 깔려 층을 이룬다.**
-      //    이게 없으면 굴뚝처럼 위로만 빠져나가 '연기가 어디로 갔나' 싶은 그림이 된다.
-      float cj = smoothstep(uCeil - 0.18, 1.0, h);
-
-      // 위로 갈수록 옆으로 크게 퍼진다(불과 반대로 벌어지는 형상)
-      float spread = 0.42 + h * 1.85;
-      vec2 q = vec2((uv.x - 0.5) * uDetail.x / spread,
-                    h * uDetail.y - uTime * uSpeed);
-      // 천장 근처에서는 결을 세로로 눌러 **가로로 늘어난 층**처럼 보이게 한다
-      q.y = mix(q.y, q.y * 0.32, cj);
-      float n1 = fbm(q + vec2(uSeed, 0.0));
-      float n2 = fbm(q * 2.15 + vec2(uSeed * 2.3, -uTime * uSpeed * 0.65));
-      float d = n1 * 0.78 + n2 * 0.42;
-
-      // 기둥 형상: 발생부는 좁고 위로 갈수록 벌어지며, 오르면서 좌우로 흔들린다.
-      // (가로 전체를 채우면 검은 사각 덩어리로 보인다)
-      float cx = 0.5 + sin(uTime * 0.33 + uSeed) * 0.06 * h
-                     + sin(uTime * 0.19 + uSeed * 2.1) * 0.04 * h;
-      // half 는 GLSL 예약어라 쓸 수 없다. 천장에 닿으면 폭이 급격히 벌어진다.
-      float hw = uEdge.x + h * uEdge.y + cj * uCeilSpread;
-      float dx = abs(uv.x - cx) / max(0.02, hw);
-      float plume = 1.0 - smoothstep(0.12, 1.0, dx);
-      // 올라오면서 짙어진다. ⚠️ 예전엔 0.62 부터 흩어져 없어졌는데, 그러면 천장에 쌓이질 않는다.
-      //    천장 바로 아래까지 살려두고 맨 끝(슬래브에 묻히는 부분)만 잘라낸다.
-      float rise = smoothstep(0.0, 0.07, h) * (1.0 - smoothstep(0.88, 1.03, h));
-
-      float m = d * uDensity * plume * rise * mix(1.0, 1.32, cj);
-      float a = smoothstep(0.3, 0.66, m) * uAlpha * uOn;
-      a *= smoothstep(uCut + 0.06, uCut - 0.03, h);
-      if (a < 0.004) discard;
-
-      // 발생부는 그을음처럼 짙고 위로 갈수록 옅은 회색.
-      // 불과 마찬가지로 sRGB 로 고른 값이라 선형으로 되돌려야 한다(안 하면 흰 연무가 된다).
-      vec3 col = mix(vec3(0.10, 0.097, 0.105), vec3(0.40, 0.396, 0.42), smoothstep(0.0, 0.65, h));
-      gl_FragColor = vec4(pow(col, vec3(2.2)), a);
-    }
-  `;
-  function makeSmokeSheets(o, cfg) {
-    const bottom = cfg.bottom, H = cfg.h, W = 2 * o.hw + cfg.wpad;
-    const layers = [];
-    cfg.z.forEach((dz, i) => {
-      const w = W * (1 + i * 0.16), hh = H * (1 - i * 0.06);
-      const mat = new THREE.ShaderMaterial({
-        vertexShader: FIRE_VERT, fragmentShader: SMOKE_FRAG,
-        transparent: true, depthWrite: false, side: THREE.DoubleSide,
-        blending: THREE.NormalBlending,
-        uniforms: {
-          uTime: { value: 0 }, uOn: { value: 0 }, uCut: { value: 2 },
-          uAlpha: { value: cfg.alpha[i] },
-          uSeed: { value: 21.3 + i * 7.9 + Math.abs(o.x) * 0.17 },
-          uSpeed: { value: cfg.speed * (1 - i * 0.18) },
-          uDensity: { value: cfg.density },
-          uDetail: { value: new THREE.Vector2(w * 1.15, hh * 0.78) },
-          uEdge: { value: new THREE.Vector2(cfg.narrow, cfg.flare) },
-          uCeil: { value: cfg.ceil === undefined ? 0.70 : cfg.ceil },
-          uCeilSpread: { value: cfg.ceilSpread === undefined ? 0.55 : cfg.ceilSpread },
-        },
-      });
-      const m = new THREE.Mesh(new THREE.PlaneGeometry(w, hh, 1, 1), mat);
-      m.position.set(o.x, bottom + hh / 2, WALL_FRONT + dz);
-      m.renderOrder = 1 - i;                            // 연기는 불보다 뒤에서 먼저 그린다
-      scene.add(m);
-      layers.push({ mesh: m, mat: mat, bottom: bottom, h: hh, fwd: i });
-    });
-    return layers;
-  }
-
-  // cfg: x,y,z 발생 중심 / w,h,dz 발생 범위 / out 개구부 밖으로 나오는 거리 / rise 상승 / size / life / max
-  function makeFire(cfg, tex, additive) {
-    const arr = [];
-    for (let i = 0; i < cfg.n; i++) {
-      const s = new THREE.Sprite(new THREE.SpriteMaterial({
-        map: tex, transparent: true, opacity: 0, depthWrite: false, fog: false,
-        // 톤매핑을 태우면 주황이 흐린 베이지로 죽는다 — 불만은 원색 그대로 낸다
-        toneMapped: false,
-        blending: additive === false ? THREE.NormalBlending : THREE.AdditiveBlending,
-      }));
-      s.position.set(cfg.x, cfg.y, cfg.z);
-      scene.add(s);
-      arr.push({
-        sp: s,
-        x: cfg.x + rnd(-0.5, 0.5) * cfg.w,
-        y0: cfg.y + rnd(-0.5, 0.5) * cfg.h,
-        z0: cfg.z + rnd(-0.5, 0.5) * (cfg.dz || 0.5),
-        out: cfg.out * rnd(0.3, 1.0),
-        rise: cfg.rise * rnd(0.6, 1.35),
-        size: cfg.size * rnd(0.55, 1.25),
-        life: cfg.life * rnd(0.7, 1.35),
-        ph: Math.random(),
-        wob: rnd(0.4, 1.4),
-        max: cfg.max,
-        rot: rnd(-0.15, 0.15),
-        tall: cfg.tall === undefined ? 1.75 : cfg.tall,
-        wide: cfg.wide === undefined ? 0.62 : cfg.wide,
-      });
-    }
-    return arr;
-  }
-  // on: 세기(0~1) / reach: 밖으로 나오는 정도(보드·셔터가 막을수록 0으로)
-  // maxY: 이 높이 위로는 불이 보이지 않는다 — 셔터가 내려오면 불꽃이 아래로 눌려 사라진다
-  function animFire(arr, t, on, reach, maxY) {
-    const vis = on > 0.012;
-    const rc = reach === undefined ? 1 : Math.max(0, reach);
-    const lim = maxY === undefined ? Infinity : maxY;
-    for (const p of arr) {
-      p.sp.visible = vis;
-      if (!vis) continue;
-      const u = (t / p.life + p.ph) % 1;
-      const k = Math.pow(u, 1.25);                            // 아래쪽에 불덩이가 남고 일부만 위로 솟는다
-      const flick = 0.82 + Math.sin(t * (7 + p.wob * 6) + p.ph * 21) * 0.18;
-      p.sp.position.set(
-        p.x + Math.sin(t * 1.9 + p.ph * 13) * 0.3 * p.wob * k,
-        p.y0 + k * p.rise,
-        p.z0 + k * p.out * rc
-      );
-      p.sp.material.rotation = p.rot * (1 - k * 0.4) + Math.sin(t * 1.7 + p.ph * 9) * 0.07 * p.wob;
-      const sc = p.size * (0.62 + k * 1.0) * flick;
-      p.sp.scale.set(sc * p.wide * (1 - k * 0.38), sc * p.tall, 1); // 위로 갈수록 가늘어지는 혀
-      // 아래는 밝고 두껍게, 위로 갈수록 사그라지며 사라진다
-      const cut = lim === Infinity ? 1 : clampFire((lim - p.sp.position.y) / 1.4);
-      p.sp.material.opacity = on * p.max * Math.sin(Math.PI * Math.min(1, u * 1.14)) * (1 - u * 0.4) * flick * cut;
-    }
-  }
-  // 개구부 안쪽 배광 — 아래는 벌겋게 달아오르고 위로 갈수록 사그라진다(평평한 주황 판이 되지 않게)
-  const glowTex = softDraw(128, (g, S) => {
-    const grd = g.createLinearGradient(0, S, 0, 0);
-    grd.addColorStop(0.00, "rgba(255,152,46,0.98)");
-    grd.addColorStop(0.32, "rgba(255,92,16,0.66)");
-    grd.addColorStop(0.72, "rgba(184,42,8,0.2)");
-    grd.addColorStop(1.00, "rgba(116,22,4,0)");
-    g.fillStyle = grd; g.fillRect(0, 0, S, S);
-    // 가장자리 페이드 — 개구부 테두리에서 딱 끊기면 붙여넣은 판처럼 보인다
-    const mask = g.createRadialGradient(S * 0.5, S * 0.7, S * 0.08, S * 0.5, S * 0.7, S * 0.64);
-    mask.addColorStop(0.00, "rgba(0,0,0,1)");
-    mask.addColorStop(0.62, "rgba(0,0,0,0.9)");
-    mask.addColorStop(1.00, "rgba(0,0,0,0)");
-    g.globalCompositeOperation = "destination-in";
-    g.fillStyle = mask; g.fillRect(0, 0, S, S);
-  }, 5);
-  function openingGlow(o, inset) {
-    const m = new THREE.Mesh(
-      new THREE.PlaneGeometry(2 * o.hw - inset, 2 * o.hh - inset),
-      new THREE.MeshBasicMaterial({ map: glowTex, color: 0xffffff, transparent: true, opacity: 0, depthWrite: false, fog: false, blending: THREE.AdditiveBlending })
-    );
-    m.position.set(o.x, o.y, WALL_Z - 0.32); scene.add(m); return m;
-  }
-
-  // =====================================================================
-  //  벽체 — 개구부 세 곳을 남기고 슬래브로 채운 뒤, 기둥·보·줄눈으로 건축을 만든다
-  // =====================================================================
-  const lampSpots = [];   // 등기구 x 좌표 — 실제 광원은 조명 절 에서 단다(선언 순서 때문에 분리)
-  const LAMP_LIGHT_Y = FIRE_CEIL - 1.8, LAMP_LIGHT_Z = WALL_Z + 5.6;
-  (function buildWall() {
-    const rects = OPENINGS.map((o) => ({ x0: o.x - o.hw, x1: o.x + o.hw, y0: o.y - o.hh, y1: o.y + o.hh }));
-    const TILE = 6;   // 콘크리트 결 한 장이 덮는 크기(m)
-    const slab = (x0, x1, y0, y1) => {
-      if (x1 - x0 > 0.001 && y1 - y0 > 0.001)
-        box(x1 - x0, y1 - y0, WALL_T, scaled(matWall, x1 - x0, y1 - y0, TILE, x0 - WX0, y0 - WY0),
-          (x0 + x1) / 2, (y0 + y1) / 2, WALL_Z, scene);
-    };
-    // 개구부들의 y 경계로 가로 띠를 나누고, 각 띠에서 그 높이에 걸린 개구부만 비운다
-    const bands = [WY0, WY1];
-    rects.forEach((r) => { bands.push(r.y0, r.y1); });
-    bands.sort((a, b) => a - b);
-    for (let i = 0; i < bands.length - 1; i++) {
-      const y0 = bands[i], y1 = bands[i + 1];
-      if (y1 - y0 < 0.001) continue;
-      const mid = (y0 + y1) / 2;
-      const gaps = rects.filter((r) => mid > r.y0 && mid < r.y1).map((r) => [r.x0, r.x1]).sort((a, b) => a[0] - b[0]);
-      let x = WX0;
-      for (const [g0, g1] of gaps) { slab(x, g0, y0, y1); x = Math.max(x, g1); }
-      slab(x, WX1, y0, y1);
-    }
-
-    const FW = WX1 - WX0;
-
-    // ---- 층별 구조 ---- 기둥은 층마다 바닥에서 그 층 천장까지 선다
-    for (const L of LEVELS) {
-      const top = L.y + L.h;
-      for (let cx = WX0 + 5; cx < WX1; cx += 8) {
-        // 개구부·셔터 소핏 자리는 비운다 (화재층에만 개구부가 있으므로 그 층에서만 걸린다)
-        const onFire = Math.abs(L.y - FIRE_Y) < 0.01;
-        if (onFire && (nearOpening(cx, 2.2) ||
-            (cx > BIG.x - BIG.hw - 3.2 && cx < BIG.x + BIG.hw + 3.2))) continue;
-        box(1.7, L.h, 0.95, scaled(matCol, 1.7, L.h, TILE, cx - WX0, L.y - WY0), cx, L.y + L.h / 2, WALL_FRONT + 0.48, scene, true, true);
-        box(2.0, 0.28, 1.08, matBeam, cx, top - 0.14, WALL_FRONT + 0.5, scene, true, true);   // 주두
-        box(2.0, 0.3, 1.1, matBeam, cx, L.y + 0.15, WALL_FRONT + 0.5, scene, true, true);     // 주각
+      const finish = group(m.service);
+      for (const dz of [.1, .37, .72, 1.04]) {
+        const tor = mesh(new T.TorusGeometry(.2545, .0016, 6, 64), edgeMetal, finish, 0, CY, sign * dz);
+        tor.rotation.z = .08;
       }
-      // 세로 줄눈
-      for (let jx = WX0 + 4; jx < WX1; jx += 4) {
-        const onFire = Math.abs(L.y - FIRE_Y) < 0.01;
-        if (onFire && (nearOpening(jx, 1.2) ||
-            (jx > BIG.x - BIG.hw - 2.2 && jx < BIG.x + BIG.hw + 2.2))) continue;
-        box(0.13, L.h, 0.05, matReveal, jx, L.y + L.h / 2, WALL_FRONT + 0.03, scene, false, false);
-      }
-      // 걸레받이 — 각 층 바닥을 받는 짙은 띠
-      box(FW, 0.34, 0.1, matWallSide, (WX0 + WX1) / 2, L.y + 0.17, WALL_FRONT + 0.06, scene, false, true);
+      for (const dz of [.085, .785, 1.055]) ring(.255, .2532, .03, steel, finish, 0, CY, sign * dz - (sign < 0 ? .03 : 0));
+      animated(m, finish, 11.8, 13.4);
+      const label = mark(boards, 'SFB-100F', -.22, CY - .29, face + sign * .011, .13);
+      if (sign < 0) label.rotation.y = Math.PI;
     }
-    // 허리 라인 + 브랜드 파랑 유도 라인 — 화재층에만. 관리되는 시설의 신호다.
-    // ⚠️ **개구부를 가로지르면 안 된다.** 벽에 칠한 선이므로 개구부에서는 끊겨야 하는데,
-    //    폭 전체로 한 번에 그렸더니 셔터 개구부 한가운데를 지나 **공중에 떠 있는 줄**로 보였다.
-    //    (사용자가 지적한 문제) 그 높이에 걸린 개구부만 피해서 토막으로 그린다.
-    const paintLine = (y, h, d, mat, dz) => {
-      const gaps = OPENINGS.filter((o) => y > o.y - o.hh - 0.05 && y < o.y + o.hh + 0.05)
-        .map((o) => [o.x - o.hw, o.x + o.hw]).sort((a, b) => a[0] - b[0]);
-      let x = WX0;
-      const seg = (x0, x1) => {
-        if (x1 - x0 > 0.05) box(x1 - x0, h, d, mat, (x0 + x1) / 2, y, WALL_FRONT + dz, scene, false, false);
-      };
-      for (const [g0, g1] of gaps) { seg(x, g0); x = Math.max(x, g1); }
-      seg(x, WX1);
-    };
-    paintLine(FIRE_Y + 4.4,  0.26, 0.12, matCol,    0.07);
-    paintLine(FIRE_Y + 4.24, 0.09, 0.13, matAccent, 0.075);
-
-    // ---- 층 슬래브 ---- 벽에서 카메라 쪽으로 뻗어 나오다 SECT_Z 에서 잘린다.
-    //  잘린 단면(두께 0.7)이 그대로 보이는 게 '건물을 잘랐다'는 신호다.
-    const SD = SECT_Z - WALL_Z, SCZ = (WALL_Z + SECT_Z) / 2;   // 슬래브 깊이·중심
-    for (const L of LEVELS) {
-      // 바닥 슬래브 (윗면 = L.y)
-      box(FW, SLAB_T, SD, scaled(matFloor, FW, SD, 6), (WX0 + WX1) / 2, L.y - SLAB_T / 2, SCZ, scene, false, true);
-      // 슬래브 아랫면(= 아래층 천장)은 콘크리트 톤으로 따로 덮는다 — 바닥 결이 천장에 비치면 이상하다
-      box(FW, 0.06, SD, scaled(matCeil, FW, SD, 6), (WX0 + WX1) / 2, L.y - SLAB_T - 0.03, SCZ, scene, false, false);
-      // 신축줄눈
-      for (let fx = WX0 + 16; fx < WX1 - 4; fx += 16) box(0.06, 0.03, SD - 2, matFJoint, fx, L.y + 0.012, SCZ, scene, false, false);
-      for (let fz = 8; fz < SD - 4; fz += 16)         box(FW, 0.03, 0.06, matFJoint, (WX0 + WX1) / 2, L.y + 0.012, WALL_Z + fz, scene, false, false);
-      // 황색 안전선 — 벽 앞 통행 금지대
-      box(FW, 0.02, 0.14, matSafety, (WX0 + WX1) / 2, L.y + 0.02, WALL_FRONT + 2.6, scene, false, false);
-      box(FW, 0.02, 0.06, matSafety, (WX0 + WX1) / 2, L.y + 0.02, WALL_FRONT + 2.9, scene, false, false);
-      // 슬래브를 받는 보 — 층이 구조로 읽히게
-      for (let bx = WX0 + 4; bx < WX1; bx += 8)
-        box(0.75, 0.8, SD - 1.5, matCeilBeam, bx, L.y - SLAB_T - 0.42, SCZ, scene, false, false);
-    }
-    // 지붕 슬래브
-    box(FW, SLAB_T, SD, scaled(matCeil, FW, SD, 6), (WX0 + WX1) / 2, WY1 - SLAB_T / 2, SCZ, scene, false, false);
-
-    // 측벽 — 단면이므로 한쪽만. 층 전체 높이를 덮는다
-    box(0.5, WY1 - WY0, SD, scaled(matWallSide, SD, WY1 - WY0, 6), WX0 + 0.25, (WY0 + WY1) / 2, SCZ, scene, false, true);
-
-    // ---- 접지 그림자(AO) ----
-    // 그림자맵만으로는 벽과 바닥이 만나는 자리가 안 어두워져 부재들이 '떠 있는' 것처럼 보인다.
-    // 물리 계산 대신 그라디언트 판을 깔아 맞닿는 자리를 눌러준다 — 가장 값싼 사실감.
-    const aoTex = (() => {
-      const S = 64, c = document.createElement("canvas"); c.width = 4; c.height = S;
-      const g = c.getContext("2d");
-      const grd = g.createLinearGradient(0, 0, 0, S);
-      grd.addColorStop(0.00, "rgba(0,0,0,0.5)");
-      grd.addColorStop(0.35, "rgba(0,0,0,0.17)");
-      grd.addColorStop(1.00, "rgba(0,0,0,0)");
-      g.fillStyle = grd; g.fillRect(0, 0, 4, S);
-      return new THREE.CanvasTexture(c);
-    })();
-    const matAO = new THREE.MeshBasicMaterial({ map: aoTex, transparent: true, depthWrite: false, fog: false });
-    // 층마다 — 벽 밑동 그늘 / 벽을 타고 오르는 그늘 / 천장 밑 그늘
-    for (const L of LEVELS) {
-      const aoFloor = new THREE.Mesh(new THREE.PlaneGeometry(FW, 3.4), matAO);
-      aoFloor.rotation.x = -Math.PI / 2; aoFloor.position.set((WX0 + WX1) / 2, L.y + 0.02, WALL_FRONT + 1.7);
-      aoFloor.renderOrder = 1; scene.add(aoFloor);
-      const aoWall = new THREE.Mesh(new THREE.PlaneGeometry(FW, 2.2), matAO.clone());
-      aoWall.material.map = aoTex.clone(); aoWall.material.map.repeat.y = -1; aoWall.material.map.offset.y = 1;
-      aoWall.position.set((WX0 + WX1) / 2, L.y + 1.1, WALL_FRONT + 0.09);
-      aoWall.renderOrder = 1; scene.add(aoWall);
-      const aoTop = new THREE.Mesh(new THREE.PlaneGeometry(FW, 2.6), matAO.clone());
-      aoTop.position.set((WX0 + WX1) / 2, L.y + L.h - 1.3, WALL_FRONT + 0.09);
-      aoTop.renderOrder = 1; scene.add(aoTop);
-    }
-
-    // ---- 천장 설비 ---- 조명기구와 소방배관이 있어야 '건물 안'으로 읽힌다.
-    // ⚠️ 슬래브 밑 보가 층 천장 아래 0.4~1.2 를 차지한다 → 등기구를 그 위에 두면 보 사이에 묻힌다.
-    //    보 아래에 매달아야 '달려 있는 조명'으로 읽힌다.
-    const matLamp = new THREE.MeshStandardMaterial({ color: 0xfffaf0, roughness: 0.4, emissive: 0xfff2da, emissiveIntensity: 2.1, toneMapped: false });
-    const matLampBody = new THREE.MeshStandardMaterial({ color: 0xb4b8be, roughness: 0.4, metalness: 0.65, envMapIntensity: 1.3 });
-    const matFP = new THREE.MeshStandardMaterial({ color: 0x9c3b2c, roughness: 0.45, metalness: 0.5, envMapIntensity: 0.9 });
-    for (const L of LEVELS) {
-      const onFire = Math.abs(L.y - FIRE_Y) < 0.01;
-      const lampY = L.y + L.h - 1.55, lampZ = WALL_Z + 5.6;
-      for (let lx = WX0 + 8; lx < WX1 - 2; lx += 16) {
-        [-0.9, 0.9].forEach((dx) => {   // 행거
-          const rod = new THREE.Mesh(new THREE.CylinderGeometry(0.035, 0.035, 0.5, 8), matLampBody);
-          rod.position.set(lx + dx, lampY + 0.34, lampZ); scene.add(rod);
-        });
-        box(5.2, 0.18, 0.46, matLampBody, lx, lampY, lampZ, scene, false, false);
-        box(4.9, 0.06, 0.34, matLamp, lx, lampY - 0.11, lampZ, scene, false, false);  // 아래를 향한 발광면
-        // ⚠️ 등기구가 '빛나는 것처럼 칠해진 판'이기만 하면 실내가 흐린 날 야외처럼 보인다(14차 교훈).
-        //    실제 광원은 화재층에만 단다 — 층마다 달면 광원이 셋으로 늘어 비용이 커진다.
-        if (onFire) lampSpots.push(lx);
-      }
-      // 스프링클러 주배관(적색) + 헤드
-      const fpY = L.y + L.h - 1.15;
-      const fpPipe = new THREE.Mesh(new THREE.CylinderGeometry(0.16, 0.16, FW - 2, 18), matFP);
-      fpPipe.rotation.z = Math.PI / 2; fpPipe.position.set((WX0 + WX1) / 2, fpY, WALL_Z + 7.8); scene.add(fpPipe);
-      for (let hx = WX0 + 6; hx < WX1 - 2; hx += 6) {
-        const drop = new THREE.Mesh(new THREE.CylinderGeometry(0.06, 0.06, 0.5, 10), matFP);
-        drop.position.set(hx, fpY - 0.27, WALL_Z + 7.8); scene.add(drop);
-        const hd = new THREE.Mesh(new THREE.SphereGeometry(0.1, 10, 8), matLampBody);
-        hd.position.set(hx, fpY - 0.53, WALL_Z + 7.8); scene.add(hd);
-      }
-    }
-
-    // ---- 화재측(벽 뒤) — 어두운 방. 개구부 너머로 밝은 배경이 새면 흰 후광이 생긴다 ----
-    const bkTop = WY1 + 0.3, bkBot = WY0 - 10; // 벽 위로 삐져나오면 하늘 자리에 검은 판이 생긴다
-    box(WX1 - WX0 + 30, bkTop - bkBot, 0.4, matDark, (WX0 + WX1) / 2, (bkTop + bkBot) / 2, WALL_Z - 17, scene, false, false);
-    box(WX1 - WX0 + 30, 0.4, 34, matDark, (WX0 + WX1) / 2, FIRE_Y - 0.4, WALL_Z - 17, scene, false, false); // 화재실 바닥
-    box(WX1 - WX0 + 30, 0.4, 34, matDark, (WX0 + WX1) / 2, FIRE_CEIL - 0.2, WALL_Z - 17, scene, false, false); // 화재실 천장
-  })();
-
-  // =====================================================================
-  //  층 집기 — 단면 와이드에서 위·아래 층이 텅 비어 있으면 '멀쩡한 층'이 아니라
-  //  '아직 안 만든 층'으로 보인다. 집기가 들어가야 층이 **쓰이고 있는 공간**이 되고,
-  //  동시에 사람 없이도 스케일이 읽힌다(마가켐은 사무 가구로 같은 일을 했다).
-  //
-  //  ⚠️ 배치에 Math.random 을 쓰면 안 된다. 페이지를 열 때마다 배열이 달라지는데
-  //     포스터는 한 번 구워 고정이므로, 로딩이 끝나는 순간 집기가 **통째로 재배치**된다.
-  //     → 씨드 난수로 항상 같은 배열이 나오게 한다.
-  // =====================================================================
-  function mulberry32(a) {
-    return function () {
-      a |= 0; a = (a + 0x6D2B79F5) | 0;
-      let t = Math.imul(a ^ (a >>> 15), 1 | a);
-      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
-      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-    };
   }
-  // ⚠️ 랙 파랑을 진하게 주면 **불보다 먼저 눈에 들어온다.** 마가켐이 건물을 무채색으로 눌러
-  //    불과 제품에만 채도를 준 이유가 이것이다. 집기는 있되 시선을 끌면 안 된다.
-  const matRack  = new THREE.MeshStandardMaterial({ color: 0x5c6b7a, roughness: 0.58, metalness: 0.3, envMapIntensity: 0.65 });
-  const matCrate = new THREE.MeshStandardMaterial({ color: 0xa8977c, roughness: 0.92 });
-  const matPallet= new THREE.MeshStandardMaterial({ color: 0x8d7a5c, roughness: 0.95 });
-  const matDrum  = new THREE.MeshStandardMaterial({ color: 0x9aa3ab, roughness: 0.42, metalness: 0.6, envMapIntensity: 0.9 });
-
-  // ⚠️ **집기는 그림자를 만들지 않는다(castShadow: false).**
-  //    층 슬래브에 castShadow 가 없어서 키라이트가 슬래브를 그냥 통과한다. 그래서 위층 랙의
-  //    그림자가 아래로 새어 **화재층 벽에 네모난 얼룩**으로 찍혔다(사용자 지적).
-  //    슬래브에 castShadow 를 주면 물리적으로는 맞지만 키라이트가 막혀 화재층이 통째로
-  //    어두워진다 — 지금 조명은 그 전제로 맞춰져 있어서 손대면 안 된다.
-  //    집기는 와이드에서만 보이는 배경이라 그림자가 없어도 티가 안 난다. 이쪽을 끄는 게 맞다.
-  function buildFloorContents(L, seed) {
-    const R = mulberry32(seed);
-    const y = L.y;
-    // 벽 앞 통행대(안전선 안쪽)와 잘린 면 근처는 비워 둔다 — 동선이 있어야 창고로 읽힌다
-    const z0 = WALL_FRONT + 4.2, z1 = SECT_Z - 3.5;
-    const rack = (cx, cz, len) => {
-      const H = Math.min(L.h - 1.6, 3.6), D = 1.2;
-      for (const sx of [-1, 1]) for (const sz of [-1, 1])            // 기둥 4
-        box(0.12, H, 0.12, matRack, cx + sx * (len / 2 - 0.1), y + H / 2, cz + sz * (D / 2 - 0.1), scene, false, true);
-      for (let i = 0; i < 3; i++) {                                   // 선반 3단 + 적재물
-        const sy = y + 0.35 + i * (H - 0.5) / 2.6;
-        box(len, 0.07, D, matRack, cx, sy, cz, scene, false, true);
-        if (R() > 0.28) {
-          const bw = len * (0.42 + R() * 0.4), bh = 0.5 + R() * 0.35;
-          box(bw, bh, D * 0.8, matCrate, cx + (R() - 0.5) * (len - bw), sy + bh / 2 + 0.04, cz, scene, false, true);
+  function polymerSystem(m) {
+    tube(.1335, .124, .85, pvc, m.service, 0, CY, -.925);
+    m.softPipe = tube(.1335, .124, .85, pvc, m.service, 0, CY, .075);
+    m.expansions = [];
+    for (const sign of [1, -1]) {
+      const jacket = group(m.service, 0, CY, sign > 0 ? .075 : -.207);
+      jacket.userData.component = 'polymer-jacket';
+      // SFBA-200 250A has a deep galvanized jacket and black intumescent lining.
+      ring(.158, .1335, .13, bandCore, jacket, 0, 0, .001);
+      for (let n = 0; n < 24; n++) {
+        const a = n * Math.PI / 12;
+        const plate = box(.042, .0014, .132, zinc, jacket, Math.cos(a) * .159, Math.sin(a) * .159, .066);
+        plate.rotation.z = a - Math.PI / 2;
+        const notch = box(.009, .0018, .025, dark, jacket, Math.cos(a) * .16, Math.sin(a) * .16, .015);
+        notch.rotation.z = a - Math.PI / 2;
+        // Folded fingers cover the rim of the deep jacket, visible in the actual photo.
+        for (const z of [.002, .131]) {
+          const lip = box(.036, .022, .0014, zinc, jacket, Math.cos(a) * .148, Math.sin(a) * .148, z);
+          lip.rotation.z = a - Math.PI / 2;
         }
       }
-    };
-    const palletStack = (cx, cz) => {
-      box(1.25, 0.14, 1.05, matPallet, cx, y + 0.07, cz, scene, false, true);
-      const n = 1 + Math.floor(R() * 3);
-      for (let i = 0; i < n; i++)
-        box(1.1 - i * 0.06, 0.42, 0.92 - i * 0.05, matCrate, cx, y + 0.14 + 0.21 + i * 0.42, cz, scene, false, true);
-    };
-    const bench = (cx, cz) => {
-      box(2.6, 0.09, 0.95, matRack, cx, y + 0.88, cz, scene, false, true);
-      for (const sx of [-1, 1]) for (const sz of [-1, 1])
-        box(0.09, 0.85, 0.09, matRack, cx + sx * 1.2, y + 0.43, cz + sz * 0.4, scene, false, true);
-    };
-    const drums = (cx, cz) => {
-      for (let i = 0; i < 2 + Math.floor(R() * 3); i++) {
-        const d = new THREE.Mesh(new THREE.CylinderGeometry(0.31, 0.31, 0.9, 16), matDrum);
-        d.position.set(cx + (R() - 0.5) * 1.8, y + 0.45, cz + (R() - 0.5) * 1.4);
-        d.castShadow = false; d.receiveShadow = true; scene.add(d);
+      animated(m, jacket, 2, 5.1, [sign * .24, .12, sign * .18]);
+      const clasp = group(jacket);
+      box(.026, .014, .025, steel, clasp, .17, 0, .055);
+      box(.009, .025, .008, dark, clasp, .18, 0, .057);
+      animated(m, clasp, 5, 6.5, [.025, 0, 0]);
+      const brackets = group(m.service, 0, CY, 0);
+      for (let n = 0; n < 12; n++) {
+        const a = n * Math.PI / 6, r = .185;
+        const b = group(brackets, Math.cos(a) * r, Math.sin(a) * r, sign * .083); b.rotation.z = a - Math.PI / 2;
+        b.userData.component = 'polymer-bracket';
+        box(.0298, .06, .002, zinc, b, 0, 0, 0);
+        box(.0298, .002, .0295, zinc, b, 0, -.029, sign * .014);
+        bolt(b, 0, .017, sign * .004, .004);
       }
-    };
-    // 벽을 따라 늘어선 랙 한 줄 + 바닥에 흩어진 집기
-    for (let cx = WX0 + 9; cx < WX1 - 6; cx += 9.5) {
-      if (R() > 0.22) rack(cx + (R() - 0.5) * 1.5, z0 + 1.2 + R() * 2.0, 4.2 + R() * 1.6);
-    }
-    for (let i = 0; i < 14; i++) {
-      const cx = WX0 + 6 + R() * (WX1 - WX0 - 12);
-      const cz = z0 + 5.0 + R() * (z1 - z0 - 5.0);
-      const k = R();
-      if (k < 0.42) palletStack(cx, cz);
-      else if (k < 0.74) bench(cx, cz);
-      else drums(cx, cz);
+      animated(m, brackets, 7, 9.6, [0, 0, sign * .1]);
+      const expansion = mesh(new T.RingGeometry(.1335, .1575, 64), bandCore, jacket, 0, 0, sign > 0 ? .134 : -.002);
+      if (sign < 0) expansion.rotation.y = Math.PI;
+      expansion.userData.vertices = expansion.geometry.attributes.position.array.slice(); m.expansions.push(expansion);
     }
   }
-  // 위·아래 층에만 — 화재층은 주역(개구부·보드·셔터)이 가려지면 안 된다
-  buildFloorContents(LEVELS[0], 20260805);
-  buildFloorContents(LEVELS[2], 77712345);
-
-  // ---- 관통 배관 + 밴드 ----
-  (function buildPipe() {
-    const cz = WALL_Z + 1.4, len = 8.4; // 클로즈업에서 배관이 화면을 가로지르지 않도록 짧게
-    const pipe = new THREE.Mesh(new THREE.CylinderGeometry(PIPE_R, PIPE_R, len, 44), matPipe);
-    pipe.rotation.x = Math.PI / 2; pipe.position.set(PEN.x, PEN.y, cz); pipe.castShadow = true; pipe.receiveShadow = true; scene.add(pipe);
-    [-1.5, 1.1].forEach((dz) => {
-      const b = new THREE.Mesh(new THREE.CylinderGeometry(PIPE_R + 0.03, PIPE_R + 0.03, 0.16, 44), matBand);
-      b.rotation.x = Math.PI / 2; b.position.set(PEN.x, PEN.y, cz + dz); b.castShadow = true; scene.add(b);
-    });
-  })();
-
-  // ---- 관통 사각덕트 + 플랜지 ----
-  (function buildDuct() {
-    const cz = WALL_Z + 1.4, len = 8.4;
-    box(DUCT_W, DUCT_H, len, matDuct, DUCT.x, DUCT.y, cz, scene, true, true);
-    [-1.6, 1.2].forEach((dz) => {
-      box(DUCT_W + 0.2, DUCT_H + 0.2, 0.14, matBand, DUCT.x, DUCT.y, cz + dz, scene, true, true);
-    });
-    // 덕트 상단 접합 리브 — 판금 덕트처럼 보이게
-    box(DUCT_W + 0.04, 0.05, len * 0.9, matBand, DUCT.x, DUCT.y + DUCT_H / 2, cz, scene, false, false);
-  })();
-
-  // =====================================================================
-  //  내화보드 — 배관·덕트 모두 상·하 두 장이 관통재를 감싸며 밀착한다
-  // =====================================================================
-  const BD = 0.16;
-  function extrudeBoard(shape) {
-    // 모따기를 조금 깊게 — 조각끼리 맞닿는 자리에 홈이 생겨 '여러 장을 짜 맞춘 것'으로 읽힌다
-    const geo = new THREE.ExtrudeGeometry(shape, { depth: BD, bevelEnabled: true, bevelThickness: 0.05, bevelSize: 0.06, bevelSegments: 2, steps: 1, curveSegments: 48 });
-    geo.translate(0, 0, -BD / 2);
-    const m = new THREE.Mesh(geo, matBoard.clone()); m.castShadow = true; m.receiveShadow = true; scene.add(m); return m;
-  }
-  // 배관용 — 반원 노치
-  const HALF = 1.66;
-  function pipeBoard(top) {
-    const s = new THREE.Shape();
-    if (top) {
-      s.moveTo(-HALF, 0); s.lineTo(-RH, 0);
-      s.absarc(0, 0, RH, Math.PI, 0, true);
-      s.lineTo(HALF, 0); s.lineTo(HALF, HALF); s.lineTo(-HALF, HALF);
-    } else {
-      s.moveTo(-HALF, 0); s.lineTo(-HALF, -HALF); s.lineTo(HALF, -HALF); s.lineTo(HALF, 0); s.lineTo(RH, 0);
-      s.absarc(0, 0, RH, 0, Math.PI, true);
-    }
-    return extrudeBoard(s);
-  }
-  // 덕트용 — **상·하·좌·우 네 조각**이 사각 덕트를 사방에서 감싼다.
-  //  상·하는 폭 전체를 덮고, 좌·우는 그 사이(덕트 높이 구간)에 끼워 넣는다 → 겹침 없이 딱 맞는다.
-  //  좌표는 덕트 중심 기준이라, 밀착하면 각 조각을 그대로 개구부 중심에 놓기만 하면 된다.
-  const DHW = 2.35, DHH = 1.72;
-  function ductBoard(part) {
-    const s = new THREE.Shape();
-    if (part === "top")         { s.moveTo(-DHW,  NH); s.lineTo( DHW,  NH); s.lineTo( DHW,  DHH); s.lineTo(-DHW,  DHH); }
-    else if (part === "bottom") { s.moveTo(-DHW, -DHH); s.lineTo( DHW, -DHH); s.lineTo( DHW, -NH);  s.lineTo(-DHW, -NH); }
-    else if (part === "left")   { s.moveTo(-DHW, -NH); s.lineTo(-NW,  -NH); s.lineTo(-NW,   NH);  s.lineTo(-DHW,  NH); }
-    else                        { s.moveTo( NW,  -NH); s.lineTo( DHW, -NH); s.lineTo( DHW,  NH);  s.lineTo( NW,   NH); }
-    s.closePath();
-    return extrudeBoard(s);
-  }
-  const boardTop = pipeBoard(true), boardBot = pipeBoard(false);
-  const SEATZ = WALL_FRONT + 0.1;
-  // 진입 방향과 순서. 상·하가 먼저 자리를 잡고 좌·우가 그 사이로 끼워지는 순서라야 조립으로 읽힌다.
-  // 한 장씩 시차를 두는 이유는 **네 장이라는 게 세어지게** 하기 위해서다.
-  // ⚠️ 좌·우를 x 로만 보내면 (a) 오른쪽 조각이 이미 시공된 배관 보드(x=9)를 뚫고 지나가고
-  //    (b) 왼쪽 조각이 앞으로 튀어나온 덕트 몸체에 완전히 가려 보이지 않는다.
-  //    → 왼쪽은 아래-왼쪽에서, 오른쪽은 위-오른쪽에서 비스듬히 들어오게 해 둘 다 화면에 살린다.
-  const DUCT_PARTS = [
-    { m: ductBoard("bottom"), dx:  0.0, dy: -3.6, dz: 1.1, rz:  0.08, lag: 0.00 },
-    { m: ductBoard("top"),    dx:  0.0, dy:  3.6, dz: 1.1, rz: -0.08, lag: 0.18 },
-    { m: ductBoard("left"),   dx: -4.4, dy: -1.6, dz: 1.6, rz:  0.10, lag: 0.40 },
-    { m: ductBoard("right"),  dx:  3.4, dy:  1.4, dz: 2.4, rz: -0.10, lag: 0.58 },
-  ];
-
-  // =====================================================================
-  //  **이미 시공이 끝난 관통부** — 주역 옆의 빈 벽을 채운다.
-  //   멀리 빠졌을 때 벽이 휑하면 '한 군데만 하는 회사'로 보인다. 같은 처리가 현장 전체에
-  //   이미 되어 있는 모습을 보여주는 게 목적.
-  //   ⚠️ 벽에 구멍을 뚫지 않는다 — 보드가 어차피 그 자리를 덮으므로 구멍은 보이지 않는다.
-  //      (측벽은 개구부 분할 로직이 없어서, 뚫으려면 벽 생성 전체를 건드려야 한다)
-  //   좌표계: 그룹 원점 = 벽 앞면, 로컬 +z = 벽에서 나오는 방향. 측벽에는 rotation.y 로 돌려 붙인다.
-  // =====================================================================
-  function sealedPenetration(kind, out) {
-    const g = new THREE.Group();
-    const back = 1.4;                                   // 벽 뒤로 물리는 길이
-    if (kind === "pipe") {
-      const len = out + back;
-      const p = new THREE.Mesh(new THREE.CylinderGeometry(PIPE_R, PIPE_R, len, 28), matPipe);
-      p.rotation.x = Math.PI / 2; p.position.z = (out - back) / 2;
-      p.castShadow = true; p.receiveShadow = true; g.add(p);
-      [0.62, out - 0.5].forEach((dz) => {
-        const b = new THREE.Mesh(new THREE.CylinderGeometry(PIPE_R + 0.03, PIPE_R + 0.03, 0.16, 28), matBand);
-        b.rotation.x = Math.PI / 2; b.position.z = dz; b.castShadow = true; g.add(b);
-      });
-      [pipeBoard(true), pipeBoard(false)].forEach((m) => { m.position.z = 0.1; g.add(m); });
-    } else {
-      const len = out + back, cz = (out - back) / 2;
-      box(DUCT_W, DUCT_H, len, matDuct, 0, 0, cz, g, true, true);
-      [0.7, out - 0.6].forEach((dz) => box(DUCT_W + 0.2, DUCT_H + 0.2, 0.14, matBand, 0, 0, dz, g, true, true));
-      box(DUCT_W + 0.04, 0.05, len * 0.9, matBand, 0, DUCT_H / 2, cz, g, false, false);
-      ["top", "bottom", "left", "right"].forEach((k) => { const m = ductBoard(k); m.position.z = 0.1; g.add(m); });
-    }
-    scene.add(g);
+  function ductShell(parent, w, h, depth, thickness, material, z = 0) {
+    const g = group(parent, 0, CY, z);
+    box(w + thickness * 2, thickness, depth, material, g, 0, h / 2 + thickness / 2, depth / 2);
+    box(w + thickness * 2, thickness, depth, material, g, 0, -h / 2 - thickness / 2, depth / 2);
+    for (const sign of [-1, 1]) box(thickness, h, depth, material, g, sign * (w / 2 + thickness / 2), 0, depth / 2);
     return g;
   }
-  // 본 벽 — 기둥(…-41·-33·-25·15·23·31)을 피해 기둥 사이 빈칸에 앉힌다.
-  // 오른쪽(19·27)과 셔터 왼쪽 구간(-37·-29) 둘 다 채워야 마지막 와이드 컷에서 벽이 안 휑하다.
-  // ⚠️ 셔터(x=-13) 왼쪽 본 벽에는 두지 않는다 — 셔터가 내려오는 장면 바로 옆에서 시선을 나눠 간다.
-  //    (전에 -37·-29 에 뒀다가 뺐음. 왼쪽 허전함은 꺾인 측벽 쪽으로 해결한다)
-  [{ k: "duct", x: 19.0, y: 1.9, out: 3.4 }, { k: "pipe", x: 27.0, y: 1.7, out: 3.0 }].forEach((c) => {
-    sealedPenetration(c.k, c.out).position.set(c.x, c.y, WALL_FRONT);
-  });
-  // 왼쪽에서 꺾여 들어가는 측벽 — 2222 컷에서 가장 휑하던 자리. 배관·덕트 두 개씩.
-  const SIDE_X = WX0 + 0.5;   // 측벽 앞면(실내 쪽)
-  [{ k: "pipe", z: 4.5, y: 1.7, out: 3.0 }, { k: "duct", z: 11.0, y: 1.9, out: 3.4 },
-   { k: "pipe", z: 17.5, y: 1.7, out: 3.0 }, { k: "duct", z: 24.0, y: 1.9, out: 3.4 }].forEach((c) => {
-    const g = sealedPenetration(c.k, c.out);
-    g.position.set(SIDE_X, c.y, c.z); g.rotation.y = Math.PI / 2;   // 로컬 +z → 월드 +x
-  });
-
-  // =====================================================================
-  //  스크린셔터 — 실제 구동 영상(docs/사진/셔터 영상.mp4) 기준.
-  //   · 원단은 **크림색 유리섬유 직물**, 가로 이음매가 1m 간격
-  //   · 중앙 기둥 없이 **한 장이 개구부 전폭을 한 번에** 내려온다
-  //   · 하부 마감바는 **가운데가 처지는 완만한 곡선**(카테너리) — 이게 제일 큰 특징
-  //   · 서더박스는 노출 강판 박스가 아니라 상부 소핏(내림벽) 안에 숨고 슬롯만 보인다
-  //   · 뒤가 화재실이라 원단이 은은하게 배광된다
-  // =====================================================================
-  const SHUT_SAG = 0.52, BAR_SEGS = 30;
-  const SHZ = WALL_FRONT + 0.55;
-  let shPanel = null, shTopY, shH;
-  (function buildShutter() {
-    const b0 = BIG.x - BIG.hw, b1 = BIG.x + BIG.hw, bt = BIG.y + BIG.hh, bb = BIG.y - BIG.hh;
-    const trim = new THREE.MeshStandardMaterial({ color: 0x53585f, roughness: 0.4, metalness: 0.8, envMapIntensity: 1.0 });
-
-    // 상부 소핏(내림벽) — 영상처럼 원단이 벽 속 슬롯에서 나온다
-    box(2 * BIG.hw + 3.0, 1.7, 0.62, matWall, BIG.x, bt + 0.95, WALL_FRONT + 0.31, scene, true, true);
-    box(2 * BIG.hw + 3.0, 0.12, 0.66, trim, BIG.x, bt + 0.12, WALL_FRONT + 0.33, scene);        // 슬롯 하단 마감
-    box(2 * BIG.hw + 2.6, 0.1, 0.16, matDark, BIG.x, bt + 0.13, WALL_FRONT + 0.55, scene);     // 인출 슬롯(어두운 틈)
-
-    // 가이드레일 — 영상에선 벽에 붙은 얇은 트랙 수준(두꺼운 기둥처럼 보이면 안 된다)
-    [b0 - 0.09, b1 + 0.09].forEach((x) => box(0.18, bt - bb + 0.3, 0.2, trim, x, (bt + bb) / 2, SHZ, scene, true, true));
-
-    // 원단 텍스처 — 크림색 유리섬유. 1m 간격 가로 이음매 + 세로 주름
-    const W = 128, H = 1024;
-    const c = document.createElement("canvas"); c.width = W; c.height = H; const g = c.getContext("2d");
-    g.fillStyle = "#e9e3d3"; g.fillRect(0, 0, W, H);
-    for (let y = 0; y < H; y += 2) { // 직물 결
-      g.fillStyle = y % 4 === 0 ? "rgba(255,255,255,0.05)" : "rgba(120,112,96,0.05)";
-      g.fillRect(0, y, W, 1);
+  function ductSystem(m) {
+    ductShell(m.service, 2.6, .65, 3.8, .001, zinc, -1.9);
+    m.damperBlades = [];
+    for (let i = 0; i < 3; i++) {
+      const blade = box(2.56, .21, .006, steel, m.service, 0, CY + (i - 1) * .21, .22);
+      blade.rotation.x = Math.PI / 2; m.damperBlades.push(blade);
     }
-    for (let x = 0; x < W; x += 7) { // 세로 주름
-      g.fillStyle = "rgba(146,138,120,0.09)"; g.fillRect(x, 0, 2, H);
-      g.fillStyle = "rgba(255,255,250,0.09)"; g.fillRect(x + 2, 0, 1, H);
+    const motor = box(.17, .2, .2, blue, m.service, 1.39, CY, .3);
+    for (const z of [-1.65, .45, 1.65]) {
+      for (const y of [CY - .35, CY + .35]) box(2.71, .045, .035, steel, m.service, 0, y, z);
+      for (const x of [-1.33, 1.33]) { box(.04, .73, .035, steel, m.service, x, CY, z); for (const y of [CY - .34, CY + .34]) bolt(m.service, x, y, z + .023, .008); }
     }
-    for (let y = 0; y < H; y += 128) { // 가로 이음매(약 1m 간격)
-      g.fillStyle = "rgba(255,253,246,0.5)"; g.fillRect(0, y - 2, W, 2);
-      g.fillStyle = "rgba(128,120,104,0.42)"; g.fillRect(0, y, W, 3);
+    // Continuous 2,150 mm first layer passing through the wall.
+    animated(m, ductShell(m.service, 2.602, .652, 2.15, .025, foil, -1.075), 2, 3.8, [0, .12, 0]);
+    const bands = group(m.service);
+    for (let layer = 0; layer < 2; layer++) {
+      const d = layer * .012;
+      ductShell(bands, 2.652 + 2 * d, .702 + 2 * d, .14, .012, bandBlue, -.07);
     }
-    const stex = new THREE.CanvasTexture(c);
-    stex.wrapS = stex.wrapT = THREE.RepeatWrapping; stex.anisotropy = 4;
-
-    shTopY = bt + 0.1; shH = shTopY - FIRE_Y - SHUT_SAG; // 처진 가운데가 정확히 바닥에 닿는 높이
-    const pw = 2 * BIG.hw - 0.14;   // 개구부 전폭을 덮는 한 장
-
-    const mat = new THREE.MeshStandardMaterial({
-      map: stex, bumpMap: stex, bumpScale: 0.05,
-      color: 0xd6cdb8, roughness: 0.97, metalness: 0.0, envMapIntensity: 0.35,
-      emissive: 0xff7a2a, emissiveIntensity: 0.0, // 뒤 화재실 배광 — 애니에서 조절
-      side: THREE.DoubleSide,
+    animated(m, bands, 4, 5.7);
+    for (const sign of [-1, 1]) {
+      const boards = group(m.service);
+      for (const dy of [-.45, .45]) for (let i = 0; i < 3; i++) box(.9, .15, .00886, mineral, boards, (i - 1) * .9, CY + dy, sign * .083).userData.component = 'duct-board';
+      for (const x of [-1.425, 1.425]) for (const dy of [-.2625, .2625]) box(.15, .525, .00886, mineral, boards, x, CY + dy, sign * .083).userData.component = 'duct-board';
+      for (const x of [-1.45, -1.32, 1.32, 1.45]) for (const dy of [-.49, -.25, 0, .25, .49]) bolt(boards, x, CY + dy, sign * .092, .004);
+      for (const dy of [-.49, -.41, .41, .49]) for (let i = 0; i < 21; i++) bolt(boards, -1.3 + i * .13, CY + dy, sign * .092, .0035);
+      animated(m, boards, 6, 7.3, [0, 0, sign * .18]);
+      const caulk = group(m.service);
+      for (const dy of [-.525, .525]) bead(caulk, [-1.5, CY + dy, sign * .092], [1.5, CY + dy, sign * .092]);
+      for (const x of [-1.5, 1.5]) bead(caulk, [x, CY - .525, sign * .092], [x, CY + .525, sign * .092]);
+      for (const x of [-.45, .45]) for (const dy of [-1, 1]) bead(caulk, [x, CY + dy * .375, sign * .095], [x, CY + dy * .525, sign * .095], .0075);
+      animated(m, caulk, 7.3, 8.8);
+      const a = sign > 0 ? .085 : -.485;
+      animated(m, ductShell(m.service, 2.652, .702, .4, .05, foil, a), 9, 10.7, [0, .12, sign * .08]);
+      // Outer 25 mm blanket follows the stepped profile of the 400 mm inner layer.
+      const cover = group(m.service);
+      ductShell(cover, 2.752, .802, .4, .025, foil, a);
+      ductShell(cover, 2.652, .702, .6, .025, foil, sign > 0 ? .485 : -1.085);
+      animated(m, cover, 11, 12.8, [0, .12, sign * .08]);
+      const channels = group(m.service);
+      for (const distance of [.135, .585, 1.035]) {
+        const wide = distance < .485, y = wide ? .446 : .396, z = sign * distance;
+        for (const v of [-1, 1]) box(2.9, .04, .04, zinc, channels, 0, CY + v * y, z);
+        for (const x of [-1.43, 1.43]) {
+          mesh(new T.CylinderGeometry(.006, .006, y * 2 + .12, 8), steel, channels, x, CY, z);
+          for (const v of [-1, 1]) box(.021, .018, .021, steel, channels, x, CY + v * (y + .035), z);
+        }
+      }
+      animated(m, channels, 13, 14.6, [0, .05, sign * .05]);
+    }
+    motor.userData.component = 'damper-actuator';
+  }
+  function shutterSystem(m) {
+    const frame = group(m.service);
+    // Two smooth cream screens with a central double stainless guide, as in the video.
+    box(4.15, .34, .55, white, frame, 0, 2.8, -.03);
+    for (const x of [-2.025, 0, 2.025]) {
+      box(x === 0 ? .11 : .085, 2.65, .12, steel, frame, x, 1.325, .075);
+      if (x === 0) box(.014, 2.65, .012, dark, frame, 0, 1.325, .141);
+    }
+    const screenMaterial = new T.MeshStandardMaterial({ color: '#e4dfd0', map: fabricTex, bumpMap: fabricTex, bumpScale: .0006, roughness: .95, side: T.DoubleSide });
+    m.screens = [];
+    for (const x of [-1.015, 1.015]) {
+      const curtain = mesh(new T.PlaneGeometry(1.95, 2.6, 4, 4), screenMaterial, frame, x, 1.33, .09);
+      const rail = box(1.97, .034, .04, steel, frame, x, .03, .105);
+      curtain.userData.component = 'shutter-screen';
+      m.screens.push({ curtain, rail });
+    }
+    const switchBox = box(.07, .13, .04, white, frame, 2.18, 1.35, .085);
+    box(.026, .014, .007, blue, frame, 2.18, 1.36, .111);
+    switchBox.userData.component = 'operation-switch';
+  }
+  function buildFloor(id, index) {
+    const root = group(scene, 0, index * LEVEL, 0), room = group(root), service = group(root, 0, 0, WALL_Z);
+    const m = { id, root, room, service, parts: [], alpha: 1, fadeFrom: 1 };
+    // Continuous slabs, finely edged columns and a glazed service bay establish a building.
+    box(8.1, .2, 5.35, white, room, -.25, -.1, -.1);
+    box(8.14, .045, .075, blue, room, -.25, -.045, 2.6);
+    box(8.14, .018, .018, steel, room, -.25, .005, 2.63);
+    for (const x of [-3.4, 3.4]) {
+      box(.16, 3.1, .2, blue, room, x, 1.55, 2.3);
+      box(.24, 3.1, .24, white, room, x, 1.55, -2.3);
+    }
+    // Full-height glazing on the side bay; the central facade is intentionally sectioned.
+    for (const z of [-1.6, -.5, .6, 1.7]) {
+      box(.045, 3.1, .045, blue, room, -4.15, 1.55, z);
+      box(.012, 2.85, 1.05, glass, room, -4.16, 1.55, z + .52);
+    }
+    box(.065, 3.08, 4.7, white, room, 3.55, 1.54, -.1);
+    box(7.55, 3.08, .1, white, room, -.25, 1.54, -2.65);
+    const light = new T.MeshStandardMaterial({ color: '#edf5ff', emissive: '#b5d4ff', emissiveIntensity: .45 });
+    box(5.5, .014, .045, light, room, 0, 3.04, .8);
+    const number = textPlate(`${index + 1}F`, .7, .2, '#ffffff', '#2d5682'); number.position.set(-2.95, .31, 2.405); room.add(number);
+    const systemLabel = textPlate(SYSTEMS[id].en, 1.45, .24, '#6d86a0', '#e8edf2'); systemLabel.position.set(1.85, 2.6, WALL_Z + .082); room.add(systemLabel); m.label = systemLabel;
+    let opening;
+    if (id === 'metal') opening = { w: .5, h: .5 };
+    else if (id === 'polymer') opening = { radius: .1385 };
+    else if (id === 'duct') opening = { w: 2.7, h: .75 };
+    else opening = { w: 4.07, h: 2.65, y: 1.335 };
+    m.wall = sectionWall(room, opening);
+    if (id === 'metal') metalSystem(m);
+    if (id === 'polymer') polymerSystem(m);
+    if (id === 'duct') ductSystem(m);
+    if (id === 'shutter') shutterSystem(m);
+    m.glow = new T.PointLight('#ff8b43', 0, 3); m.glow.position.set(0, CY, WALL_Z - .4); root.add(m.glow);
+    m.fire = fire(service, id === 'duct' ? 2.8 : 1.1, 1.7, CY, -.2);
+    const materialCopies = new Map(); m.surfaces = [];
+    root.traverse(o => {
+      if (!o.isMesh || o.material.isShaderMaterial) return;
+      if (!materialCopies.has(o.material)) {
+        const copy = o.material.clone(); copy.userData.baseOpacity = copy.opacity;
+        copy.userData.baseTransparent = copy.transparent; materialCopies.set(o.material, copy);
+      }
+      o.material = materialCopies.get(o.material); o.userData.castsShadow = o.castShadow; m.surfaces.push(o);
     });
-    mat.map.repeat.set(3.4, 1); // 폭이 넓어졌으니 결 밀도를 맞춘다
-
-    // 아래로 갈수록 가운데가 처지는 카테너리 — 상단은 팽팽, 하단이 최대 SHUT_SAG
-    const geo = new THREE.PlaneGeometry(pw, shH, 36, 44);
-    geo.translate(0, -shH / 2, 0); // 상단이 y=0
-    const pos = geo.attributes.position;
-    for (let i = 0; i < pos.count; i++) {
-      const vx = pos.getX(i), vy = pos.getY(i);
-      const k = Math.min(1, -vy / shH);                       // 0(상단) → 1(하단)
-      const u = Math.min(1, Math.abs(vx) / (pw / 2));         // 0(가운데) → 1(가장자리)
-      pos.setY(i, vy - SHUT_SAG * k * (1 - u * u));
-      pos.setZ(i, pos.getZ(i) - 0.07 * k * (1 - u * u));      // 처지면서 살짝 앞으로 배부름
-    }
-    geo.computeVertexNormals();
-
-    const mesh = new THREE.Mesh(geo, mat);
-    mesh.castShadow = true; mesh.receiveShadow = true;
-    mesh.position.set(BIG.x, shTopY, SHZ); mesh.scale.y = 0.0001; scene.add(mesh);
-
-    // 하부 마감바 — 처짐 곡선을 따라가도록 여러 토막으로 나눠 배치
-    const barGroup = new THREE.Group(); scene.add(barGroup);
-    const segW = pw / BAR_SEGS + 0.02, segs = [];
-    for (let i = 0; i < BAR_SEGS; i++) {
-      const t = (i + 0.5) / BAR_SEGS, sx = BIG.x - pw / 2 + t * pw;
-      const u = Math.min(1, Math.abs(sx - BIG.x) / (pw / 2));
-      const seg = box(segW, 0.26, 0.3, trim, sx, shTopY, SHZ, barGroup, true, true);
-      segs.push({ mesh: seg, sag: SHUT_SAG * (1 - u * u), dz: -0.07 * (1 - u * u) });
-    }
-    barGroup.visible = false;
-    shPanel = { mesh, mat, barGroup, segs };
-  })();
-
-  // =====================================================================
-  //  화염·연기 — 개구부 세 곳 모두 불이 밖으로 삐져나온다
-  // =====================================================================
-  const FZ = WALL_FRONT + 0.05; // 불이 시작되는 면(개구부 앞면)
-  // 개구부 하나당 한 세트: 셰이더 화염 여러 겹 + 불티 + 연기 + 안쪽 배광 + 광원
-  function makeFireRig(o, s, inset, lightPow, sheet, smoke) {
-    const w = 2 * o.hw * 0.86, out = 1.0 + 0.35 * s;
-    const rig = {
-      sheets: makeFireSheets(o, sheet),
-      smoke: makeSmokeSheets(o, smoke),
-      ember: makeFire({ n: Math.round(7 * s), x: o.x, y: o.y, z: FZ + 0.22, w: w * 0.9, h: o.hh, dz: 0.4, out: out * 0.8, rise: 5.2 * s, size: 0.15 * s, life: 1.9, max: 0.5, tall: 1.0, wide: 1.0 }, emberTex, true),
-      glow:  openingGlow(o, inset),
-      light: new THREE.PointLight(0xff6a1e, 0, 9 + 9 * s, 2),
-      seed:  o.x * 0.37,
-    };
-    rig.light.position.set(o.x, o.y - o.hh * 0.4, WALL_FRONT + 0.3);
-    scene.add(rig.light);
-    // seal = 개구부가 막힌 정도(0~1). 연기는 **막히는 즉시 끊긴다** — 다 막았는데 연기가
-    // 계속 피어오르면 차단이 안 된 것처럼 보인다. 불과 달리 잔연을 남기지 않는다.
-    rig.update = function (t, on, reach, maxY, seal) {
-      animSheets(rig.sheets, t, on, reach, maxY);
-      animFire(rig.ember, t, on, reach, maxY);
-      const smokeOn = Math.min(1, on) * (1 - clamp01(((seal || 0) - 0.55) / 0.35));
-      animSheets(rig.smoke, t, smokeOn, reach, maxY);
-      const fl = Math.abs(Math.sin(t * 2.6 + rig.seed)) * 0.55 + Math.abs(Math.sin(t * 7.1 + rig.seed)) * 0.2;
-      rig.glow.material.opacity = on * (0.3 + fl * 0.24);
-      // 막히면 벽면으로 새어나오던 불빛도 함께 사라진다(셔터 원단 앞면이 달아오르지 않게)
-      const spill = Math.pow(reach === undefined ? 1 : Math.max(0, reach), 1.5);
-      rig.light.intensity = lightPow * on * spill * (0.72 + fl * 0.5);
-    };
-    return rig;
+    m.materials = [...materialCopies.values()]; models[id] = m; floors.push(root);
   }
-  // sheet: h 불 판 높이 / wpad 개구부보다 넓힐 폭 / z 겹의 z 오프셋 / alpha 겹별 알파 / boost 뻗는 높이 / speed 흐름
-  // smoke: bottom 연기가 시작되는 높이 / h 판 높이 / wpad / z / alpha / density 짙기 / speed 상승 속도
-  // ⚠️ **연기 판의 높이는 화재층 천장(FIRE_CEIL)에 맞춰야 한다.**
-  //    단면 구성으로 바뀌기 전에는 층 구분이 없어서 판을 12m 씩 세워뒀는데, 이제 그 높이면
-  //    슬래브를 뚫고 위층까지 올라간다. 슬래브에 가려 **정작 보이는 건 연기가 옅은 아랫부분뿐**이라
-  //    "불은 나는데 연기가 없다"로 보였다(사용자 지적). 천장까지로 잘라야 짙은 구간이 화면에 든다.
-  //    그리고 uCeil 을 천장 바로 아래에 두어 거기서 옆으로 깔리게 한다 — 실제 화재의 천장 제트.
-  const smokeH = (bottom) => FIRE_CEIL - bottom + 0.25;   // 천장에 살짝 물리게
-  const rigPen = makeFireRig(PEN, 1.0, 0.25, 34,
-    { h: 4.6, wpad: 0.5, z: [0.04, 0.5, 1.0], alpha: [0.96, 0.66, 0.4], boost: 2.02, speed: 1.7 },
-    { bottom: PEN.y + 0.7, h: smokeH(PEN.y + 0.7), wpad: 4.0, z: [0.28, 0.9], alpha: [0.56, 0.36], density: 3.1, speed: 0.5, narrow: 0.12, flare: 0.5, ceil: 0.72, ceilSpread: 0.9 });
-  const rigDkt = makeFireRig(DUCT, 1.1, 0.25, 36,
-    { h: 4.6, wpad: 0.5, z: [0.04, 0.5, 1.0], alpha: [0.96, 0.66, 0.4], boost: 2.02, speed: 1.75 },
-    { bottom: DUCT.y + 0.7, h: smokeH(DUCT.y + 0.7), wpad: 4.2, z: [0.28, 0.9], alpha: [0.56, 0.36], density: 3.1, speed: 0.52, narrow: 0.13, flare: 0.5, ceil: 0.72, ceilSpread: 0.9 });
-  // 셔터 개구부(9.2×10.4m)는 이 필름의 주역이다. 불이 개구부 아래쪽에만 깔려 있으면
-  // "큰 개구부를 막는다"는 규모가 안 산다 → **개구부를 가득 채우도록** 키웠다.
-  // ⚠️ boost 로 키우면 뿌리가 흰 띠가 된다. taper 를 낮춰 위까지 몸통을 남기고,
-  //    turbB 를 낮춰 위에서 난류에 깎이지 않게 하는 게 '높이'를 만드는 올바른 손잡이다.
-  const rigBig = makeFireRig(BIG, 3.1, 0.0, 84,
-    // ⚠️ **"개구부를 채운다"와 "뿌리가 안 탄다"는 서로 당긴다.**
-    //    body = (1-h)^taper 라 위로 갈수록 몸통이 줄고, 난류는 그대로 빼가므로
-    //    위까지 불이 닿게 하려면 boost 를 올려야 하는데 그러면 뿌리가 f=1 로 포화된다.
-    //    → boost 를 올리는 대신 **taper 를 아주 낮춰(0.26) 몸통이 위까지 안 줄게** 하고,
-    //      turbB 를 낮춰 위에서 덜 깎이게 한다. 그러면 낮은 boost 로도 개구부가 채워지고
-    //      뿌리는 f≈0.95 에 머물러 결이 살아 있다.
-    { h: 12.0, wpad: 1.8, z: [0.04, 0.75, 1.6], alpha: [0.97, 0.72, 0.48], boost: 1.72, speed: 1.5,
-      taper: 0.26, turbA: 1.35, turbB: 0.22 },
-    // 셔터 개구부는 크고 화재층 와이드에서 주역이라 연기를 가장 짙고 넓게
-    { bottom: BIG.y + 1.2, h: smokeH(BIG.y + 1.2), wpad: 9.0, z: [0.4, 1.4], alpha: [0.72, 0.5], density: 3.4, speed: 0.42, narrow: 0.26, flare: 0.62, ceil: 0.66, ceilSpread: 1.5 });
-
-  // ---- 조명 ----
-  // 앰비언트(hemi)를 낮추고 방향광(key)을 올리면 면마다 명암이 갈려 형태가 또렷해진다.
-  // 반대로 hemi 가 세면 전체가 균일하게 떠서 '뿌연' 그림이 된다.
-  scene.add(new THREE.HemisphereLight(0xeef1f6, 0x6e6e75, 0.17));
-  const key = new THREE.DirectionalLight(0xfff3e6, 1.05); key.castShadow = true;
-  key.shadow.mapSize.set(2048, 2048); key.shadow.camera.near = 1; key.shadow.camera.far = 70;
-  key.shadow.camera.left = -16; key.shadow.camera.right = 16; key.shadow.camera.top = 13; key.shadow.camera.bottom = -11; key.shadow.bias = -0.0012;
-  scene.add(key); scene.add(key.target); // 그림자 카메라가 시선을 따라다니게(넓은 씬에서 해상도 확보)
-  const fill = new THREE.DirectionalLight(0xdfe8ff, 0.16); fill.position.set(-6, 4, 6); scene.add(fill);
-  // 카메라 쪽 스펙큘러 — 은빛 배관·덕트 위로 길게 흐르는 하이라이트를 만든다
-  const spec = new THREE.DirectionalLight(0xffffff, 0.7); spec.position.set(7, 6, 14); scene.add(spec);
-
-  // 천장 등기구가 **실제로 방을 밝히게** 한다.
-  //  · 거리 16m 를 던져야 하므로 세기가 크다(three 는 물리 단위 — 조도는 거리 제곱으로 준다)
-  //  · 그림자는 끈다. 광원마다 그림자맵을 뜨면 저사양에서 바로 무너진다.
-  //  · 저사양에서는 개수를 줄인다 — 광원 수는 픽셀 셰이더 비용에 그대로 붙는다.
-  (function ceilingLights() {
-    const step = LOWEND ? 2 : 1;
-    for (let i = 0; i < lampSpots.length; i += step) {
-      const L = new THREE.PointLight(0xffeed6, LOWEND ? 260 : 145, 46, 2);
-      L.position.set(lampSpots[i], LAMP_LIGHT_Y, LAMP_LIGHT_Z);
-      scene.add(L);
-    }
-  })();
-
-  // =====================================================================
-  //  환경맵을 **실제 이 방**으로 교체한다.
-  //   손으로 칠한 256×128 그라디언트를 반사시키면, 배관도 덕트도 레일도
-  //   '회색 플라스틱'으로 보인다. 금속이 금속으로 보이려면 주변 형태가 비쳐야 한다.
-  //   → 조명·형상이 다 올라온 지금, 현장 한가운데서 큐브맵을 한 번 찍어 그걸 환경맵으로 쓴다.
-  //   한 번만 굽는 비용(6면 × 256px + PMREM)이고, 이후 프레임에는 부담이 없다.
-  // =====================================================================
-  (function bakeEnvironment() {
-    const cubeRT = new THREE.WebGLCubeRenderTarget(256, { type: THREE.HalfFloatType });
-    const cubeCam = new THREE.CubeCamera(0.4, 220, cubeRT);
-    cubeCam.position.set(3.0, 2.2, 7.0);   // 개구부 앞 — 금속들이 실제로 놓인 자리
-    const prevTarget = renderer.getRenderTarget();
-    cubeCam.update(renderer, scene);
-    renderer.setRenderTarget(prevTarget);
-    const pmrem = new THREE.PMREMGenerator(renderer);
-    const baked = pmrem.fromCubemap(cubeRT.texture).texture;
-    if (scene.environment && scene.environment.dispose) scene.environment.dispose();
-    scene.environment = baked;
-    cubeRT.dispose(); pmrem.dispose();
-  })();
-  // =====================================================================
-  //  사람 — 앞쪽을 오가는 사람들. 벽이 '건물'로 읽히게 하는 스케일 기준이 된다
-  // =====================================================================
-  const matHelmet = new THREE.MeshStandardMaterial({ color: 0xf2f3f5, roughness: 0.42, metalness: 0.05 });
-  const matSkin   = new THREE.MeshStandardMaterial({ color: 0xc59d84, roughness: 0.85 });
-  const matShade  = new THREE.MeshBasicMaterial({ color: 0x3d4045, transparent: true, opacity: 0.2, depthWrite: false, fog: false });
-  const matShoe   = new THREE.MeshStandardMaterial({ color: 0x23262b, roughness: 0.6 });
-  // 캡슐 지오메트리 캐시 — 18명 × 팔다리 4개면 같은 걸 72번 만들게 된다
-  const capsCache = new Map();
-  function capsule(r, len, seg) {
-    const key = `${r.toFixed(3)}|${len.toFixed(3)}|${seg || 10}`;
-    let g = capsCache.get(key);
-    // CapsuleGeometry(반지름, 원통부 길이, 캡 분할, 둘레 분할) — 전체 높이 = len + 2r
-    if (!g) { g = new THREE.CapsuleGeometry(r, Math.max(0.001, len), 3, seg || 10); capsCache.set(key, g); }
-    return g;
-  }
-
-  function buildPerson(clothC, vestC, helmet) {
-    const g = new THREE.Group();          // 바닥에 붙는 기준 — 진행 방향으로 돌린다
-    const body = new THREE.Group(); g.add(body);   // 달릴 때 앞으로 기울이는 상·하체 전체
-    const cloth = new THREE.MeshStandardMaterial({ color: clothC, roughness: 0.88 });
-    const vest = new THREE.MeshStandardMaterial({ color: vestC, roughness: 0.7, emissive: vestC, emissiveIntensity: 0.1 });
-    const skin = matSkin, hat = matHelmet, shade = matShade;   // 페이드를 안 하므로 재질은 공유해도 된다
-    // ⚠️ 팔다리·몸통이 상자면 아무리 멀어도 '장난감'으로 읽힌다. 사람의 실루엣은 어디에도
-    //    직각이 없다 — 캡슐로 바꾸는 것만으로 마지막 와이드샷 18명이 통째로 달라진다.
-    //    가슴·등은 원통이 아니라 납작하므로 z 를 눌러 타원 단면으로 만든다.
-    const limb = (parent, x, y, len, w, mat) => {
-      const piv = new THREE.Group(); piv.position.set(x, y, 0); parent.add(piv);
-      const r = w / 2;
-      const m = new THREE.Mesh(capsule(r, len - 2 * r, 8), mat);
-      m.position.y = -len / 2; m.castShadow = true; piv.add(m); return piv;
-    };
-    const legL = limb(body, -0.11, 0.9, 0.9, 0.17, cloth);
-    const legR = limb(body,  0.11, 0.9, 0.9, 0.17, cloth);
-    const armL = limb(body, -0.29, 1.44, 0.66, 0.13, cloth);
-    const armR = limb(body,  0.29, 1.44, 0.66, 0.13, cloth);
-    // 신발 — 다리 끝이 그냥 둥글게 끝나면 바닥에 닿는 느낌이 안 난다
-    for (const leg of [legL, legR]) {
-      const sh2 = new THREE.Mesh(chamferBoxGeom(0.11, 0.07, 0.25, 0.02), matShoe);
-      sh2.position.set(0, -0.875, 0.04); sh2.castShadow = true; leg.add(sh2);
-    }
-    // ⚠️ 캡슐의 **캡 반지름이 크면** 위아래가 공처럼 부풀어, 그 위에 덧씌운 조끼가
-    //    어깨·밑단에서 몸통에 파묻혀 **가느다란 띠**로만 보인다(실제로 그렇게 나왔다).
-    //    그래서 몸통은 '반지름 작고 원통부 긴' 캡슐로 만들어 어깨선까지 폭을 유지시킨다.
-    const torso = new THREE.Mesh(capsule(0.13, 0.40, 12), cloth);  // 전체 높이 0.66
-    torso.position.y = 1.2; torso.scale.set(1.77, 1, 1.04);        // 폭 0.46 · 두께 0.27
-    torso.castShadow = true; body.add(torso);
-    // 조끼는 가슴 전체를 덮는 넓은 판. 어깨·밑단에서 몸통이 살짝 비어져 나오는 건
-    // 그대로 두는 게 맞다 — 그게 '조끼 위로 드러난 작업복'으로 읽힌다.
-    const vst = new THREE.Mesh(capsule(0.10, 0.26, 12), vest);     // 전체 높이 0.46
-    vst.position.y = 1.2; vst.scale.set(2.5, 1, 1.55);             // 폭 0.50 · 두께 0.31
-    vst.castShadow = true; body.add(vst);
-    const neck = new THREE.Mesh(capsule(0.062, 0.04, 8), skin);
-    neck.position.y = 1.6; body.add(neck);
-    // 머리는 따로 묶는다 — 달아나면서 불 쪽을 돌아보게 하려면 목만 돌려야 한다
-    const headPiv = new THREE.Group(); headPiv.position.y = 1.62; body.add(headPiv);
-    const head = new THREE.Mesh(new THREE.SphereGeometry(0.115, 16, 12), skin);
-    head.position.y = 0.10; head.scale.set(1, 1.12, 1.06);   // 완전한 구는 사람 머리로 안 읽힌다
-    head.castShadow = true; headPiv.add(head);
-    if (helmet) {
-      const h = new THREE.Mesh(new THREE.SphereGeometry(0.145, 18, 12, 0, Math.PI * 2, 0, Math.PI / 2), hat);
-      h.position.y = 0.13; h.castShadow = true; headPiv.add(h);
-      const brim = new THREE.Mesh(new THREE.CylinderGeometry(0.175, 0.175, 0.03, 18), hat);
-      brim.position.y = 0.125; headPiv.add(brim);
-    }
-    // 접지 그림자 — 그림자맵 범위 밖에서도 바닥에 붙어 보이게
-    const sh = new THREE.Mesh(new THREE.CircleGeometry(0.36, 20), shade);
-    sh.rotation.x = -Math.PI / 2; sh.position.y = 0.03; g.add(sh);
-    scene.add(g);
-    return { g, body, headPiv, legL, legR, armL, armR, shade: sh };
-  }
-
-  // =====================================================================
-  //  대피 — 산책이 아니라 **화재에서 달아나는 사람들**이다.
-  //   · 좌우로 급하게 오가되(출구를 찾는 움직임) 규칙적인 왕복으로 보이지 않게 파형을 둘 겹친다
-  //   · 영상이 진행될수록 벽(화재)에서 뒤로 물러난다
-  //   · 달리는 자세 — 큰 보폭 · 앞으로 기울인 상체 · 큰 반동, 이따금 불 쪽을 돌아본다
-  //   · style 0 정상 질주 / 1 머리를 감싸고 뛴다 / 2 한 팔로 일행을 이끈다
-  // =====================================================================
-  const PEOPLE = [
-    { x0: -34, x1: -20, z0: 4.0,  z1: 8.0,  sp: 0.150, ph: 0.10, style: 0, cloth: 0x39404a, vest: 0xd6d94a, hat: 1 },
-    { x0: -8,  x1:  7,  z0: 8.0,  z1: 11.0, sp: 0.132, ph: 0.55, style: 1, cloth: 0x2f3540, vest: 0xcfd644, hat: 1 },
-    { x0:  17, x1:  31, z0: 2.6,  z1: 5.6,  sp: 0.163, ph: 0.80, style: 0, cloth: 0x434a54, vest: 0xe08a3c, hat: 1 },
-    { x0: -26, x1: -13, z0: 11.0, z1: 14.0, sp: 0.118, ph: 0.30, style: 2, cloth: 0x2b303a, vest: 0x8f97a4, hat: 0 },
-    { x0:  20, x1:  33, z0: 10.0, z1: 13.0, sp: 0.142, ph: 0.65, style: 0, cloth: 0x3a4048, vest: 0xd6d94a, hat: 1 },
-    { x0: -41, x1: -28, z0: 6.5,  z1: 9.5,  sp: 0.126, ph: 0.92, style: 1, cloth: 0x353b45, vest: 0xcfd644, hat: 1 },
-    // ⚠️ 이 사람은 셔터(BIG, x=-13) 바로 앞을 좁게 오가서 시선을 계속 잡아끌었다.
-    //    동선을 벽 왼쪽 끝까지 늘리고 셔터를 구간의 '끝'에 두어, 스쳐 지나가기만 하게 했다.
-    //    구간을 늘린 만큼 sp 를 낮춰야 달리는 속도(약 4.4m/s)가 그대로 유지된다.
-    { x0: -45, x1: -12, z0: 5.2,  z1: 8.6,  sp: 0.067, ph: 0.22, style: 0, cloth: 0x424852, vest: 0xe08a3c, hat: 1 },
-    { x0:  24, x1: 36,  z0: 6.0,  z1: 9.0,  sp: 0.121, ph: 0.44, style: 2, cloth: 0x30363f, vest: 0xcfd644, hat: 0 },
-    { x0: -37, x1: -25, z0: 12.5, z1: 15.5, sp: 0.156, ph: 0.71, style: 0, cloth: 0x3d434c, vest: 0x8f97a4, hat: 1 },
-    // ↓ 마지막 와이드샷(문구가 들어오는 장면)을 채우는 인원.
-    //   벽 전체가 한 화면에 들어오면 앞의 9명으로는 현장이 휑해 보인다. 좌우 끝과 중간 깊이를 메운다.
-    //   ⚠️ 이들도 같은 감춤 규칙을 탄다 — 시공·셔터 구간에는 함께 빠져나간다.
-    { x0: -44, x1: -32, z0:  9.0, z1: 12.0, sp: 0.147, ph: 0.38, style: 2, cloth: 0x2e343d, vest: 0xcfd644, hat: 1 },
-    { x0: -21, x1:  -8, z0: 14.5, z1: 17.5, sp: 0.128, ph: 0.17, style: 0, cloth: 0x363c46, vest: 0xd6d94a, hat: 1 },
-    { x0: -32, x1: -20, z0: 16.5, z1: 19.5, sp: 0.115, ph: 0.05, style: 0, cloth: 0x333942, vest: 0x8f97a4, hat: 1 },
-    { x0:   6, x1:  18, z0:  5.5, z1:  8.5, sp: 0.131, ph: 0.45, style: 0, cloth: 0x444a55, vest: 0xe08a3c, hat: 1 },
-    { x0:   2, x1:  16, z0: 10.0, z1: 13.0, sp: 0.124, ph: 0.49, style: 1, cloth: 0x3b414a, vest: 0xcfd644, hat: 1 },
-    { x0:   5, x1:  19, z0: 14.0, z1: 17.0, sp: 0.137, ph: 0.61, style: 0, cloth: 0x3f4550, vest: 0xd6d94a, hat: 1 },
-    { x0: -12, x1:   0, z0: 16.0, z1: 19.0, sp: 0.126, ph: 0.90, style: 0, cloth: 0x2f353e, vest: 0xe08a3c, hat: 1 },
-    { x0:  -4, x1:   9, z0: 14.5, z1: 17.5, sp: 0.133, ph: 0.12, style: 2, cloth: 0x40464f, vest: 0xcfd644, hat: 0 },
-    { x0:  -2, x1:  11, z0: 18.0, z1: 21.0, sp: 0.141, ph: 0.24, style: 0, cloth: 0x343a44, vest: 0xd6d94a, hat: 1 },
-  ].map((c) => Object.assign({ o: buildPerson(c.cloth, c.vest, c.hat), face: 0, on: true }, c));
-
-  const tri = (v) => { v = v - Math.floor(v); return v < 0.5 ? v * 2 : 2 - v * 2; };
-  // 삼각파 둘을 합쳐 왕복 주기가 눈에 안 띄게 — 규칙적으로 오가면 산책으로 보인다
-  const scurry = (u) => clamp01(0.72 * tri(u) + 0.28 * tri(u * 2.37 + 0.19));
-
-  // ---- 사람이 나가고 들어오는 구간 ----
-  //  시공·셔터 장면에는 사람이 **한 명도 프레임에 걸리면 안 된다** — 주역(보드·셔터)에 집중이 안 된다.
-  //  ⚠️ 투명도로 사라지게 하면 사라지는 동안 반투명 인물이 그대로 프레임에 남는다. 그래서 페이드를 버리고
-  //     ① 출구 쪽으로 **뛰어 나가게** 하고 ② **화면 밖으로 벗어난 순간에만** 끈다 — 꺼지는 게 안 보인다.
-  const HIDE_IN = 2.4;      // 이때부터 프레임 바깥으로 빠지기 시작
-  const EXIT_DUR = 2.2;     // 빠져나가는 데 걸리는 시간
-  const HIDE_HARD = 5.6;    // 최후 방어선 — 아직 화면에 남아 있어도 여기서는 무조건 끈다(카메라가 관통부로 들어가기 전)
-  const HIDE_OUT = 25.7;    // 카메라가 물러나기 시작 — 화면 밖에 있는 사람부터 다시 걸어 들어온다
-  let snapVis = true;       // 시간을 건너뛴 프레임(초기 표시·seek)에서는 화면 밖 판정 없이 즉시 맞춘다
-  // 다급함이 잦아드는 시점은 **감춰져 있는 동안**으로 잡는다 → 다시 등장할 땐 이미 걷는 걸음이다.
-  // (속도 계수를 그냥 곱하면 위치가 튄다. 누적 시간을 적분해 두면 이어진 채로 느려진다.)
-  const CALM_AT = 8.0, CALM_DUR = 3.0, CALM_MIN = 0.26;
-  // floor = 진정된 뒤의 시간 진행 배율
-  function calmTime(c, floor) {
-    if (c <= CALM_AT) return c;
-    const k = (1 - floor) / CALM_DUR;                     // 초당 감속량
-    const d = Math.min(c - CALM_AT, CALM_DUR);
-    const w = CALM_AT + d - k * d * d / 2;
-    return c > CALM_AT + CALM_DUR ? w + floor * (c - CALM_AT - CALM_DUR) : w;
-  }
-
-  // 지금 카메라에 잡히는지 — 켜고 끄는 순간이 눈에 띄지 않으려면 이 판정이 있어야 한다.
-  // ⚠️ 카메라를 먼저 놓고(placeCamera) 나서 판정해야 한다. 순서가 반대면 한 프레임 늦은 절두체로 판정한다.
-  const _frustum = new THREE.Frustum(), _fmat = new THREE.Matrix4(), _fbox = new THREE.Box3();
-  function updateFrustum() {
-    camera.updateMatrixWorld();
-    _fmat.multiplyMatrices(camera.projectionMatrix, camera.matrixWorldInverse);
-    _frustum.setFromProjectionMatrix(_fmat);
-  }
-  // 사람 한 명을 감싸는 박스로 본다. 좌우 0.9m 여유를 둬서 화면 가장자리에 걸친 채로 꺼지지 않게 한다.
-  function inFrame(g) {
-    _fbox.min.set(g.position.x - 0.9, g.position.y, g.position.z - 0.9);
-    _fbox.max.set(g.position.x + 0.9, g.position.y + 2.1, g.position.z + 0.9);
-    return _frustum.intersectsBox(_fbox);
-  }
-
-  function animPeople(t, cycle) {
-    // 화면에 있어도 되는 구간인가 — 실제로 껐다 켜는 건 화면 밖으로 벗어난 뒤다.
-    const want = cycle < HIDE_IN || cycle >= HIDE_OUT;
-    // 나가는 동안에는 프레임 바깥쪽(카메라가 보는 지점의 반대편)으로 크게 벌어진다.
-    const exit = cycle < HIDE_OUT ? smooth(clamp01((cycle - HIDE_IN) / EXIT_DUR)) : 0;
-
-    const retreat = smooth(clamp01((cycle - 1.2) / 15));  // 불이 커질수록 벽에서 물러난다
-    const panic = 1 - smooth(clamp01((cycle - CALM_AT) / CALM_DUR));  // 1 다급함 → 0 진정
-    const tw = calmTime(cycle, CALM_MIN);
-    // ⚠️ 보속을 이동속도와 같은 비율로 늦추면 **미끄러지듯** 보인다.
-    //    보폭이 짧아지는 만큼 걸음 수는 덜 줄어야 하므로 보속은 따로 덜 늦춘다.
-    const tg = calmTime(cycle, 0.62);
-    for (const p of PEOPLE) {
-      const u = tw * p.sp + p.ph;
-      const a = scurry(u), b = scurry(u + 0.006);      // b-a 로 진행 방향을 얻는다
-      const span = p.x1 - p.x0;
-      const g = p.o.g;
-      const gait = tg * 9.4 + p.ph * 17;                // 걷기(4.6)보다 두 배 빠른 보속
-      const bounce = Math.abs(Math.sin(gait));
-      // 화면 중앙(카메라가 보는 x)에서 멀어지는 쪽으로 밀어낸다 — 사라지는 게 아니라 출구로 뛰어 나가는 것
-      const px = p.x0 + span * a;
-      const away = (px >= camLook.x ? 1 : -1) * 11 * exit;
-      g.position.set(px + away, FIRE_Y + bounce * (0.03 + panic * 0.055), p.z0 + (p.z1 - p.z0) * retreat);
-
-      // 방향 전환이 뚝 끊기지 않게 — 도는 동안 카메라 쪽을 스친다
-      const face = span * (b - a) >= 0 ? Math.PI / 2 : -Math.PI / 2;
-      p.face += (face - p.face) * 0.14;
-      g.rotation.y = p.face;
-
-      const sw = Math.sin(gait) * (0.45 + panic * 0.5);  // 다급하면 큰 보폭, 진정되면 보통 걸음
-      p.o.legL.rotation.x = sw; p.o.legR.rotation.x = -sw;
-      p.o.body.rotation.x = (0.17 + bounce * 0.05) * panic;   // 앞으로 기울인 상체도 함께 펴진다
-      if (p.style === 1) {                              // 머리를 감싸고 뛴다
-        p.o.armL.rotation.x = (-2.45 + sw * 0.12) * panic - sw * 0.8 * (1 - panic);
-        p.o.armR.rotation.x = (-2.3 - sw * 0.12) * panic + sw * 0.8 * (1 - panic);
-      } else if (p.style === 2) {                       // 한 팔은 앞으로 뻗어 일행을 이끈다
-        p.o.armL.rotation.x = (-0.95 + sw * 0.18) * panic - sw * 0.8 * (1 - panic);
-        p.o.armR.rotation.x = sw * (1.1 * panic + 0.8 * (1 - panic)) - 0.25 * panic;
-      } else {
-        p.o.armL.rotation.x = -sw * (1.25 * panic + 0.8 * (1 - panic)) - 0.3 * panic;
-        p.o.armR.rotation.x = sw * (1.25 * panic + 0.8 * (1 - panic)) - 0.3 * panic;
-      }
-      // 이따금 불 쪽을 돌아본다 — 불이 꺼지면 돌아보지 않는다
-      const glance = clamp01((Math.sin(tw * 0.5 + p.ph * 13) - 0.55) / 0.45);
-      p.o.headPiv.rotation.y = -1.9 * glance * panic;
-
-      // 켜고 끄는 건 **화면 밖에 있을 때만**. 끝내 안 나가면 HIDE_HARD 에서 강제로 끈다.
-      // snapVis = seek 으로 시간을 건너뛴 경우 — 이전 상태를 끌고 오면 안 되므로 즉시 맞춘다.
-      if (p.on !== want && (snapVis || !inFrame(g) || (!want && cycle >= HIDE_HARD))) p.on = want;
-      g.visible = p.on;
-    }
-    snapVis = false;
-  }
-
-  // ---- 리사이즈 ----
-  let fovK = 1, lookK = 0;
-  function resize() {
-    const w = host.clientWidth || window.innerWidth, h = host.clientHeight || window.innerHeight;
-    const dpr = Math.min(window.devicePixelRatio || 1, LOWEND ? 1.4 : 1.75);
-    renderer.setPixelRatio(dpr);
-    renderer.setSize(w, h, false); camera.aspect = w / h;
-    postSetSize(w, h, dpr);   // 렌더타깃은 setSize 를 안 따라간다 — 직접 맞춰줘야 한다
-    const a = w / h;
-    fovK = a < 0.8 ? 1.58 : a < 1.2 ? 1.32 : a < 1.6 ? 1.12 : 1; // 세로 화면일수록 화각을 넓힌다
-    // 가로 화면은 왼쪽이 헤드라인 자리라 주역을 오른쪽으로 밀지만,
-    // 세로 화면은 헤드라인이 아래로 내려가므로 주역을 화면 가운데로 되돌린다
-    lookK = a < 0.8 ? 1 : a < 1.2 ? 0.62 : a < 1.6 ? 0.22 : 0;
-    camera.updateProjectionMatrix();
-  }
-  window.addEventListener("resize", resize, { passive: true }); resize();
-
-  // =====================================================================
-  //  카메라 — 키프레임 사이를 부드럽게 이동하는 1테이크
-  // =====================================================================
-  // 주역(개구부)은 늘 화면 오른쪽 — 왼쪽은 헤드라인 자리다. 그래서 시선 지점을 주역보다 왼쪽에 둔다
-  // f = 화각. 확립샷은 넓게(개구부가 다 들어오게), 클로즈업은 좁게 — 줌 자체가 연출이 된다
-  const PENC = (PEN.x + DUCT.x) / 2; // 배관+덕트를 한 프레임에 담는 중심
-  // ⚠️ 단면 구도로 바뀌면서 카메라 궤적의 성격이 달라졌다.
-  //    잘린 면이 z = SECT_Z 에 있으므로, **그보다 뒤(z 큼)에 있어야 건물 단면이 보이고**
-  //    그보다 앞(z 작음)으로 들어가면 화재층 **안에** 들어간 시점이 된다.
-  //    구성: 단면 와이드(불난 층 + 멀쩡한 위·아래 층) → 화재층으로 날아 들어가 시공을 보여줌
-  //         → 셔터 차단 → 다시 밖으로 빠져 단면 전체(전부 막힌 상태)로 끝.
-  const SECT_LOOK = [-4, FIRE_Y + 6.0, WALL_Z];   // 단면 와이드에서 볼 지점 — 건물 중간 높이
-  const KEYS = [
-    { t: 0.0,  p: [6, FIRE_Y + 6.5, 96], l: SECT_LOOK, f: 24, sx: -4 },                          // 건물 단면 — 불난 층 + 멀쩡한 위·아래 층
-    { t: 4.6,  p: [11, FIRE_Y + 6.0, 62], l: [-1, FIRE_Y + 5.0, WALL_Z], f: 30, sx: -1 },        // 화재층으로 다가간다
-    { t: 8.4,  p: [13.6, 4.0, 17.4], l: [PENC - 4.6, PEN.y + 0.5, WALL_Z], f: 40, sx: PENC },    // 층 안으로 들어와 관통부 클로즈업
-    { t: 15.9, p: [13.1, 3.9, 16.6], l: [PENC - 4.6, PEN.y + 0.5, WALL_Z], f: 40, sx: PENC },    // 배관→덕트 순서로 시공, 진화까지 지켜보기
-    { t: 19.4, p: [-7.6, 4.5, 21.5], l: [BIG.x - 4.0, BIG.y + 1.0, WALL_Z], f: 46, sx: BIG.x },  // 벽을 따라 대형 개구부로
-    { t: 25.7, p: [-8.4, 4.2, 22.1], l: [BIG.x - 4.0, BIG.y + 1.0, WALL_Z], f: 46, sx: BIG.x },  // 셔터 닫히고 불 꺼지는 것 보기
-    { t: 30.0, p: [7, FIRE_Y + 6.5, 92], l: SECT_LOOK, f: 24, sx: -4 },                          // 다시 밖으로 — 전부 막힌 건물 단면
-    { t: 31.5, p: [6.5, FIRE_Y + 6.4, 95], l: SECT_LOOK, f: 24, sx: -4 },                        // 아주 천천히 정착 — 여기서 끝
-  ];
-  const smooth = (k) => k * k * (3 - 2 * k);
-  const camPos = new THREE.Vector3(), camLook = new THREE.Vector3(), tmpA = new THREE.Vector3(), tmpB = new THREE.Vector3();
-  function placeCamera(cycle, t) {
-    let i = 0; while (i < KEYS.length - 2 && cycle >= KEYS[i + 1].t) i++;
-    const a = KEYS[i], b = KEYS[i + 1];
-    const k = smooth(Math.min(1, Math.max(0, (cycle - a.t) / (b.t - a.t))));
-    camPos.set(a.p[0], a.p[1], a.p[2]).lerp(tmpA.set(b.p[0], b.p[1], b.p[2]), k);
-    const fov = (a.f + (b.f - a.f) * k) * fovK;
-    if (Math.abs(camera.fov - fov) > 0.01) { camera.fov = fov; camera.updateProjectionMatrix(); }
-    camLook.set(a.l[0] + (a.sx - a.l[0]) * lookK, a.l[1], a.l[2])
-      .lerp(tmpB.set(b.l[0] + (b.sx - b.l[0]) * lookK, b.l[1], b.l[2]), k);
-    // 미세한 손떨림 — 정지 구간에서도 살아있게. 단 마지막엔 잦아들어 깔끔하게 멈춘다
-    const steady = 1 - smooth(Math.min(1, Math.max(0, (cycle - (TOTAL - 2.5)) / 2.5)));
-    camPos.x += Math.sin(t * 0.21) * 0.22 * steady; camPos.y += Math.sin(t * 0.17) * 0.12 * steady;
-    camera.position.copy(camPos);
-    camera.lookAt(camLook);
-    // 키라이트·그림자 카메라를 현재 시선 지점으로 이동
-    key.target.position.copy(camLook);
-    key.position.set(camLook.x + 9, camLook.y + 12, camLook.z + 11);
-  }
-
-  // ---- 보드·셔터 애니메이션 ----
-  const easeOut = (k) => 1 - Math.pow(1 - k, 3);
-  const clamp01 = (k) => Math.min(1, Math.max(0, k));
-  let seatPen = 0, seatDkt = 0, coverBig = 0;
-  // 보드의 로컬 원점은 관통재 중심선 — 밀착하면 그대로 개구부 중심에 앉는다
-  function seatBoards(top, bot, o, e) {
-    top.position.set(o.x, o.y + (1 - e) * 4.6, SEATZ);
-    bot.position.set(o.x, o.y - (1 - e) * 4.6, SEATZ);
-    top.rotation.z = (1 - e) * -0.1; bot.rotation.z = (1 - e) * 0.1;
-  }
-  function animBoards(cycle) {
-    // 등장과 동시에 움직인다 — 미리 띄워두면 공중에서 멈췄다 시공되는 것처럼 보인다
-    seatPen = cycle < BOARD_IN ? 0 : easeOut(clamp01((cycle - BOARD_IN) / BOARD_DUR));
-    const onP = cycle >= BOARD_IN;
-    boardTop.visible = boardBot.visible = onP;
-    if (onP) seatBoards(boardTop, boardBot, PEN, seatPen);
-
-    // 덕트는 네 조각이 조금씩 시차를 두고 들어온다. 가장 덜 들어온 조각을 밀폐도로 삼는다
-    let least = 1;
-    for (const p of DUCT_PARTS) {
-      const t0 = DKB_IN + p.lag;
-      const on = cycle >= t0;
-      p.m.visible = on;
-      const e = on ? easeOut(clamp01((cycle - t0) / DKB_DUR)) : 0;
-      if (on) {
-        p.m.position.set(DUCT.x + (1 - e) * p.dx, DUCT.y + (1 - e) * p.dy, SEATZ + (1 - e) * p.dz);
-        p.m.rotation.z = (1 - e) * p.rz;
-      }
-      if (e < least) least = e;
-    }
-    seatDkt = least;
-  }
-  function animShutter(cycle, t) {
-    // 실제 셔터는 등속에 가깝게 내려온다 — 마지막만 살짝 감속
-    const raw = cycle < SHUT_IN ? 0 : clamp01((cycle - SHUT_IN) / SHUT_DUR);
-    const c = raw < 0.85 ? raw : 0.85 + easeOut((raw - 0.85) / 0.15) * 0.15;
-    coverBig = c;
-    const p = shPanel;
-    p.mesh.scale.y = Math.max(0.0001, c);
-    // 스케일로 내리면 직물 무늬가 늘어난다 → UV를 상단 기준으로 잘라 원래 결을 유지
-    p.mat.map.repeat.y = Math.max(0.0001, c);
-    p.mat.map.offset.y = 1 - Math.max(0.0001, c);
-    p.mat.emissiveIntensity = (0.05 + 0.1 * Math.abs(Math.sin(t * 2.4))) * c; // 뒤 화재실 배광
-    const bottom = shTopY - c * shH;
-    for (const s of p.segs) { s.mesh.position.y = bottom - s.sag * c; s.mesh.position.z = SHZ + s.dz * c; }
-    p.barGroup.visible = c > 0.015;
-  }
-
-  // ---- 재생 제어 ----
-  // 바깥(문구 애니메이션)이 재생 시작·종료를 알 수 있게 이벤트를 쏜다
-  function emit(name) {
-    try { host.dispatchEvent(new CustomEvent(name, { bubbles: true })); } catch (e) { /* 구형 브라우저 */ }
-  }
-  const reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  let raf = null, running = false, last = null, elapsed = 0, finished = false;
-
-  function step(t) {
-    const cycle = Math.min(t, TOTAL);   // 루프하지 않는다 — TOTAL에서 멈춘 채 유지
-    animBoards(cycle); animShutter(cycle, t);
-    // ⚠️ 카메라를 먼저 놓는다 — 사람의 화면 안/밖 판정이 **이번 프레임의** 절두체를 써야 한다
-    placeCamera(cycle, t); updateFrustum(); animPeople(t, cycle);
-
-    // 불은 보드가 다 밀착된 **뒤에** 꺼진다 — 진화 순서가 눈에 보이게.
-    // reach = 개구부 밖으로 삐져나오는 정도. 보드가 밀착할수록 불이 안으로 밀려 들어간다
-    // 다섯 번째 인자 = 밀폐도. 연기는 이 값에 따라 즉시 끊긴다(불보다 먼저 사라진다)
-    rigPen.update(t, 1 - clamp01((cycle - PEN_OUT) / PEN_OUT_D), 1 - seatPen * 0.92, undefined, seatPen);
-    rigDkt.update(t, 1 - clamp01((cycle - (PEN_OUT + 0.35)) / PEN_OUT_D), 1 - seatDkt * 0.92, undefined, seatDkt);
-    // 셔터는 다 닫힌 **뒤에** 꺼진다. 닫히는 동안은 불꽃이 셔터 하단 아래로 눌려 사라질 뿐이다
-    rigBig.update(
-      t,
-      (1 - clamp01((cycle - BIG_OUT) / BIG_OUT_D)) * (1 - coverBig * 0.35),
-      1 - coverBig * 0.9,
-      coverBig > 0.008 ? shTopY - coverBig * shH : undefined,
-      coverBig
-    );
-  }
-
-  // ---- 성능 안전장치 ----
-  // ⚠️ 코어 수로는 GPU 성능을 알 수 없다. 코어가 8개여도 내장 그래픽이면 깊이 패스 + 보케에서
-  //    프레임이 무너진다. 그런데 이 필름은 **느려지면 문구가 먼저 튀어나오는** 구조라
-  //    (12초 안전장치) 끊기는 게 그냥 보기 나쁜 정도로 끝나지 않는다.
-  //    → 실제 프레임 시간을 재서 느리면 **렌즈 효과만 끄고** 필름은 그대로 간다.
-  let perfN = 0, perfSum = 0;
-  function watchPerf(dt) {
-    if (perfN < 0 || !PHOTO || bypassPhoto) return;
-    perfN++;
-    if (perfN <= 20) return;            // 앞 20프레임은 셰이더 컴파일 때문에 무조건 느리다
-    perfSum += dt;
-    if (perfN < 80) return;
-    if (perfSum / (perfN - 20) > 0.033) bypassPhoto = true;   // 평균 30fps 미만이면 포기
-    perfN = -1;                         // 판정은 한 번만
-  }
-
-  // 경과 시간을 누적한다 — 스크롤로 벗어났다 돌아와도 처음부터 다시 시작하지 않는다
-  function frame(now) {
-    if (last === null) last = now;
-    const dt = Math.min(0.05, Math.max(0, (now - last) / 1000)); // 탭 복귀 시 시간 점프 방지
-    watchPerf(dt);
-    last = now; elapsed += dt;
-    if (elapsed >= TOTAL) { elapsed = TOTAL; finished = true; }
-    step(elapsed); renderFrame(elapsed);
-    if (finished) {           // 막은 상태로 완료 — 여기서 렌더를 멈추고 끝났음을 알린다
-      running = false; raf = null;
-      emit("herofilm:end");
-      return;
-    }
-    raf = requestAnimationFrame(frame);
-  }
-  function start() { if (running || reduce || finished) return; running = true; last = null; raf = requestAnimationFrame(frame); }
-  function stop() { running = false; last = null; if (raf) cancelAnimationFrame(raf); raf = null; }
-
-  // 초기 프레임: 확립샷(불). reduced-motion이면 결과 화면 — 전부 막힌 완료 상태
-  collectNoDepth();   // 씬이 다 만들어진 뒤에 한 번만 — 깊이 패스에서 뺄 반투명 목록
-  step(reduce ? TOTAL : 0); renderFrame(reduce ? TOTAL : 0);
-  host.classList.add("is-3d");
-  if (reduce) {
-    finished = true;
-    emit("herofilm:end");   // 모션을 줄이는 방문자에게는 문구를 바로 보여준다
-    return { start: function () {}, stop, seek: function () {}, replay: function () {}, total: TOTAL };
-  }
-  emit("herofilm:start");
-
-  document.addEventListener("visibilitychange", function () { if (document.hidden) stop(); else if (isVisible) start(); });
-  let isVisible = true;
-  if ("IntersectionObserver" in window) {
-    new IntersectionObserver(function (es) { es.forEach(function (e) { isVisible = e.isIntersecting; if (isVisible && !document.hidden) start(); else stop(); }); }, { threshold: 0 }).observe(host);
-  }
-  start();
-  // seek/replay — 1회 재생이므로 처음부터 다시 보여줄 수단이 필요하다(검수·재생 버튼용)
-  function seek(sec) {
-    stop();
-    elapsed = Math.min(TOTAL, Math.max(0, sec || 0));
-    finished = elapsed >= TOTAL;
-    snapVis = true;         // 건너뛴 시점의 상태로 바로 맞춘다(이전 프레임의 등/퇴장 상태를 끌고 오지 않게)
-    step(elapsed); renderFrame(elapsed);
-  }
-  function replay() { seek(0); emit("herofilm:start"); start(); }
-  // 검수용 — 1=깊이 2=CoC 3=접지그림자 4=보케. 0 으로 되돌린다.
-  function debug(mode) { matComposite.uniforms.uDebug.value = mode || 0; renderFrame(elapsed); }
-  function photo(on) { bypassPhoto = !on; renderFrame(elapsed); }
-  // 검수용 — 카메라가 실제로 어디에 있는지. 구도가 의도와 다를 때 추측하지 말고 이걸 찍을 것.
+  ids.forEach(buildFloor);
+  // Architectural crown and brand plaque, without adding an extra storey.
+  box(8.3, .22, 5.5, blue, architecture, -.25, LEVEL * 4 - .05, -.1);
+  box(8.05, .1, 5.28, white, architecture, -.25, LEVEL * 4 + .1, -.1);
+  box(3.3, .56, .14, white, architecture, .5, LEVEL * 4 + .32, 2.5);
+  const name = textPlate('DOENC', 1.75, .44); name.position.set(.65, LEVEL * 4 + .32, 2.578); architecture.add(name);
   try {
-    window.__camInfo = function () {
-      const b = new THREE.Box3().setFromObject(scene);
-      return {
-        cam: camera.position.toArray().map((v) => +v.toFixed(2)),
-        look: camLook.toArray().map((v) => +v.toFixed(2)),
-        fov: +camera.fov.toFixed(2), aspect: +camera.aspect.toFixed(3), fovK: fovK,
-        distToLook: +camera.position.distanceTo(camLook).toFixed(2),
-        sceneMin: b.min.toArray().map((v) => +v.toFixed(1)),
-        sceneMax: b.max.toArray().map((v) => +v.toFixed(1)),
-        levels: LEVELS.map((L) => [L.y, +(L.y + L.h).toFixed(2)]), SECT_Z: SECT_Z, WY0: WY0, WY1: WY1,
+    const logo = await new T.TextureLoader().loadAsync(new URL('../images/doenc_mark.png', import.meta.url).href);
+    logo.colorSpace = T.SRGBColorSpace; textures.push(logo);
+    const plane = mesh(new T.PlaneGeometry(.65, .38), new T.MeshBasicMaterial({ map: logo, transparent: true, depthWrite: false }), architecture, -.66, LEVEL * 4 + .32, 2.585);
+    plane.castShadow = false;
+  } catch { /* The wordmark still identifies the building if the optional mark cannot load. */ }
+  for (let n = 0; n < 3; n++) box(9 + n * .5, .08, 6 + n * .5, white, architecture, -.25, -.25 - n * .08, -.1);
+  const floor = mesh(new T.PlaneGeometry(160, 160), mat('#dce5ed', .93), scene, 0, -.5, 0); floor.rotation.x = -Math.PI / 2;
+  scene.add(new T.HemisphereLight('#e4f0ff', '#93a0ad', 1.8));
+  const key = new T.DirectionalLight('#fff7eb', 3.4); key.position.set(-10, 22, 14); key.castShadow = true;
+  key.shadow.mapSize.set(2048, 2048); Object.assign(key.shadow.camera, { left: -13, right: 13, top: 15, bottom: -10, near: 1, far: 60 });
+  key.shadow.normalBias = .012; key.shadow.bias = -.0001; key.shadow.radius = 3; key.target.position.set(0, 5, 0); scene.add(key, key.target);
+  const rim = new T.DirectionalLight('#c3ddff', 2); rim.position.set(6, 14, -9); scene.add(rim);
+  const fill = new T.DirectionalLight('#e8f0ff', .65); fill.position.set(3, 6, 8); scene.add(fill);
+
+  function modelState(m, t, active) {
+    // Hide other floors at the start of the camera move. Fading every bolt and
+    // transparent glass pane caused expensive overdraw on software/mobile GPUs.
+    m.root.visible = !clock.selected || active;
+    m.alpha = m.root.visible ? 1 : 0;
+    if (!m.root.visible) return;
+    const constructionTime = active ? t : 18;
+    m.label.visible = !active;
+    for (const p of m.parts) {
+      const r = ramp(constructionTime, p.start, p.end);
+      p.object.visible = constructionTime >= p.start;
+      p.object.position.copy(p.home).addScaledVector(p.offset, 1 - r);
+    }
+    const fireStart = m.id === 'metal' ? 14 : m.id === 'polymer' ? 11 : 15;
+    const protection = active ? ramp(t, fireStart + .5, 17) : 0;
+    if (m.id === 'polymer') {
+      m.softPipe.scale.set(1 - protection * .98, 1 - protection * .98, 1 - protection * .6);
+      m.softPipe.visible = protection < .96;
+      for (const e of m.expansions) {
+        const pos = e.geometry.attributes.position, original = e.userData.vertices;
+        for (let i = 0; i < pos.count; i++) { const x = original[i * 3], y = original[i * 3 + 1]; const r = Math.hypot(x, y) < .14 ? Math.max(.002, 1 - protection) : 1; pos.setXY(i, x * r, y * r); }
+        pos.needsUpdate = true;
+      }
+    }
+    if (m.id === 'duct') for (const blade of m.damperBlades) blade.rotation.x = Math.PI / 2 * (1 - protection);
+    if (m.id === 'shutter') {
+      const close = active ? .12 + .88 * ramp(t, 3, 15.5) : .22;
+      for (const { curtain, rail } of m.screens) { curtain.scale.y = close; curtain.position.y = 2.63 - 1.3 * close; rail.position.y = 2.63 - 2.6 * close; }
+    }
+    const heat = active && m.id !== 'shutter' ? ramp(t, fireStart, fireStart + 1) * .6 : 0;
+    m.fire.visible = heat > .01; m.fire.material.uniforms.uStrength.value = heat; m.fire.material.uniforms.uTime.value = t;
+    m.glow.intensity = heat * 3;
+    // During construction, a controlled cutaway exposes the mirrored back-side work.
+    const wallCutaway = active && m.id !== 'shutter' && t > 1.5 && t < 17.4 ? .24 : 1;
+    const wm = m.wall.material;
+    const wallTransparent = m.alpha * wallCutaway < .999;
+    if (wm.transparent !== wallTransparent) { wm.transparent = wallTransparent; wm.needsUpdate = true; }
+    wm.opacity = m.alpha * wallCutaway; wm.depthWrite = wallCutaway === 1;
+    for (const surface of m.surfaces) surface.castShadow = m.alpha > .95 && surface.userData.castsShadow;
+    m.wall.castShadow = wallCutaway === 1 && m.alpha > .95;
+  }
+  function frameScene() {
+    for (const id of ids) modelState(models[id], clock.elapsed, id === clock.selected);
+    architecture.visible = !clock.selected || transition < .65;
+    camera.lookAt(target);
+    renderer.render(scene, camera);
+  }
+  function destination() {
+    const portrait = camera.aspect < 1.15;
+    if (clock.selected) {
+      const base = (SYSTEMS[clock.selected].floor - 1) * LEVEL;
+      const poses = {
+        metal: [[1.65, 2.3, 2.55], [0, CY, -.3]],
+        polymer: [[.85, 1.96, 1.6], [0, CY, -.42]],
+        duct: [[3.2, 2.4, 5.3], [0, CY, -.25]],
+        shutter: [[3.6, 2.7, 6.4], [0, 1.4, -.4]],
       };
+      const [pos, look] = poses[clock.selected];
+      toTarget.set(look[0], look[1] + base, look[2]);
+      const fit = portrait ? Math.max(1, 1.4 / camera.aspect) : 1;
+      toPosition.set(pos[0], pos[1] + base, pos[2]).sub(toTarget).multiplyScalar(fit).add(toTarget);
+    } else {
+      toTarget.set(-.35, 6.35, 0);
+      const k = portrait ? 1.28 : 1.05;
+      toPosition.set(15 * k, 11.5, 23 * k);
+    }
+  }
+  function inspect() {
+    const components = {};
+    scene.traverse(o => { const key = o.userData.component; if (key) components[key] = (components[key] || 0) + 1; });
+    return {
+      ...clock, drawCalls: renderer.info.render.calls, visible, transition, camera: camera.position.toArray(), target: target.toArray(), reduced: reduce.matches,
+      components, visibleFloors: ids.filter(id => models[id].root.visible),
+      floors: ids.map(id => ({ id, floor: SYSTEMS[id].floor, y: models[id].root.position.y, parts: models[id].parts.length,
+        installed: models[id].parts.filter(p => p.object.visible).length })),
+      shutter: models.shutter.screens.map(s => ({ scale: s.curtain.scale.y, bottom: s.rail.position.y })),
+      polymer: { pipeVisible: models.polymer.softPipe.visible },
+      damper: models.duct.damperBlades.map(b => b.rotation.x),
     };
-  } catch (e) { /* 검수 훅일 뿐 */ }
-  return { start, stop, seek, replay, debug, photo, total: TOTAL };
+  }
+  function emit() {
+    const steps = clock.selected ? SYSTEMS[clock.selected].steps : [[0, '전체 보기']];
+    let phase = 0;
+    steps.forEach(([at], i) => { if (clock.elapsed >= at) phase = i; });
+    clock.phase = phase;
+    onUpdate({ selected: clock.selected, progress: clock.elapsed / clock.duration, phase, complete: clock.elapsed >= clock.duration, reduced: reduce.matches });
+  }
+  function advance(now) {
+    raf = 0;
+    if (!clock.running || disposed || !visible || document.hidden) return;
+    const dt = last === null ? 0 : Math.min((now - last) / 1000, .1); last = now;
+    transition = Math.min(1, transition + dt / 1.25);
+    const e = smooth(transition);
+    camera.position.lerpVectors(fromPosition, toPosition, e); target.lerpVectors(fromTarget, toTarget, e);
+    if (clock.selected) clock.elapsed = Math.min(clock.duration, clock.elapsed + dt);
+    frameScene(); emit();
+    if ((clock.selected && clock.elapsed < clock.duration) || transition < 1) raf = requestAnimationFrame(advance);
+    else clock.running = false;
+  }
+  function resume() {
+    if (disposed || !visible || document.hidden || raf || reduce.matches) return;
+    if (!clock.selected && transition >= 1) return;
+    if (clock.selected && clock.elapsed >= clock.duration && transition >= 1) return;
+    clock.running = true; last = null; raf = requestAnimationFrame(advance);
+  }
+  function stop() { cancelAnimationFrame(raf); raf = 0; last = null; clock.running = false; }
+  function select(id) {
+    if (id !== null && !ids.includes(id)) return;
+    stop();
+    for (const model of Object.values(models)) model.fadeFrom = model.alpha;
+    clock.selected = id; clock.duration = id ? SYSTEMS[id].duration : 18; clock.elapsed = reduce.matches && id ? clock.duration : 0;
+    fromPosition.copy(camera.position); fromTarget.copy(target); destination(); transition = 0;
+    if (reduce.matches) { camera.position.copy(toPosition); target.copy(toTarget); transition = 1; }
+    frameScene(); emit(); resume();
+  }
+  function seek(seconds) {
+    stop(); clock.elapsed = Math.min(clock.duration, Math.max(0, seconds));
+    camera.position.copy(toPosition); target.copy(toTarget); transition = 1; frameScene(); emit();
+  }
+  function resize() {
+    const { width, height } = host.getBoundingClientRect();
+    if (!width || !height || disposed) return;
+    renderer.setSize(width, height, false); camera.aspect = width / height; camera.updateProjectionMatrix();
+    destination(); camera.position.copy(toPosition); target.copy(toTarget);
+    fromPosition.copy(camera.position); fromTarget.copy(target); transition = 1;
+    frameScene();
+  }
+  function visibility() { if (document.hidden) stop(); else resume(); }
+  function reducedChange() { if (reduce.matches) seek(clock.duration); else frameScene(); }
+  const ro = new ResizeObserver(resize); ro.observe(host);
+  const io = new IntersectionObserver(entries => { visible = entries[0].isIntersecting; if (visible) resume(); else stop(); }, { threshold: .05 }); io.observe(host);
+  document.addEventListener('visibilitychange', visibility); reduce.addEventListener('change', reducedChange);
+  resize(); host.classList.add('is-3d'); emit();
+  function dispose() {
+    disposed = true; stop(); ro.disconnect(); io.disconnect();
+    document.removeEventListener('visibilitychange', visibility); reduce.removeEventListener('change', reducedChange);
+    const geometries = new Set(), materials = new Set();
+    scene.traverse(o => { if (o.geometry) geometries.add(o.geometry); if (o.material) materials.add(o.material); });
+    geometries.forEach(g => g.dispose()); materials.forEach(m => { if (m.map && m.map !== concreteTex && m.map !== fabricTex) m.map.dispose(); m.dispose(); });
+    textures.forEach(texture => texture.dispose()); env.dispose(); renderer.dispose();
+  }
+  return { select, overview: () => select(null), replay: () => select(clock.selected), seek, stop, resume, dispose,
+    getState: inspect };
 }

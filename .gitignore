@@ -5,5 +5,12 @@ company-site/docs/**
 !company-site/docs/**/
 !company-site/docs/**/.gitkeep
 
+# 사용자가 추가한 원본 자료와 전체 내용이 담긴 웹 열람용 PDF도 로컬에 보관한다.
+company-site/assets/자료/
+company-site/assets/docs/*.pdf
+
+# 원본 자료를 포함한 작업 재개용 전체 백업 (공개 저장소 업로드 제외).
+.local-backups/
+
 # 개인 작업물 — 홈페이지와 무관
 call-video/
