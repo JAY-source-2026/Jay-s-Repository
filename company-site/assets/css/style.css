@@ -1,15 +1,15 @@
 /* ===== DOENC — 2nd design system ===== */
 :root {
     --bg: #ffffff;
-    --surface: #f5f6f8;
+    --surface: #f2f5f8;
     --surface-2: #eceef1;
     --paper: #ffffff;
-    --text: #17181d;
+    --text: #203346;
     --muted: #565761;
     --dim: #8b8c95;
     --line: rgba(17, 18, 23, .13);
     --line-soft: rgba(17, 18, 23, .07);
-    --accent: #1668c8;
+    --accent: #2D5682;
     /* 도면 플레이트(어두운 판) 위에서 쓰는 밝은 파랑 */
     --accent-bright: #69b6fa;
     --wrap: 1840px;
@@ -873,6 +873,7 @@ body.lb-lock { overflow: hidden; }
 .board-subj h3 { font-size: 17.5px; font-weight: 600; line-height: 1.45; transition: color .2s ease; }
 .board-row:hover .board-subj h3 { color: var(--accent); }
 .board-excerpt {
+    display: block;
     margin-top: 7px; font-size: 13.5px; color: var(--dim);
     overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
 }
@@ -1072,3 +1073,14 @@ body.lb-lock { overflow: hidden; }
     .seal, .slats, .fx { transition: none; }
     *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
 }
+
+/* Company identity sampled from the supplied logo / signature-colour sheet. */
+:root { --mega-bg: rgba(31, 62, 95, .98); }
+.hd { background: rgba(255, 255, 255, .96); border-bottom-color: #e7edf3; }
+.hd-brand { color: #2D5682; }
+.hd-cta { color: #2D5682; border-color: #b4c5d7; }
+.ft { background: #2D5682; color: #fff; border-top: 0; }
+.ft .brand-mark { filter: brightness(0) invert(1); }
+.ft-info, .ft-copy, .ft-nav { color: #c1d1e2; }
+.ft .to-top { color: #fff; border-color: #6d8cae; }
+.ft .ft-nav a:hover { color: #fff; }
