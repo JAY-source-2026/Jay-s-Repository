@@ -1,5 +1,7 @@
 # 2026-11-03 — 커밋·GitHub Pages 배포 완료
 
+**다음 작업 재개 요청**: 사용자가 “홈페이지 작업 다시 하자”라고 하면 [공개 홈페이지](https://jay-source-2026.github.io/Jay-s-Repository/company-site/) 링크부터 보여주고, 이 기록과 실제 파일을 확인해 아래 완성본에서 이어간다. 편집용 미리보기도 확인하되 단순 재개 요청만으로 디자인을 변경하지 않는다. 이 지침은 다음 날과 이후 대화에도 적용한다.
+
 **아래 제품 단독 보기 완성본을 기존 공개 주소에 커밋·배포했고 실제 공개 동작까지 확인했다.** 사용자가 현재 상태의 커밋·배포를 명시적으로 요청했다.
 
 - **공개 주소**: <https://jay-source-2026.github.io/Jay-s-Repository/company-site/>. GitHub Pages는 `gh-pages` 브랜치의 루트를 서비스한다. `main`에는 소스·생성 이미지·검수 기록을 저장하고, 배포 브랜치에는 홈페이지 실행 파일을 반영한다.
@@ -10,7 +12,7 @@
 - **커밋 범위**: `company-site/`의 홈페이지 작업과 재개 지침 `AGENTS.md`. `company-promo/`, 다른 프로젝트·로컬 백업·원본 자료는 포함하지 않는다.
 - **검수**: 제품·영상·3D 완성본의 검수는 `concepts/single-product-review/`와 아래 각 기록 참조. 공개용 패키지의 233개 내부 파일 참조, 원본 제외·문의 연결·전체 47.29초 영상과 모바일 표시를 추가 확인했다. 실제 공개 주소에서 첫 두 제품·클릭 후 단독 표시·와이어 영상의 높이 유지·3D 초기화를 확인했고 JS/HTTP 오류가 없다. `concepts/deployment-review/package-checks.json` 및 `live-checks.json`에 결과를 보관한다.
 - **로컬 미리보기**: <https://redesigned-fishstick-77vprgr9qxvwcrj59-8000.app.github.dev/>. 포트 8000 서버가 꺼진 경우만 `python3 -m http.server 8000 --bind 0.0.0.0 --directory company-site`로 재실행한다.
-- **직전 전체 로컬 백업**: `.local-backups/doenc-homepage-20261103T082740Z.tar` (279개 파일, 해시 검증 완료). 원본 자료 복구는 해당 백업을 사용한다. 로컬 백업은 Git 커밋·공개 배포 상태와 구분한다.
+- **전체 로컬 백업**: `.local-backups/doenc-homepage-20261103T084358Z.tar` (282개 파일, 해시 검증 완료). 더 최신 백업은 `.local-backups/LATEST.json`을 확인한다. 원본 자료 복구는 전체 백업을 사용한다. 로컬 백업은 Git 커밋·공개 배포 상태와 구분한다.
 
 ---
 
