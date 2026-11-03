@@ -1,0 +1,21 @@
+{
+  "url": "https://jay-source-2026.github.io/Jay-s-Repository/company-site/",
+  "source_commit": "18ba12d11107638cb54ce2456641407c176a40de",
+  "deployment_commit": "053bcc84776f27ef1264187118b40f9fa7f1efb2",
+  "verified_files": [
+    "index.html",
+    "assets/css/signature.css",
+    "assets/js/signature.js",
+    "assets/js/explorer.js",
+    "assets/js/hero3d.js",
+    "assets/js/factory.js"
+  ],
+  "errors": [],
+  "httpErrors": [],
+  "checks": [
+    "Live release and six core files match the verified package",
+    "Images load; initial pair and clicked single product work",
+    "Wire video plays without height change",
+    "3D explorer initializes; no page or site HTTP errors"
+  ]
+}

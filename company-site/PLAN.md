@@ -1,13 +1,14 @@
-# 2026-11-03 — GitHub Pages 커밋·배포 구성
+# 2026-11-03 — 커밋·GitHub Pages 배포 완료
 
-**아래 제품 단독 보기 완성본을 기존 공개 주소에 배포하는 구성이다.** 사용자가 현재 상태의 커밋·배포를 명시적으로 요청했다.
+**아래 제품 단독 보기 완성본을 기존 공개 주소에 커밋·배포했고 실제 공개 동작까지 확인했다.** 사용자가 현재 상태의 커밋·배포를 명시적으로 요청했다.
 
 - **공개 주소**: <https://jay-source-2026.github.io/Jay-s-Repository/company-site/>. GitHub Pages는 `gh-pages` 브랜치의 루트를 서비스한다. `main`에는 소스·생성 이미지·검수 기록을 저장하고, 배포 브랜치에는 홈페이지 실행 파일을 반영한다.
+- **게시 확인**: 홈페이지 소스 커밋 `18ba12d11107638cb54ce2456641407c176a40de`, 배포 커밋 `053bcc84776f27ef1264187118b40f9fa7f1efb2`. GitHub Pages 빌드가 2026-11-03 08:41:29 UTC에 `built`로 완료됐다. 공개 `release.json`의 소스 커밋과 핵심 6개 파일을 대조했고, 쿼리 없는 일반 주소의 메인 HTML도 배포본과 바이트 단위로 일치한다.
 - **현재 기능**: 첫 화면 보드·자켓, 클릭 시 한 제품만 회전하여 중앙 표시, 축소한 실란트와 위로 올린 내화채움재, 네 제품 코드, 상시 메뉴, 고정 높이의 두 셔터 영상, 기존 2층 공장·지하 공동구 3D 소개다.
 - **배포 패키지**: `python3 company-site/tools/prepare-pages.py --output /tmp/새로운-빈-경로`가 지정 커밋(기본 HEAD)의 공개 실행 파일만 준비한다. 배포본 `company-site/release.json`에 소스 커밋을 기록한다. 기존 `gh-pages` 루트의 다른 프로젝트 `index.html`은 유지한다.
 - **원본 자료**: `.gitignore`의 공개 제외 규칙을 유지한다. PDF/PPT 원본과 전체 카탈로그는 업로드하지 않는다. 공개본에서는 관련 링크를 기존 문의 영역으로 연결하며, 하단 셔터 영상은 이미 공개된 동일 47.29초 웹용 영상으로 연결한다. 작업공간 미리보기의 원본 열람 링크와 자료 파일은 보존한다.
 - **커밋 범위**: `company-site/`의 홈페이지 작업과 재개 지침 `AGENTS.md`. `company-promo/`, 다른 프로젝트·로컬 백업·원본 자료는 포함하지 않는다.
-- **검수**: 제품·영상·3D 완성본의 검수는 `concepts/single-product-review/`와 아래 각 기록 참조. 배포 준비에서는 원본 제외, 공개 파일 경로, 자료 문의 연결, 제품 선택·영상 재생을 추가 확인한다. 실제 공개 상태와 소스 커밋은 GitHub Pages 빌드 및 공개 `release.json`으로 확인한다.
+- **검수**: 제품·영상·3D 완성본의 검수는 `concepts/single-product-review/`와 아래 각 기록 참조. 공개용 패키지의 233개 내부 파일 참조, 원본 제외·문의 연결·전체 47.29초 영상과 모바일 표시를 추가 확인했다. 실제 공개 주소에서 첫 두 제품·클릭 후 단독 표시·와이어 영상의 높이 유지·3D 초기화를 확인했고 JS/HTTP 오류가 없다. `concepts/deployment-review/package-checks.json` 및 `live-checks.json`에 결과를 보관한다.
 - **로컬 미리보기**: <https://redesigned-fishstick-77vprgr9qxvwcrj59-8000.app.github.dev/>. 포트 8000 서버가 꺼진 경우만 `python3 -m http.server 8000 --bind 0.0.0.0 --directory company-site`로 재실행한다.
 - **직전 전체 로컬 백업**: `.local-backups/doenc-homepage-20261103T082740Z.tar` (279개 파일, 해시 검증 완료). 원본 자료 복구는 해당 백업을 사용한다. 로컬 백업은 Git 커밋·공개 배포 상태와 구분한다.
 

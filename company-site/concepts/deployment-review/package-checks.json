@@ -1,0 +1,14 @@
+{
+  "source_commit": "18ba12d11107638cb54ce2456641407c176a40de",
+  "checks": [
+    "Static HTML: 233 local references exist; originals excluded",
+    "Initial pair and centered single-product selection",
+    "Wire video plays with fixed display height",
+    "Static and dynamic private-document links lead to contact",
+    "Full 47.29-second public shutter clip plays",
+    "Mobile labels fit; no page or local HTTP errors"
+  ],
+  "duration": 47.291667,
+  "errors": [],
+  "httpErrors": []
+}
