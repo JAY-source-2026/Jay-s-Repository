@@ -1,0 +1,14 @@
+{
+  "tool": "Built-in image_gen.imagegen",
+  "purpose": "Homepage visual direction proposals; fictional architectural mood imagery, not construction project evidence",
+  "prompts": [
+    {
+      "name": "architecture",
+      "prompt": "Create a premium photorealistic architectural photograph for a Korean fire protection engineering company's homepage hero background. A fictional elegant contemporary Korean urban district at blue hour, glass office towers and a refined cultural building, warm softly illuminated windows, small green landscaped foreground. Wide cinematic composition 16:9. The buildings occupy the right 55 percent of the frame, left 45 percent is naturally calm dark navy evening sky and understated darker facade for white text to be added later. Deep steel blue, slate, warm restrained amber lighting. Restrained, real architectural magazine photography, physically plausible perspective, realistic glazing and materials, crisp fine detail, professional tilt-shift 35mm. It should feel established, trustworthy and quiet, not science fiction. No recognizable landmark, no company logos, no writing, no UI, no words, no red fire effects, no technological glowing grid, no collage. This is a concept mood image, not a photograph of an actual company's project."
+    },
+    {
+      "name": "everyday",
+      "prompt": "Create a premium photorealistic architectural interior photograph for a Korean fire protection engineering company's homepage hero background. Fictional spacious contemporary cultural center atrium in Korea, refined warm limestone floor, white structural columns, graceful high glass facade overlooking leafy green trees, calm daylight, warm wood accents. Beautiful architectural proportions, exceptionally clean and sophisticated yet genuinely usable public space. Three very small unidentifiable adults in distant background quietly walking, no faces discernible, about 5 percent of frame height. Wide cinematic 16:9 composition, main open atrium and daylight glazing on right 65 percent, left 35 percent has a gently shaded neutral stone wall and airy calm negative space suitable for large dark text added later. Natural off-white, sand and sage with slight blue sky reflections. Professional architectural magazine photograph, realistic perspective and textures. No company logos, no words, no labels, no UI, no flames, no sci-fi render, no collage. This is a concept mood image, not an actual company's project."
+    }
+  ]
+}

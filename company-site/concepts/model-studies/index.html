@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="ko" data-direction="a">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="theme-color" content="#f5f7f9">
+  <title>DOENC · 모형 중심 디자인 비교</title>
+  <script>const d=new URLSearchParams(location.search).get('direction');document.documentElement.dataset.direction=['a','b','c'].includes(d)?d:'a';</script>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css">
+  <link rel="stylesheet" href="studies.css?v=1">
+</head>
+<body>
+  <a class="skip" href="#main">본문 바로가기</a>
+  <div class="study-bar">
+    <a class="study-home" href="comparison.html">DOENC <span>DESIGN STUDIES</span></a>
+    <nav class="directions" aria-label="디자인 시안 선택">
+      <a href="?direction=a" data-direction-link="a"><b>A</b> 클린 블루</a>
+      <a href="?direction=b" data-direction-link="b"><b>B</b> 딥 네이비</a>
+      <a href="?direction=c" data-direction-link="c"><b>C</b> 아키텍처 갤러리</a>
+    </nav>
+    <a class="current-link" href="../../index.html">현재 홈페이지 ↗</a>
+  </div>
+  <div class="website">
+    <header class="header">
+      <a class="brand" href="../../index.html" aria-label="디오이엔씨 홈페이지"><img src="../../assets/images/doenc_mark.png" width="384" height="220" alt=""><strong>DOENC</strong></a>
+      <nav class="main-nav" aria-label="주요 메뉴"><a href="../../about.html">회사소개</a><a href="#systems">기술과 제품</a><a href="../../archive.html">자료실</a><a href="../../support.html">고객지원</a></nav>
+      <a class="contact-link" href="#contact">기술 상담 <span>↗</span></a>
+    </header>
+    <main id="main">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="eyebrow"><span></span> FIRE SAFETY, BY DESIGN</p>
+          <h1 id="hero-title">기술을 만들고,<br>안전을<br><em>완성합니다.</em></h1>
+          <p class="intro">건물의 작은 틈부터 공간의 경계까지.<br>디오이엔씨의 기술로 안전을 연결합니다.</p>
+          <a class="hero-cta" href="#systems">우리의 기술 살펴보기 <span>↗</span></a>
+          <div class="hero-index"><span>01 — 04</span><p>하나의 건물,<br>네 가지 화재차단 기술.</p></div>
+        </div>
+        <div class="stage" id="model-stage" aria-label="4층 건물의 화재차단 시스템 모형">
+          <canvas id="model-canvas" aria-hidden="true"></canvas>
+          <div class="model-loading" id="model-loading"><span class="loading-mark"></span><p>건물 모형을 불러오고 있습니다.</p></div>
+          <div class="stage-label"><span id="scene-number">DOENC SYSTEM BUILDING</span><span id="scene-name">건물 속 안전을 살펴보세요.</span></div>
+          <div class="stage-actions"><button type="button" id="overview" disabled>전체 보기 <span>⊞</span></button><button type="button" id="replay" disabled>다시 재생 <span>↻</span></button></div>
+          <div class="stage-signature" aria-hidden="true">ENGINEERED BY DOENC <i></i> 04 FLOORS</div>
+        </div>
+        <div class="system-nav" aria-label="층별 시스템 선택">
+          <div class="nav-heading"><span>EXPLORE THE BUILDING</span><p>한 층씩, 더 가까이.</p></div>
+          <button type="button" data-system="metal" aria-pressed="false" disabled><span class="floor-no">01 <small>F</small></span><span class="system-title">금속배관<small>METAL PIPE</small></span><span class="system-arrow">↗</span></button>
+          <button type="button" data-system="polymer" aria-pressed="false" disabled><span class="floor-no">02 <small>F</small></span><span class="system-title">비금속배관<small>NON-METAL PIPE</small></span><span class="system-arrow">↗</span></button>
+          <button type="button" data-system="duct" aria-pressed="false" disabled><span class="floor-no">03 <small>F</small></span><span class="system-title">금속덕트<small>METAL DUCT</small></span><span class="system-arrow">↗</span></button>
+          <button type="button" data-system="shutter" aria-pressed="false" disabled><span class="floor-no">04 <small>F</small></span><span class="system-title">스크린셔터<small>SCREEN SHUTTER</small></span><span class="system-arrow">↗</span></button>
+        </div>
+        <div class="hero-footer"><span id="status" role="status">층을 선택하면 시공과 작동 과정을 보여드립니다.</span><a href="#systems">아래로 둘러보기 ↓</a></div>
+      </section>
+      <section class="system-details" id="systems" aria-labelledby="detail-title">
+        <div class="detail-head"><p class="eyebrow" id="detail-kicker">A CLOSER LOOK AT SAFETY</p><h2 id="detail-title">보이지 않는 곳까지,<br>설계된 안전.</h2></div>
+        <div class="detail-body"><p id="detail-copy">배관과 덕트가 벽을 지나는 곳, 그리고 넓게 열린 공간. 각 층의 시스템을 선택해 실제 제품과 인정도면을 바탕으로 구성한 구조를 살펴보세요.</p><div class="detail-links" id="detail-links"><a href="../../assets/docs/doenc-catalog-2025-web.pdf" target="_blank" rel="noopener">제품 카탈로그 ↗</a><a href="../../archive.html">기술자료 찾기 ↗</a></div><div class="progress" id="progress" hidden><span></span></div><p class="step" id="step"></p></div>
+        <p class="model-note">구조 이해를 위한 모형입니다. 시공 순서와 작동 시간은 설명을 위해 축약했습니다.</p>
+      </section>
+      <section class="materials" aria-labelledby="materials-title">
+        <div class="section-heading"><div><p class="eyebrow">MATERIALS & ENGINEERING</p><h2 id="materials-title">정확한 자재가 만드는 차이.</h2></div><a href="../../assets/docs/doenc-catalog-2025-web.pdf" target="_blank" rel="noopener">전체 카탈로그 <span>↗</span></a></div>
+        <div class="material-grid">
+          <a href="../../assets/docs/doenc-catalog-2025-web.pdf#page=6" target="_blank" rel="noopener"><span>01 / BOARD</span><img src="../../assets/images/products/board.webp" alt="SFB-100F 내화채움보드" loading="lazy"><small>SFB-100F</small><h3>내화채움보드 <i>↗</i></h3></a>
+          <a href="../../assets/docs/doenc-catalog-2025-web.pdf#page=7" target="_blank" rel="noopener"><span>02 / JACKET</span><img src="../../assets/images/products/jacket.webp" alt="SFBA-200 내화자켓" loading="lazy"><small>SFBA-200</small><h3>내화자켓 <i>↗</i></h3></a>
+          <a href="../../assets/docs/doenc-catalog-2025-web.pdf#page=9" target="_blank" rel="noopener"><span>03 / BLANKET</span><img src="../../assets/images/products/blanket.webp" alt="SFI-100 세라믹섬유블랭킷" loading="lazy"><small>SFI-100</small><h3>세라믹섬유블랭킷 <i>↗</i></h3></a>
+        </div>
+      </section>
+      <section class="contact" id="contact"><div><p class="eyebrow">LET’S BUILD SAFETY TOGETHER</p><h2>현장의 조건을 알려주세요.<br>필요한 기술을 연결하겠습니다.</h2></div><a href="../../index.html#contact">기술 상담하기 <span>↗</span></a></section>
+    </main>
+    <footer class="footer"><strong>DOENC</strong><span>주식회사 디오이엔씨 · 화재차단 전문기업</span><a href="tel:029252992">02-925-2992 ↗</a></footer>
+  </div>
+  <script type="module" src="studies.js?v=1"></script>
+</body>
+</html>

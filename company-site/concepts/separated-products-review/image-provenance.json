@@ -1,0 +1,42 @@
+{
+  "method": "Built-in image_gen edit, transparent_background=true",
+  "references": [
+    "assets/media/hero/doenc-product-campaign-v1.png",
+    "assets/images/products/board.webp",
+    "assets/images/products/jacket.webp"
+  ],
+  "web_conversion": "FFmpeg libwebp quality 90; original generated PNG and alpha preserved. No crop or geometry edit.",
+  "caption": "실제 제품 기반 연출 이미지",
+  "constraints": "Separate whole products; no mutual occlusion or white card background. Existing source files retained. Generated visuals are not technical recognition evidence.",
+  "prompts": "assets/media/hero/separated-products-prompts.json",
+  "files": {
+    "assets/media/hero/doenc-product-campaign-v1.png": {
+      "bytes": 1829207,
+      "sha256": "a86badf7d8d507be5b603d6c2999f0b74e8896b9dbb6a8862aecc1ddfa3d8be1"
+    },
+    "assets/images/products/board.webp": {
+      "bytes": 10522,
+      "sha256": "88cd7af3e0001be86523ef426c9e0d5119444e88bfde7c8559e8fb24926c734b"
+    },
+    "assets/images/products/jacket.webp": {
+      "bytes": 41370,
+      "sha256": "bcd32d3b88e000d8d1d5d947e3d4c5a0aad7ca4aab23f16d27cbe6109a5ad794"
+    },
+    "assets/media/hero/doenc-board-isolated-v1.png": {
+      "bytes": 1097375,
+      "sha256": "61319b5c1cb0e6eb83ca47a02f17b1b566999503015b5bf6041f77f9ada20e5f"
+    },
+    "assets/media/hero/doenc-board-isolated-v1.webp": {
+      "bytes": 106068,
+      "sha256": "193b89604d12ee970e2505b6242d6854d3fb13aece2e080abeb1b00308930bf8"
+    },
+    "assets/media/hero/doenc-jacket-isolated-v1.png": {
+      "bytes": 1404437,
+      "sha256": "b41eb3ff4843d71801414f175f6366a3f5a647ebd1996368c8428cdaafa01833"
+    },
+    "assets/media/hero/doenc-jacket-isolated-v1.webp": {
+      "bytes": 209516,
+      "sha256": "17115f7a3ffd5eaa13a8aceebd31af015295dfb668785efbc5ad60ef73a5308d"
+    }
+  }
+}

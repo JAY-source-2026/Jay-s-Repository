@@ -1,0 +1,69 @@
+{
+  "viewports": [
+    {
+      "width": 320,
+      "overflow": false,
+      "productClearOfMenu": true,
+      "submenuFits": true
+    },
+    {
+      "width": 390,
+      "overflow": false,
+      "productClearOfMenu": true,
+      "submenuFits": true
+    },
+    {
+      "width": 761,
+      "overflow": false,
+      "productClearOfMenu": true,
+      "submenuFits": true
+    },
+    {
+      "width": 820,
+      "overflow": false,
+      "productClearOfMenu": true,
+      "submenuFits": true
+    },
+    {
+      "width": 1180,
+      "overflow": false,
+      "productClearOfMenu": true,
+      "submenuFits": true
+    },
+    {
+      "width": 1440,
+      "overflow": false,
+      "productClearOfMenu": true,
+      "submenuFits": true
+    },
+    {
+      "width": 1920,
+      "overflow": false,
+      "productClearOfMenu": true,
+      "submenuFits": true
+    }
+  ],
+  "checks": [
+    "Category hover reveals children; each product moves to the foreground.",
+    "Both correct sources play on selection; full portrait duration and framing preserved; controls and offscreen pause work.",
+    "Keyboard focus, arrow navigation and Escape work.",
+    "Selected scene remains in place beyond the former automatic rotation interval.",
+    "Technology link and existing five-system model selection remain operational.",
+    "Real touch context: parent tap, product selection and both videos work.",
+    "Reduced motion: no automatic footage or transitions; explicit video choice still plays.",
+    "Failed footage shows a direct file link; switching to another video recovers."
+  ],
+  "errors": [],
+  "failedAssets": [],
+  "wireVideo": {
+    "width": 720,
+    "height": 1280,
+    "duration": 140.033333,
+    "controls": true,
+    "fit": "contain"
+  },
+  "accessibility": {
+    "duplicates": [],
+    "missing": []
+  }
+}

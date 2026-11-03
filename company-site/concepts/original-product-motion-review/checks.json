@@ -1,0 +1,61 @@
+{
+  "checks": [
+    "Original campaign file restored without white panels; menu hover enlarges each product and pointer leave restores the exact original image.",
+    "Hovering the products in the photo also enlarges the correct product and resets on leave.",
+    "Keyboard preview, arrow navigation and Escape restoration work.",
+    "Both existing shutter choices still load and play their correct video.",
+    "Touch selects either product and tapping outside restores the original.",
+    "Reduced-motion preference disables animation while preserving product selection."
+  ],
+  "viewports": [
+    {
+      "width": 320,
+      "overflow": false,
+      "productClipping": false,
+      "menuOverlap": false
+    },
+    {
+      "width": 390,
+      "overflow": false,
+      "productClipping": false,
+      "menuOverlap": false
+    },
+    {
+      "width": 761,
+      "overflow": false,
+      "productClipping": false,
+      "menuOverlap": false
+    },
+    {
+      "width": 820,
+      "overflow": false,
+      "productClipping": false,
+      "menuOverlap": false
+    },
+    {
+      "width": 1180,
+      "overflow": false,
+      "productClipping": false,
+      "menuOverlap": false
+    },
+    {
+      "width": 1440,
+      "overflow": false,
+      "productClipping": false,
+      "menuOverlap": false
+    },
+    {
+      "width": 1920,
+      "overflow": false,
+      "productClipping": false,
+      "menuOverlap": false
+    }
+  ],
+  "errors": [],
+  "failedAssets": [],
+  "accessibility": {
+    "duplicates": [],
+    "missing": []
+  },
+  "visual_finish": "Softened native SVG mask edges and captured final desktop jacket render after functional checks."
+}

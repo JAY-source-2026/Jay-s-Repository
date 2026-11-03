@@ -1,0 +1,15 @@
+{
+  "checks": [
+    "overview restores all systems and complete routes",
+    "keyboard previews polymer",
+    "keyboard starts installation",
+    "existing real hero video still plays",
+    "video pause control",
+    "WebGL fallback retains useful documents",
+    "no uncaught errors or missing local assets"
+  ],
+  "errors": [],
+  "localHTTP": [],
+  "screenshots": [],
+  "passed": true
+}

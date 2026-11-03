@@ -1,0 +1,91 @@
+{
+  "date": "2026-11-03",
+  "generator": "Built-in image_gen, transparent_background=true",
+  "prompts": "assets/media/hero/carousel-products-prompts.json",
+  "web_conversion": "FFmpeg libwebp, quality 90, compression level 6, yuva420p; no crop or geometry change",
+  "scope": "Actual-product-based promotional illustrations; not technical drawings or proof of performance. Source photographs remain unchanged in materials section.",
+  "band_assumption": "Requested 내화채움재 uses catalog SFBA-120 내화밴드 (blue package); optional identification question pending.",
+  "products": [
+    {
+      "key": "sealant",
+      "reference": "assets/images/products/sealant.webp",
+      "style_reference": "assets/media/hero/doenc-jacket-isolated-v1.webp",
+      "dimensions": [
+        783,
+        2009
+      ],
+      "png_color_type": 6,
+      "files": {
+        "png": {
+          "path": "assets/media/hero/doenc-sealant-isolated-v1.png",
+          "sha256": "6f47e4991698231ee92bf73408f93c8a614987fb364183475d1217ccdf92c883",
+          "size": 1163778
+        },
+        "webp": {
+          "path": "assets/media/hero/doenc-sealant-isolated-v1.webp",
+          "sha256": "3b5623fb666228fe37a5100deed2996e8942b53cf08442dc5994f8dfc8637bb0",
+          "size": 98592
+        }
+      }
+    },
+    {
+      "key": "blanket",
+      "reference": "assets/images/products/blanket.webp",
+      "style_reference": "assets/media/hero/doenc-jacket-isolated-v1.webp",
+      "dimensions": [
+        1276,
+        1233
+      ],
+      "png_color_type": 6,
+      "files": {
+        "png": {
+          "path": "assets/media/hero/doenc-blanket-isolated-v1.png",
+          "sha256": "cb3d3c13ad8d818c9ff86e04af7b0dd719aff5a0b9570ed94d563c11cbfbaa70",
+          "size": 3176339
+        },
+        "webp": {
+          "path": "assets/media/hero/doenc-blanket-isolated-v1.webp",
+          "sha256": "0a46a4f629be31964afcfc8b931abb68cbbdcb6da728bc29e189d50b791dcf9e",
+          "size": 528550
+        }
+      }
+    },
+    {
+      "key": "band",
+      "reference": "assets/images/products/band.webp",
+      "style_reference": "assets/media/hero/doenc-jacket-isolated-v1.webp",
+      "dimensions": [
+        1828,
+        860
+      ],
+      "png_color_type": 6,
+      "files": {
+        "png": {
+          "path": "assets/media/hero/doenc-band-isolated-v1.png",
+          "sha256": "30ca2ef271158db069d97804d9e0fed8fbd1726f4e51e2971ee778f49feb05af",
+          "size": 929045
+        },
+        "webp": {
+          "path": "assets/media/hero/doenc-band-isolated-v1.webp",
+          "sha256": "40a28754c65150773432b4bfb7a22c0b18e321e41d552a86901bfc8558c0e6f0",
+          "size": 156854
+        }
+      }
+    }
+  ],
+  "unchanged_verified_against": "doenc-homepage-20261103T073322Z.manifest.json",
+  "unchanged_files": [
+    "assets/images/products/board.webp",
+    "assets/images/products/jacket.webp",
+    "assets/images/products/sealant.webp",
+    "assets/images/products/blanket.webp",
+    "assets/images/products/band.webp",
+    "assets/media/hero/doenc-board-isolated-v1.webp",
+    "assets/media/hero/doenc-jacket-isolated-v1.webp",
+    "assets/media/hero/shutter-operation.mp4",
+    "assets/media/hero/wire-shutter-operation.mp4",
+    "assets/js/explorer.js",
+    "assets/js/hero3d.js",
+    "assets/css/home.css"
+  ]
+}

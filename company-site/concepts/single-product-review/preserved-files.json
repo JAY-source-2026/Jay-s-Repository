@@ -1,0 +1,16 @@
+{
+  "verified_against": "doenc-homepage-20261103T081135Z.manifest.json",
+  "files": [
+    "assets/media/hero/doenc-board-isolated-v1.webp",
+    "assets/media/hero/doenc-jacket-isolated-v1.webp",
+    "assets/media/hero/doenc-sealant-isolated-v1.webp",
+    "assets/media/hero/doenc-blanket-isolated-v1.webp",
+    "assets/media/hero/doenc-band-isolated-v1.webp",
+    "assets/media/hero/shutter-operation.mp4",
+    "assets/media/hero/wire-shutter-operation.mp4",
+    "assets/js/explorer.js",
+    "assets/js/hero3d.js",
+    "assets/css/home.css"
+  ],
+  "result": "All files unchanged; layout and interaction edits only."
+}

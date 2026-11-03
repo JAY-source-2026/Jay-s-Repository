@@ -1,0 +1,93 @@
+{
+  "checks": [
+    "Two complete transparent image assets replace the old overlapping SVG masks. Each product responds to its menu and restores on pointer leave.",
+    "Images remain separated and fully on-screen throughout repeated hover transitions at seven viewport widths.",
+    "Direct image hover, image keyboard focus, menu arrows and Escape work.",
+    "Standard and wire shutter selections still play the correct footage.",
+    "Existing technology link and five-system explorer remain usable.",
+    "Mobile touch selection and outside-tap restoration work.",
+    "Reduced motion disables the animation while keeping product selection."
+  ],
+  "viewports": [
+    {
+      "width": 320,
+      "minimumGap": 14.3,
+      "overlap": false,
+      "clipping": false,
+      "captionOverlap": false,
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "minimumGap": 17.9,
+      "overlap": false,
+      "clipping": false,
+      "captionOverlap": false,
+      "overflow": false
+    },
+    {
+      "width": 761,
+      "minimumGap": 21.5,
+      "overlap": false,
+      "clipping": false,
+      "captionOverlap": false,
+      "overflow": false
+    },
+    {
+      "width": 820,
+      "minimumGap": 23.2,
+      "overlap": false,
+      "clipping": false,
+      "captionOverlap": false,
+      "overflow": false
+    },
+    {
+      "width": 1180,
+      "minimumGap": 33.4,
+      "overlap": false,
+      "clipping": false,
+      "captionOverlap": false,
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "minimumGap": 41,
+      "overlap": false,
+      "clipping": false,
+      "captionOverlap": false,
+      "overflow": false
+    },
+    {
+      "width": 1920,
+      "minimumGap": 44.9,
+      "overlap": false,
+      "clipping": false,
+      "captionOverlap": false,
+      "overflow": false
+    }
+  ],
+  "errors": [],
+  "failedAssets": [],
+  "alpha": [
+    {
+      "src": "assets/media/hero/doenc-board-isolated-v1.webp",
+      "width": 1510,
+      "height": 1041,
+      "transparentRatio": 0.5883110356190876,
+      "solidAlphaRatio": 0.3897729513776234,
+      "cornerAlpha": 0
+    },
+    {
+      "src": "assets/media/hero/doenc-jacket-isolated-v1.webp",
+      "width": 1312,
+      "height": 1199,
+      "transparentRatio": 0.6135613519396245,
+      "solidAlphaRatio": 0.3637317174881507,
+      "cornerAlpha": 0
+    }
+  ],
+  "references": {
+    "duplicates": [],
+    "missing": []
+  }
+}

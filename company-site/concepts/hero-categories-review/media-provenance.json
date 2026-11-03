@@ -1,0 +1,49 @@
+{
+  "source": "assets/자료/권취형 셔터.mp4",
+  "derived": "assets/media/hero/wire-shutter-operation.mp4",
+  "conversion": {
+    "duration_seconds": 140.033333,
+    "source_dimensions": [
+      1080,
+      1920
+    ],
+    "dimensions": [
+      720,
+      1280
+    ],
+    "video": "H.264",
+    "pixel_format": "yuv420p",
+    "crf": 24,
+    "audio": "removed",
+    "crop": false,
+    "speed_change": false,
+    "reverse": false,
+    "poster": "first original frame"
+  },
+  "files": {
+    "assets/images/products/board.webp": {
+      "bytes": 10522,
+      "sha256": "88cd7af3e0001be86523ef426c9e0d5119444e88bfde7c8559e8fb24926c734b"
+    },
+    "assets/images/products/jacket.webp": {
+      "bytes": 41370,
+      "sha256": "bcd32d3b88e000d8d1d5d947e3d4c5a0aad7ca4aab23f16d27cbe6109a5ad794"
+    },
+    "assets/자료/권취형 셔터.mp4": {
+      "bytes": 56391753,
+      "sha256": "02a3e821e4cc358ff70608e27cf9728cb1b0fcaa33254a80a4e079751cf93c71"
+    },
+    "assets/media/hero/shutter-operation.mp4": {
+      "bytes": 947993,
+      "sha256": "30559167b1134c0d00f95ceeac0422dc0f5a0bd718668456a2e99bc1cc3aef44"
+    },
+    "assets/media/hero/wire-shutter-operation.mp4": {
+      "bytes": 22199779,
+      "sha256": "1da8be288a136c026a45eed30d947a9d382083e0f63321f5fdd4d1dc0afb437a"
+    },
+    "assets/media/hero/wire-shutter-poster.jpg": {
+      "bytes": 152662,
+      "sha256": "295523b0cc628a73a4bd618cc2615f74b814e1dcb4d0e7ac6514cc69e671505e"
+    }
+  }
+}

@@ -1,0 +1,99 @@
+[
+  {
+    "check": "automatic transition and video playback",
+    "pass": true,
+    "video": {
+      "time": 1.0557,
+      "width": 848,
+      "height": 480,
+      "duration": 12,
+      "muted": true
+    }
+  },
+  {
+    "check": "pause, resume and hover pause",
+    "pass": true
+  },
+  {
+    "check": "moved 3D hover and installation",
+    "pass": true,
+    "state": {
+      "mode": "install",
+      "selected": "metal",
+      "boards": [
+        {
+          "half": "upper",
+          "face": 1,
+          "visible": true,
+          "offset": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "half": "lower",
+          "face": 1,
+          "visible": true,
+          "offset": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "half": "upper",
+          "face": -1,
+          "visible": false,
+          "offset": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "half": "lower",
+          "face": -1,
+          "visible": false,
+          "offset": [
+            0,
+            0,
+            0
+          ]
+        }
+      ]
+    }
+  },
+  {
+    "check": "utility tunnel remains in 3D section",
+    "pass": true
+  },
+  {
+    "check": "390px layout, reduced motion, deliberate video play, menu",
+    "pass": true
+  },
+  {
+    "check": "320px layout, reduced motion, deliberate video play, menu",
+    "pass": true
+  },
+  {
+    "check": "820px layout, reduced motion, deliberate video play, menu",
+    "pass": true
+  },
+  {
+    "check": "no browser errors or failed local assets",
+    "pass": true
+  },
+  {
+    "check": "Complete scene cycle and keyboard pause/selection",
+    "pass": true
+  },
+  {
+    "check": "WebGL fallback with lazy loading",
+    "pass": true
+  },
+  {
+    "check": "Final 3D overview visually checked",
+    "pass": true
+  }
+]

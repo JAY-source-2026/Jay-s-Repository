@@ -1,0 +1,61 @@
+{
+  "results": [
+    {
+      "width": 1440,
+      "height": 1000,
+      "pass": true,
+      "hero": {
+        "x": 0,
+        "y": 0,
+        "width": 1440,
+        "height": 968
+      }
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "pass": true,
+      "hero": {
+        "x": 0,
+        "y": 0,
+        "width": 390,
+        "height": 801.953125
+      }
+    },
+    {
+      "width": 320,
+      "height": 844,
+      "pass": true,
+      "hero": {
+        "x": 0,
+        "y": 0,
+        "width": 320,
+        "height": 735.25
+      }
+    },
+    {
+      "width": 820,
+      "height": 1100,
+      "pass": true,
+      "hero": {
+        "x": 0,
+        "y": 0,
+        "width": 820,
+        "height": 756
+      }
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "pass": true,
+      "hero": {
+        "x": 0,
+        "y": 0,
+        "width": 1920,
+        "height": 1048
+      }
+    }
+  ],
+  "errors": [],
+  "bad": []
+}

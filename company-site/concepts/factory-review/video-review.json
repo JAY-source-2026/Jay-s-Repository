@@ -1,0 +1,31 @@
+{
+  "original": {
+    "file": "company-site/assets/자료/셔터 영상.mp4",
+    "duration": 47.29,
+    "width": 848,
+    "height": 480,
+    "finding": "Actual descent, but person visible throughout left side; first frame already partly lowered, so topmost starting position absent."
+  },
+  "new": {
+    "file": "company-site/assets/자료/권취형 셔터.mp4",
+    "duration": 140.03,
+    "width": 1080,
+    "height": 1920,
+    "finding": "Upward motion from low position toward overhead case. Scissor lift and operator visible. Not a people-free descent."
+  },
+  "result": "Neither original contains a complete, people-free descent from fully open to closed. No replacement video generated or applied.",
+  "options": [
+    "Right-hand screen crop from original removes person visually but omits left screen and does not restore missing topmost starting position.",
+    "Capture new tripod shot of full descent with people out of frame.",
+    "Separately commissioned video object removal and reconstruction would be edited/synthesized, not an unmodified actual shot. New source reversal would also be edited and would not remove people."
+  ],
+  "frames": [
+    "old-000.jpg",
+    "new-000.jpg",
+    "old-contact.jpg",
+    "new-080.jpg",
+    "new-contact.jpg",
+    "old-044.jpg",
+    "new-138.jpg"
+  ]
+}

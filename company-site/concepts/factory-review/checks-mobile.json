@@ -1,0 +1,19 @@
+{
+  "checks": [
+    "mobile caption and steps fit 390",
+    "mobile caption and steps fit 320",
+    "reduced motion shows completed wall",
+    "mobile navigation opens",
+    "no uncaught errors or missing local assets"
+  ],
+  "errors": [],
+  "localHTTP": [],
+  "screenshots": [
+    "hero-mobile.png",
+    "factory-mobile.png",
+    "duct-mobile.png",
+    "duct-mobile-320.png",
+    "firewall-mobile.png"
+  ],
+  "passed": true
+}

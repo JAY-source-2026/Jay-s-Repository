@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>DOENC · 첫 화면 디자인 제안</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="index.html"><img src="../../assets/images/doenc_mark.png" alt=""><span>DOENC<small>주식회사 디오이엔씨</small></span></a>
+    <nav aria-label="주 메뉴"><a href="../../about.html">회사소개</a><a href="#technology">화재차단 기술</a><a href="../../archive.html">기술자료</a><a href="../../support.html#notice">고객지원</a></nav>
+    <a class="header-contact" href="tel:029252992">02-925-2992 <span>↗</span></a>
+  </header>
+  <main>
+    <section class="hero" id="hero"></section>
+    <section class="technology" id="technology">
+      <div class="technology-title"><span>EXPLORE OUR TECHNOLOGY</span><h2>디오이엔씨의 화재차단 기술</h2></div>
+      <p class="technology-lead">건물 속 설치 위치부터 시공 과정까지.<br>제품을 선택해 디오이엔씨의 기술을 살펴보세요.</p>
+      <div class="below-preview"><div class="categories"><div><small>내화채움구조</small><p>금속배관</p><p>비금속배관</p><p>금속덕트</p></div><div><small>방화셔터</small><p>스크린셔터</p></div><div><small>내화구조</small><p>내화벽체</p></div><a href="../../index.html#home">현재 3D 모델 체험하기 ↗</a></div><div class="model-position"><strong>3D 건물 · 지하 공동구</strong><p>현재 제작된 모델과 제품 메뉴가<br>이 두 번째 영역에 배치됩니다.</p><a href="../../index.html#home">현재 모델 열기 ↗</a></div></div>
+    </section>
+  </main>
+  <footer class="proposal-footer"><a href="index.html">← 세 가지 시안 비교</a><p id="image-note"></p></footer>
+  <script>
+    const concepts = {
+      a:{cls:'architecture',kicker:'FIRE PROTECTION, BUILT BY DOENC',title:'우리는 기술을 만들고<br>기술은 안전을 만듭니다.',description:'내화채움구조부터 내화벽체와 방화셔터까지.<br>건축물과 지하 시설의 안전을 위한 화재차단 기술.',note:'A · 도시와 건축 / 사진은 방향 검토용 AI 이미지입니다.',art:'<img class="hero-photo" src="assets/architecture.png" alt="푸른 저녁, 불이 켜진 현대적인 도시 건축물 콘셉트">'},
+      b:{cls:'product',kicker:'PRECISION IN EVERY DETAIL',title:'작은 디테일이<br>큰 안전을 만듭니다.',description:'관통부의 틈부터 공간의 경계까지.<br>직접 개발한 제품과 시공 기술로 화재의 확산을 막습니다.',note:'B · 정밀한 제품과 기술 / 디오이엔씨의 실제 제품 사진을 사용했습니다.',art:'<div class="product-stage"><div class="product-grid"></div><img class="board" src="../../assets/images/products/board.webp" alt="디오이엔씨 내화보드"><img class="jacket" src="../../assets/images/products/jacket.webp" alt="디오이엔씨 내화자켓"><div class="product-legend"><span>내화보드</span><span>내화자켓</span><b>DOENC FIRESTOP SYSTEM</b></div></div>'},
+      c:{cls:'everyday',kicker:'ENGINEERING FOR EVERYDAY SAFETY',title:'공간의 안전을 넘어,<br>일상의 안심으로.',description:'사람이 머무는 모든 공간을 생각합니다.<br>더 안전한 일상을 위한 디오이엔씨의 화재차단 기술.',note:'C · 공간과 일상 / 사진은 방향 검토용 AI 이미지입니다.',art:'<img class="hero-photo" src="assets/everyday.png" alt="햇살과 녹음이 들어오는 공공건축물 아트리움 콘셉트">'}
+    };
+    const key=new URLSearchParams(location.search).get('concept') || 'a';
+    const c=concepts[key] || concepts.a;
+    document.title=`DOENC · ${key.toUpperCase()}안 첫 화면`;
+    const hero=document.getElementById('hero');hero.classList.add(c.cls);
+    hero.innerHTML=c.art+`<div class="hero-shade"></div><div class="hero-copy"><p class="kicker">${c.kicker}</p><h1>${c.title}</h1><p class="lead">${c.description}</p><div class="actions"><a class="primary" href="#technology">화재차단 기술 보기 <span>↓</span></a><a class="secondary" href="../../about.html">회사소개 <span>↗</span></a></div></div><div class="hero-bottom"><span class="since">SINCE 1999</span><span class="fields">내화채움구조 <i>·</i> 내화구조 <i>·</i> 방화셔터</span><a href="#technology" class="scroll">기술을 만나보세요 <span>↓</span></a></div>`;
+    document.getElementById('image-note').textContent=c.note;
+  </script>
+</body>
+</html>

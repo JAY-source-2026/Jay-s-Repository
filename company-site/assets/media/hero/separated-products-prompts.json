@@ -1,0 +1,27 @@
+{
+  "method": "Built-in image_gen, two separate transparent assets",
+  "jobs": [
+    {
+      "key": "board",
+      "args": {
+        "transparent_background": true,
+        "referenced_image_paths": [
+          "/workspaces/Jay-s-Repository/company-site/assets/media/hero/doenc-product-campaign-v1.png",
+          "/workspaces/Jay-s-Repository/company-site/assets/images/products/board.webp"
+        ],
+        "prompt": "Edit/extract for an existing DOENC website. Image 1 is the current navy campaign composition and the target visual style. Image 2 is the real firestop board reference and supplies the complete unobstructed geometry. Output ONLY the firestop BOARD as one complete isolated product, with the jacket entirely removed and the hidden board region faithfully completed using Image 2. Preserve Image 1's premium cool studio lighting, realistic white board surface, thin metal-faced edge, camera perspective and flat reclining orientation. The complete rectangular board consists of exactly two fitted halves, a single straight split through a circular center opening; all four outer corners and the complete center opening must be visible. The inner opening is truly transparent too. Keep the board thin as in the references. No ring/jacket, no loose brackets, no extra product, no backdrop or card, no pedestal, no border, no floor, no cast shadow, no text or labels. Genuinely transparent alpha background, never a white rectangle or checkerboard drawn into the pixels. Center the complete board with generous transparent margin (about 10 percent on every side); large, sharp, photorealistic asset. This asset will be placed directly over navy #071321 beside a separate jacket, so no white halo and no clipped edges."
+      }
+    },
+    {
+      "key": "jacket",
+      "args": {
+        "transparent_background": true,
+        "referenced_image_paths": [
+          "/workspaces/Jay-s-Repository/company-site/assets/media/hero/doenc-product-campaign-v1.png",
+          "/workspaces/Jay-s-Repository/company-site/assets/images/products/jacket.webp"
+        ],
+        "prompt": "Edit/extract for an existing DOENC website. Image 1 is the current navy campaign composition and the edit target. Image 2 is the real firestop jacket reference for geometry. Output ONLY the upright circular metal firestop JACKET ring as a complete isolated product. Preserve Image 1's same viewpoint, premium cool studio lighting, galvanized silver metal exterior, black inner firestop lining, folded silver tabs, realistic metal texture and small attached golden fasteners. Remove the board completely, including the white board fragment visible through the ring opening. The entire central opening must be genuinely transparent. Remove the detached stack of L brackets; keep only the single main jacket with its attached parts. Preserve the existing product identity and perspective, do not redesign the ring or invent attachments. All outside edges and attached fasteners are complete and unobstructed. No board, no other product, no background or card, no pedestal, no border, no floor, no cast shadow, no text or labels. Genuinely transparent alpha background, never white or a baked-in checkerboard. Center the complete jacket at about 80 percent of canvas height with transparent margin on every side, photorealistic and sharp. It will be placed directly on navy #071321 beside a separate board; keep natural edges without a white halo."
+      }
+    }
+  ]
+}

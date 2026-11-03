@@ -1,0 +1,8 @@
+{
+  "image": "assets/media/hero/doenc-product-campaign-v1.webp",
+  "sha256": "2e723f79242be92b70b7760c72655b694639b7de5a4c00f05f331cb8b68c8f70",
+  "source_file_modified": false,
+  "raster_generation_or_editing": false,
+  "interaction": "SVG masks reveal regions of the same image; CSS enlarges each product on pointer/focus, restores the original on leave.",
+  "caption": "실제 제품 기반 연출 이미지"
+}

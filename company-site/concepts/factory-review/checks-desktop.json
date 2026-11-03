@@ -1,0 +1,543 @@
+{
+  "checks": [
+    "no horizontal overflow 1440",
+    "two floors; three routes through slab",
+    "one first-floor shutter assembly; underground preserved",
+    "slab geometry has openings",
+    "slow preview without installation",
+    "installation waits for camera",
+    "metal boards install sequentially on front only",
+    "preview shows full route",
+    "hover exit restores previous selection and time",
+    "metal all numbered captions synchronized",
+    "metal caption stays above model",
+    "metal close-up unobstructed by riser",
+    "polymer all numbered captions synchronized",
+    "polymer caption stays above model",
+    "polymer close-up unobstructed by riser",
+    "duct all numbered captions synchronized",
+    "duct caption stays above model",
+    "duct close-up unobstructed by riser",
+    "shutter all numbered captions synchronized",
+    "shutter caption stays above model",
+    "3D shutter moves from top to floor",
+    "firewall all numbered captions synchronized",
+    "firewall caption stays above model",
+    "firewall rear hidden during installation"
+  ],
+  "errors": [],
+  "localHTTP": [],
+  "screenshots": [
+    "hero-desktop.png",
+    "factory-desktop.png",
+    "metal-route.png",
+    "metal-install.png",
+    "polymer-route.png",
+    "metal-install.png",
+    "polymer-install.png",
+    "duct-install.png",
+    "shutter-install.png",
+    "firewall-install.png",
+    "duct-route.png"
+  ],
+  "initial": {
+    "selected": null,
+    "mode": "overview",
+    "elapsed": 0,
+    "duration": 18,
+    "phase": 0,
+    "running": false,
+    "drawCalls": 1141,
+    "visible": true,
+    "transition": 1,
+    "transitionSeconds": 2.4,
+    "camera": [
+      11.651498792045864,
+      11.677725280235224,
+      38.07294084713949
+    ],
+    "target": [
+      -0.10291807998806846,
+      1.098750095404684,
+      0.4588068566309058
+    ],
+    "reduced": false,
+    "components": {
+      "factory-slab": 5,
+      "slab-with-service-openings": 4,
+      "metal-board": 8,
+      "metal-interfloor-route": 1,
+      "polymer-jacket": 4,
+      "polymer-bracket": 48,
+      "polymer-interfloor-route": 1,
+      "damper-actuator": 2,
+      "duct-board": 40,
+      "duct-interfloor-route": 1,
+      "shutter-screen": 2,
+      "operation-switch": 1,
+      "two-storey-factory": 1,
+      "roof-ventilation": 10,
+      "earth-section": 1,
+      "ground-surface": 1,
+      "tree": 4,
+      "utility-tunnel": 1,
+      "cable-racks": 1,
+      "firewall-runner": 1,
+      "firewall-stud": 22,
+      "firewall-bracing": 1,
+      "firewall-board": 62,
+      "context-door": 1
+    },
+    "factory": {
+      "storeys": 2,
+      "width": 27.2,
+      "level": 3.3,
+      "routes": {
+        "metal": {
+          "from": [
+            -7.8,
+            1.65,
+            -0.55
+          ],
+          "through": [
+            -7.8,
+            3.3,
+            1.5999999999999999
+          ],
+          "to": [
+            -7.8,
+            4.949999999999999,
+            -0.55
+          ]
+        },
+        "polymer": {
+          "from": [
+            -3.6,
+            1.65,
+            -0.55
+          ],
+          "through": [
+            -3.6,
+            3.3,
+            1.5999999999999999
+          ],
+          "to": [
+            -3.6,
+            4.949999999999999,
+            -0.55
+          ]
+        },
+        "duct": {
+          "from": [
+            1.2,
+            1.65,
+            -0.55
+          ],
+          "through": [
+            1.2,
+            3.3,
+            1.9000000000000001
+          ],
+          "to": [
+            1.2,
+            4.949999999999999,
+            -0.55
+          ]
+        }
+      }
+    },
+    "routeVisibility": {
+      "metal": true,
+      "polymer": true,
+      "duct": true
+    },
+    "visibleFloors": [
+      "metal",
+      "polymer",
+      "duct",
+      "shutter",
+      "firewall"
+    ],
+    "floors": [
+      {
+        "id": "metal",
+        "floor": 1,
+        "y": 0,
+        "parts": 18,
+        "installed": 18
+      },
+      {
+        "id": "polymer",
+        "floor": 1,
+        "y": 0,
+        "parts": 6,
+        "installed": 6
+      },
+      {
+        "id": "duct",
+        "floor": 1,
+        "y": 0,
+        "parts": 32,
+        "installed": 32
+      },
+      {
+        "id": "shutter",
+        "floor": 1,
+        "y": 0,
+        "parts": 0,
+        "installed": 0
+      },
+      {
+        "id": "firewall",
+        "floor": 0,
+        "y": -4.95,
+        "parts": 57,
+        "installed": 57
+      }
+    ],
+    "shutter": [
+      {
+        "scale": 0.16,
+        "bottom": 2.214
+      },
+      {
+        "scale": 0.16,
+        "bottom": 2.214
+      }
+    ],
+    "polymer": {
+      "pipeVisible": true
+    },
+    "damper": [
+      1.5707963267948966,
+      1.5707963267948966,
+      1.5707963267948966
+    ],
+    "wallsOpaque": true,
+    "metalBoards": [
+      {
+        "half": "upper",
+        "face": 1,
+        "visible": true,
+        "offset": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "half": "lower",
+        "face": 1,
+        "visible": true,
+        "offset": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "half": "upper",
+        "face": -1,
+        "visible": true,
+        "offset": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "half": "lower",
+        "face": -1,
+        "visible": true,
+        "offset": [
+          0,
+          0,
+          0
+        ]
+      }
+    ],
+    "firewall": {
+      "boardSize": [
+        0.914,
+        0.6,
+        0.00984
+      ],
+      "thickness": 0.11968,
+      "studXs": [
+        -3.199,
+        -2.899,
+        -2.585,
+        -2.2849999999999997,
+        -1.9849999999999997,
+        -1.6709999999999998,
+        -1.3709999999999996,
+        -1.0709999999999997,
+        -0.7569999999999998,
+        -0.45699999999999974,
+        -0.15699999999999986,
+        0.15700000000000014,
+        0.4570000000000002,
+        0.7570000000000003,
+        1.0710000000000002,
+        1.3710000000000004,
+        1.6710000000000005,
+        1.9850000000000003,
+        2.2850000000000006,
+        2.585,
+        2.899,
+        3.1990000000000003
+      ],
+      "rearVisible": true,
+      "installedFrontBoards": 31
+    }
+  },
+  "metal": {
+    "selected": "metal",
+    "mode": "install",
+    "elapsed": 3.5,
+    "duration": 18,
+    "phase": 2,
+    "running": false,
+    "drawCalls": 11,
+    "visible": true,
+    "transition": 1,
+    "transitionSeconds": 1.8,
+    "camera": [
+      -6.15,
+      2.3,
+      2.55
+    ],
+    "target": [
+      -7.8,
+      1.65,
+      -0.3
+    ],
+    "reduced": false,
+    "components": {
+      "factory-slab": 5,
+      "slab-with-service-openings": 4,
+      "metal-board": 8,
+      "metal-interfloor-route": 1,
+      "polymer-jacket": 4,
+      "polymer-bracket": 48,
+      "polymer-interfloor-route": 1,
+      "damper-actuator": 2,
+      "duct-board": 40,
+      "duct-interfloor-route": 1,
+      "shutter-screen": 2,
+      "operation-switch": 1,
+      "two-storey-factory": 1,
+      "roof-ventilation": 10,
+      "earth-section": 1,
+      "ground-surface": 1,
+      "tree": 4,
+      "utility-tunnel": 1,
+      "cable-racks": 1,
+      "firewall-runner": 1,
+      "firewall-stud": 22,
+      "firewall-bracing": 1,
+      "firewall-board": 62,
+      "context-door": 1
+    },
+    "factory": {
+      "storeys": 2,
+      "width": 27.2,
+      "level": 3.3,
+      "routes": {
+        "metal": {
+          "from": [
+            -7.8,
+            1.65,
+            -0.55
+          ],
+          "through": [
+            -7.8,
+            3.3,
+            1.5999999999999999
+          ],
+          "to": [
+            -7.8,
+            4.949999999999999,
+            -0.55
+          ]
+        },
+        "polymer": {
+          "from": [
+            -3.6,
+            1.65,
+            -0.55
+          ],
+          "through": [
+            -3.6,
+            3.3,
+            1.5999999999999999
+          ],
+          "to": [
+            -3.6,
+            4.949999999999999,
+            -0.55
+          ]
+        },
+        "duct": {
+          "from": [
+            1.2,
+            1.65,
+            -0.55
+          ],
+          "through": [
+            1.2,
+            3.3,
+            1.9000000000000001
+          ],
+          "to": [
+            1.2,
+            4.949999999999999,
+            -0.55
+          ]
+        }
+      }
+    },
+    "routeVisibility": {
+      "metal": false,
+      "polymer": false,
+      "duct": false
+    },
+    "visibleFloors": [
+      "metal"
+    ],
+    "floors": [
+      {
+        "id": "metal",
+        "floor": 1,
+        "y": 0,
+        "parts": 18,
+        "installed": 2
+      },
+      {
+        "id": "polymer",
+        "floor": 1,
+        "y": 0,
+        "parts": 6,
+        "installed": 6
+      },
+      {
+        "id": "duct",
+        "floor": 1,
+        "y": 0,
+        "parts": 32,
+        "installed": 32
+      },
+      {
+        "id": "shutter",
+        "floor": 1,
+        "y": 0,
+        "parts": 0,
+        "installed": 0
+      },
+      {
+        "id": "firewall",
+        "floor": 0,
+        "y": -4.95,
+        "parts": 57,
+        "installed": 57
+      }
+    ],
+    "shutter": [
+      {
+        "scale": 0.16,
+        "bottom": 2.214
+      },
+      {
+        "scale": 0.16,
+        "bottom": 2.214
+      }
+    ],
+    "polymer": {
+      "pipeVisible": true
+    },
+    "damper": [
+      1.5707963267948966,
+      1.5707963267948966,
+      1.5707963267948966
+    ],
+    "wallsOpaque": true,
+    "metalBoards": [
+      {
+        "half": "upper",
+        "face": 1,
+        "visible": true,
+        "offset": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "half": "lower",
+        "face": 1,
+        "visible": true,
+        "offset": [
+          0,
+          -0.3555555555555556,
+          0.20740740740740743
+        ]
+      },
+      {
+        "half": "upper",
+        "face": -1,
+        "visible": false,
+        "offset": [
+          0,
+          0,
+          0
+        ]
+      },
+      {
+        "half": "lower",
+        "face": -1,
+        "visible": false,
+        "offset": [
+          0,
+          0,
+          0
+        ]
+      }
+    ],
+    "firewall": {
+      "boardSize": [
+        0.914,
+        0.6,
+        0.00984
+      ],
+      "thickness": 0.11968,
+      "studXs": [
+        -3.199,
+        -2.899,
+        -2.585,
+        -2.2849999999999997,
+        -1.9849999999999997,
+        -1.6709999999999998,
+        -1.3709999999999996,
+        -1.0709999999999997,
+        -0.7569999999999998,
+        -0.45699999999999974,
+        -0.15699999999999986,
+        0.15700000000000014,
+        0.4570000000000002,
+        0.7570000000000003,
+        1.0710000000000002,
+        1.3710000000000004,
+        1.6710000000000005,
+        1.9850000000000003,
+        2.2850000000000006,
+        2.585,
+        2.899,
+        3.1990000000000003
+      ],
+      "rearVisible": true,
+      "installedFrontBoards": 31
+    }
+  },
+  "passed": false,
+  "failure": "page.evaluate: Target page, context or browser has been closed\n    at /tmp/doenc-browser/review.mjs:42:55"
+}

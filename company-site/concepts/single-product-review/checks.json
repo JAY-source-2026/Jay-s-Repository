@@ -1,0 +1,67 @@
+{
+  "checks": [
+    "Initial board/jacket pair retained. Product menu hover/focus leaves the opening pair intact; clicking brings exactly one centered product through a rolling transition. Only that product can receive focus. Four requested codes are exact; no code on 내화채움재.",
+    "Rapid repeat clicks settle on the final choice. Arrow/Home/End focus navigation and Enter/Space activation work; Escape returns to category heading.",
+    "At seven widths, product/standard/wire scenes have identical heights and menu positions. No horizontal overflow or clipped labels. Reduced motion switches immediately.",
+    "Both existing shutter videos play; returning to a product pauses video. Original 3D overview captions remain hidden.",
+    "Mobile touch selects one product and plays compact wire footage; original pair appears on fresh load."
+  ],
+  "layouts": [
+    {
+      "width": 320,
+      "stageHeight": 205,
+      "navTop": 572.0625,
+      "unchangedAcrossScenes": true,
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "stageHeight": 219.59375,
+      "navTop": 600.15625,
+      "unchangedAcrossScenes": true,
+      "overflow": false
+    },
+    {
+      "width": 761,
+      "stageHeight": 292,
+      "navTop": 410,
+      "unchangedAcrossScenes": true,
+      "overflow": false
+    },
+    {
+      "width": 820,
+      "stageHeight": 292,
+      "navTop": 410,
+      "unchangedAcrossScenes": true,
+      "overflow": false
+    },
+    {
+      "width": 1180,
+      "stageHeight": 402,
+      "navTop": 520,
+      "unchangedAcrossScenes": true,
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "stageHeight": 470.390625,
+      "navTop": 642.84375,
+      "unchangedAcrossScenes": true,
+      "overflow": false
+    },
+    {
+      "width": 1920,
+      "stageHeight": 502,
+      "navTop": 658.65625,
+      "unchangedAcrossScenes": true,
+      "overflow": false
+    }
+  ],
+  "errors": [],
+  "httpErrors": [],
+  "productAdjustments": {
+    "sealantMax": "88%",
+    "bandLift": 58.40625,
+    "bandMargin": 58.4062
+  }
+}

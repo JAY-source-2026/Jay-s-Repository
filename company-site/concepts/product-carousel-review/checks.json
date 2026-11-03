@@ -1,0 +1,752 @@
+{
+  "checks": [
+    "All seven menu choices stay visible at seven widths. Original board/jacket sizes preserved within 0.15px; category headings moved upward. Captions visually removed. No overflow or clipped button text.",
+    "Every product rolls into the left front position with two unoccluded products at rest. Quick repeated hover finishes at the last selection; pointer exit retains selection. Intermediate frames use depth, curved travel and Y rotation.",
+    "Keyboard arrows, Home/End and Escape work without hiding menus; hidden products cannot receive focus. Reduced motion selects immediately.",
+    "Both original videos still load and play after explicit selection; both menu groups remain visible. Returning to products pauses video.",
+    "Existing 3D overview still initializes and its removed captions remain hidden.",
+    "Touch selects each scene and returns to products without stuck hover or hidden menus."
+  ],
+  "sizes": [
+    {
+      "width": 320,
+      "overflow": false,
+      "nav": {
+        "x": 22,
+        "y": 572.0625,
+        "width": 276,
+        "height": 265,
+        "top": 572.0625,
+        "right": 298,
+        "bottom": 837.0625,
+        "left": 22
+      },
+      "images": [
+        {
+          "key": "board",
+          "x": 22.002166748046875,
+          "y": 445.234375,
+          "width": 130.046875,
+          "height": 89.640625,
+          "top": 445.234375,
+          "right": 152.04904174804688,
+          "bottom": 534.875,
+          "left": 22.002166748046875
+        },
+        {
+          "key": "jacket",
+          "x": 174.1359100341797,
+          "y": 426.875,
+          "width": 123.85939025878906,
+          "height": 113.1875,
+          "top": 426.875,
+          "right": 297.99530029296875,
+          "bottom": 540.0625,
+          "left": 174.1359100341797
+        }
+      ],
+      "caption": {
+        "x": 21,
+        "y": 366.0625,
+        "width": 1,
+        "height": 1,
+        "top": 366.0625,
+        "right": 22,
+        "bottom": 367.0625,
+        "left": 21
+      },
+      "buttons": [
+        {
+          "width": 67,
+          "scrollWidth": 67,
+          "height": 42
+        },
+        {
+          "width": 67,
+          "scrollWidth": 67,
+          "height": 42
+        },
+        {
+          "width": 142,
+          "scrollWidth": 142,
+          "height": 42
+        },
+        {
+          "width": 142,
+          "scrollWidth": 142,
+          "height": 42
+        },
+        {
+          "width": 142,
+          "scrollWidth": 142,
+          "height": 42
+        },
+        {
+          "width": 114,
+          "scrollWidth": 114,
+          "height": 42
+        },
+        {
+          "width": 114,
+          "scrollWidth": 114,
+          "height": 48
+        }
+      ],
+      "sizeDeltas": [
+        {
+          "key": "board",
+          "width": 0,
+          "height": 0
+        },
+        {
+          "key": "jacket",
+          "width": -0.0156097412109375,
+          "height": -0.015625
+        }
+      ],
+      "categoryMovedUp": 30
+    },
+    {
+      "width": 390,
+      "overflow": false,
+      "nav": {
+        "x": 22,
+        "y": 600.15625,
+        "width": 346,
+        "height": 267.390625,
+        "top": 600.15625,
+        "right": 368,
+        "bottom": 867.546875,
+        "left": 22
+      },
+      "images": [
+        {
+          "key": "board",
+          "x": 22.001983642578125,
+          "y": 449.25,
+          "width": 163.03125,
+          "height": 112.390625,
+          "top": 449.25,
+          "right": 185.03323364257812,
+          "bottom": 561.640625,
+          "left": 22.001983642578125
+        },
+        {
+          "key": "jacket",
+          "x": 212.71697998046875,
+          "y": 426.25,
+          "width": 155.28125,
+          "height": 141.90625,
+          "top": 426.25,
+          "right": 367.99822998046875,
+          "bottom": 568.15625,
+          "left": 212.71697998046875
+        }
+      ],
+      "caption": {
+        "x": 21,
+        "y": 379.5625,
+        "width": 1,
+        "height": 1,
+        "top": 379.5625,
+        "right": 22,
+        "bottom": 380.5625,
+        "left": 21
+      },
+      "buttons": [
+        {
+          "width": 87,
+          "scrollWidth": 87,
+          "height": 42
+        },
+        {
+          "width": 87,
+          "scrollWidth": 87,
+          "height": 42
+        },
+        {
+          "width": 181,
+          "scrollWidth": 181,
+          "height": 42
+        },
+        {
+          "width": 181,
+          "scrollWidth": 181,
+          "height": 42
+        },
+        {
+          "width": 181,
+          "scrollWidth": 181,
+          "height": 42
+        },
+        {
+          "width": 145,
+          "scrollWidth": 145,
+          "height": 42
+        },
+        {
+          "width": 145,
+          "scrollWidth": 145,
+          "height": 42
+        }
+      ],
+      "sizeDeltas": [
+        {
+          "key": "board",
+          "width": 0,
+          "height": 0
+        },
+        {
+          "key": "jacket",
+          "width": -0.015625,
+          "height": 0
+        }
+      ],
+      "categoryMovedUp": 30
+    },
+    {
+      "width": 761,
+      "overflow": false,
+      "nav": {
+        "x": 326.234375,
+        "y": 427.125,
+        "width": 400.53125,
+        "height": 255.75,
+        "top": 427.125,
+        "right": 726.765625,
+        "bottom": 682.875,
+        "left": 326.234375
+      },
+      "images": [
+        {
+          "key": "board",
+          "x": 318.1123962402344,
+          "y": 253.984375,
+          "width": 196.26565551757812,
+          "height": 135.296875,
+          "top": 253.984375,
+          "right": 514.3780517578125,
+          "bottom": 389.28125,
+          "left": 318.1123962402344
+        },
+        {
+          "key": "jacket",
+          "x": 547.9564208984375,
+          "y": 226.296875,
+          "width": 186.9375,
+          "height": 170.828125,
+          "top": 226.296875,
+          "right": 734.8939208984375,
+          "bottom": 397.125,
+          "left": 547.9564208984375
+        }
+      ],
+      "caption": {
+        "x": 325.234375,
+        "y": 134.125,
+        "width": 1,
+        "height": 1,
+        "top": 134.125,
+        "right": 326.234375,
+        "bottom": 135.125,
+        "left": 325.234375
+      },
+      "buttons": [
+        {
+          "width": 102,
+          "scrollWidth": 102,
+          "height": 42
+        },
+        {
+          "width": 102,
+          "scrollWidth": 102,
+          "height": 42
+        },
+        {
+          "width": 212,
+          "scrollWidth": 212,
+          "height": 42
+        },
+        {
+          "width": 212,
+          "scrollWidth": 212,
+          "height": 42
+        },
+        {
+          "width": 212,
+          "scrollWidth": 212,
+          "height": 42
+        },
+        {
+          "width": 169,
+          "scrollWidth": 169,
+          "height": 42
+        },
+        {
+          "width": 169,
+          "scrollWidth": 169,
+          "height": 42
+        }
+      ],
+      "sizeDeltas": [
+        {
+          "key": "board",
+          "width": -0.015594482421875,
+          "height": -0.015625
+        },
+        {
+          "key": "jacket",
+          "width": 0.015625,
+          "height": 0.015625
+        }
+      ],
+      "categoryMovedUp": 66.375
+    },
+    {
+      "width": 820,
+      "overflow": false,
+      "nav": {
+        "x": 350.375,
+        "y": 427.125,
+        "width": 432.734375,
+        "height": 255.75,
+        "top": 427.125,
+        "right": 783.109375,
+        "bottom": 682.875,
+        "left": 350.375
+      },
+      "images": [
+        {
+          "key": "board",
+          "x": 342.3000183105469,
+          "y": 242.90625,
+          "width": 211.43753051757812,
+          "height": 145.765625,
+          "top": 242.90625,
+          "right": 553.737548828125,
+          "bottom": 388.671875,
+          "left": 342.3000183105469
+        },
+        {
+          "key": "jacket",
+          "x": 589.783447265625,
+          "y": 213.09375,
+          "width": 201.390625,
+          "height": 184.03125,
+          "top": 213.09375,
+          "right": 791.174072265625,
+          "bottom": 397.125,
+          "left": 589.783447265625
+        }
+      ],
+      "caption": {
+        "x": 349.375,
+        "y": 134.125,
+        "width": 1,
+        "height": 1,
+        "top": 134.125,
+        "right": 350.375,
+        "bottom": 135.125,
+        "left": 349.375
+      },
+      "buttons": [
+        {
+          "width": 111,
+          "scrollWidth": 111,
+          "height": 42
+        },
+        {
+          "width": 111,
+          "scrollWidth": 111,
+          "height": 42
+        },
+        {
+          "width": 230,
+          "scrollWidth": 230,
+          "height": 42
+        },
+        {
+          "width": 230,
+          "scrollWidth": 230,
+          "height": 42
+        },
+        {
+          "width": 230,
+          "scrollWidth": 230,
+          "height": 42
+        },
+        {
+          "width": 184,
+          "scrollWidth": 184,
+          "height": 42
+        },
+        {
+          "width": 184,
+          "scrollWidth": 184,
+          "height": 42
+        }
+      ],
+      "sizeDeltas": [
+        {
+          "key": "board",
+          "width": -0.015594482421875,
+          "height": 0
+        },
+        {
+          "key": "jacket",
+          "width": 0,
+          "height": 0
+        }
+      ],
+      "categoryMovedUp": 66.375
+    },
+    {
+      "width": 1180,
+      "overflow": false,
+      "nav": {
+        "x": 497.609375,
+        "y": 520,
+        "width": 629.296875,
+        "height": 255.75,
+        "top": 520,
+        "right": 1126.90625,
+        "bottom": 775.75,
+        "left": 497.609375
+      },
+      "images": [
+        {
+          "key": "board",
+          "x": 489.6807556152344,
+          "y": 268.234375,
+          "width": 304.0625305175781,
+          "height": 209.609375,
+          "top": 268.234375,
+          "right": 793.7432861328125,
+          "bottom": 477.84375,
+          "left": 489.6807556152344
+        },
+        {
+          "key": "jacket",
+          "x": 845.215087890625,
+          "y": 225.359375,
+          "width": 289.59375,
+          "height": 264.640625,
+          "top": 225.359375,
+          "right": 1134.808837890625,
+          "bottom": 490,
+          "left": 845.215087890625
+        }
+      ],
+      "caption": {
+        "x": 496.609375,
+        "y": 117,
+        "width": 1,
+        "height": 1,
+        "top": 117,
+        "right": 497.609375,
+        "bottom": 118,
+        "left": 496.609375
+      },
+      "buttons": [
+        {
+          "width": 166,
+          "scrollWidth": 166,
+          "height": 42
+        },
+        {
+          "width": 166,
+          "scrollWidth": 166,
+          "height": 42
+        },
+        {
+          "width": 339,
+          "scrollWidth": 339,
+          "height": 42
+        },
+        {
+          "width": 339,
+          "scrollWidth": 339,
+          "height": 42
+        },
+        {
+          "width": 339,
+          "scrollWidth": 339,
+          "height": 42
+        },
+        {
+          "width": 271,
+          "scrollWidth": 271,
+          "height": 42
+        },
+        {
+          "width": 271,
+          "scrollWidth": 271,
+          "height": 42
+        }
+      ],
+      "sizeDeltas": [
+        {
+          "key": "board",
+          "width": -0.015594482421875,
+          "height": -0.015625
+        },
+        {
+          "key": "jacket",
+          "width": -0.015625,
+          "height": -0.015625
+        }
+      ],
+      "categoryMovedUp": 48
+    },
+    {
+      "width": 1440,
+      "overflow": false,
+      "nav": {
+        "x": 597.578125,
+        "y": 642.84375,
+        "width": 777.609375,
+        "height": 210.6875,
+        "top": 642.84375,
+        "right": 1375.1875,
+        "bottom": 853.53125,
+        "left": 597.578125
+      },
+      "images": [
+        {
+          "key": "board",
+          "x": 589.47265625,
+          "y": 340.109375,
+          "width": 373.9375,
+          "height": 257.78125,
+          "top": 340.109375,
+          "right": 963.41015625,
+          "bottom": 597.890625,
+          "left": 589.47265625
+        },
+        {
+          "key": "jacket",
+          "x": 1027.115478515625,
+          "y": 287.359375,
+          "width": 356.171875,
+          "height": 325.484375,
+          "top": 287.359375,
+          "right": 1383.287353515625,
+          "bottom": 612.84375,
+          "left": 1027.115478515625
+        }
+      ],
+      "caption": {
+        "x": 596.578125,
+        "y": 171.453125,
+        "width": 1,
+        "height": 1,
+        "top": 171.453125,
+        "right": 597.578125,
+        "bottom": 172.453125,
+        "left": 596.578125
+      },
+      "buttons": [
+        {
+          "width": 204,
+          "scrollWidth": 204,
+          "height": 42
+        },
+        {
+          "width": 204,
+          "scrollWidth": 204,
+          "height": 42
+        },
+        {
+          "width": 204,
+          "scrollWidth": 204,
+          "height": 42
+        },
+        {
+          "width": 204,
+          "scrollWidth": 204,
+          "height": 42
+        },
+        {
+          "width": 204,
+          "scrollWidth": 204,
+          "height": 42
+        },
+        {
+          "width": 332,
+          "scrollWidth": 332,
+          "height": 42
+        },
+        {
+          "width": 332,
+          "scrollWidth": 332,
+          "height": 42
+        }
+      ],
+      "sizeDeltas": [
+        {
+          "key": "board",
+          "width": -0.015625,
+          "height": -0.015625
+        },
+        {
+          "key": "jacket",
+          "width": 0,
+          "height": 0
+        }
+      ],
+      "categoryMovedUp": 59.84375
+    },
+    {
+      "width": 1920,
+      "overflow": false,
+      "nav": {
+        "x": 827.03125,
+        "y": 658.65625,
+        "width": 852.96875,
+        "height": 210.6875,
+        "top": 658.65625,
+        "right": 1680,
+        "bottom": 869.34375,
+        "left": 827.03125
+      },
+      "images": [
+        {
+          "key": "board",
+          "x": 819.0254516601562,
+          "y": 330.015625,
+          "width": 409.45306396484375,
+          "height": 282.265625,
+          "top": 330.015625,
+          "right": 1228.478515625,
+          "bottom": 612.28125,
+          "left": 819.0254516601562
+        },
+        {
+          "key": "jacket",
+          "x": 1298.019775390625,
+          "y": 272.265625,
+          "width": 389.984375,
+          "height": 356.390625,
+          "top": 272.265625,
+          "right": 1688.004150390625,
+          "bottom": 628.65625,
+          "left": 1298.019775390625
+        }
+      ],
+      "caption": {
+        "x": 826.03125,
+        "y": 155.65625,
+        "width": 1,
+        "height": 1,
+        "top": 155.65625,
+        "right": 827.03125,
+        "bottom": 156.65625,
+        "left": 826.03125
+      },
+      "buttons": [
+        {
+          "width": 225,
+          "scrollWidth": 225,
+          "height": 42
+        },
+        {
+          "width": 225,
+          "scrollWidth": 225,
+          "height": 42
+        },
+        {
+          "width": 225,
+          "scrollWidth": 225,
+          "height": 42
+        },
+        {
+          "width": 225,
+          "scrollWidth": 225,
+          "height": 42
+        },
+        {
+          "width": 225,
+          "scrollWidth": 225,
+          "height": 42
+        },
+        {
+          "width": 366,
+          "scrollWidth": 366,
+          "height": 42
+        },
+        {
+          "width": 366,
+          "scrollWidth": 366,
+          "height": 42
+        }
+      ],
+      "sizeDeltas": [
+        {
+          "key": "board",
+          "width": -0.01568603515625,
+          "height": -0.015625
+        },
+        {
+          "key": "jacket",
+          "width": 0,
+          "height": 0
+        }
+      ],
+      "categoryMovedUp": 59.84375
+    }
+  ],
+  "selections": [
+    {
+      "key": "board",
+      "gap": 41.26904296875,
+      "fronts": [
+        "board",
+        "jacket"
+      ]
+    },
+    {
+      "key": "jacket",
+      "gap": 46.78033447265625,
+      "fronts": [
+        "jacket",
+        "sealant"
+      ]
+    },
+    {
+      "key": "sealant",
+      "gap": 41.810302734375,
+      "fronts": [
+        "sealant",
+        "blanket"
+      ]
+    },
+    {
+      "key": "blanket",
+      "gap": 41.810302734375,
+      "fronts": [
+        "blanket",
+        "band"
+      ]
+    },
+    {
+      "key": "band",
+      "gap": 37.364990234375,
+      "fronts": [
+        "band",
+        "board"
+      ]
+    }
+  ],
+  "errors": [],
+  "httpErrors": [],
+  "transition": {
+    "rolling": true,
+    "transforms": [
+      "translateX(-50%) translate3d(57.6658px, 13.5643px, 34.2532px) rotateY(-13.2526deg)",
+      "translateX(-50%) translate3d(364.054px, -48.3103px, -121.996px) rotateY(21.3074deg)",
+      "translateX(-50%) translate3d(173.476px, -127.543px, -322.077px) rotateY(55.8674deg)",
+      "translateX(-50%) translate3d(-250.694px, -114.636px, -289.485px) rotateY(-47.8126deg)",
+      "translateX(-50%) translate3d(-322.269px, -27.4274px, -69.2612px) rotateY(-13.2526deg)"
+    ]
+  }
+}

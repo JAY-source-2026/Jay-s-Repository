@@ -1,0 +1,10 @@
+[
+  {
+    "check": "automatic product/shutter cycle, hover pause/resume, keyboard pause/selection and accurate image announcement",
+    "pass": true
+  },
+  {
+    "check": "technology CTA reaches the five-system 3D explorer and offscreen video pauses",
+    "pass": true
+  }
+]

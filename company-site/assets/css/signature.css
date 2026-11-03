@@ -1,0 +1,152 @@
+/* Product categories and selected footage share the company message. */
+@font-face {
+  font-family: "Pretendard Variable";
+  src: url('../fonts/PretendardVariable.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+}
+.home-page .hd, .home-page .hd.solid { background: rgba(7, 19, 33, .96); border-bottom-color: #ffffff1c; }
+.home-page .hd-brand { color: #fff; }
+.home-page .hd-brand .brand-mark { filter: brightness(0) invert(1); }
+.home-page .nav-top { color: #d3dde7; font-size: 16px; }
+.home-page .nav-top:hover, .home-page .nav-top.current { color: #fff; }
+.home-page .hd-cta { color: #e3edf7; border-color: #ffffff45; }
+.home-page .hd-cta:hover { background: #2d5682; color: #fff; }
+.home-page .hd-toggle span { background: #edf4fb; }
+.home-page .hd.mega { background: transparent; }
+.home-page .hd.mega .hd-brand, .home-page .hd.mega .hd-cta { color: #fff; }
+.home-page .hd.mega .brand-mark { filter: brightness(0) invert(1); }
+.home-page .hd.mega .nav-top { color: #d8e2eb; }
+.home-page .hd.mega .nav-top:hover, .home-page .hd.mega .nav-top.current { color: #fff; }
+
+.signature-hero {
+  --signature-ink: #f6f8fb;
+  --signature-blue: #b9d9f6;
+  --signature-line: #ffffff2b;
+  color-scheme: dark;
+  color: var(--signature-ink);
+  background: #071321;
+  padding: var(--hd-h) var(--pad-edge) 0;
+  overflow: clip;
+  isolation: isolate;
+}
+.signature-layout { position: relative; display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.35fr); align-items: center; gap: clamp(28px, 3vw, 50px); min-height: clamp(660px, calc(100svh - var(--hd-h) - 78px), 900px); padding: 40px 0 28px; }
+.signature-copy { position: relative; z-index: 2; padding-bottom: 45px; }
+.signature-eyebrow { color: #8cacc9; font-size: 10px; font-weight: 600; letter-spacing: .15em; margin-bottom: 28px; }
+.signature-copy h1 { font-size: clamp(30px, 3.1vw, 48px); font-weight: 700; letter-spacing: -.055em; line-height: 1.4; word-break: keep-all; }
+.signature-copy h1 em { font-style: normal; color: var(--signature-blue); }
+.signature-lead { margin-top: 28px; color: #abbccc; font-size: clamp(12px, 1.05vw, 15px); line-height: 1.9; word-break: keep-all; }
+.signature-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
+.signature-actions a { display: inline-flex; align-items: center; justify-content: space-between; gap: 24px; min-height: 52px; padding: 14px 19px; font-size: 12px; font-weight: 600; border: 1px solid var(--signature-line); transition: background .2s, border-color .2s; }
+.signature-actions .signature-primary { background: #e2eef8; border-color: #e2eef8; color: #142c42; }
+.signature-actions .signature-primary:hover { background: #fff; border-color: #fff; }
+.signature-secondary { background: #0713216b; }
+.signature-secondary:hover { background: #ffffff12; border-color: #97acc0; }
+.signature-hero :focus-visible { outline: 2px solid #b9d9f6; outline-offset: 4px; }
+.signature-showcase { min-width: 0; }
+.signature-stage { position: relative; height: calc(clamp(420px, 36vw, 550px) - 48px); }
+.signature-slide { margin: 0; position: absolute; inset: 0; display: flex; flex-direction: column; opacity: 0; visibility: hidden; pointer-events: none; transition: opacity .35s ease, visibility .35s; }
+.signature-slide.is-active { opacity: 1; visibility: visible; pointer-events: auto; }
+/* The opening pair becomes one centered product after an explicit selection. */
+.signature-products { position: absolute; inset: 22px -8px 30px; isolation: isolate; perspective: 1100px; }
+.signature-products::before { content: ''; position: absolute; z-index: -1; inset: 15% -6% -13%; background: radial-gradient(ellipse closest-side at 50% 65%, #31597955, #142b4333 50%, transparent 100%); pointer-events: none; }
+.signature-product-target { position: absolute; bottom: 0; left: 50%; width: 46%; height: 100%; display: flex; align-items: flex-end; justify-content: center; padding: 0; border: 0; background: none; color: inherit; cursor: pointer; transform-origin: 50% 85%; -webkit-tap-highlight-color: transparent; }
+.signature-board-target { width: 47.12%; }
+.signature-jacket-target { width: 44.88%; }
+/* Initial two-product arrangement also works before JavaScript starts. */
+.signature-product-target:nth-child(1) { left: 0; }
+.signature-product-target:nth-child(2) { left: 55.12%; }
+.signature-product-target:nth-child(n+3) { opacity: 0; pointer-events: none; }
+.signature-products.is-ready .signature-product-target { left: 50%; }
+.signature-product-target::after { content: ''; position: absolute; z-index: -1; bottom: -3%; left: 10%; right: 10%; height: 8%; border-radius: 50%; background: #0008; filter: blur(12px); pointer-events: none; }
+.signature-product { display: block; width: 100%; height: auto; max-height: 100%; object-fit: contain; object-position: center bottom; transform-origin: 50% 85%; transition: transform .65s cubic-bezier(.2,.7,.2,1), opacity .45s; pointer-events: none; }
+.signature-product-board { margin-bottom: 4%; }
+.signature-product[data-product=sealant] { max-height: 88%; }
+.signature-product[data-product=band] { margin-bottom: 16%; }
+.signature-product-target.is-focused .signature-product { transform: translateY(-14px) scale(1.12); }
+.signature-products[data-focus] .signature-product-target:not(.is-focused) .signature-product { opacity: .86; }
+.signature-products[data-mode=single] .signature-product-target.is-focused .signature-product { transform: none; }
+.signature-products.is-rolling .signature-product-target { will-change: transform, opacity; }
+.signature-video-frame { position: absolute; inset: 0 0 18px; display: grid; place-items: center; background: #030a12; border: 1px solid #ffffff20; box-shadow: 0 24px 70px #0004; }
+.signature-video-frame video { width: 100%; height: 100%; min-height: 0; display: block; object-fit: contain; }
+.signature-video-play { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); padding: 13px 19px; background: #fff; border: 1px solid #b2c2d1; color: #203346; white-space: nowrap; font: inherit; font-size: 13px; cursor: pointer; }
+.signature-video-play span { margin-left: 12px; }
+.signature-video-error { position: absolute; left: 16px; right: 16px; bottom: 50px; padding: 16px; font-size: 12px; line-height: 1.8; background: #071321ee; text-align: center; }
+.signature-video-error a { text-decoration: underline; text-underline-offset: 4px; }
+.signature-categories { display: grid; grid-template-columns: 1.25fr 1fr; gap: 25px; position: relative; padding-bottom: 12px; border-top: 1px solid var(--signature-line); }
+.signature-category { position: relative; min-width: 0; }
+.signature-category-trigger { position: relative; width: 100%; display: flex; align-items: center; min-height: 48px; padding: 12px 0; border: 0; color: #c1d1df; background: none; font: inherit; font-size: 18px; font-weight: 650; text-align: left; cursor: pointer; }
+.signature-category-trigger::before { content: ''; position: absolute; left: 0; right: 0; top: -1px; height: 2px; background: #b9d9f6; transform: scaleX(0); transform-origin: left; transition: transform .25s; }
+.signature-category[data-current=true] .signature-category-trigger { color: #e9f4ff; }
+.signature-category[data-current=true] .signature-category-trigger::before { transform: scaleX(1); }
+.signature-submenu { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+#signatureShutterMenu { grid-template-columns: 1fr; }
+.signature-submenu button { min-width: 0; min-height: 44px; display: flex; align-items: center; justify-content: space-between; gap: 7px; padding: 9px 11px; border: 1px solid #ffffff25; color: #c0d1df; background: #112437; font: inherit; font-size: 12px; text-align: left; line-height: 1.5; word-break: keep-all; cursor: pointer; transition: color .2s, background .2s, border-color .2s; }
+.signature-submenu button span { color: #8cb4d7; flex-shrink: 0; }
+.signature-submenu button .signature-product-label { color: inherit; flex-shrink: 1; min-width: 0; }
+.signature-product-label small { font-size: .9em; white-space: nowrap; color: #a8bfd2; }
+.signature-submenu button:hover, .signature-submenu button:focus-visible, .signature-submenu button[aria-pressed=true] { color: #fff; background: #25435f; border-color: #8caeca; }
+.signature-hero [hidden] { display: none !important; }
+.signature-noscript { font-size: 12px; line-height: 1.8; }
+.signature-noscript a { text-decoration: underline; }
+.signature-footer { position: relative; display: flex; align-items: center; gap: 26px; min-height: 78px; border-top: 1px solid var(--signature-line); font-size: 10px; }
+.signature-since { font-weight: 650; letter-spacing: .13em; }
+.signature-footer p { color: #90a6ba; }
+.signature-footer i { font-style: normal; margin: 0 10px; }
+.signature-footer a { margin-left: auto; font-size: 11px; color: #adc4d9; }
+.signature-footer a span { margin-left: 30px; }
+
+/* The existing interactive model follows the product showcase. */
+.intro-section { padding-top: 32px; scroll-margin-top: 0; }
+.explorer-heading { display: flex; align-items: flex-end; justify-content: space-between; gap: 30px; padding-bottom: 12px; }
+.explorer-heading h2 { font-size: clamp(26px, 2.5vw, 37px); font-weight: 500; letter-spacing: -.045em; margin-top: 16px; }
+
+@media (max-width: 1180px) and (min-width: 761px) {
+  .signature-layout { grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: 25px; min-height: 650px; }
+  .signature-copy h1 { font-size: clamp(27px, 3.15vw, 37px); }
+  .signature-eyebrow { font-size: 8px; letter-spacing: .07em; }
+  .signature-lead { font-size: 12px; }
+  .signature-stage { height: calc(clamp(340px, 39vw, 450px) - 48px); }
+  .signature-actions a { font-size: 11px; padding: 12px 14px; gap: 16px; }
+  .signature-category-trigger { font-size: 15px; }
+
+  .signature-categories { gap: 15px; }
+  #signatureFirestopMenu { grid-template-columns: 1fr; }
+  .signature-submenu button { padding: 9px 8px; font-size: 11px; }
+}
+@media (max-width: 760px) {
+  .signature-layout { grid-template-columns: 1fr; gap: 25px; padding: 38px 0 0; min-height: 0; }
+  .signature-copy { padding: 0; }
+  .signature-eyebrow { font-size: 8px; letter-spacing: .12em; margin-bottom: 18px; }
+  .signature-copy h1 { font-size: clamp(26px, 7.6vw, 48px); letter-spacing: -.055em; line-height: 1.35; }
+  .signature-lead { font-size: 12px; margin-top: 18px; line-height: 1.85; }
+  .signature-actions { margin-top: 22px; gap: 10px; }
+  .signature-actions a { min-height: 44px; padding: 11px 15px; font-size: 11px; gap: 25px; }
+  .signature-stage { height: calc(clamp(235px, 64vw, 380px) - 30px); }
+  .signature-products { inset: 12px 0 32px; perspective: 700px; }
+  .signature-product-target.is-focused .signature-product { transform: translateY(-9px) scale(1.12); }
+  .signature-video-frame { inset: 0 -8px 18px; }
+  .signature-categories { gap: 16px; padding-bottom: 22px; }
+  .signature-category-trigger { min-height: 48px; font-size: 16px; }
+  #signatureFirestopMenu { grid-template-columns: 1fr; }
+  .signature-submenu button { padding: 9px 8px; font-size: 11px; }
+  .signature-footer { gap: 14px; font-size: 8px; min-height: 58px; margin-top: 5px; }
+  .signature-footer p { margin-left: auto; }
+  .signature-footer i { margin: 0 5px; }
+  .signature-footer > a { display: none; }
+  .intro-section { padding-top: 24px; }
+  .explorer-heading { display: block; padding-bottom: 16px; }
+  .explorer-heading h2 { font-size: 25px; margin-top: 12px; }
+}
+@media (max-width: 360px) {
+  .signature-actions a { gap: 16px; padding-inline: 13px; }
+  .signature-lead { font-size: 11px; }
+  .signature-category-trigger { font-size: 13px; }
+  .signature-submenu button { font-size: 10px; padding-inline: 8px; }
+  .signature-footer { gap: 9px; }
+  .signature-footer i { margin: 0 3px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .signature-hero *, .signature-hero *::before { transition: none !important; }
+}

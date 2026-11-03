@@ -1,0 +1,87 @@
+{
+  "checks": [
+    "Overview copy is removed on initial load and after returning from a system. Installation guidance remains functional for all five systems.",
+    "Hover and click keep their gradual camera zoom; installation waits for the zoom.",
+    "Larger category headings and no reserved overview caption space at seven widths; no horizontal overflow."
+  ],
+  "sizes": [
+    {
+      "width": 320,
+      "overflow": false,
+      "renderTop": 0,
+      "categorySizes": [
+        16,
+        16,
+        16
+      ],
+      "sectionPadding": 24
+    },
+    {
+      "width": 390,
+      "overflow": false,
+      "renderTop": 0,
+      "categorySizes": [
+        16,
+        16,
+        16
+      ],
+      "sectionPadding": 24
+    },
+    {
+      "width": 761,
+      "overflow": false,
+      "renderTop": 0,
+      "categorySizes": [
+        19,
+        19,
+        19
+      ],
+      "sectionPadding": 32
+    },
+    {
+      "width": 820,
+      "overflow": false,
+      "renderTop": 0,
+      "categorySizes": [
+        19,
+        19,
+        19
+      ],
+      "sectionPadding": 32
+    },
+    {
+      "width": 1180,
+      "overflow": false,
+      "renderTop": 0,
+      "categorySizes": [
+        19,
+        19,
+        19
+      ],
+      "sectionPadding": 32
+    },
+    {
+      "width": 1440,
+      "overflow": false,
+      "renderTop": 0,
+      "categorySizes": [
+        19,
+        19,
+        19
+      ],
+      "sectionPadding": 32
+    },
+    {
+      "width": 1920,
+      "overflow": false,
+      "renderTop": 0,
+      "categorySizes": [
+        19,
+        19,
+        19
+      ],
+      "sectionPadding": 32
+    }
+  ],
+  "errors": []
+}
