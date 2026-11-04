@@ -1,46 +1,71 @@
 {
-  "_note": "자료실 데이터. 항목을 추가할 때는 items 배열에 객체를 하나 더 넣으면 됩니다. cat 은 categories 의 id 중 하나. file.href 가 비어 있으면 '준비중'으로 표시됩니다.",
+  "_note": "분야별 자료 게시판. cat/board/group은 categories의 ID입니다. 날짜는 게시판 등록일입니다. 원본 폴더는 보존하며 사용자가 게시를 요청한 내화채움구조 60건·내화구조 1건만 assets/downloads/의 사본으로 제공합니다. 인정서 제목과 첨부 표시·다운로드 이름은 괄호 설명과 파일 앞 번호를 제거한 이름이며 원본 파일은 변경하지 않습니다. 인정서 본문은 빈 배열로 두고 미리보기를 표시합니다. previews는 PDF의 물리적인 1·3페이지 전체 이미지입니다.",
   "categories": [
     {
       "id": "firestop",
       "name": "내화채움구조 자료실",
-      "lead": "벽·바닥 관통부를 밀실하게 채워 화염과 유독가스의 이동 경로를 차단하는 내화채움(충전)구조 자료입니다."
+      "lead": "내화채움구조의 인정서, 홍보자료와 기타자료를 확인하세요.",
+      "label": "내화채움구조",
+      "boards": [
+        "recognition",
+        "promo",
+        "other"
+      ],
+      "boardGroups": {
+        "recognition": [
+          {
+            "id": "metal-pipes",
+            "name": "금속배관"
+          },
+          {
+            "id": "nonmetal-pipes",
+            "name": "비금속배관"
+          },
+          {
+            "id": "metal-ducts",
+            "name": "금속덕트"
+          },
+          {
+            "id": "bundled-pipes",
+            "name": "다발배관"
+          }
+        ]
+      }
     },
     {
       "id": "fireproof",
       "name": "내화구조 자료실",
-      "lead": "지하 공동구·통신구·전력구의 방화벽과 층간 방화구획 등 내화구조 자료입니다."
+      "lead": "내화구조의 인정서, 홍보자료와 기타자료를 확인하세요.",
+      "label": "내화구조",
+      "boards": [
+        "recognition",
+        "promo",
+        "other"
+      ]
     },
     {
       "id": "shutter",
       "name": "방화셔터 자료실",
-      "lead": "무기둥 스크린 방화셔터의 시공 유형·현장 사진과 구동 영상입니다."
+      "lead": "방화셔터의 인정서, 홍보자료와 기타자료를 확인하세요.",
+      "label": "방화셔터",
+      "boards": [
+        "recognition",
+        "promo",
+        "other"
+      ]
     },
     {
       "id": "software",
       "name": "설계소프트웨어 자료실",
-      "lead": "내화채움구조 자동 설계소프트웨어 DESkey 자료입니다."
+      "lead": "설계소프트웨어의 홍보자료와 기타자료를 확인하세요.",
+      "label": "설계소프트웨어",
+      "boards": [
+        "promo",
+        "other"
+      ]
     }
   ],
   "items": [
-    {
-      "cat": "firestop",
-      "title": "내화채움(충전)구조 제품소개 자료",
-      "date": "2022-03-03",
-      "tag": "제품소개",
-      "body": "관통재 유형별 시공 상세와 자재 구성을 정리한 제품 소개 자료입니다.",
-      "images": ["assets/media/archive/firestop/product-intro.jpg"],
-      "file": { "name": "디오이엔씨_제품소개.pdf", "size": "696.1KB", "href": "" }
-    },
-    {
-      "cat": "firestop",
-      "title": "내화채움(충전)구조 카달로그",
-      "date": "2022-02-09",
-      "tag": "카달로그",
-      "body": "내화재사업부 카달로그. 내화채움보드(SFB-100F·100M), 내화자켓(SFBA-200), 내화밴드(SFBA-100·110·120), 세라믹섬유블랭킷(SFI-100·200·210·220), 내화실리콘실란트(SFS-100) 등 자재 라인업이 수록되어 있습니다.",
-      "images": ["assets/media/archive/firestop/catalog.jpg"],
-      "file": { "name": "DOENC_카다로그내화재사업부.pdf", "size": "2.8MB", "href": "" }
-    },
     {
       "cat": "fireproof",
       "title": "[목업] 지하 통신구 방화벽",
@@ -51,7 +76,9 @@
         "assets/media/archive/fireproof/telecom-mockup-1.jpg",
         "assets/media/archive/fireproof/telecom-mockup-2.jpg",
         "assets/media/archive/fireproof/telecom-mockup-3.jpg"
-      ]
+      ],
+      "id": "fireproof-telecom-mockup",
+      "board": "other"
     },
     {
       "cat": "shutter",
@@ -60,7 +87,11 @@
       "tag": "영상",
       "body": "실제 스크린 방화셔터의 하강 구동 영상입니다. 크림색 유리섬유 직물 원단이 상부 소핏 슬롯에서 나와 개구부를 막습니다.",
       "video": "assets/media/archive/shutter/screen-shutter.mp4",
-      "images": ["assets/media/archive/shutter/screen-shutter-poster.jpg"]
+      "images": [
+        "assets/media/archive/shutter/screen-shutter-poster.jpg"
+      ],
+      "id": "shutter-operation",
+      "board": "promo"
     },
     {
       "cat": "shutter",
@@ -68,7 +99,11 @@
       "date": "2022-02-09",
       "tag": "시공유형",
       "body": "개구부 형상별 무기둥 방화셔터 시공 유형입니다.",
-      "images": ["assets/media/archive/shutter/types.jpg"]
+      "images": [
+        "assets/media/archive/shutter/types.jpg"
+      ],
+      "id": "shutter-types",
+      "board": "other"
     },
     {
       "cat": "shutter",
@@ -76,7 +111,11 @@
       "date": "2022-02-09",
       "tag": "시공현장",
       "body": "무기둥 방화셔터가 설치된 현장 사진입니다.",
-      "images": ["assets/media/archive/shutter/site.jpg"]
+      "images": [
+        "assets/media/archive/shutter/site.jpg"
+      ],
+      "id": "shutter-site",
+      "board": "other"
     },
     {
       "cat": "shutter",
@@ -84,7 +123,11 @@
       "date": "2022-02-09",
       "tag": "각형",
       "body": "중간 기둥 없이 각형 개구부를 한 번에 막는 무기둥 각형 방화셔터입니다.",
-      "images": ["assets/media/archive/shutter/square.jpg"]
+      "images": [
+        "assets/media/archive/shutter/square.jpg"
+      ],
+      "id": "shutter-square",
+      "board": "other"
     },
     {
       "cat": "shutter",
@@ -92,7 +135,11 @@
       "date": "2022-02-09",
       "tag": "곡선형",
       "body": "곡면 개구부에 대응하는 무기둥 곡선형 방화셔터입니다. 2010년 무기둥 곡면 방화스크린셔터 인증을 취득하고 2013년 무기둥 라운드셔터 특허를 등록했습니다.",
-      "images": ["assets/media/archive/shutter/curved.jpg"]
+      "images": [
+        "assets/media/archive/shutter/curved.jpg"
+      ],
+      "id": "shutter-curved",
+      "board": "other"
     },
     {
       "cat": "software",
@@ -100,8 +147,16 @@
       "date": "2022-03-03",
       "tag": "매뉴얼",
       "body": "DESkey 사용설명서. 현장 조건 입력부터 인정구조 선정, 물량 산출까지의 절차를 안내합니다.",
-      "images": ["assets/media/archive/software/deskey-manual.jpg"],
-      "file": { "name": "DESkey Manual.pdf", "size": "2.6MB", "href": "" }
+      "images": [
+        "assets/media/archive/software/deskey-manual.jpg"
+      ],
+      "file": {
+        "name": "DESkey Manual.pdf",
+        "size": "2.6MB",
+        "href": ""
+      },
+      "id": "deskey-manual",
+      "board": "other"
     },
     {
       "cat": "software",
@@ -109,8 +164,2164 @@
       "date": "2022-03-03",
       "tag": "카달로그",
       "body": "DESkey 카달로그. 자동 설계소프트웨어의 기능과 도입 효과를 정리했습니다.",
-      "images": ["assets/media/archive/software/deskey-catalog.jpg"],
-      "file": { "name": "디오이엔씨_SW카달로그2022.pdf", "size": "2.8MB", "href": "" }
+      "images": [
+        "assets/media/archive/software/deskey-catalog.jpg"
+      ],
+      "file": {
+        "name": "디오이엔씨_SW카달로그2022.pdf",
+        "size": "2.8MB",
+        "href": ""
+      },
+      "id": "deskey-catalog",
+      "board": "promo"
+    },
+    {
+      "id": "certificate-fs-mp24-0617-15",
+      "cat": "firestop",
+      "board": "recognition",
+      "group": "metal-pipes",
+      "sourceNumber": 1,
+      "certificate": "FS-MP24-0617-15",
+      "title": "FS-MP24-0617-15 벽체 비보온 금속배관 25A 인정서",
+      "date": "2026-11-04",
+      "tag": "금속배관",
+      "body": [],
+      "file": {
+        "name": "FS-MP24-0617-15 벽체 비보온 금속배관 25A 인정서.pdf",
+        "href": "assets/downloads/firestop-certificates/metal-pipes/FS-MP24-0617-15.pdf",
+        "size": "2.73 MB",
+        "type": "application/pdf",
+        "pages": 21
+      },
+      "previews": [
+        {
+          "page": 1,
+          "src": "assets/images/certificates/metal-pipes/FS-MP24-0617-15-page-1.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "인정서 · 1페이지"
+        },
+        {
+          "page": 3,
+          "src": "assets/images/certificates/metal-pipes/FS-MP24-0617-15-page-3.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "구조설명도 · 3페이지"
+        }
+      ]
+    },
+    {
+      "id": "certificate-fs-mp24-0617-16",
+      "cat": "firestop",
+      "board": "recognition",
+      "group": "metal-pipes",
+      "sourceNumber": 2,
+      "certificate": "FS-MP24-0617-16",
+      "title": "FS-MP24-0617-16 벽체 비보온 금속배관 50A 인정서",
+      "date": "2026-11-04",
+      "tag": "금속배관",
+      "body": [],
+      "file": {
+        "name": "FS-MP24-0617-16 벽체 비보온 금속배관 50A 인정서.pdf",
+        "href": "assets/downloads/firestop-certificates/metal-pipes/FS-MP24-0617-16.pdf",
+        "size": "3.04 MB",
+        "type": "application/pdf",
+        "pages": 24
+      },
+      "previews": [
+        {
+          "page": 1,
+          "src": "assets/images/certificates/metal-pipes/FS-MP24-0617-16-page-1.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "인정서 · 1페이지"
+        },
+        {
+          "page": 3,
+          "src": "assets/images/certificates/metal-pipes/FS-MP24-0617-16-page-3.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "구조설명도 · 3페이지"
+        }
+      ]
+    },
+    {
+      "id": "certificate-fs-mp24-0617-17",
+      "cat": "firestop",
+      "board": "recognition",
+      "group": "metal-pipes",
+      "sourceNumber": 3,
+      "certificate": "FS-MP24-0617-17",
+      "title": "FS-MP24-0617-17 벽체 비보온 금속배관 100A 인정서",
+      "date": "2026-11-04",
+      "tag": "금속배관",
+      "body": [],
+      "file": {
+        "name": "FS-MP24-0617-17 벽체 비보온 금속배관 100A 인정서.pdf",
+        "href": "assets/downloads/firestop-certificates/metal-pipes/FS-MP24-0617-17.pdf",
+        "size": "3.06 MB",
+        "type": "application/pdf",
+        "pages": 24
+      },
+      "previews": [
+        {
+          "page": 1,
+          "src": "assets/images/certificates/metal-pipes/FS-MP24-0617-17-page-1.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "인정서 · 1페이지"
+        },
+        {
+          "page": 3,
+          "src": "assets/images/certificates/metal-pipes/FS-MP24-0617-17-page-3.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "구조설명도 · 3페이지"
+        }
+      ]
+    },
+    {
+      "id": "certificate-fs-mp24-0617-18",
+      "cat": "firestop",
+      "board": "recognition",
+      "group": "metal-pipes",
+      "sourceNumber": 4,
+      "certificate": "FS-MP24-0617-18",
+      "title": "FS-MP24-0617-18 벽체 비보온 금속배관 150A 인정서",
+      "date": "2026-11-04",
+      "tag": "금속배관",
+      "body": [],
+      "file": {
+        "name": "FS-MP24-0617-18 벽체 비보온 금속배관 150A 인정서.pdf",
+        "href": "assets/downloads/firestop-certificates/metal-pipes/FS-MP24-0617-18.pdf",
+        "size": "3.14 MB",
+        "type": "application/pdf",
+        "pages": 24
+      },
+      "previews": [
+        {
+          "page": 1,
+          "src": "assets/images/certificates/metal-pipes/FS-MP24-0617-18-page-1.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "인정서 · 1페이지"
+        },
+        {
+          "page": 3,
+          "src": "assets/images/certificates/metal-pipes/FS-MP24-0617-18-page-3.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "구조설명도 · 3페이지"
+        }
+      ]
+    },
+    {
+      "id": "certificate-fs-mp23-1103-3",
+      "cat": "firestop",
+      "board": "recognition",
+      "group": "metal-pipes",
+      "sourceNumber": 5,
+      "certificate": "FS-MP23-1103-3",
+      "title": "FS-MP23-1103-3 벽체 비보온 금속배관 전규격 인정서",
+      "date": "2026-11-04",
+      "tag": "금속배관",
+      "body": [],
+      "file": {
+        "name": "FS-MP23-1103-3 벽체 비보온 금속배관 전규격 인정서.pdf",
+        "href": "assets/downloads/firestop-certificates/metal-pipes/FS-MP23-1103-3.pdf",
+        "size": "2.94 MB",
+        "type": "application/pdf",
+        "pages": 27
+      },
+      "previews": [
+        {
+          "page": 1,
+          "src": "assets/images/certificates/metal-pipes/FS-MP23-1103-3-page-1.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "인정서 · 1페이지"
+        },
+        {
+          "page": 3,
+          "src": "assets/images/certificates/metal-pipes/FS-MP23-1103-3-page-3.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "구조설명도 · 3페이지"
+        }
+      ]
+    },
+    {
+      "id": "certificate-fs-mp24-0617-19",
+      "cat": "firestop",
+      "board": "recognition",
+      "group": "metal-pipes",
+      "sourceNumber": 6,
+      "certificate": "FS-MP24-0617-19",
+      "title": "FS-MP24-0617-19 벽체 보온 금속배관 50A 인정서",
+      "date": "2026-11-04",
+      "tag": "금속배관",
+      "body": [],
+      "file": {
+        "name": "FS-MP24-0617-19 벽체 보온 금속배관 50A 인정서.pdf",
+        "href": "assets/downloads/firestop-certificates/metal-pipes/FS-MP24-0617-19.pdf",
+        "size": "3.38 MB",
+        "type": "application/pdf",
+        "pages": 26
+      },
+      "previews": [
+        {
+          "page": 1,
+          "src": "assets/images/certificates/metal-pipes/FS-MP24-0617-19-page-1.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "인정서 · 1페이지"
+        },
+        {
+          "page": 3,
+          "src": "assets/images/certificates/metal-pipes/FS-MP24-0617-19-page-3.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "구조설명도 · 3페이지"
+        }
+      ]
+    },
+    {
+      "id": "certificate-fs-mp24-0617-20",
+      "cat": "firestop",
+      "board": "recognition",
+      "group": "metal-pipes",
+      "sourceNumber": 7,
+      "certificate": "FS-MP24-0617-20",
+      "title": "FS-MP24-0617-20 벽체 보온 금속배관 100A 인정서",
+      "date": "2026-11-04",
+      "tag": "금속배관",
+      "body": [],
+      "file": {
+        "name": "FS-MP24-0617-20 벽체 보온 금속배관 100A 인정서.pdf",
+        "href": "assets/downloads/firestop-certificates/metal-pipes/FS-MP24-0617-20.pdf",
+        "size": "3.30 MB",
+        "type": "application/pdf",
+        "pages": 26
+      },
+      "previews": [
+        {
+          "page": 1,
+          "src": "assets/images/certificates/metal-pipes/FS-MP24-0617-20-page-1.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "인정서 · 1페이지"
+        },
+        {
+          "page": 3,
+          "src": "assets/images/certificates/metal-pipes/FS-MP24-0617-20-page-3.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "구조설명도 · 3페이지"
+        }
+      ]
+    },
+    {
+      "id": "certificate-fs-mp24-0617-21",
+      "cat": "firestop",
+      "board": "recognition",
+      "group": "metal-pipes",
+      "sourceNumber": 8,
+      "certificate": "FS-MP24-0617-21",
+      "title": "FS-MP24-0617-21 벽체 보온 금속배관 200A 인정서",
+      "date": "2026-11-04",
+      "tag": "금속배관",
+      "body": [],
+      "file": {
+        "name": "FS-MP24-0617-21 벽체 보온 금속배관 200A 인정서.pdf",
+        "href": "assets/downloads/firestop-certificates/metal-pipes/FS-MP24-0617-21.pdf",
+        "size": "3.39 MB",
+        "type": "application/pdf",
+        "pages": 26
+      },
+      "previews": [
+        {
+          "page": 1,
+          "src": "assets/images/certificates/metal-pipes/FS-MP24-0617-21-page-1.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "인정서 · 1페이지"
+        },
+        {
+          "page": 3,
+          "src": "assets/images/certificates/metal-pipes/FS-MP24-0617-21-page-3.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "구조설명도 · 3페이지"
+        }
+      ]
+    },
+    {
+      "id": "certificate-fs-mp23-1103-1",
+      "cat": "firestop",
+      "board": "recognition",
+      "group": "metal-pipes",
+      "sourceNumber": 9,
+      "certificate": "FS-MP23-1103-1",
+      "title": "FS-MP23-1103-1 벽체 보온 금속배관 전규격 인정서",
+      "date": "2026-11-04",
+      "tag": "금속배관",
+      "body": [],
+      "file": {
+        "name": "FS-MP23-1103-1 벽체 보온 금속배관 전규격 인정서.pdf",
+        "href": "assets/downloads/firestop-certificates/metal-pipes/FS-MP23-1103-1.pdf",
+        "size": "3.36 MB",
+        "type": "application/pdf",
+        "pages": 26
+      },
+      "previews": [
+        {
+          "page": 1,
+          "src": "assets/images/certificates/metal-pipes/FS-MP23-1103-1-page-1.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "인정서 · 1페이지"
+        },
+        {
+          "page": 3,
+          "src": "assets/images/certificates/metal-pipes/FS-MP23-1103-1-page-3.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "구조설명도 · 3페이지"
+        }
+      ]
+    },
+    {
+      "id": "certificate-fs-mp25-1218-01",
+      "cat": "firestop",
+      "board": "recognition",
+      "group": "metal-pipes",
+      "sourceNumber": 10,
+      "certificate": "FS-MP25-1218-01",
+      "title": "FS-MP25-1218-01 벽체 중공부보온 금속배관 50A 인정서",
+      "date": "2026-11-04",
+      "tag": "금속배관",
+      "body": [],
+      "file": {
+        "name": "FS-MP25-1218-01 벽체 중공부보온 금속배관 50A 인정서.pdf",
+        "href": "assets/downloads/firestop-certificates/metal-pipes/FS-MP25-1218-01.pdf",
+        "size": "2.93 MB",
+        "type": "application/pdf",
+        "pages": 22
+      },
+      "previews": [
+        {
+          "page": 1,
+          "src": "assets/images/certificates/metal-pipes/FS-MP25-1218-01-page-1.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "인정서 · 1페이지"
+        },
+        {
+          "page": 3,
+          "src": "assets/images/certificates/metal-pipes/FS-MP25-1218-01-page-3.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "구조설명도 · 3페이지"
+        }
+      ]
+    },
+    {
+      "id": "certificate-fs-mp25-1218-02",
+      "cat": "firestop",
+      "board": "recognition",
+      "group": "metal-pipes",
+      "sourceNumber": 11,
+      "certificate": "FS-MP25-1218-02",
+      "title": "FS-MP25-1218-02 벽체 중공부보온 금속배관 100A 인정서",
+      "date": "2026-11-04",
+      "tag": "금속배관",
+      "body": [],
+      "file": {
+        "name": "FS-MP25-1218-02 벽체 중공부보온 금속배관 100A 인정서.pdf",
+        "href": "assets/downloads/firestop-certificates/metal-pipes/FS-MP25-1218-02.pdf",
+        "size": "2.98 MB",
+        "type": "application/pdf",
+        "pages": 22
+      },
+      "previews": [
+        {
+          "page": 1,
+          "src": "assets/images/certificates/metal-pipes/FS-MP25-1218-02-page-1.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "인정서 · 1페이지"
+        },
+        {
+          "page": 3,
+          "src": "assets/images/certificates/metal-pipes/FS-MP25-1218-02-page-3.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "구조설명도 · 3페이지"
+        }
+      ]
+    },
+    {
+      "id": "certificate-fs-mp25-1218-03",
+      "cat": "firestop",
+      "board": "recognition",
+      "group": "metal-pipes",
+      "sourceNumber": 12,
+      "certificate": "FS-MP25-1218-03",
+      "title": "FS-MP25-1218-03 벽체 중공부보온 금속배관 150A 인정서",
+      "date": "2026-11-04",
+      "tag": "금속배관",
+      "body": [],
+      "file": {
+        "name": "FS-MP25-1218-03 벽체 중공부보온 금속배관 150A 인정서.pdf",
+        "href": "assets/downloads/firestop-certificates/metal-pipes/FS-MP25-1218-03.pdf",
+        "size": "3.29 MB",
+        "type": "application/pdf",
+        "pages": 22
+      },
+      "previews": [
+        {
+          "page": 1,
+          "src": "assets/images/certificates/metal-pipes/FS-MP25-1218-03-page-1.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "인정서 · 1페이지"
+        },
+        {
+          "page": 3,
+          "src": "assets/images/certificates/metal-pipes/FS-MP25-1218-03-page-3.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "구조설명도 · 3페이지"
+        }
+      ]
+    },
+    {
+      "id": "certificate-fs-mp25-1218-04",
+      "cat": "firestop",
+      "board": "recognition",
+      "group": "metal-pipes",
+      "sourceNumber": 13,
+      "certificate": "FS-MP25-1218-04",
+      "title": "FS-MP25-1218-04 벽체 중공부보온 금속배관 200A 인정서",
+      "date": "2026-11-04",
+      "tag": "금속배관",
+      "body": [],
+      "file": {
+        "name": "FS-MP25-1218-04 벽체 중공부보온 금속배관 200A 인정서.pdf",
+        "href": "assets/downloads/firestop-certificates/metal-pipes/FS-MP25-1218-04.pdf",
+        "size": "3.37 MB",
+        "type": "application/pdf",
+        "pages": 22
+      },
+      "previews": [
+        {
+          "page": 1,
+          "src": "assets/images/certificates/metal-pipes/FS-MP25-1218-04-page-1.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "인정서 · 1페이지"
+        },
+        {
+          "page": 3,
+          "src": "assets/images/certificates/metal-pipes/FS-MP25-1218-04-page-3.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "구조설명도 · 3페이지"
+        }
+      ]
+    },
+    {
+      "id": "certificate-fs-mp25-1218-05",
+      "cat": "firestop",
+      "board": "recognition",
+      "group": "metal-pipes",
+      "sourceNumber": 14,
+      "certificate": "FS-MP25-1218-05",
+      "title": "FS-MP25-1218-05 벽체 중공부보온 금속배관 400A 인정서",
+      "date": "2026-11-04",
+      "tag": "금속배관",
+      "body": [],
+      "file": {
+        "name": "FS-MP25-1218-05 벽체 중공부보온 금속배관 400A 인정서.pdf",
+        "href": "assets/downloads/firestop-certificates/metal-pipes/FS-MP25-1218-05.pdf",
+        "size": "3.62 MB",
+        "type": "application/pdf",
+        "pages": 22
+      },
+      "previews": [
+        {
+          "page": 1,
+          "src": "assets/images/certificates/metal-pipes/FS-MP25-1218-05-page-1.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "인정서 · 1페이지"
+        },
+        {
+          "page": 3,
+          "src": "assets/images/certificates/metal-pipes/FS-MP25-1218-05-page-3.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "구조설명도 · 3페이지"
+        }
+      ]
+    },
+    {
+      "id": "certificate-fs-mp25-1218-12",
+      "cat": "firestop",
+      "board": "recognition",
+      "group": "metal-pipes",
+      "sourceNumber": 15,
+      "certificate": "FS-MP25-1218-12",
+      "title": "FS-MP25-1218-12 벽체 중공부보온 금속배관 400A 인정서",
+      "date": "2026-11-04",
+      "tag": "금속배관",
+      "body": [],
+      "file": {
+        "name": "FS-MP25-1218-12 벽체 중공부보온 금속배관 400A 인정서.pdf",
+        "href": "assets/downloads/firestop-certificates/metal-pipes/FS-MP25-1218-12.pdf",
+        "size": "3.31 MB",
+        "type": "application/pdf",
+        "pages": 23
+      },
+      "previews": [
+        {
+          "page": 1,
+          "src": "assets/images/certificates/metal-pipes/FS-MP25-1218-12-page-1.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "인정서 · 1페이지"
+        },
+        {
+          "page": 3,
+          "src": "assets/images/certificates/metal-pipes/FS-MP25-1218-12-page-3.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "구조설명도 · 3페이지"
+        }
+      ]
+    },
+    {
+      "id": "certificate-fs-mp24-0617-22",
+      "cat": "firestop",
+      "board": "recognition",
+      "group": "metal-pipes",
+      "sourceNumber": 16,
+      "certificate": "FS-MP24-0617-22",
+      "title": "FS-MP24-0617-22 바닥 비보온 금속배관 25A 인정서",
+      "date": "2026-11-04",
+      "tag": "금속배관",
+      "body": [],
+      "file": {
+        "name": "FS-MP24-0617-22 바닥 비보온 금속배관 25A 인정서.pdf",
+        "href": "assets/downloads/firestop-certificates/metal-pipes/FS-MP24-0617-22.pdf",
+        "size": "2.89 MB",
+        "type": "application/pdf",
+        "pages": 27
+      },
+      "previews": [
+        {
+          "page": 1,
+          "src": "assets/images/certificates/metal-pipes/FS-MP24-0617-22-page-1.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "인정서 · 1페이지"
+        },
+        {
+          "page": 3,
+          "src": "assets/images/certificates/metal-pipes/FS-MP24-0617-22-page-3.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "구조설명도 · 3페이지"
+        }
+      ]
+    },
+    {
+      "id": "certificate-fs-mp24-0617-23",
+      "cat": "firestop",
+      "board": "recognition",
+      "group": "metal-pipes",
+      "sourceNumber": 17,
+      "certificate": "FS-MP24-0617-23",
+      "title": "FS-MP24-0617-23 바닥 비보온 금속배관 50A 인정서",
+      "date": "2026-11-04",
+      "tag": "금속배관",
+      "body": [],
+      "file": {
+        "name": "FS-MP24-0617-23 바닥 비보온 금속배관 50A 인정서.pdf",
+        "href": "assets/downloads/firestop-certificates/metal-pipes/FS-MP24-0617-23.pdf",
+        "size": "2.89 MB",
+        "type": "application/pdf",
+        "pages": 27
+      },
+      "previews": [
+        {
+          "page": 1,
+          "src": "assets/images/certificates/metal-pipes/FS-MP24-0617-23-page-1.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "인정서 · 1페이지"
+        },
+        {
+          "page": 3,
+          "src": "assets/images/certificates/metal-pipes/FS-MP24-0617-23-page-3.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "구조설명도 · 3페이지"
+        }
+      ]
+    },
+    {
+      "id": "certificate-fs-mp24-0617-24",
+      "cat": "firestop",
+      "board": "recognition",
+      "group": "metal-pipes",
+      "sourceNumber": 18,
+      "certificate": "FS-MP24-0617-24",
+      "title": "FS-MP24-0617-24 바닥 비보온 금속배관 100A 인정서",
+      "date": "2026-11-04",
+      "tag": "금속배관",
+      "body": [],
+      "file": {
+        "name": "FS-MP24-0617-24 바닥 비보온 금속배관 100A 인정서.pdf",
+        "href": "assets/downloads/firestop-certificates/metal-pipes/FS-MP24-0617-24.pdf",
+        "size": "2.79 MB",
+        "type": "application/pdf",
+        "pages": 27
+      },
+      "previews": [
+        {
+          "page": 1,
+          "src": "assets/images/certificates/metal-pipes/FS-MP24-0617-24-page-1.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "인정서 · 1페이지"
+        },
+        {
+          "page": 3,
+          "src": "assets/images/certificates/metal-pipes/FS-MP24-0617-24-page-3.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "구조설명도 · 3페이지"
+        }
+      ]
+    },
+    {
+      "id": "certificate-fs-mp24-0617-25",
+      "cat": "firestop",
+      "board": "recognition",
+      "group": "metal-pipes",
+      "sourceNumber": 19,
+      "certificate": "FS-MP24-0617-25",
+      "title": "FS-MP24-0617-25 바닥 비보온 금속배관 150A 인정서",
+      "date": "2026-11-04",
+      "tag": "금속배관",
+      "body": [],
+      "file": {
+        "name": "FS-MP24-0617-25 바닥 비보온 금속배관 150A 인정서.pdf",
+        "href": "assets/downloads/firestop-certificates/metal-pipes/FS-MP24-0617-25.pdf",
+        "size": "2.97 MB",
+        "type": "application/pdf",
+        "pages": 27
+      },
+      "previews": [
+        {
+          "page": 1,
+          "src": "assets/images/certificates/metal-pipes/FS-MP24-0617-25-page-1.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "인정서 · 1페이지"
+        },
+        {
+          "page": 3,
+          "src": "assets/images/certificates/metal-pipes/FS-MP24-0617-25-page-3.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "구조설명도 · 3페이지"
+        }
+      ]
+    },
+    {
+      "id": "certificate-fs-mp24-0617-26",
+      "cat": "firestop",
+      "board": "recognition",
+      "group": "metal-pipes",
+      "sourceNumber": 20,
+      "certificate": "FS-MP24-0617-26",
+      "title": "FS-MP24-0617-26 바닥 비보온 금속배관 전규격 상부시공 인정서",
+      "date": "2026-11-04",
+      "tag": "금속배관",
+      "body": [],
+      "file": {
+        "name": "FS-MP24-0617-26 바닥 비보온 금속배관 전규격 상부시공 인정서.pdf",
+        "href": "assets/downloads/firestop-certificates/metal-pipes/FS-MP24-0617-26.pdf",
+        "size": "3.77 MB",
+        "type": "application/pdf",
+        "pages": 30
+      },
+      "previews": [
+        {
+          "page": 1,
+          "src": "assets/images/certificates/metal-pipes/FS-MP24-0617-26-page-1.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "인정서 · 1페이지"
+        },
+        {
+          "page": 3,
+          "src": "assets/images/certificates/metal-pipes/FS-MP24-0617-26-page-3.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "구조설명도 · 3페이지"
+        }
+      ]
+    },
+    {
+      "id": "certificate-fs-mp23-1103-2",
+      "cat": "firestop",
+      "board": "recognition",
+      "group": "metal-pipes",
+      "sourceNumber": 21,
+      "certificate": "FS-MP23-1103-2",
+      "title": "FS-MP23-1103-2 바닥 비보온 금속배관 전규격 상하부시공 인정서",
+      "date": "2026-11-04",
+      "tag": "금속배관",
+      "body": [],
+      "file": {
+        "name": "FS-MP23-1103-2 바닥 비보온 금속배관 전규격 상하부시공 인정서.pdf",
+        "href": "assets/downloads/firestop-certificates/metal-pipes/FS-MP23-1103-2.pdf",
+        "size": "2.43 MB",
+        "type": "application/pdf",
+        "pages": 24
+      },
+      "previews": [
+        {
+          "page": 1,
+          "src": "assets/images/certificates/metal-pipes/FS-MP23-1103-2-page-1.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "인정서 · 1페이지"
+        },
+        {
+          "page": 3,
+          "src": "assets/images/certificates/metal-pipes/FS-MP23-1103-2-page-3.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "구조설명도 · 3페이지"
+        }
+      ]
+    },
+    {
+      "id": "certificate-fs-mp24-0617-27",
+      "cat": "firestop",
+      "board": "recognition",
+      "group": "metal-pipes",
+      "sourceNumber": 22,
+      "certificate": "FS-MP24-0617-27",
+      "title": "FS-MP24-0617-27 바닥 보온 금속배관 50A 인정서",
+      "date": "2026-11-04",
+      "tag": "금속배관",
+      "body": [],
+      "file": {
+        "name": "FS-MP24-0617-27 바닥 보온 금속배관 50A 인정서.pdf",
+        "href": "assets/downloads/firestop-certificates/metal-pipes/FS-MP24-0617-27.pdf",
+        "size": "3.14 MB",
+        "type": "application/pdf",
+        "pages": 29
+      },
+      "previews": [
+        {
+          "page": 1,
+          "src": "assets/images/certificates/metal-pipes/FS-MP24-0617-27-page-1.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "인정서 · 1페이지"
+        },
+        {
+          "page": 3,
+          "src": "assets/images/certificates/metal-pipes/FS-MP24-0617-27-page-3.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "구조설명도 · 3페이지"
+        }
+      ]
+    },
+    {
+      "id": "certificate-fs-mp24-0617-28",
+      "cat": "firestop",
+      "board": "recognition",
+      "group": "metal-pipes",
+      "sourceNumber": 23,
+      "certificate": "FS-MP24-0617-28",
+      "title": "FS-MP24-0617-28 바닥 보온 금속배관 100A 인정서",
+      "date": "2026-11-04",
+      "tag": "금속배관",
+      "body": [],
+      "file": {
+        "name": "FS-MP24-0617-28 바닥 보온 금속배관 100A 인정서.pdf",
+        "href": "assets/downloads/firestop-certificates/metal-pipes/FS-MP24-0617-28.pdf",
+        "size": "3.07 MB",
+        "type": "application/pdf",
+        "pages": 29
+      },
+      "previews": [
+        {
+          "page": 1,
+          "src": "assets/images/certificates/metal-pipes/FS-MP24-0617-28-page-1.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "인정서 · 1페이지"
+        },
+        {
+          "page": 3,
+          "src": "assets/images/certificates/metal-pipes/FS-MP24-0617-28-page-3.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "구조설명도 · 3페이지"
+        }
+      ]
+    },
+    {
+      "id": "certificate-fs-mp24-0617-29",
+      "cat": "firestop",
+      "board": "recognition",
+      "group": "metal-pipes",
+      "sourceNumber": 24,
+      "certificate": "FS-MP24-0617-29",
+      "title": "FS-MP24-0617-29 바닥 보온 금속배관 200A 인정서",
+      "date": "2026-11-04",
+      "tag": "금속배관",
+      "body": [],
+      "file": {
+        "name": "FS-MP24-0617-29 바닥 보온 금속배관 200A 인정서.pdf",
+        "href": "assets/downloads/firestop-certificates/metal-pipes/FS-MP24-0617-29.pdf",
+        "size": "3.17 MB",
+        "type": "application/pdf",
+        "pages": 29
+      },
+      "previews": [
+        {
+          "page": 1,
+          "src": "assets/images/certificates/metal-pipes/FS-MP24-0617-29-page-1.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "인정서 · 1페이지"
+        },
+        {
+          "page": 3,
+          "src": "assets/images/certificates/metal-pipes/FS-MP24-0617-29-page-3.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "구조설명도 · 3페이지"
+        }
+      ]
+    },
+    {
+      "id": "certificate-fs-mp24-0617-30",
+      "cat": "firestop",
+      "board": "recognition",
+      "group": "metal-pipes",
+      "sourceNumber": 25,
+      "certificate": "FS-MP24-0617-30",
+      "title": "FS-MP24-0617-30 바닥 보온 금속배관 전규격 인정서",
+      "date": "2026-11-04",
+      "tag": "금속배관",
+      "body": [],
+      "file": {
+        "name": "FS-MP24-0617-30 바닥 보온 금속배관 전규격 인정서.pdf",
+        "href": "assets/downloads/firestop-certificates/metal-pipes/FS-MP24-0617-30.pdf",
+        "size": "3.29 MB",
+        "type": "application/pdf",
+        "pages": 31
+      },
+      "previews": [
+        {
+          "page": 1,
+          "src": "assets/images/certificates/metal-pipes/FS-MP24-0617-30-page-1.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "인정서 · 1페이지"
+        },
+        {
+          "page": 3,
+          "src": "assets/images/certificates/metal-pipes/FS-MP24-0617-30-page-3.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "구조설명도 · 3페이지"
+        }
+      ]
+    },
+    {
+      "id": "certificate-fs-mp25-1218-06",
+      "cat": "firestop",
+      "board": "recognition",
+      "group": "metal-pipes",
+      "sourceNumber": 26,
+      "certificate": "FS-MP25-1218-06",
+      "title": "FS-MP25-1218-06 바닥 중공부보온 금속배관 25A 인정서",
+      "date": "2026-11-04",
+      "tag": "금속배관",
+      "body": [],
+      "file": {
+        "name": "FS-MP25-1218-06 바닥 중공부보온 금속배관 25A 인정서.pdf",
+        "href": "assets/downloads/firestop-certificates/metal-pipes/FS-MP25-1218-06.pdf",
+        "size": "3.37 MB",
+        "type": "application/pdf",
+        "pages": 25
+      },
+      "previews": [
+        {
+          "page": 1,
+          "src": "assets/images/certificates/metal-pipes/FS-MP25-1218-06-page-1.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "인정서 · 1페이지"
+        },
+        {
+          "page": 3,
+          "src": "assets/images/certificates/metal-pipes/FS-MP25-1218-06-page-3.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "구조설명도 · 3페이지"
+        }
+      ]
+    },
+    {
+      "id": "certificate-fs-mp25-1218-07",
+      "cat": "firestop",
+      "board": "recognition",
+      "group": "metal-pipes",
+      "sourceNumber": 27,
+      "certificate": "FS-MP25-1218-07",
+      "title": "FS-MP25-1218-07 바닥 중공부보온 금속배관 50A 인정서",
+      "date": "2026-11-04",
+      "tag": "금속배관",
+      "body": [],
+      "file": {
+        "name": "FS-MP25-1218-07 바닥 중공부보온 금속배관 50A 인정서.pdf",
+        "href": "assets/downloads/firestop-certificates/metal-pipes/FS-MP25-1218-07.pdf",
+        "size": "3.45 MB",
+        "type": "application/pdf",
+        "pages": 26
+      },
+      "previews": [
+        {
+          "page": 1,
+          "src": "assets/images/certificates/metal-pipes/FS-MP25-1218-07-page-1.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "인정서 · 1페이지"
+        },
+        {
+          "page": 3,
+          "src": "assets/images/certificates/metal-pipes/FS-MP25-1218-07-page-3.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "구조설명도 · 3페이지"
+        }
+      ]
+    },
+    {
+      "id": "certificate-fs-mp25-1218-08",
+      "cat": "firestop",
+      "board": "recognition",
+      "group": "metal-pipes",
+      "sourceNumber": 28,
+      "certificate": "FS-MP25-1218-08",
+      "title": "FS-MP25-1218-08 바닥 중공부보온 금속배관 100A 인정서",
+      "date": "2026-11-04",
+      "tag": "금속배관",
+      "body": [],
+      "file": {
+        "name": "FS-MP25-1218-08 바닥 중공부보온 금속배관 100A 인정서.pdf",
+        "href": "assets/downloads/firestop-certificates/metal-pipes/FS-MP25-1218-08.pdf",
+        "size": "3.40 MB",
+        "type": "application/pdf",
+        "pages": 26
+      },
+      "previews": [
+        {
+          "page": 1,
+          "src": "assets/images/certificates/metal-pipes/FS-MP25-1218-08-page-1.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "인정서 · 1페이지"
+        },
+        {
+          "page": 3,
+          "src": "assets/images/certificates/metal-pipes/FS-MP25-1218-08-page-3.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "구조설명도 · 3페이지"
+        }
+      ]
+    },
+    {
+      "id": "certificate-fs-mp25-1218-09",
+      "cat": "firestop",
+      "board": "recognition",
+      "group": "metal-pipes",
+      "sourceNumber": 29,
+      "certificate": "FS-MP25-1218-09",
+      "title": "FS-MP25-1218-09 바닥 중공부보온 금속배관 150A 인정서",
+      "date": "2026-11-04",
+      "tag": "금속배관",
+      "body": [],
+      "file": {
+        "name": "FS-MP25-1218-09 바닥 중공부보온 금속배관 150A 인정서.pdf",
+        "href": "assets/downloads/firestop-certificates/metal-pipes/FS-MP25-1218-09.pdf",
+        "size": "3.95 MB",
+        "type": "application/pdf",
+        "pages": 27
+      },
+      "previews": [
+        {
+          "page": 1,
+          "src": "assets/images/certificates/metal-pipes/FS-MP25-1218-09-page-1.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "인정서 · 1페이지"
+        },
+        {
+          "page": 3,
+          "src": "assets/images/certificates/metal-pipes/FS-MP25-1218-09-page-3.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "구조설명도 · 3페이지"
+        }
+      ]
+    },
+    {
+      "id": "certificate-fs-mp25-1218-10",
+      "cat": "firestop",
+      "board": "recognition",
+      "group": "metal-pipes",
+      "sourceNumber": 30,
+      "certificate": "FS-MP25-1218-10",
+      "title": "FS-MP25-1218-10 바닥 중공부보온 금속배관 200A 인정서",
+      "date": "2026-11-04",
+      "tag": "금속배관",
+      "body": [],
+      "file": {
+        "name": "FS-MP25-1218-10 바닥 중공부보온 금속배관 200A 인정서.pdf",
+        "href": "assets/downloads/firestop-certificates/metal-pipes/FS-MP25-1218-10.pdf",
+        "size": "3.93 MB",
+        "type": "application/pdf",
+        "pages": 27
+      },
+      "previews": [
+        {
+          "page": 1,
+          "src": "assets/images/certificates/metal-pipes/FS-MP25-1218-10-page-1.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "인정서 · 1페이지"
+        },
+        {
+          "page": 3,
+          "src": "assets/images/certificates/metal-pipes/FS-MP25-1218-10-page-3.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "구조설명도 · 3페이지"
+        }
+      ]
+    },
+    {
+      "id": "certificate-fs-mp25-1218-11",
+      "cat": "firestop",
+      "board": "recognition",
+      "group": "metal-pipes",
+      "sourceNumber": 31,
+      "certificate": "FS-MP25-1218-11",
+      "title": "FS-MP25-1218-11 바닥 중공부보온 금속배관 400A 인정서",
+      "date": "2026-11-04",
+      "tag": "금속배관",
+      "body": [],
+      "file": {
+        "name": "FS-MP25-1218-11 바닥 중공부보온 금속배관 400A 인정서.pdf",
+        "href": "assets/downloads/firestop-certificates/metal-pipes/FS-MP25-1218-11.pdf",
+        "size": "4.15 MB",
+        "type": "application/pdf",
+        "pages": 28
+      },
+      "previews": [
+        {
+          "page": 1,
+          "src": "assets/images/certificates/metal-pipes/FS-MP25-1218-11-page-1.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "인정서 · 1페이지"
+        },
+        {
+          "page": 3,
+          "src": "assets/images/certificates/metal-pipes/FS-MP25-1218-11-page-3.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "구조설명도 · 3페이지"
+        }
+      ]
+    },
+    {
+      "id": "certificate-fs-np24-0617-1",
+      "cat": "firestop",
+      "board": "recognition",
+      "group": "nonmetal-pipes",
+      "sourceNumber": 32,
+      "certificate": "FS-NP24-0617-1",
+      "title": "FS-NP24-0617-1 벽체 비금속배관 50A 인정서",
+      "date": "2026-11-04",
+      "tag": "비금속배관",
+      "body": [],
+      "file": {
+        "name": "FS-NP24-0617-1 벽체 비금속배관 50A 인정서.pdf",
+        "href": "assets/downloads/firestop-certificates/nonmetal-pipes/FS-NP24-0617-1.pdf",
+        "size": "2.62 MB",
+        "type": "application/pdf",
+        "pages": 21
+      },
+      "previews": [
+        {
+          "page": 1,
+          "src": "assets/images/certificates/nonmetal-pipes/FS-NP24-0617-1-page-1.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "인정서 · 1페이지"
+        },
+        {
+          "page": 3,
+          "src": "assets/images/certificates/nonmetal-pipes/FS-NP24-0617-1-page-3.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "구조설명도 · 3페이지"
+        }
+      ]
+    },
+    {
+      "id": "certificate-fs-np24-0617-2",
+      "cat": "firestop",
+      "board": "recognition",
+      "group": "nonmetal-pipes",
+      "sourceNumber": 33,
+      "certificate": "FS-NP24-0617-2",
+      "title": "FS-NP24-0617-2 벽체 비금속배관 100A 인정서",
+      "date": "2026-11-04",
+      "tag": "비금속배관",
+      "body": [],
+      "file": {
+        "name": "FS-NP24-0617-2 벽체 비금속배관 100A 인정서.pdf",
+        "href": "assets/downloads/firestop-certificates/nonmetal-pipes/FS-NP24-0617-2.pdf",
+        "size": "2.61 MB",
+        "type": "application/pdf",
+        "pages": 21
+      },
+      "previews": [
+        {
+          "page": 1,
+          "src": "assets/images/certificates/nonmetal-pipes/FS-NP24-0617-2-page-1.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "인정서 · 1페이지"
+        },
+        {
+          "page": 3,
+          "src": "assets/images/certificates/nonmetal-pipes/FS-NP24-0617-2-page-3.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "구조설명도 · 3페이지"
+        }
+      ]
+    },
+    {
+      "id": "certificate-fs-np24-0617-3",
+      "cat": "firestop",
+      "board": "recognition",
+      "group": "nonmetal-pipes",
+      "sourceNumber": 34,
+      "certificate": "FS-NP24-0617-3",
+      "title": "FS-NP24-0617-3 벽체 비금속배관 150A 인정서",
+      "date": "2026-11-04",
+      "tag": "비금속배관",
+      "body": [],
+      "file": {
+        "name": "FS-NP24-0617-3 벽체 비금속배관 150A 인정서.pdf",
+        "href": "assets/downloads/firestop-certificates/nonmetal-pipes/FS-NP24-0617-3.pdf",
+        "size": "2.60 MB",
+        "type": "application/pdf",
+        "pages": 21
+      },
+      "previews": [
+        {
+          "page": 1,
+          "src": "assets/images/certificates/nonmetal-pipes/FS-NP24-0617-3-page-1.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "인정서 · 1페이지"
+        },
+        {
+          "page": 3,
+          "src": "assets/images/certificates/nonmetal-pipes/FS-NP24-0617-3-page-3.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "구조설명도 · 3페이지"
+        }
+      ]
+    },
+    {
+      "id": "certificate-fs-np24-0617-4",
+      "cat": "firestop",
+      "board": "recognition",
+      "group": "nonmetal-pipes",
+      "sourceNumber": 35,
+      "certificate": "FS-NP24-0617-4",
+      "title": "FS-NP24-0617-4 벽체 비금속배관 200A 인정서",
+      "date": "2026-11-04",
+      "tag": "비금속배관",
+      "body": [],
+      "file": {
+        "name": "FS-NP24-0617-4 벽체 비금속배관 200A 인정서.pdf",
+        "href": "assets/downloads/firestop-certificates/nonmetal-pipes/FS-NP24-0617-4.pdf",
+        "size": "2.72 MB",
+        "type": "application/pdf",
+        "pages": 22
+      },
+      "previews": [
+        {
+          "page": 1,
+          "src": "assets/images/certificates/nonmetal-pipes/FS-NP24-0617-4-page-1.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "인정서 · 1페이지"
+        },
+        {
+          "page": 3,
+          "src": "assets/images/certificates/nonmetal-pipes/FS-NP24-0617-4-page-3.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "구조설명도 · 3페이지"
+        }
+      ]
+    },
+    {
+      "id": "certificate-fs-np24-0617-5",
+      "cat": "firestop",
+      "board": "recognition",
+      "group": "nonmetal-pipes",
+      "sourceNumber": 36,
+      "certificate": "FS-NP24-0617-5",
+      "title": "FS-NP24-0617-5 벽체 비금속배관 250A 인정서",
+      "date": "2026-11-04",
+      "tag": "비금속배관",
+      "body": [],
+      "file": {
+        "name": "FS-NP24-0617-5 벽체 비금속배관 250A 인정서.pdf",
+        "href": "assets/downloads/firestop-certificates/nonmetal-pipes/FS-NP24-0617-5.pdf",
+        "size": "2.80 MB",
+        "type": "application/pdf",
+        "pages": 22
+      },
+      "previews": [
+        {
+          "page": 1,
+          "src": "assets/images/certificates/nonmetal-pipes/FS-NP24-0617-5-page-1.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "인정서 · 1페이지"
+        },
+        {
+          "page": 3,
+          "src": "assets/images/certificates/nonmetal-pipes/FS-NP24-0617-5-page-3.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "구조설명도 · 3페이지"
+        }
+      ]
+    },
+    {
+      "id": "certificate-fs-np24-0617-6",
+      "cat": "firestop",
+      "board": "recognition",
+      "group": "nonmetal-pipes",
+      "sourceNumber": 37,
+      "certificate": "FS-NP24-0617-6",
+      "title": "FS-NP24-0617-6 벽체 비금속배관 50A 인정서",
+      "date": "2026-11-04",
+      "tag": "비금속배관",
+      "body": [],
+      "file": {
+        "name": "FS-NP24-0617-6 벽체 비금속배관 50A 인정서.pdf",
+        "href": "assets/downloads/firestop-certificates/nonmetal-pipes/FS-NP24-0617-6.pdf",
+        "size": "3.53 MB",
+        "type": "application/pdf",
+        "pages": 28
+      },
+      "previews": [
+        {
+          "page": 1,
+          "src": "assets/images/certificates/nonmetal-pipes/FS-NP24-0617-6-page-1.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "인정서 · 1페이지"
+        },
+        {
+          "page": 3,
+          "src": "assets/images/certificates/nonmetal-pipes/FS-NP24-0617-6-page-3.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "구조설명도 · 3페이지"
+        }
+      ]
+    },
+    {
+      "id": "certificate-fs-np24-0617-7",
+      "cat": "firestop",
+      "board": "recognition",
+      "group": "nonmetal-pipes",
+      "sourceNumber": 38,
+      "certificate": "FS-NP24-0617-7",
+      "title": "FS-NP24-0617-7 벽체 비금속배관 100A 인정서",
+      "date": "2026-11-04",
+      "tag": "비금속배관",
+      "body": [],
+      "file": {
+        "name": "FS-NP24-0617-7 벽체 비금속배관 100A 인정서.pdf",
+        "href": "assets/downloads/firestop-certificates/nonmetal-pipes/FS-NP24-0617-7.pdf",
+        "size": "3.58 MB",
+        "type": "application/pdf",
+        "pages": 28
+      },
+      "previews": [
+        {
+          "page": 1,
+          "src": "assets/images/certificates/nonmetal-pipes/FS-NP24-0617-7-page-1.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "인정서 · 1페이지"
+        },
+        {
+          "page": 3,
+          "src": "assets/images/certificates/nonmetal-pipes/FS-NP24-0617-7-page-3.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "구조설명도 · 3페이지"
+        }
+      ]
+    },
+    {
+      "id": "certificate-fs-np24-0617-8",
+      "cat": "firestop",
+      "board": "recognition",
+      "group": "nonmetal-pipes",
+      "sourceNumber": 39,
+      "certificate": "FS-NP24-0617-8",
+      "title": "FS-NP24-0617-8 벽체 비금속배관 150A 인정서",
+      "date": "2026-11-04",
+      "tag": "비금속배관",
+      "body": [],
+      "file": {
+        "name": "FS-NP24-0617-8 벽체 비금속배관 150A 인정서.pdf",
+        "href": "assets/downloads/firestop-certificates/nonmetal-pipes/FS-NP24-0617-8.pdf",
+        "size": "3.58 MB",
+        "type": "application/pdf",
+        "pages": 29
+      },
+      "previews": [
+        {
+          "page": 1,
+          "src": "assets/images/certificates/nonmetal-pipes/FS-NP24-0617-8-page-1.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "인정서 · 1페이지"
+        },
+        {
+          "page": 3,
+          "src": "assets/images/certificates/nonmetal-pipes/FS-NP24-0617-8-page-3.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "구조설명도 · 3페이지"
+        }
+      ]
+    },
+    {
+      "id": "certificate-fs-np24-0617-9",
+      "cat": "firestop",
+      "board": "recognition",
+      "group": "nonmetal-pipes",
+      "sourceNumber": 40,
+      "certificate": "FS-NP24-0617-9",
+      "title": "FS-NP24-0617-9 벽체 비금속배관 200A 인정서",
+      "date": "2026-11-04",
+      "tag": "비금속배관",
+      "body": [],
+      "file": {
+        "name": "FS-NP24-0617-9 벽체 비금속배관 200A 인정서.pdf",
+        "href": "assets/downloads/firestop-certificates/nonmetal-pipes/FS-NP24-0617-9.pdf",
+        "size": "3.63 MB",
+        "type": "application/pdf",
+        "pages": 28
+      },
+      "previews": [
+        {
+          "page": 1,
+          "src": "assets/images/certificates/nonmetal-pipes/FS-NP24-0617-9-page-1.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "인정서 · 1페이지"
+        },
+        {
+          "page": 3,
+          "src": "assets/images/certificates/nonmetal-pipes/FS-NP24-0617-9-page-3.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "구조설명도 · 3페이지"
+        }
+      ]
+    },
+    {
+      "id": "certificate-fs-np24-0617-10",
+      "cat": "firestop",
+      "board": "recognition",
+      "group": "nonmetal-pipes",
+      "sourceNumber": 41,
+      "certificate": "FS-NP24-0617-10",
+      "title": "FS-NP24-0617-10 벽체 비금속배관 250A 인정서",
+      "date": "2026-11-04",
+      "tag": "비금속배관",
+      "body": [],
+      "file": {
+        "name": "FS-NP24-0617-10 벽체 비금속배관 250A 인정서.pdf",
+        "href": "assets/downloads/firestop-certificates/nonmetal-pipes/FS-NP24-0617-10.pdf",
+        "size": "3.70 MB",
+        "type": "application/pdf",
+        "pages": 28
+      },
+      "previews": [
+        {
+          "page": 1,
+          "src": "assets/images/certificates/nonmetal-pipes/FS-NP24-0617-10-page-1.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "인정서 · 1페이지"
+        },
+        {
+          "page": 3,
+          "src": "assets/images/certificates/nonmetal-pipes/FS-NP24-0617-10-page-3.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "구조설명도 · 3페이지"
+        }
+      ]
+    },
+    {
+      "id": "certificate-fs-np24-0617-11",
+      "cat": "firestop",
+      "board": "recognition",
+      "group": "nonmetal-pipes",
+      "sourceNumber": 42,
+      "certificate": "FS-NP24-0617-11",
+      "title": "FS-NP24-0617-11 바닥 비금속배관 100A 하부시공 인정서",
+      "date": "2026-11-04",
+      "tag": "비금속배관",
+      "body": [],
+      "file": {
+        "name": "FS-NP24-0617-11 바닥 비금속배관 100A 하부시공 인정서.pdf",
+        "href": "assets/downloads/firestop-certificates/nonmetal-pipes/FS-NP24-0617-11.pdf",
+        "size": "2.18 MB",
+        "type": "application/pdf",
+        "pages": 20
+      },
+      "previews": [
+        {
+          "page": 1,
+          "src": "assets/images/certificates/nonmetal-pipes/FS-NP24-0617-11-page-1.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "인정서 · 1페이지"
+        },
+        {
+          "page": 3,
+          "src": "assets/images/certificates/nonmetal-pipes/FS-NP24-0617-11-page-3.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "구조설명도 · 3페이지"
+        }
+      ]
+    },
+    {
+      "id": "certificate-fs-np24-0617-12",
+      "cat": "firestop",
+      "board": "recognition",
+      "group": "nonmetal-pipes",
+      "sourceNumber": 43,
+      "certificate": "FS-NP24-0617-12",
+      "title": "FS-NP24-0617-12 바닥 비금속배관 150A 하부시공 인정서",
+      "date": "2026-11-04",
+      "tag": "비금속배관",
+      "body": [],
+      "file": {
+        "name": "FS-NP24-0617-12 바닥 비금속배관 150A 하부시공 인정서.pdf",
+        "href": "assets/downloads/firestop-certificates/nonmetal-pipes/FS-NP24-0617-12.pdf",
+        "size": "2.13 MB",
+        "type": "application/pdf",
+        "pages": 19
+      },
+      "previews": [
+        {
+          "page": 1,
+          "src": "assets/images/certificates/nonmetal-pipes/FS-NP24-0617-12-page-1.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "인정서 · 1페이지"
+        },
+        {
+          "page": 3,
+          "src": "assets/images/certificates/nonmetal-pipes/FS-NP24-0617-12-page-3.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "구조설명도 · 3페이지"
+        }
+      ]
+    },
+    {
+      "id": "certificate-fs-np24-0617-13",
+      "cat": "firestop",
+      "board": "recognition",
+      "group": "nonmetal-pipes",
+      "sourceNumber": 44,
+      "certificate": "FS-NP24-0617-13",
+      "title": "FS-NP24-0617-13 바닥 비금속배관 200A 하부시공 인정서",
+      "date": "2026-11-04",
+      "tag": "비금속배관",
+      "body": [],
+      "file": {
+        "name": "FS-NP24-0617-13 바닥 비금속배관 200A 하부시공 인정서.pdf",
+        "href": "assets/downloads/firestop-certificates/nonmetal-pipes/FS-NP24-0617-13.pdf",
+        "size": "2.21 MB",
+        "type": "application/pdf",
+        "pages": 19
+      },
+      "previews": [
+        {
+          "page": 1,
+          "src": "assets/images/certificates/nonmetal-pipes/FS-NP24-0617-13-page-1.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "인정서 · 1페이지"
+        },
+        {
+          "page": 3,
+          "src": "assets/images/certificates/nonmetal-pipes/FS-NP24-0617-13-page-3.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "구조설명도 · 3페이지"
+        }
+      ]
+    },
+    {
+      "id": "certificate-fs-np24-0617-14",
+      "cat": "firestop",
+      "board": "recognition",
+      "group": "nonmetal-pipes",
+      "sourceNumber": 45,
+      "certificate": "FS-NP24-0617-14",
+      "title": "FS-NP24-0617-14 바닥 비금속배관 250A 하부시공 인정서",
+      "date": "2026-11-04",
+      "tag": "비금속배관",
+      "body": [],
+      "file": {
+        "name": "FS-NP24-0617-14 바닥 비금속배관 250A 하부시공 인정서.pdf",
+        "href": "assets/downloads/firestop-certificates/nonmetal-pipes/FS-NP24-0617-14.pdf",
+        "size": "2.23 MB",
+        "type": "application/pdf",
+        "pages": 19
+      },
+      "previews": [
+        {
+          "page": 1,
+          "src": "assets/images/certificates/nonmetal-pipes/FS-NP24-0617-14-page-1.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "인정서 · 1페이지"
+        },
+        {
+          "page": 3,
+          "src": "assets/images/certificates/nonmetal-pipes/FS-NP24-0617-14-page-3.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "구조설명도 · 3페이지"
+        }
+      ]
+    },
+    {
+      "id": "certificate-fs-np25-0224-01",
+      "cat": "firestop",
+      "board": "recognition",
+      "group": "nonmetal-pipes",
+      "sourceNumber": 46,
+      "certificate": "FS-NP25-0224-01",
+      "title": "FS-NP25-0224-01 바닥 비금속배관 50A 상부시공 인정서",
+      "date": "2026-11-04",
+      "tag": "비금속배관",
+      "body": [],
+      "file": {
+        "name": "FS-NP25-0224-01 바닥 비금속배관 50A 상부시공 인정서.pdf",
+        "href": "assets/downloads/firestop-certificates/nonmetal-pipes/FS-NP25-0224-01.pdf",
+        "size": "3.46 MB",
+        "type": "application/pdf",
+        "pages": 26
+      },
+      "previews": [
+        {
+          "page": 1,
+          "src": "assets/images/certificates/nonmetal-pipes/FS-NP25-0224-01-page-1.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "인정서 · 1페이지"
+        },
+        {
+          "page": 3,
+          "src": "assets/images/certificates/nonmetal-pipes/FS-NP25-0224-01-page-3.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "구조설명도 · 3페이지"
+        }
+      ]
+    },
+    {
+      "id": "certificate-fs-np25-0224-02",
+      "cat": "firestop",
+      "board": "recognition",
+      "group": "nonmetal-pipes",
+      "sourceNumber": 47,
+      "certificate": "FS-NP25-0224-02",
+      "title": "FS-NP25-0224-02 바닥 비금속배관 100A 상부시공 인정서",
+      "date": "2026-11-04",
+      "tag": "비금속배관",
+      "body": [],
+      "file": {
+        "name": "FS-NP25-0224-02 바닥 비금속배관 100A 상부시공 인정서.pdf",
+        "href": "assets/downloads/firestop-certificates/nonmetal-pipes/FS-NP25-0224-02.pdf",
+        "size": "3.34 MB",
+        "type": "application/pdf",
+        "pages": 26
+      },
+      "previews": [
+        {
+          "page": 1,
+          "src": "assets/images/certificates/nonmetal-pipes/FS-NP25-0224-02-page-1.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "인정서 · 1페이지"
+        },
+        {
+          "page": 3,
+          "src": "assets/images/certificates/nonmetal-pipes/FS-NP25-0224-02-page-3.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "구조설명도 · 3페이지"
+        }
+      ]
+    },
+    {
+      "id": "certificate-fs-np25-0224-03",
+      "cat": "firestop",
+      "board": "recognition",
+      "group": "nonmetal-pipes",
+      "sourceNumber": 48,
+      "certificate": "FS-NP25-0224-03",
+      "title": "FS-NP25-0224-03 바닥 비금속배관 150A 상부시공 인정서",
+      "date": "2026-11-04",
+      "tag": "비금속배관",
+      "body": [],
+      "file": {
+        "name": "FS-NP25-0224-03 바닥 비금속배관 150A 상부시공 인정서.pdf",
+        "href": "assets/downloads/firestop-certificates/nonmetal-pipes/FS-NP25-0224-03.pdf",
+        "size": "3.38 MB",
+        "type": "application/pdf",
+        "pages": 26
+      },
+      "previews": [
+        {
+          "page": 1,
+          "src": "assets/images/certificates/nonmetal-pipes/FS-NP25-0224-03-page-1.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "인정서 · 1페이지"
+        },
+        {
+          "page": 3,
+          "src": "assets/images/certificates/nonmetal-pipes/FS-NP25-0224-03-page-3.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "구조설명도 · 3페이지"
+        }
+      ]
+    },
+    {
+      "id": "certificate-fs-np25-0224-04",
+      "cat": "firestop",
+      "board": "recognition",
+      "group": "nonmetal-pipes",
+      "sourceNumber": 49,
+      "certificate": "FS-NP25-0224-04",
+      "title": "FS-NP25-0224-04 바닥 비금속배관 200A 상부시공 인정서",
+      "date": "2026-11-04",
+      "tag": "비금속배관",
+      "body": [],
+      "file": {
+        "name": "FS-NP25-0224-04 바닥 비금속배관 200A 상부시공 인정서.pdf",
+        "href": "assets/downloads/firestop-certificates/nonmetal-pipes/FS-NP25-0224-04.pdf",
+        "size": "3.39 MB",
+        "type": "application/pdf",
+        "pages": 26
+      },
+      "previews": [
+        {
+          "page": 1,
+          "src": "assets/images/certificates/nonmetal-pipes/FS-NP25-0224-04-page-1.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "인정서 · 1페이지"
+        },
+        {
+          "page": 3,
+          "src": "assets/images/certificates/nonmetal-pipes/FS-NP25-0224-04-page-3.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "구조설명도 · 3페이지"
+        }
+      ]
+    },
+    {
+      "id": "certificate-fs-np25-0224-05",
+      "cat": "firestop",
+      "board": "recognition",
+      "group": "nonmetal-pipes",
+      "sourceNumber": 50,
+      "certificate": "FS-NP25-0224-05",
+      "title": "FS-NP25-0224-05 바닥 비금속배관 250A 상부시공 인정서",
+      "date": "2026-11-04",
+      "tag": "비금속배관",
+      "body": [],
+      "file": {
+        "name": "FS-NP25-0224-05 바닥 비금속배관 250A 상부시공 인정서.pdf",
+        "href": "assets/downloads/firestop-certificates/nonmetal-pipes/FS-NP25-0224-05.pdf",
+        "size": "3.94 MB",
+        "type": "application/pdf",
+        "pages": 29
+      },
+      "previews": [
+        {
+          "page": 1,
+          "src": "assets/images/certificates/nonmetal-pipes/FS-NP25-0224-05-page-1.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "인정서 · 1페이지"
+        },
+        {
+          "page": 3,
+          "src": "assets/images/certificates/nonmetal-pipes/FS-NP25-0224-05-page-3.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "구조설명도 · 3페이지"
+        }
+      ]
+    },
+    {
+      "id": "certificate-fs-mp25-0224-06",
+      "cat": "firestop",
+      "board": "recognition",
+      "group": "metal-ducts",
+      "sourceNumber": 51,
+      "certificate": "FS-MP25-0224-06",
+      "title": "FS-MP25-0224-06 벽체 금속덕트 중공부관통 전규격 인정서",
+      "date": "2026-11-04",
+      "tag": "금속덕트",
+      "body": [],
+      "file": {
+        "name": "FS-MP25-0224-06 벽체 금속덕트 중공부관통 전규격 인정서.pdf",
+        "href": "assets/downloads/firestop-certificates/metal-ducts/FS-MP25-0224-06.pdf",
+        "size": "5.33 MB",
+        "type": "application/pdf",
+        "pages": 33
+      },
+      "previews": [
+        {
+          "page": 1,
+          "src": "assets/images/certificates/metal-ducts/FS-MP25-0224-06-page-1.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "인정서 · 1페이지"
+        },
+        {
+          "page": 3,
+          "src": "assets/images/certificates/metal-ducts/FS-MP25-0224-06-page-3.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "구조설명도 · 3페이지"
+        }
+      ]
+    },
+    {
+      "id": "certificate-fs-mp25-0625-02",
+      "cat": "firestop",
+      "board": "recognition",
+      "group": "bundled-pipes",
+      "sourceNumber": 52,
+      "certificate": "FS-MP25-0625-02",
+      "title": "FS-MP25-0625-02 벽체 금속다발배관 200A 이하",
+      "date": "2026-11-04",
+      "tag": "다발배관",
+      "body": [],
+      "file": {
+        "name": "FS-MP25-0625-02 벽체 금속다발배관 200A 이하.pdf",
+        "href": "assets/downloads/firestop-certificates/bundled-pipes/FS-MP25-0625-02.pdf",
+        "size": "4.77 MB",
+        "type": "application/pdf",
+        "pages": 36
+      },
+      "previews": [
+        {
+          "page": 1,
+          "src": "assets/images/certificates/bundled-pipes/FS-MP25-0625-02-page-1.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "인정서 · 1페이지"
+        },
+        {
+          "page": 3,
+          "src": "assets/images/certificates/bundled-pipes/FS-MP25-0625-02-page-3.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "구조설명도 · 3페이지"
+        }
+      ]
+    },
+    {
+      "id": "certificate-fs-mp25-1218-13",
+      "cat": "firestop",
+      "board": "recognition",
+      "group": "bundled-pipes",
+      "sourceNumber": 53,
+      "certificate": "FS-MP25-1218-13",
+      "title": "FS-MP25-1218-13 벽체 금속다발배관 전규격",
+      "date": "2026-11-04",
+      "tag": "다발배관",
+      "body": [],
+      "file": {
+        "name": "FS-MP25-1218-13 벽체 금속다발배관 전규격.pdf",
+        "href": "assets/downloads/firestop-certificates/bundled-pipes/FS-MP25-1218-13.pdf",
+        "size": "5.89 MB",
+        "type": "application/pdf",
+        "pages": 37
+      },
+      "previews": [
+        {
+          "page": 1,
+          "src": "assets/images/certificates/bundled-pipes/FS-MP25-1218-13-page-1.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "인정서 · 1페이지"
+        },
+        {
+          "page": 3,
+          "src": "assets/images/certificates/bundled-pipes/FS-MP25-1218-13-page-3.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "구조설명도 · 3페이지"
+        }
+      ]
+    },
+    {
+      "id": "certificate-fs-mp25-0625-01",
+      "cat": "firestop",
+      "board": "recognition",
+      "group": "bundled-pipes",
+      "sourceNumber": 54,
+      "certificate": "FS-MP25-0625-01",
+      "title": "FS-MP25-0625-01 벽체 금속다발배관 400A 이하",
+      "date": "2026-11-04",
+      "tag": "다발배관",
+      "body": [],
+      "file": {
+        "name": "FS-MP25-0625-01 벽체 금속다발배관 400A 이하.pdf",
+        "href": "assets/downloads/firestop-certificates/bundled-pipes/FS-MP25-0625-01.pdf",
+        "size": "4.76 MB",
+        "type": "application/pdf",
+        "pages": 33
+      },
+      "previews": [
+        {
+          "page": 1,
+          "src": "assets/images/certificates/bundled-pipes/FS-MP25-0625-01-page-1.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "인정서 · 1페이지"
+        },
+        {
+          "page": 3,
+          "src": "assets/images/certificates/bundled-pipes/FS-MP25-0625-01-page-3.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "구조설명도 · 3페이지"
+        }
+      ]
+    },
+    {
+      "id": "certificate-fs-np25-0625-05",
+      "cat": "firestop",
+      "board": "recognition",
+      "group": "bundled-pipes",
+      "sourceNumber": 55,
+      "certificate": "FS-NP25-0625-05",
+      "title": "FS-NP25-0625-05 벽체 비금속다발배관 100A 이하",
+      "date": "2026-11-04",
+      "tag": "다발배관",
+      "body": [],
+      "file": {
+        "name": "FS-NP25-0625-05 벽체 비금속다발배관 100A 이하.pdf",
+        "href": "assets/downloads/firestop-certificates/bundled-pipes/FS-NP25-0625-05.pdf",
+        "size": "3.99 MB",
+        "type": "application/pdf",
+        "pages": 29
+      },
+      "previews": [
+        {
+          "page": 1,
+          "src": "assets/images/certificates/bundled-pipes/FS-NP25-0625-05-page-1.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "인정서 · 1페이지"
+        },
+        {
+          "page": 3,
+          "src": "assets/images/certificates/bundled-pipes/FS-NP25-0625-05-page-3.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "구조설명도 · 3페이지"
+        }
+      ]
+    },
+    {
+      "id": "certificate-fs-np25-0625-04",
+      "cat": "firestop",
+      "board": "recognition",
+      "group": "bundled-pipes",
+      "sourceNumber": 56,
+      "certificate": "FS-NP25-0625-04",
+      "title": "FS-NP25-0625-04 벽체 비금속다발배관 250A 이하",
+      "date": "2026-11-04",
+      "tag": "다발배관",
+      "body": [],
+      "file": {
+        "name": "FS-NP25-0625-04 벽체 비금속다발배관 250A 이하.pdf",
+        "href": "assets/downloads/firestop-certificates/bundled-pipes/FS-NP25-0625-04.pdf",
+        "size": "4.51 MB",
+        "type": "application/pdf",
+        "pages": 34
+      },
+      "previews": [
+        {
+          "page": 1,
+          "src": "assets/images/certificates/bundled-pipes/FS-NP25-0625-04-page-1.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "인정서 · 1페이지"
+        },
+        {
+          "page": 3,
+          "src": "assets/images/certificates/bundled-pipes/FS-NP25-0625-04-page-3.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "구조설명도 · 3페이지"
+        }
+      ]
+    },
+    {
+      "id": "certificate-fs-mp25-0625-03",
+      "cat": "firestop",
+      "board": "recognition",
+      "group": "bundled-pipes",
+      "sourceNumber": 57,
+      "certificate": "FS-MP25-0625-03",
+      "title": "FS-MP25-0625-03 벽체 S-gas 다발배관",
+      "date": "2026-11-04",
+      "tag": "다발배관",
+      "body": [],
+      "file": {
+        "name": "FS-MP25-0625-03 벽체 S-gas 다발배관.pdf",
+        "href": "assets/downloads/firestop-certificates/bundled-pipes/FS-MP25-0625-03.pdf",
+        "size": "4.50 MB",
+        "type": "application/pdf",
+        "pages": 28
+      },
+      "previews": [
+        {
+          "page": 1,
+          "src": "assets/images/certificates/bundled-pipes/FS-MP25-0625-03-page-1.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "인정서 · 1페이지"
+        },
+        {
+          "page": 3,
+          "src": "assets/images/certificates/bundled-pipes/FS-MP25-0625-03-page-3.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "구조설명도 · 3페이지"
+        }
+      ]
+    },
+    {
+      "id": "certificate-fs-os25-0513-01",
+      "cat": "firestop",
+      "board": "recognition",
+      "group": "bundled-pipes",
+      "sourceNumber": 58,
+      "certificate": "FS-OS25-0513-01",
+      "title": "FS-OS25-0513-01 벽체 냉매배관",
+      "date": "2026-11-04",
+      "tag": "다발배관",
+      "body": [],
+      "file": {
+        "name": "FS-OS25-0513-01 벽체 냉매배관.pdf",
+        "href": "assets/downloads/firestop-certificates/bundled-pipes/FS-OS25-0513-01.pdf",
+        "size": "3.09 MB",
+        "type": "application/pdf",
+        "pages": 21
+      },
+      "previews": [
+        {
+          "page": 1,
+          "src": "assets/images/certificates/bundled-pipes/FS-OS25-0513-01-page-1.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "인정서 · 1페이지"
+        },
+        {
+          "page": 3,
+          "src": "assets/images/certificates/bundled-pipes/FS-OS25-0513-01-page-3.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "구조설명도 · 3페이지"
+        }
+      ]
+    },
+    {
+      "id": "certificate-fs-mp26-0507-14",
+      "cat": "firestop",
+      "board": "recognition",
+      "group": "metal-ducts",
+      "sourceNumber": 59,
+      "certificate": "FS-MP26-0507-14",
+      "title": "FS-MP26-0507-14 벽체 금속덕트 중공부관통 전규격 인정서",
+      "date": "2026-11-04",
+      "tag": "금속덕트",
+      "body": [],
+      "file": {
+        "name": "FS-MP26-0507-14 벽체 금속덕트 중공부관통 전규격 인정서.pdf",
+        "href": "assets/downloads/firestop-certificates/metal-ducts/FS-MP26-0507-14.pdf",
+        "size": "4.87 MB",
+        "type": "application/pdf",
+        "pages": 27
+      },
+      "previews": [
+        {
+          "page": 1,
+          "src": "assets/images/certificates/metal-ducts/FS-MP26-0507-14-page-1.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "인정서 · 1페이지"
+        },
+        {
+          "page": 3,
+          "src": "assets/images/certificates/metal-ducts/FS-MP26-0507-14-page-3.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "구조설명도 · 3페이지"
+        }
+      ]
+    },
+    {
+      "id": "certificate-fs-mp26-0507-15",
+      "cat": "firestop",
+      "board": "recognition",
+      "group": "metal-ducts",
+      "sourceNumber": 60,
+      "certificate": "FS-MP26-0507-15",
+      "title": "FS-MP26-0507-15 바닥 금속덕트 중공부관통 전규격 인정서",
+      "date": "2026-11-04",
+      "tag": "금속덕트",
+      "body": [],
+      "file": {
+        "name": "FS-MP26-0507-15 바닥 금속덕트 중공부관통 전규격 인정서.pdf",
+        "href": "assets/downloads/firestop-certificates/metal-ducts/FS-MP26-0507-15.pdf",
+        "size": "4.35 MB",
+        "type": "application/pdf",
+        "pages": 27
+      },
+      "previews": [
+        {
+          "page": 1,
+          "src": "assets/images/certificates/metal-ducts/FS-MP26-0507-15-page-1.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "인정서 · 1페이지"
+        },
+        {
+          "page": 3,
+          "src": "assets/images/certificates/metal-ducts/FS-MP26-0507-15-page-3.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "구조설명도 · 3페이지"
+        }
+      ]
+    },
+    {
+      "id": "certificate-fr-ws26-0102-1",
+      "cat": "fireproof",
+      "board": "recognition",
+      "sourceNumber": 1,
+      "certificate": "FR-WS26-0102-1",
+      "title": "FR-WS26-0102-1 내화구조 벽체 인정서",
+      "date": "2026-11-04",
+      "tag": "내화구조",
+      "body": [],
+      "file": {
+        "name": "FR-WS26-0102-1 내화구조 벽체 인정서.pdf",
+        "href": "assets/downloads/fireproof-certificates/FR-WS26-0102-1.pdf",
+        "size": "3.03 MB",
+        "type": "application/pdf",
+        "pages": 22
+      },
+      "previews": [
+        {
+          "page": 1,
+          "src": "assets/images/certificates/fireproof/FR-WS26-0102-1-page-1.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "인정서 · 1페이지"
+        },
+        {
+          "page": 3,
+          "src": "assets/images/certificates/fireproof/FR-WS26-0102-1-page-3.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "구조설명도 · 3페이지"
+        }
+      ]
+    }
+  ],
+  "boards": [
+    {
+      "id": "recognition",
+      "name": "인정서"
+    },
+    {
+      "id": "promo",
+      "name": "홍보자료"
+    },
+    {
+      "id": "other",
+      "name": "기타자료"
     }
   ]
 }

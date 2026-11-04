@@ -1,4 +1,4 @@
-import { SYSTEMS, MATERIALS, SOURCES } from './systems.js?v=20261103r1';
+import { SYSTEMS, MATERIALS, SOURCES } from './systems.js?v=20261104r3';
 
 const buttons = [...document.querySelectorAll('[data-system]')];
 const $ = id => document.getElementById(id);
@@ -184,7 +184,7 @@ function startExplorer() {
   loading = (async () => {
     try {
       $('explorerLoadStatus').textContent = '화재차단 시스템을 준비하고 있습니다.';
-      const { initHero3D } = await import('./hero3d.js?v=20261103r5');
+      const { initHero3D } = await import('./hero3d.js?v=20261104r3');
       api = await initHero3D($('hero3d'), $('explorerRender'), { onUpdate: update });
       window.systemExplorer = api;
       $('heroMedia').setAttribute('aria-busy', 'false');

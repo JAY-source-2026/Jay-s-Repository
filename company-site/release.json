@@ -1,6 +1,8 @@
 {
-  "source_commit": "18ba12d11107638cb54ce2456641407c176a40de",
+  "source_commit": "fb85f120d2f58f05115a9554b6aaff06274d849d",
   "site": "company-site",
-  "files": 96,
-  "original_documents": "excluded; public links use the contact section"
+  "files": 280,
+  "original_documents": "private source folders excluded; approved firestop and fireproof certificate copies included",
+  "published_firestop_certificates": 60,
+  "published_fireproof_certificates": 1
 }

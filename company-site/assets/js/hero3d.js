@@ -1,4 +1,4 @@
-import { SYSTEMS } from './systems.js?v=20261103r1';
+import { SYSTEMS } from './systems.js?v=20261104r3';
 import { buildSiteContext } from './site-context.js?v=20261103r1';
 import { FACTORY, buildFactory } from './factory.js?v=20261103r1';
 // Product-scale fire protection demonstrator. No people or full-screen film.

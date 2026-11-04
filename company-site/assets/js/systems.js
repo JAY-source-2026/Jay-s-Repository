@@ -1,10 +1,11 @@
 // Sources supplied by DOENC. Page numbers below are physical PDF pages (1-based).
 // Recognition applies to each complete specified assembly, not an isolated material.
 const source = name => new URL('../자료/' + name, import.meta.url).href;
+const certificate = path => new URL('../downloads/firestop-certificates/' + path, import.meta.url).href;
 export const SOURCES = {
-  metal: source('5) FS-MP23-1103-3 벽체 비보온 금속배관 전규격 인정서.pdf'),
-  polymer: source('36) FS-NP24-0617-5 벽체 비금속배관 250A 인정서(내화자켓).pdf'),
-  duct: source('51) FS-MP25-0224-06 벽체 금속덕트 중공부관통 전규격 인정서.pdf'),
+  metal: certificate('metal-pipes/FS-MP23-1103-3.pdf'),
+  polymer: certificate('nonmetal-pipes/FS-NP24-0617-5.pdf'),
+  duct: certificate('metal-ducts/FS-MP25-0224-06.pdf'),
   catalog: new URL('../docs/doenc-catalog-2025-web.pdf', import.meta.url).href,
   technical: source('3. 내화채움구조 인정제도 기술자료_(주)디오이엔씨 (07.08).pdf'),
   shutter: source('셔터 영상.mp4'),
