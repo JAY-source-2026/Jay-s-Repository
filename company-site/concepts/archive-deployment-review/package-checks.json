@@ -1,0 +1,18 @@
+{
+  "source_commit": "fb85f120d2f58f05115a9554b6aaff06274d849d",
+  "package_files": 280,
+  "html_references_checked": 237,
+  "pdfs_verified": 61,
+  "images_verified": 122,
+  "private_originals_excluded": true,
+  "existing_legacy_concept_pages_preserved": [
+    "concepts/index.html",
+    "concepts/a-crosssection.html",
+    "concepts/d-showcase.html",
+    "concepts/c-index.html",
+    "concepts/e-white3d.html",
+    "concepts/b-fire.html"
+  ],
+  "other_project_index_preserved": true,
+  "passed": true
+}
