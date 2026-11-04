@@ -115,6 +115,26 @@
   #signatureFirestopMenu { grid-template-columns: 1fr; }
   .signature-submenu button { padding: 9px 8px; font-size: 11px; }
 }
+
+/* Reserve room for the actual menu height in shorter desktop windows.
+   The stage gives up space first; very short windows keep normal scrolling. */
+@media (min-width: 900px) and (max-height: 950px) {
+  .signature-layout { min-height: calc(100svh - var(--hd-h) - 56px); padding: 18px 0 14px; }
+  .signature-copy { padding-bottom: 0; }
+  .signature-eyebrow { margin-bottom: 20px; }
+  .signature-lead { margin-top: 20px; }
+  .signature-actions { margin-top: 24px; }
+  .signature-showcase {
+    display: grid;
+    grid-template-rows: minmax(144px, 1fr) auto;
+    height: calc(100svh - var(--hd-h) - 56px - 32px);
+    min-height: min-content;
+  }
+  .signature-stage { height: auto; }
+  #signatureFirestopMenu { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .signature-footer { min-height: 56px; }
+}
+
 @media (max-width: 760px) {
   .signature-layout { grid-template-columns: 1fr; gap: 25px; padding: 38px 0 0; min-height: 0; }
   .signature-copy { padding: 0; }
