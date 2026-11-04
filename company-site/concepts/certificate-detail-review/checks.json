@@ -1,0 +1,436 @@
+{
+  "details": [
+    "FS-MP24-0617-15",
+    "FS-MP24-0617-16",
+    "FS-MP24-0617-17",
+    "FS-MP24-0617-18",
+    "FS-MP23-1103-3",
+    "FS-MP24-0617-19",
+    "FS-MP24-0617-20",
+    "FS-MP24-0617-21",
+    "FS-MP23-1103-1",
+    "FS-MP25-1218-01",
+    "FS-MP25-1218-02",
+    "FS-MP25-1218-03",
+    "FS-MP25-1218-04",
+    "FS-MP25-1218-05",
+    "FS-MP25-1218-12",
+    "FS-MP24-0617-22",
+    "FS-MP24-0617-23",
+    "FS-MP24-0617-24",
+    "FS-MP24-0617-25",
+    "FS-MP24-0617-26",
+    "FS-MP23-1103-2",
+    "FS-MP24-0617-27",
+    "FS-MP24-0617-28",
+    "FS-MP24-0617-29",
+    "FS-MP24-0617-30",
+    "FS-MP25-1218-06",
+    "FS-MP25-1218-07",
+    "FS-MP25-1218-08",
+    "FS-MP25-1218-09",
+    "FS-MP25-1218-10",
+    "FS-MP25-1218-11",
+    "FS-NP24-0617-1",
+    "FS-NP24-0617-2",
+    "FS-NP24-0617-3",
+    "FS-NP24-0617-4",
+    "FS-NP24-0617-5",
+    "FS-NP24-0617-6",
+    "FS-NP24-0617-7",
+    "FS-NP24-0617-8",
+    "FS-NP24-0617-9",
+    "FS-NP24-0617-10",
+    "FS-NP24-0617-11",
+    "FS-NP24-0617-12",
+    "FS-NP24-0617-13",
+    "FS-NP24-0617-14",
+    "FS-NP25-0224-01",
+    "FS-NP25-0224-02",
+    "FS-NP25-0224-03",
+    "FS-NP25-0224-04",
+    "FS-NP25-0224-05",
+    "FS-MP25-0224-06",
+    "FS-MP25-0625-02",
+    "FS-MP25-1218-13",
+    "FS-MP25-0625-01",
+    "FS-NP25-0625-05",
+    "FS-NP25-0625-04",
+    "FS-MP25-0625-03",
+    "FS-OS25-0513-01",
+    "FS-MP26-0507-14",
+    "FS-MP26-0507-15",
+    "FR-WS26-0102-1"
+  ],
+  "responsive": [
+    {
+      "width": 320,
+      "certificate": "FS-MP23-1103-2",
+      "overflow": 0,
+      "attachmentBeforePreview": true,
+      "buttons": [
+        {
+          "width": 120,
+          "height": 46.75,
+          "left": 35,
+          "right": 155,
+          "color": "rgb(45, 86, 130)",
+          "bg": "rgb(255, 255, 255)"
+        },
+        {
+          "width": 120,
+          "height": 46.75,
+          "left": 165,
+          "right": 285,
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgb(45, 86, 130)"
+        }
+      ]
+    },
+    {
+      "width": 320,
+      "certificate": "FR-WS26-0102-1",
+      "overflow": 0,
+      "attachmentBeforePreview": true,
+      "buttons": [
+        {
+          "width": 120,
+          "height": 46.75,
+          "left": 35,
+          "right": 155,
+          "color": "rgb(45, 86, 130)",
+          "bg": "rgb(255, 255, 255)"
+        },
+        {
+          "width": 120,
+          "height": 46.75,
+          "left": 165,
+          "right": 285,
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgb(45, 86, 130)"
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "certificate": "FS-MP23-1103-2",
+      "overflow": 0,
+      "attachmentBeforePreview": true,
+      "buttons": [
+        {
+          "width": 155,
+          "height": 46.75,
+          "left": 35,
+          "right": 190,
+          "color": "rgb(45, 86, 130)",
+          "bg": "rgb(255, 255, 255)"
+        },
+        {
+          "width": 155,
+          "height": 46.75,
+          "left": 200,
+          "right": 355,
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgb(45, 86, 130)"
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "certificate": "FR-WS26-0102-1",
+      "overflow": 0,
+      "attachmentBeforePreview": true,
+      "buttons": [
+        {
+          "width": 155,
+          "height": 46.75,
+          "left": 35,
+          "right": 190,
+          "color": "rgb(45, 86, 130)",
+          "bg": "rgb(255, 255, 255)"
+        },
+        {
+          "width": 155,
+          "height": 46.75,
+          "left": 200,
+          "right": 355,
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgb(45, 86, 130)"
+        }
+      ]
+    },
+    {
+      "width": 680,
+      "certificate": "FS-MP23-1103-2",
+      "overflow": 0,
+      "attachmentBeforePreview": true,
+      "buttons": [
+        {
+          "width": 300,
+          "height": 46.75,
+          "left": 35,
+          "right": 335,
+          "color": "rgb(45, 86, 130)",
+          "bg": "rgb(255, 255, 255)"
+        },
+        {
+          "width": 300,
+          "height": 46.75,
+          "left": 345,
+          "right": 645,
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgb(45, 86, 130)"
+        }
+      ]
+    },
+    {
+      "width": 680,
+      "certificate": "FR-WS26-0102-1",
+      "overflow": 0,
+      "attachmentBeforePreview": true,
+      "buttons": [
+        {
+          "width": 300,
+          "height": 46.75,
+          "left": 35,
+          "right": 335,
+          "color": "rgb(45, 86, 130)",
+          "bg": "rgb(255, 255, 255)"
+        },
+        {
+          "width": 300,
+          "height": 46.75,
+          "left": 345,
+          "right": 645,
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgb(45, 86, 130)"
+        }
+      ]
+    },
+    {
+      "width": 820,
+      "certificate": "FS-MP23-1103-2",
+      "overflow": 0,
+      "attachmentBeforePreview": true,
+      "buttons": [
+        {
+          "width": 120.328125,
+          "height": 46.75,
+          "left": 525.8125,
+          "right": 646.140625,
+          "color": "rgb(45, 86, 130)",
+          "bg": "rgb(255, 255, 255)"
+        },
+        {
+          "width": 114.859375,
+          "height": 46.75,
+          "left": 656.140625,
+          "right": 771,
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgb(45, 86, 130)"
+        }
+      ]
+    },
+    {
+      "width": 820,
+      "certificate": "FR-WS26-0102-1",
+      "overflow": 0,
+      "attachmentBeforePreview": true,
+      "buttons": [
+        {
+          "width": 120.328125,
+          "height": 46.75,
+          "left": 525.8125,
+          "right": 646.140625,
+          "color": "rgb(45, 86, 130)",
+          "bg": "rgb(255, 255, 255)"
+        },
+        {
+          "width": 114.859375,
+          "height": 46.75,
+          "left": 656.140625,
+          "right": 771,
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgb(45, 86, 130)"
+        }
+      ]
+    },
+    {
+      "width": 1180,
+      "certificate": "FS-MP23-1103-2",
+      "overflow": 0,
+      "attachmentBeforePreview": true,
+      "buttons": [
+        {
+          "width": 120.328125,
+          "height": 46.75,
+          "left": 885.8125,
+          "right": 1006.140625,
+          "color": "rgb(45, 86, 130)",
+          "bg": "rgb(255, 255, 255)"
+        },
+        {
+          "width": 114.859375,
+          "height": 46.75,
+          "left": 1016.140625,
+          "right": 1131,
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgb(45, 86, 130)"
+        }
+      ]
+    },
+    {
+      "width": 1180,
+      "certificate": "FR-WS26-0102-1",
+      "overflow": 0,
+      "attachmentBeforePreview": true,
+      "buttons": [
+        {
+          "width": 120.328125,
+          "height": 46.75,
+          "left": 885.8125,
+          "right": 1006.140625,
+          "color": "rgb(45, 86, 130)",
+          "bg": "rgb(255, 255, 255)"
+        },
+        {
+          "width": 114.859375,
+          "height": 46.75,
+          "left": 1016.140625,
+          "right": 1131,
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgb(45, 86, 130)"
+        }
+      ]
+    },
+    {
+      "width": 1440,
+      "certificate": "FS-MP23-1103-2",
+      "overflow": 0,
+      "attachmentBeforePreview": true,
+      "buttons": [
+        {
+          "width": 120.328125,
+          "height": 46.75,
+          "left": 1045.8125,
+          "right": 1166.140625,
+          "color": "rgb(45, 86, 130)",
+          "bg": "rgb(255, 255, 255)"
+        },
+        {
+          "width": 114.859375,
+          "height": 46.75,
+          "left": 1176.140625,
+          "right": 1291,
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgb(45, 86, 130)"
+        }
+      ]
+    },
+    {
+      "width": 1440,
+      "certificate": "FR-WS26-0102-1",
+      "overflow": 0,
+      "attachmentBeforePreview": true,
+      "buttons": [
+        {
+          "width": 120.328125,
+          "height": 46.75,
+          "left": 1045.8125,
+          "right": 1166.140625,
+          "color": "rgb(45, 86, 130)",
+          "bg": "rgb(255, 255, 255)"
+        },
+        {
+          "width": 114.859375,
+          "height": 46.75,
+          "left": 1176.140625,
+          "right": 1291,
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgb(45, 86, 130)"
+        }
+      ]
+    },
+    {
+      "width": 1920,
+      "certificate": "FS-MP23-1103-2",
+      "overflow": 0,
+      "attachmentBeforePreview": true,
+      "buttons": [
+        {
+          "width": 120.328125,
+          "height": 46.75,
+          "left": 1285.8125,
+          "right": 1406.140625,
+          "color": "rgb(45, 86, 130)",
+          "bg": "rgb(255, 255, 255)"
+        },
+        {
+          "width": 114.859375,
+          "height": 46.75,
+          "left": 1416.140625,
+          "right": 1531,
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgb(45, 86, 130)"
+        }
+      ]
+    },
+    {
+      "width": 1920,
+      "certificate": "FR-WS26-0102-1",
+      "overflow": 0,
+      "attachmentBeforePreview": true,
+      "buttons": [
+        {
+          "width": 120.328125,
+          "height": 46.75,
+          "left": 1285.8125,
+          "right": 1406.140625,
+          "color": "rgb(45, 86, 130)",
+          "bg": "rgb(255, 255, 255)"
+        },
+        {
+          "width": 114.859375,
+          "height": 46.75,
+          "left": 1416.140625,
+          "right": 1531,
+          "color": "rgb(255, 255, 255)",
+          "bg": "rgb(45, 86, 130)"
+        }
+      ]
+    }
+  ],
+  "downloads": [
+    {
+      "certificate": "FS-MP25-1218-01",
+      "name": "FS-MP25-1218-01 벽체 중공부보온 금속배관 50A 인정서.pdf",
+      "pdfOpened": true,
+      "bytesMatch": true
+    },
+    {
+      "certificate": "FR-WS26-0102-1",
+      "name": "FR-WS26-0102-1 내화구조 벽체 인정서.pdf",
+      "pdfOpened": true,
+      "bytesMatch": true
+    }
+  ],
+  "search": [
+    "FR-WS26-0102-1",
+    "frws2601021",
+    "FR WS26 0102 1"
+  ],
+  "errors": [],
+  "httpErrors": [],
+  "preservedOtherPosts": true,
+  "fireproofGallery": {
+    "pages": [
+      1,
+      3
+    ],
+    "zoom": true,
+    "keyboard": true
+  },
+  "oldListStatePreserved": true,
+  "passed": true,
+  "checkedAt": "2026-11-04T01:28:15.306Z"
+}

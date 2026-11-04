@@ -1,6 +1,11 @@
 # 업로드된 원본 자료 — 인정서·카탈로그·성적서 등.
 # 이 저장소는 공개(public)이므로 원본 파일은 절대 커밋하지 않는다.
-# 사이트에는 여기서 추출한 데이터(assets/data/*.json)만 올린다.
+# 사이트에는 추출 데이터와 별도로 게시를 승인받은 자료만 올린다.
+# 2026-11-04 요청: 내화채움구조 인정서 60개의 게시용 사본은
+# company-site/assets/downloads/firestop-certificates/에 허용한다.
+# 같은 날 추가 요청: 내화구조 벽체 인정서 1개의 게시용 사본은
+# company-site/assets/downloads/fireproof-certificates/에 허용한다.
+# 아래 원본 폴더의 제외 규칙은 유지한다.
 company-site/docs/**
 !company-site/docs/**/
 !company-site/docs/**/.gitkeep

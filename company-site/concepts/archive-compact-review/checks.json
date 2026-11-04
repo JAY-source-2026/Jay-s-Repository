@@ -1,0 +1,863 @@
+{
+  "search": [
+    {
+      "query": "FS-MP24-0617-15",
+      "count": 1
+    },
+    {
+      "query": "fsmp24061715",
+      "count": 1
+    },
+    {
+      "query": "FS MP24 0617 15",
+      "count": 1
+    },
+    {
+      "query": "벽체 250A",
+      "count": 3
+    },
+    {
+      "categorySearch": true
+    },
+    {
+      "historyAndReload": true
+    },
+    {
+      "emptyResetAndEscapedInput": true
+    }
+  ],
+  "pagination": [
+    "All 60 posts across six pages exactly once",
+    "Detail back and reload preserve page and focused post",
+    "Category pagination and invalid page fallback"
+  ],
+  "details": [
+    "FS-MP24-0617-15",
+    "FS-MP24-0617-16",
+    "FS-MP24-0617-17",
+    "FS-MP24-0617-18",
+    "FS-MP23-1103-3",
+    "FS-MP24-0617-19",
+    "FS-MP24-0617-20",
+    "FS-MP24-0617-21",
+    "FS-MP23-1103-1",
+    "FS-MP25-1218-01",
+    "FS-MP25-1218-02",
+    "FS-MP25-1218-03",
+    "FS-MP25-1218-04",
+    "FS-MP25-1218-05",
+    "FS-MP25-1218-12",
+    "FS-MP24-0617-22",
+    "FS-MP24-0617-23",
+    "FS-MP24-0617-24",
+    "FS-MP24-0617-25",
+    "FS-MP24-0617-26",
+    "FS-MP23-1103-2",
+    "FS-MP24-0617-27",
+    "FS-MP24-0617-28",
+    "FS-MP24-0617-29",
+    "FS-MP24-0617-30",
+    "FS-MP25-1218-06",
+    "FS-MP25-1218-07",
+    "FS-MP25-1218-08",
+    "FS-MP25-1218-09",
+    "FS-MP25-1218-10",
+    "FS-MP25-1218-11",
+    "FS-NP24-0617-1",
+    "FS-NP24-0617-2",
+    "FS-NP24-0617-3",
+    "FS-NP24-0617-4",
+    "FS-NP24-0617-5",
+    "FS-NP24-0617-6",
+    "FS-NP24-0617-7",
+    "FS-NP24-0617-8",
+    "FS-NP24-0617-9",
+    "FS-NP24-0617-10",
+    "FS-NP24-0617-11",
+    "FS-NP24-0617-12",
+    "FS-NP24-0617-13",
+    "FS-NP24-0617-14",
+    "FS-NP25-0224-01",
+    "FS-NP25-0224-02",
+    "FS-NP25-0224-03",
+    "FS-NP25-0224-04",
+    "FS-NP25-0224-05",
+    "FS-MP25-0224-06",
+    "FS-MP25-0625-02",
+    "FS-MP25-1218-13",
+    "FS-MP25-0625-01",
+    "FS-NP25-0625-05",
+    "FS-NP25-0625-04",
+    "FS-MP25-0625-03",
+    "FS-OS25-0513-01",
+    "FS-MP26-0507-14",
+    "FS-MP26-0507-15"
+  ],
+  "images": [
+    {
+      "certificate": "FS-MP24-0617-15",
+      "page": 1,
+      "verified": true
+    },
+    {
+      "certificate": "FS-MP24-0617-15",
+      "page": 3,
+      "verified": true
+    },
+    {
+      "certificate": "FS-MP24-0617-16",
+      "page": 1,
+      "verified": true
+    },
+    {
+      "certificate": "FS-MP24-0617-16",
+      "page": 3,
+      "verified": true
+    },
+    {
+      "certificate": "FS-MP24-0617-17",
+      "page": 3,
+      "verified": true
+    },
+    {
+      "certificate": "FS-MP24-0617-17",
+      "page": 1,
+      "verified": true
+    },
+    {
+      "certificate": "FS-MP24-0617-18",
+      "page": 1,
+      "verified": true
+    },
+    {
+      "certificate": "FS-MP24-0617-18",
+      "page": 3,
+      "verified": true
+    },
+    {
+      "certificate": "FS-MP23-1103-3",
+      "page": 1,
+      "verified": true
+    },
+    {
+      "certificate": "FS-MP23-1103-3",
+      "page": 3,
+      "verified": true
+    },
+    {
+      "certificate": "FS-MP24-0617-19",
+      "page": 1,
+      "verified": true
+    },
+    {
+      "certificate": "FS-MP24-0617-19",
+      "page": 3,
+      "verified": true
+    },
+    {
+      "certificate": "FS-MP23-1103-1",
+      "page": 3,
+      "verified": true
+    },
+    {
+      "certificate": "FS-MP24-0617-21",
+      "page": 1,
+      "verified": true
+    },
+    {
+      "certificate": "FS-MP24-0617-20",
+      "page": 1,
+      "verified": true
+    },
+    {
+      "certificate": "FS-MP24-0617-20",
+      "page": 3,
+      "verified": true
+    },
+    {
+      "certificate": "FS-MP24-0617-21",
+      "page": 3,
+      "verified": true
+    },
+    {
+      "certificate": "FS-MP23-1103-1",
+      "page": 1,
+      "verified": true
+    },
+    {
+      "certificate": "FS-MP25-1218-02",
+      "page": 1,
+      "verified": true
+    },
+    {
+      "certificate": "FS-MP25-1218-02",
+      "page": 3,
+      "verified": true
+    },
+    {
+      "certificate": "FS-MP25-1218-03",
+      "page": 3,
+      "verified": true
+    },
+    {
+      "certificate": "FS-MP25-1218-01",
+      "page": 3,
+      "verified": true
+    },
+    {
+      "certificate": "FS-MP25-1218-01",
+      "page": 1,
+      "verified": true
+    },
+    {
+      "certificate": "FS-MP25-1218-03",
+      "page": 1,
+      "verified": true
+    },
+    {
+      "certificate": "FS-MP25-1218-05",
+      "page": 3,
+      "verified": true
+    },
+    {
+      "certificate": "FS-MP25-1218-04",
+      "page": 3,
+      "verified": true
+    },
+    {
+      "certificate": "FS-MP25-1218-12",
+      "page": 1,
+      "verified": true
+    },
+    {
+      "certificate": "FS-MP25-1218-05",
+      "page": 1,
+      "verified": true
+    },
+    {
+      "certificate": "FS-MP25-1218-12",
+      "page": 3,
+      "verified": true
+    },
+    {
+      "certificate": "FS-MP25-1218-04",
+      "page": 1,
+      "verified": true
+    },
+    {
+      "certificate": "FS-MP24-0617-22",
+      "page": 1,
+      "verified": true
+    },
+    {
+      "certificate": "FS-MP24-0617-22",
+      "page": 3,
+      "verified": true
+    },
+    {
+      "certificate": "FS-MP24-0617-23",
+      "page": 1,
+      "verified": true
+    },
+    {
+      "certificate": "FS-MP24-0617-23",
+      "page": 3,
+      "verified": true
+    },
+    {
+      "certificate": "FS-MP24-0617-24",
+      "page": 1,
+      "verified": true
+    },
+    {
+      "certificate": "FS-MP24-0617-24",
+      "page": 3,
+      "verified": true
+    },
+    {
+      "certificate": "FS-MP24-0617-25",
+      "page": 1,
+      "verified": true
+    },
+    {
+      "certificate": "FS-MP24-0617-26",
+      "page": 1,
+      "verified": true
+    },
+    {
+      "certificate": "FS-MP24-0617-26",
+      "page": 3,
+      "verified": true
+    },
+    {
+      "certificate": "FS-MP24-0617-25",
+      "page": 3,
+      "verified": true
+    },
+    {
+      "certificate": "FS-MP23-1103-2",
+      "page": 1,
+      "verified": true
+    },
+    {
+      "certificate": "FS-MP23-1103-2",
+      "page": 3,
+      "verified": true
+    },
+    {
+      "certificate": "FS-MP24-0617-27",
+      "page": 3,
+      "verified": true
+    },
+    {
+      "certificate": "FS-MP24-0617-27",
+      "page": 1,
+      "verified": true
+    },
+    {
+      "certificate": "FS-MP24-0617-29",
+      "page": 1,
+      "verified": true
+    },
+    {
+      "certificate": "FS-MP24-0617-28",
+      "page": 3,
+      "verified": true
+    },
+    {
+      "certificate": "FS-MP24-0617-28",
+      "page": 1,
+      "verified": true
+    },
+    {
+      "certificate": "FS-MP24-0617-29",
+      "page": 3,
+      "verified": true
+    },
+    {
+      "certificate": "FS-MP24-0617-30",
+      "page": 1,
+      "verified": true
+    },
+    {
+      "certificate": "FS-MP25-1218-07",
+      "page": 3,
+      "verified": true
+    },
+    {
+      "certificate": "FS-MP24-0617-30",
+      "page": 3,
+      "verified": true
+    },
+    {
+      "certificate": "FS-MP25-1218-06",
+      "page": 1,
+      "verified": true
+    },
+    {
+      "certificate": "FS-MP25-1218-07",
+      "page": 1,
+      "verified": true
+    },
+    {
+      "certificate": "FS-MP25-1218-06",
+      "page": 3,
+      "verified": true
+    },
+    {
+      "certificate": "FS-MP25-1218-08",
+      "page": 1,
+      "verified": true
+    },
+    {
+      "certificate": "FS-MP25-1218-08",
+      "page": 3,
+      "verified": true
+    },
+    {
+      "certificate": "FS-MP25-1218-09",
+      "page": 1,
+      "verified": true
+    },
+    {
+      "certificate": "FS-MP25-1218-09",
+      "page": 3,
+      "verified": true
+    },
+    {
+      "certificate": "FS-MP25-1218-10",
+      "page": 1,
+      "verified": true
+    },
+    {
+      "certificate": "FS-MP25-1218-10",
+      "page": 3,
+      "verified": true
+    },
+    {
+      "certificate": "FS-MP25-1218-11",
+      "page": 1,
+      "verified": true
+    },
+    {
+      "certificate": "FS-NP24-0617-2",
+      "page": 1,
+      "verified": true
+    },
+    {
+      "certificate": "FS-MP25-1218-11",
+      "page": 3,
+      "verified": true
+    },
+    {
+      "certificate": "FS-NP24-0617-1",
+      "page": 1,
+      "verified": true
+    },
+    {
+      "certificate": "FS-NP24-0617-1",
+      "page": 3,
+      "verified": true
+    },
+    {
+      "certificate": "FS-NP24-0617-2",
+      "page": 3,
+      "verified": true
+    },
+    {
+      "certificate": "FS-NP24-0617-3",
+      "page": 1,
+      "verified": true
+    },
+    {
+      "certificate": "FS-NP24-0617-3",
+      "page": 3,
+      "verified": true
+    },
+    {
+      "certificate": "FS-NP24-0617-4",
+      "page": 3,
+      "verified": true
+    },
+    {
+      "certificate": "FS-NP24-0617-5",
+      "page": 1,
+      "verified": true
+    },
+    {
+      "certificate": "FS-NP24-0617-4",
+      "page": 1,
+      "verified": true
+    },
+    {
+      "certificate": "FS-NP24-0617-5",
+      "page": 3,
+      "verified": true
+    },
+    {
+      "certificate": "FS-NP24-0617-6",
+      "page": 3,
+      "verified": true
+    },
+    {
+      "certificate": "FS-NP24-0617-7",
+      "page": 3,
+      "verified": true
+    },
+    {
+      "certificate": "FS-NP24-0617-7",
+      "page": 1,
+      "verified": true
+    },
+    {
+      "certificate": "FS-NP24-0617-8",
+      "page": 3,
+      "verified": true
+    },
+    {
+      "certificate": "FS-NP24-0617-6",
+      "page": 1,
+      "verified": true
+    },
+    {
+      "certificate": "FS-NP24-0617-8",
+      "page": 1,
+      "verified": true
+    },
+    {
+      "certificate": "FS-NP24-0617-9",
+      "page": 1,
+      "verified": true
+    },
+    {
+      "certificate": "FS-NP24-0617-10",
+      "page": 3,
+      "verified": true
+    },
+    {
+      "certificate": "FS-NP24-0617-10",
+      "page": 1,
+      "verified": true
+    },
+    {
+      "certificate": "FS-NP24-0617-9",
+      "page": 3,
+      "verified": true
+    },
+    {
+      "certificate": "FS-NP24-0617-11",
+      "page": 1,
+      "verified": true
+    },
+    {
+      "certificate": "FS-NP24-0617-11",
+      "page": 3,
+      "verified": true
+    },
+    {
+      "certificate": "FS-NP24-0617-12",
+      "page": 1,
+      "verified": true
+    },
+    {
+      "certificate": "FS-NP24-0617-12",
+      "page": 3,
+      "verified": true
+    },
+    {
+      "certificate": "FS-NP24-0617-13",
+      "page": 3,
+      "verified": true
+    },
+    {
+      "certificate": "FS-NP24-0617-13",
+      "page": 1,
+      "verified": true
+    },
+    {
+      "certificate": "FS-NP24-0617-14",
+      "page": 1,
+      "verified": true
+    },
+    {
+      "certificate": "FS-NP24-0617-14",
+      "page": 3,
+      "verified": true
+    },
+    {
+      "certificate": "FS-NP25-0224-01",
+      "page": 1,
+      "verified": true
+    },
+    {
+      "certificate": "FS-NP25-0224-01",
+      "page": 3,
+      "verified": true
+    },
+    {
+      "certificate": "FS-NP25-0224-03",
+      "page": 3,
+      "verified": true
+    },
+    {
+      "certificate": "FS-NP25-0224-02",
+      "page": 3,
+      "verified": true
+    },
+    {
+      "certificate": "FS-NP25-0224-03",
+      "page": 1,
+      "verified": true
+    },
+    {
+      "certificate": "FS-NP25-0224-02",
+      "page": 1,
+      "verified": true
+    },
+    {
+      "certificate": "FS-NP25-0224-04",
+      "page": 1,
+      "verified": true
+    },
+    {
+      "certificate": "FS-NP25-0224-05",
+      "page": 1,
+      "verified": true
+    },
+    {
+      "certificate": "FS-NP25-0224-05",
+      "page": 3,
+      "verified": true
+    },
+    {
+      "certificate": "FS-NP25-0224-04",
+      "page": 3,
+      "verified": true
+    },
+    {
+      "certificate": "FS-MP25-0224-06",
+      "page": 1,
+      "verified": true
+    },
+    {
+      "certificate": "FS-MP25-0224-06",
+      "page": 3,
+      "verified": true
+    },
+    {
+      "certificate": "FS-MP25-0625-02",
+      "page": 1,
+      "verified": true
+    },
+    {
+      "certificate": "FS-MP25-0625-02",
+      "page": 3,
+      "verified": true
+    },
+    {
+      "certificate": "FS-MP25-1218-13",
+      "page": 3,
+      "verified": true
+    },
+    {
+      "certificate": "FS-MP25-1218-13",
+      "page": 1,
+      "verified": true
+    },
+    {
+      "certificate": "FS-MP25-0625-01",
+      "page": 1,
+      "verified": true
+    },
+    {
+      "certificate": "FS-MP25-0625-01",
+      "page": 3,
+      "verified": true
+    },
+    {
+      "certificate": "FS-NP25-0625-04",
+      "page": 3,
+      "verified": true
+    },
+    {
+      "certificate": "FS-NP25-0625-05",
+      "page": 3,
+      "verified": true
+    },
+    {
+      "certificate": "FS-MP25-0625-03",
+      "page": 1,
+      "verified": true
+    },
+    {
+      "certificate": "FS-MP25-0625-03",
+      "page": 3,
+      "verified": true
+    },
+    {
+      "certificate": "FS-NP25-0625-04",
+      "page": 1,
+      "verified": true
+    },
+    {
+      "certificate": "FS-NP25-0625-05",
+      "page": 1,
+      "verified": true
+    },
+    {
+      "certificate": "FS-MP26-0507-14",
+      "page": 1,
+      "verified": true
+    },
+    {
+      "certificate": "FS-MP26-0507-15",
+      "page": 3,
+      "verified": true
+    },
+    {
+      "certificate": "FS-MP26-0507-15",
+      "page": 1,
+      "verified": true
+    },
+    {
+      "certificate": "FS-MP26-0507-14",
+      "page": 3,
+      "verified": true
+    },
+    {
+      "certificate": "FS-OS25-0513-01",
+      "page": 1,
+      "verified": true
+    },
+    {
+      "certificate": "FS-OS25-0513-01",
+      "page": 3,
+      "verified": true
+    }
+  ],
+  "responsive": [
+    {
+      "width": 320,
+      "hash": "firestop/recognition",
+      "overflow": 0
+    },
+    {
+      "width": 320,
+      "hash": "firestop/recognition?q=벽체&page=2",
+      "overflow": 0
+    },
+    {
+      "width": 320,
+      "hash": "firestop/recognition/metal-ducts/certificate-fs-mp25-0224-06",
+      "overflow": 0
+    },
+    {
+      "width": 320,
+      "hash": "firestop/promo",
+      "overflow": 0
+    },
+    {
+      "width": 390,
+      "hash": "firestop/recognition",
+      "overflow": 0
+    },
+    {
+      "width": 390,
+      "hash": "firestop/recognition?q=벽체&page=2",
+      "overflow": 0
+    },
+    {
+      "width": 390,
+      "hash": "firestop/recognition/metal-ducts/certificate-fs-mp25-0224-06",
+      "overflow": 0
+    },
+    {
+      "width": 390,
+      "hash": "firestop/promo",
+      "overflow": 0
+    },
+    {
+      "width": 680,
+      "hash": "firestop/recognition",
+      "overflow": 0
+    },
+    {
+      "width": 680,
+      "hash": "firestop/recognition?q=벽체&page=2",
+      "overflow": 0
+    },
+    {
+      "width": 680,
+      "hash": "firestop/recognition/metal-ducts/certificate-fs-mp25-0224-06",
+      "overflow": 0
+    },
+    {
+      "width": 680,
+      "hash": "firestop/promo",
+      "overflow": 0
+    },
+    {
+      "width": 820,
+      "hash": "firestop/recognition",
+      "overflow": 0
+    },
+    {
+      "width": 820,
+      "hash": "firestop/recognition?q=벽체&page=2",
+      "overflow": 0
+    },
+    {
+      "width": 820,
+      "hash": "firestop/recognition/metal-ducts/certificate-fs-mp25-0224-06",
+      "overflow": 0
+    },
+    {
+      "width": 820,
+      "hash": "firestop/promo",
+      "overflow": 0
+    },
+    {
+      "width": 1180,
+      "hash": "firestop/recognition",
+      "overflow": 0
+    },
+    {
+      "width": 1180,
+      "hash": "firestop/recognition?q=벽체&page=2",
+      "overflow": 0
+    },
+    {
+      "width": 1180,
+      "hash": "firestop/recognition/metal-ducts/certificate-fs-mp25-0224-06",
+      "overflow": 0
+    },
+    {
+      "width": 1180,
+      "hash": "firestop/promo",
+      "overflow": 0
+    },
+    {
+      "width": 1440,
+      "hash": "firestop/recognition",
+      "overflow": 0
+    },
+    {
+      "width": 1440,
+      "hash": "firestop/recognition?q=벽체&page=2",
+      "overflow": 0
+    },
+    {
+      "width": 1440,
+      "hash": "firestop/recognition/metal-ducts/certificate-fs-mp25-0224-06",
+      "overflow": 0
+    },
+    {
+      "width": 1440,
+      "hash": "firestop/promo",
+      "overflow": 0
+    },
+    {
+      "width": 1920,
+      "hash": "firestop/recognition",
+      "overflow": 0
+    },
+    {
+      "width": 1920,
+      "hash": "firestop/recognition?q=벽체&page=2",
+      "overflow": 0
+    },
+    {
+      "width": 1920,
+      "hash": "firestop/recognition/metal-ducts/certificate-fs-mp25-0224-06",
+      "overflow": 0
+    },
+    {
+      "width": 1920,
+      "hash": "firestop/promo",
+      "overflow": 0
+    }
+  ],
+  "errors": [],
+  "httpErrors": [],
+  "layout": {
+    "tableWidth": 1184,
+    "rowHeight": 61.296875,
+    "firstRowTop": 568.8125
+  },
+  "documentViewer": {
+    "fit": true,
+    "originalSizeScroll": true,
+    "keyboard": true,
+    "focusRestored": true,
+    "pdfDownload": true
+  },
+  "touch": {
+    "search": true,
+    "detail": true,
+    "preview": true,
+    "originalSize": true,
+    "back": true
+  },
+  "passed": true,
+  "checkedAt": "2026-11-04T01:13:43.235Z"
+}

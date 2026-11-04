@@ -4,14 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>자료실 | 주식회사 디오이엔씨 (DOENC)</title>
-    <meta name="description" content="㈜디오이엔씨 자료실 — 내화채움구조·내화구조·방화셔터·설계소프트웨어 제품자료, 시공사진, 카달로그, 구동영상.">
+    <meta name="description" content="㈜디오이엔씨 분야별 자료실 — 내화채움구조·내화구조·방화셔터의 인정서, 홍보자료, 기타자료와 설계소프트웨어 자료 게시판.">
     <meta name="theme-color" content="#ffffff">
     <link rel="canonical" href="https://jay-source-2026.github.io/Jay-s-Repository/company-site/archive.html">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="주식회사 디오이엔씨 (DOENC)">
     <meta property="og:locale" content="ko_KR">
     <meta property="og:title" content="자료실 | 주식회사 디오이엔씨 (DOENC)">
-    <meta property="og:description" content="㈜디오이엔씨 자료실 — 내화채움구조·내화구조·방화셔터·설계소프트웨어 제품자료, 시공사진, 카달로그, 구동영상.">
+    <meta property="og:description" content="㈜디오이엔씨 분야별 자료실 — 내화채움구조·내화구조·방화셔터의 인정서, 홍보자료, 기타자료와 설계소프트웨어 자료 게시판.">
     <meta property="og:image" content="https://jay-source-2026.github.io/Jay-s-Repository/company-site/assets/images/doenc_mark.png">
     <link rel="icon" type="image/png" href="assets/images/doenc_mark.png">
 
@@ -38,9 +38,10 @@
           media="print" onload="this.media='all'">
     <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"></noscript>
     <link rel="stylesheet" href="assets/css/style.css?v=20261023d">
-    <noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
+    <link rel="stylesheet" href="assets/css/archive.css?v=20261104r5">
+    <noscript><style>.reveal{opacity:1!important;transform:none!important}#archivePanel{display:none}</style></noscript>
 </head>
-<body id="top">
+<body id="top" class="archive-page">
     <a href="#main" class="skip-link">본문 바로가기</a>
 
     <!-- ===== Header (공유) ===== -->
@@ -70,12 +71,12 @@
                     </div>
                 </div>
                 <div class="nav-item" data-nav="archive">
-                    <a class="nav-top" href="archive.html#firestop" aria-haspopup="true" aria-expanded="false">자료실</a>
+                    <a class="nav-top" href="archive.html?v=20261104r5#firestop" aria-haspopup="true" aria-expanded="false">자료실</a>
                     <div class="nav-sub">
-                        <a href="archive.html#firestop">내화채움구조</a>
-                        <a href="archive.html#fireproof">내화구조</a>
-                        <a href="archive.html#shutter">방화셔터</a>
-                        <a href="archive.html#software">설계소프트웨어</a>
+                        <a href="archive.html?v=20261104r5#firestop">내화채움구조</a>
+                        <a href="archive.html?v=20261104r5#fireproof">내화구조</a>
+                        <a href="archive.html?v=20261104r5#shutter">방화셔터</a>
+                        <a href="archive.html?v=20261104r5#software">설계소프트웨어</a>
                     </div>
                 </div>
                 <div class="nav-item" data-nav="support">
@@ -115,10 +116,10 @@
             <div class="mnav-group">
                 <button type="button" class="mnav-top" aria-expanded="false">자료실 <i aria-hidden="true"></i></button>
                 <div class="mnav-sub">
-                    <a href="archive.html#firestop">내화채움구조</a>
-                    <a href="archive.html#fireproof">내화구조</a>
-                    <a href="archive.html#shutter">방화셔터</a>
-                    <a href="archive.html#software">설계소프트웨어</a>
+                    <a href="archive.html?v=20261104r5#firestop">내화채움구조</a>
+                    <a href="archive.html?v=20261104r5#fireproof">내화구조</a>
+                    <a href="archive.html?v=20261104r5#shutter">방화셔터</a>
+                    <a href="archive.html?v=20261104r5#software">설계소프트웨어</a>
                 </div>
             </div>
             <div class="mnav-group">
@@ -137,17 +138,26 @@
     <main id="main">
         <div class="page-head">
             <div class="wrap">
-                <p class="crumb"><a href="index.html#home">HOME</a><span>/</span><strong>자료실</strong></p>
-                <h1 class="page-title">사업부별 자료실</h1>
-                <p class="page-lead">제품자료·카달로그·시공사진·구동영상을 사업부별로 정리했습니다. 사진을 누르면 크게 볼 수 있습니다.</p>
+                <p class="crumb"><a href="index.html#home">HOME</a><span>/</span>자료실<span>/</span><strong id="archiveCategory">분야별 자료</strong></p>
+                <h1 class="page-title" id="archiveTitle">자료실</h1>
+                <p class="page-lead" id="archiveLead">선택한 분야의 자료를 게시판에서 확인하세요.</p>
             </div>
         </div>
 
-        <section class="sec">
+        <section class="sec archive-section" aria-label="자료 게시판">
             <div class="wrap">
-                <div class="tabs" id="tabs" role="tablist" aria-label="자료실 카테고리"></div>
-                <p class="pane-lead" id="paneLead"></p>
-                <div id="albumPanel"></div>
+                <div class="tabs archive-tabs" id="archiveTabs" role="tablist" aria-label="자료 유형"></div>
+                <form class="archive-search" id="archiveSearch" role="search" aria-label="자료실 검색" hidden>
+                    <label for="archiveQuery">자료 검색</label>
+                    <div class="archive-search-fields">
+                        <input type="search" id="archiveQuery" name="q" maxlength="120" placeholder="제목 · 인정번호 · 규격 검색" autocomplete="off">
+                        <button type="submit">검색</button>
+                        <button type="button" id="archiveClear" class="archive-search-clear" hidden>초기화</button>
+                    </div>
+                </form>
+                <p class="sr-only" id="archiveStatus" role="status"></p>
+                <div id="archivePanel" aria-busy="true"><p class="empty">자료를 불러오는 중입니다…</p></div>
+                <noscript><p class="empty">자료 목록을 보려면 JavaScript를 켜 주세요. 자료 요청은 <a href="index.html#contact">문의하기</a>를 이용해 주세요.</p></noscript>
             </div>
         </section>
     </main>
@@ -162,7 +172,7 @@
             <nav class="ft-nav" aria-label="푸터 메뉴">
                 <a href="about.html#ceo">회사소개</a>
                 <a href="index.html#business">사업영역</a>
-                <a href="archive.html#firestop">자료실</a>
+                <a href="archive.html?v=20261104r5#firestop">자료실</a>
                 <a href="support.html#notice">고객지원</a>
                 <a href="index.html#contact">문의하기</a>
             </nav>
@@ -185,6 +195,7 @@
                     <h3 id="lbTitle"></h3>
                     <p id="lbDesc"></p>
                 </div>
+                <button type="button" class="lb-zoom" id="lbZoom" aria-pressed="false" hidden>원본 크기</button>
                 <button type="button" class="lb-close" data-lb-close aria-label="닫기">✕</button>
             </div>
             <div class="lb-stage" id="lbStage">
@@ -199,7 +210,7 @@
     </div>
 
     <script src="assets/js/main.js?v=20261023d"></script>
-    <script src="assets/js/pages.js?v=20260805g"></script>
+    <script src="assets/js/pages.js?v=20261104r5"></script>
     <script>
       DOENC.initArchive();
     </script>

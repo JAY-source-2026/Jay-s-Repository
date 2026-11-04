@@ -1,0 +1,30 @@
+{
+  "source": "assets/자료/내화구조 인정서/내화구조 벽체 인정서(FR-WS26-0102-1) - (주)디오이엔씨.pdf",
+  "public_file": "assets/downloads/fireproof-certificates/FR-WS26-0102-1.pdf",
+  "certificate": "FR-WS26-0102-1",
+  "pages": 22,
+  "bytes": 3177258,
+  "sha256": "6e3433c12d1afc58d0f6bd3c7ed1f5ae1bd6ebcf9b1f242a42ea789c0f047126",
+  "previews": [
+    {
+      "page": 1,
+      "src": "assets/images/certificates/fireproof/FR-WS26-0102-1-page-1.webp",
+      "width": 1600,
+      "height": 2264,
+      "label": "인정서 · 1페이지",
+      "sha256": "7bb0cf7c398eeb29273dc4705145cea7bd4d00145cd34e3ea17277e5cf1aa0b0",
+      "bytes": 481426,
+      "lossless_pixel_match": true
+    },
+    {
+      "page": 3,
+      "src": "assets/images/certificates/fireproof/FR-WS26-0102-1-page-3.webp",
+      "width": 1600,
+      "height": 2264,
+      "label": "구조설명도 · 3페이지",
+      "sha256": "fde0dcede295bc6c6c0bb6c65f21b00b6111c5b4c0dd77b1764ead8f9ab3fee3",
+      "bytes": 317144,
+      "lossless_pixel_match": true
+    }
+  ]
+}

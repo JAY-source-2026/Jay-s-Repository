@@ -1,0 +1,79 @@
+{
+  "checkedAt": "2026-11-04T00:44:21.705Z",
+  "passed": true,
+  "errors": [],
+  "loaded": [
+    {
+      "url": "http://127.0.0.1:8000/archive.html?v=20261104r2",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:8000/assets/css/archive.css?v=20261104r2",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:8000/assets/js/pages.js?v=20261104r2",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:8000/assets/data/archive.json?v=20261104r2",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:8000/archive.html?v=20261104r2",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:8000/assets/css/archive.css?v=20261104r2",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:8000/assets/js/pages.js?v=20261104r2",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:8000/assets/data/archive.json?v=20261104r2",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:8000/assets/js/pages.js?v=20260805g",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:8000/archive.html?v=20261104r2",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:8000/assets/css/archive.css?v=20261104r2",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:8000/assets/js/pages.js?v=20261104r2",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:8000/assets/data/archive.json?v=20261104r2",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:8000/assets/js/pages.js?v=20260805g",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:8000/archive.html?v=20261104r2",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:8000/assets/css/archive.css?v=20261104r2",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:8000/assets/js/pages.js?v=20261104r2",
+      "status": 200
+    },
+    {
+      "url": "http://127.0.0.1:8000/assets/data/archive.json?v=20261104r2",
+      "status": 200
+    }
+  ]
+}

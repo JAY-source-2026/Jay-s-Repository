@@ -1,0 +1,359 @@
+{
+  "boards": [
+    {
+      "category": "firestop",
+      "board": "recognition",
+      "count": 0,
+      "reload": true
+    },
+    {
+      "category": "firestop",
+      "board": "promo",
+      "count": 2,
+      "reload": true
+    },
+    {
+      "category": "firestop",
+      "board": "other",
+      "count": 0,
+      "reload": true
+    },
+    {
+      "category": "fireproof",
+      "board": "recognition",
+      "count": 0,
+      "reload": true
+    },
+    {
+      "category": "fireproof",
+      "board": "promo",
+      "count": 0,
+      "reload": true
+    },
+    {
+      "category": "fireproof",
+      "board": "other",
+      "count": 1,
+      "reload": true
+    },
+    {
+      "category": "shutter",
+      "board": "recognition",
+      "count": 0,
+      "reload": true
+    },
+    {
+      "category": "shutter",
+      "board": "promo",
+      "count": 1,
+      "reload": true
+    },
+    {
+      "category": "shutter",
+      "board": "other",
+      "count": 4,
+      "reload": true
+    },
+    {
+      "category": "software",
+      "board": "promo",
+      "count": 1,
+      "reload": true
+    },
+    {
+      "category": "software",
+      "board": "other",
+      "count": 1,
+      "reload": true
+    }
+  ],
+  "posts": [
+    {
+      "id": "firestop-product-intro",
+      "detail": true,
+      "media": true,
+      "back": true
+    },
+    {
+      "id": "firestop-catalog",
+      "detail": true,
+      "media": true,
+      "back": true
+    },
+    {
+      "id": "fireproof-telecom-mockup",
+      "detail": true,
+      "media": true,
+      "back": true
+    },
+    {
+      "id": "shutter-operation",
+      "detail": true,
+      "media": true,
+      "back": true
+    },
+    {
+      "id": "shutter-types",
+      "detail": true,
+      "media": true,
+      "back": true
+    },
+    {
+      "id": "shutter-site",
+      "detail": true,
+      "media": true,
+      "back": true
+    },
+    {
+      "id": "shutter-square",
+      "detail": true,
+      "media": true,
+      "back": true
+    },
+    {
+      "id": "shutter-curved",
+      "detail": true,
+      "media": true,
+      "back": true
+    },
+    {
+      "id": "deskey-manual",
+      "detail": true,
+      "media": true,
+      "back": true
+    },
+    {
+      "id": "deskey-catalog",
+      "detail": true,
+      "media": true,
+      "back": true
+    }
+  ],
+  "responsive": [
+    {
+      "width": 320,
+      "hash": "#firestop/recognition",
+      "overflow": 0
+    },
+    {
+      "width": 320,
+      "hash": "#shutter/other",
+      "overflow": 0
+    },
+    {
+      "width": 320,
+      "hash": "#software/promo",
+      "overflow": 0
+    },
+    {
+      "width": 320,
+      "hash": "#software/other/deskey-manual",
+      "overflow": 0
+    },
+    {
+      "width": 390,
+      "hash": "#firestop/recognition",
+      "overflow": 0
+    },
+    {
+      "width": 390,
+      "hash": "#shutter/other",
+      "overflow": 0
+    },
+    {
+      "width": 390,
+      "hash": "#software/promo",
+      "overflow": 0
+    },
+    {
+      "width": 390,
+      "hash": "#software/other/deskey-manual",
+      "overflow": 0
+    },
+    {
+      "width": 680,
+      "hash": "#firestop/recognition",
+      "overflow": 0
+    },
+    {
+      "width": 680,
+      "hash": "#shutter/other",
+      "overflow": 0
+    },
+    {
+      "width": 680,
+      "hash": "#software/promo",
+      "overflow": 0
+    },
+    {
+      "width": 680,
+      "hash": "#software/other/deskey-manual",
+      "overflow": 0
+    },
+    {
+      "width": 761,
+      "hash": "#firestop/recognition",
+      "overflow": 0
+    },
+    {
+      "width": 761,
+      "hash": "#shutter/other",
+      "overflow": 0
+    },
+    {
+      "width": 761,
+      "hash": "#software/promo",
+      "overflow": 0
+    },
+    {
+      "width": 761,
+      "hash": "#software/other/deskey-manual",
+      "overflow": 0
+    },
+    {
+      "width": 820,
+      "hash": "#firestop/recognition",
+      "overflow": 0
+    },
+    {
+      "width": 820,
+      "hash": "#shutter/other",
+      "overflow": 0
+    },
+    {
+      "width": 820,
+      "hash": "#software/promo",
+      "overflow": 0
+    },
+    {
+      "width": 820,
+      "hash": "#software/other/deskey-manual",
+      "overflow": 0
+    },
+    {
+      "width": 1180,
+      "hash": "#firestop/recognition",
+      "overflow": 0
+    },
+    {
+      "width": 1180,
+      "hash": "#shutter/other",
+      "overflow": 0
+    },
+    {
+      "width": 1180,
+      "hash": "#software/promo",
+      "overflow": 0
+    },
+    {
+      "width": 1180,
+      "hash": "#software/other/deskey-manual",
+      "overflow": 0
+    },
+    {
+      "width": 1440,
+      "hash": "#firestop/recognition",
+      "overflow": 0
+    },
+    {
+      "width": 1440,
+      "hash": "#shutter/other",
+      "overflow": 0
+    },
+    {
+      "width": 1440,
+      "hash": "#software/promo",
+      "overflow": 0
+    },
+    {
+      "width": 1440,
+      "hash": "#software/other/deskey-manual",
+      "overflow": 0
+    },
+    {
+      "width": 1920,
+      "hash": "#firestop/recognition",
+      "overflow": 0
+    },
+    {
+      "width": 1920,
+      "hash": "#shutter/other",
+      "overflow": 0
+    },
+    {
+      "width": 1920,
+      "hash": "#software/promo",
+      "overflow": 0
+    },
+    {
+      "width": 1920,
+      "hash": "#software/other/deskey-manual",
+      "overflow": 0
+    }
+  ],
+  "navigation": [
+    "Browser back, forward, detail reload",
+    "Invalid routes safely fall back within category",
+    "Keyboard arrows, Home, End, Enter, Space",
+    "Desktop archive links from homepage, about and support",
+    "Same-page category switching",
+    "Touch menu and tabs across all 4 categories",
+    "Support board and company certificate lightbox unchanged",
+    "Archive fetch failure state"
+  ],
+  "errors": [],
+  "httpErrors": [],
+  "passed": true,
+  "checkedAt": "2026-11-04T00:36:31.513Z",
+  "emptyBoardLayout": [
+    {
+      "width": 320,
+      "table": 300,
+      "last": 300,
+      "overflow": 0
+    },
+    {
+      "width": 390,
+      "table": 370,
+      "last": 370,
+      "overflow": 0
+    },
+    {
+      "width": 680,
+      "table": 660,
+      "last": 660,
+      "overflow": 0
+    },
+    {
+      "width": 761,
+      "table": 733,
+      "last": 733,
+      "overflow": 0
+    },
+    {
+      "width": 820,
+      "table": 792,
+      "last": 792,
+      "overflow": 0
+    },
+    {
+      "width": 1180,
+      "table": 1152,
+      "last": 1152,
+      "overflow": 0
+    },
+    {
+      "width": 1440,
+      "table": 1402.5625,
+      "last": 1402.5625,
+      "overflow": 0
+    },
+    {
+      "width": 1920,
+      "table": 1830.09375,
+      "last": 1830.09375,
+      "overflow": 0
+    }
+  ],
+  "finalLayoutCheckedAt": "2026-11-04T00:38:45.730Z"
+}

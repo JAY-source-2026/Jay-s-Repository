@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """Package a committed homepage for the existing GitHub Pages branch.
 
-Only public application files are emitted. Original documents stay local;
-their public links lead to the existing contact section. The local preview
-and its original-document links are preserved in the source checkout.
+Only public application files are emitted. Private source folders stay local;
+their public links lead to the existing contact section. The user-approved
+firestop and fireproof certificate copies under assets/downloads/ are included
+as ordinary public assets. Other original documents stay excluded.
 """
 import argparse
 import io
@@ -91,8 +92,12 @@ def main():
             target.parent.mkdir(parents=True, exist_ok=True)
             target.write_bytes(content)
             files.append(path.as_posix())
+    certificates = [p for p in files if p.startswith('company-site/assets/downloads/firestop-certificates/') and p.endswith('.pdf')]
+    fireproof_certificates = [p for p in files if p.startswith('company-site/assets/downloads/fireproof-certificates/') and p.endswith('.pdf')]
     release = {'source_commit': sha, 'site': 'company-site', 'files': len(files),
-               'original_documents': 'excluded; public links use the contact section'}
+               'original_documents': 'private source folders excluded; approved firestop and fireproof certificate copies included',
+               'published_firestop_certificates': len(certificates),
+               'published_fireproof_certificates': len(fireproof_certificates)}
     (output / 'company-site/release.json').write_text(json.dumps(release, indent=2) + '\n')
     (output / '.nojekyll').write_text('')
     print(json.dumps({'output': str(output), **release}, ensure_ascii=False))

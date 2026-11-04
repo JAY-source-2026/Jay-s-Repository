@@ -1,0 +1,36 @@
+[
+  {
+    "cat": "firestop",
+    "title": "내화채움(충전)구조 제품소개 자료",
+    "date": "2022-03-03",
+    "tag": "제품소개",
+    "body": "관통재 유형별 시공 상세와 자재 구성을 정리한 제품 소개 자료입니다.",
+    "images": [
+      "assets/media/archive/firestop/product-intro.jpg"
+    ],
+    "file": {
+      "name": "디오이엔씨_제품소개.pdf",
+      "size": "696.1KB",
+      "href": ""
+    },
+    "id": "firestop-product-intro",
+    "board": "promo"
+  },
+  {
+    "cat": "firestop",
+    "title": "내화채움(충전)구조 카달로그",
+    "date": "2022-02-09",
+    "tag": "카달로그",
+    "body": "내화재사업부 카달로그. 내화채움보드(SFB-100F·100M), 내화자켓(SFBA-200), 내화밴드(SFBA-100·110·120), 세라믹섬유블랭킷(SFI-100·200·210·220), 내화실리콘실란트(SFS-100) 등 자재 라인업이 수록되어 있습니다.",
+    "images": [
+      "assets/media/archive/firestop/catalog.jpg"
+    ],
+    "file": {
+      "name": "DOENC_카다로그내화재사업부.pdf",
+      "size": "2.8MB",
+      "href": ""
+    },
+    "id": "firestop-catalog",
+    "board": "promo"
+  }
+]

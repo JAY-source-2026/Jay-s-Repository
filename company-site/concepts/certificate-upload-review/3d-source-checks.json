@@ -1,0 +1,14 @@
+[
+  {
+    "certificate": "FS-MP23-1103-3",
+    "matches_previous_3d_source": true
+  },
+  {
+    "certificate": "FS-NP24-0617-5",
+    "matches_previous_3d_source": true
+  },
+  {
+    "certificate": "FS-MP25-0224-06",
+    "matches_previous_3d_source": true
+  }
+]
