@@ -1,0 +1,1162 @@
+{
+  "results": [
+    {
+      "width": 1920,
+      "height": 1080,
+      "hero": {
+        "x": 0,
+        "y": 0,
+        "width": 1920,
+        "height": 1070,
+        "bottom": 1070,
+        "right": 1920
+      },
+      "stage": {
+        "x": 827.03125,
+        "y": 191.65625,
+        "width": 852.96875,
+        "height": 502,
+        "bottom": 693.65625,
+        "right": 1680
+      },
+      "copy": {
+        "x": 240,
+        "y": 351.5625,
+        "width": 537.03125,
+        "height": 392.875,
+        "bottom": 744.4375,
+        "right": 777.03125
+      },
+      "menu": {
+        "x": 827.03125,
+        "y": 693.65625,
+        "width": 852.96875,
+        "height": 210.6875,
+        "bottom": 904.34375,
+        "right": 1680
+      },
+      "footer": {
+        "x": 240,
+        "y": 992,
+        "width": 1440,
+        "height": 78,
+        "bottom": 1070,
+        "right": 1680
+      },
+      "buttons": [
+        {
+          "text": "내화보드(SFB-100F)",
+          "bottom": 792.34375,
+          "height": 44,
+          "overflow": false
+        },
+        {
+          "text": "내화자켓(SFBA-200)",
+          "bottom": 792.34375,
+          "height": 44,
+          "overflow": false
+        },
+        {
+          "text": "내화실리콘실란트(SFS-100)",
+          "bottom": 842.34375,
+          "height": 44,
+          "overflow": false
+        },
+        {
+          "text": "세라믹섬유블랭킷(SFI-100)",
+          "bottom": 842.34375,
+          "height": 44,
+          "overflow": false
+        },
+        {
+          "text": "내화채움재",
+          "bottom": 892.34375,
+          "height": 44,
+          "overflow": false
+        },
+        {
+          "text": "일반 방화셔터 ▷",
+          "bottom": 792.34375,
+          "height": 44,
+          "overflow": false
+        },
+        {
+          "text": "와이어 권취형 방화셔터 ▷",
+          "bottom": 842.34375,
+          "height": 44,
+          "overflow": false
+        }
+      ],
+      "horizontalOverflow": false
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "hero": {
+        "x": 0,
+        "y": 0,
+        "width": 1440,
+        "height": 900,
+        "bottom": 900,
+        "right": 1440
+      },
+      "stage": {
+        "x": 597.578125,
+        "y": 110,
+        "width": 777.609375,
+        "height": 509.3125,
+        "bottom": 619.3125,
+        "right": 1375.1875
+      },
+      "copy": {
+        "x": 64.796875,
+        "y": 312.765625,
+        "width": 489.59375,
+        "height": 314.46875,
+        "bottom": 627.234375,
+        "right": 554.390625
+      },
+      "menu": {
+        "x": 597.578125,
+        "y": 619.3125,
+        "width": 777.609375,
+        "height": 210.6875,
+        "bottom": 830,
+        "right": 1375.1875
+      },
+      "footer": {
+        "x": 64.796875,
+        "y": 844,
+        "width": 1310.40625,
+        "height": 56,
+        "bottom": 900,
+        "right": 1375.203125
+      },
+      "buttons": [
+        {
+          "text": "내화보드(SFB-100F)",
+          "bottom": 718,
+          "height": 44,
+          "overflow": false
+        },
+        {
+          "text": "내화자켓(SFBA-200)",
+          "bottom": 718,
+          "height": 44,
+          "overflow": false
+        },
+        {
+          "text": "내화실리콘실란트(SFS-100)",
+          "bottom": 768,
+          "height": 44,
+          "overflow": false
+        },
+        {
+          "text": "세라믹섬유블랭킷(SFI-100)",
+          "bottom": 768,
+          "height": 44,
+          "overflow": false
+        },
+        {
+          "text": "내화채움재",
+          "bottom": 818,
+          "height": 44,
+          "overflow": false
+        },
+        {
+          "text": "일반 방화셔터 ▷",
+          "bottom": 718,
+          "height": 44,
+          "overflow": false
+        },
+        {
+          "text": "와이어 권취형 방화셔터 ▷",
+          "bottom": 768,
+          "height": 44,
+          "overflow": false
+        }
+      ],
+      "horizontalOverflow": false
+    },
+    {
+      "width": 1536,
+      "height": 730,
+      "hero": {
+        "x": 0,
+        "y": 0,
+        "width": 1536,
+        "height": 730,
+        "bottom": 730,
+        "right": 1536
+      },
+      "stage": {
+        "x": 637.421875,
+        "y": 110,
+        "width": 829.46875,
+        "height": 339.3125,
+        "bottom": 449.3125,
+        "right": 1466.890625
+      },
+      "copy": {
+        "x": 69.109375,
+        "y": 223.609375,
+        "width": 522.234375,
+        "height": 322.78125,
+        "bottom": 546.390625,
+        "right": 591.34375
+      },
+      "menu": {
+        "x": 637.421875,
+        "y": 449.3125,
+        "width": 829.46875,
+        "height": 210.6875,
+        "bottom": 660,
+        "right": 1466.890625
+      },
+      "footer": {
+        "x": 69.109375,
+        "y": 674,
+        "width": 1397.78125,
+        "height": 56,
+        "bottom": 730,
+        "right": 1466.890625
+      },
+      "buttons": [
+        {
+          "text": "내화보드(SFB-100F)",
+          "bottom": 548,
+          "height": 44,
+          "overflow": false
+        },
+        {
+          "text": "내화자켓(SFBA-200)",
+          "bottom": 548,
+          "height": 44,
+          "overflow": false
+        },
+        {
+          "text": "내화실리콘실란트(SFS-100)",
+          "bottom": 598,
+          "height": 44,
+          "overflow": false
+        },
+        {
+          "text": "세라믹섬유블랭킷(SFI-100)",
+          "bottom": 598,
+          "height": 44,
+          "overflow": false
+        },
+        {
+          "text": "내화채움재",
+          "bottom": 648,
+          "height": 44,
+          "overflow": false
+        },
+        {
+          "text": "일반 방화셔터 ▷",
+          "bottom": 548,
+          "height": 44,
+          "overflow": false
+        },
+        {
+          "text": "와이어 권취형 방화셔터 ▷",
+          "bottom": 598,
+          "height": 44,
+          "overflow": false
+        }
+      ],
+      "horizontalOverflow": false
+    },
+    {
+      "width": 1366,
+      "height": 650,
+      "hero": {
+        "x": 0,
+        "y": 0,
+        "width": 1366,
+        "height": 650,
+        "bottom": 650,
+        "right": 1366
+      },
+      "stage": {
+        "x": 566.875,
+        "y": 110,
+        "width": 737.65625,
+        "height": 259.3125,
+        "bottom": 369.3125,
+        "right": 1304.53125
+      },
+      "copy": {
+        "x": 61.46875,
+        "y": 192.21875,
+        "width": 464.4375,
+        "height": 305.5625,
+        "bottom": 497.78125,
+        "right": 525.90625
+      },
+      "menu": {
+        "x": 566.875,
+        "y": 369.3125,
+        "width": 737.65625,
+        "height": 210.6875,
+        "bottom": 580,
+        "right": 1304.53125
+      },
+      "footer": {
+        "x": 61.46875,
+        "y": 594,
+        "width": 1243.0625,
+        "height": 56,
+        "bottom": 650,
+        "right": 1304.53125
+      },
+      "buttons": [
+        {
+          "text": "내화보드(SFB-100F)",
+          "bottom": 468,
+          "height": 44,
+          "overflow": false
+        },
+        {
+          "text": "내화자켓(SFBA-200)",
+          "bottom": 468,
+          "height": 44,
+          "overflow": false
+        },
+        {
+          "text": "내화실리콘실란트(SFS-100)",
+          "bottom": 518,
+          "height": 44,
+          "overflow": false
+        },
+        {
+          "text": "세라믹섬유블랭킷(SFI-100)",
+          "bottom": 518,
+          "height": 44,
+          "overflow": false
+        },
+        {
+          "text": "내화채움재",
+          "bottom": 568,
+          "height": 44,
+          "overflow": false
+        },
+        {
+          "text": "일반 방화셔터 ▷",
+          "bottom": 468,
+          "height": 44,
+          "overflow": false
+        },
+        {
+          "text": "와이어 권취형 방화셔터 ▷",
+          "bottom": 518,
+          "height": 44,
+          "overflow": false
+        }
+      ],
+      "horizontalOverflow": false
+    },
+    {
+      "width": 1280,
+      "height": 600,
+      "hero": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 600,
+        "bottom": 600,
+        "right": 1280
+      },
+      "stage": {
+        "x": 531.1875,
+        "y": 110,
+        "width": 691.21875,
+        "height": 209.3125,
+        "bottom": 319.3125,
+        "right": 1222.40625
+      },
+      "copy": {
+        "x": 57.59375,
+        "y": 172.65625,
+        "width": 435.203125,
+        "height": 294.6875,
+        "bottom": 467.34375,
+        "right": 492.796875
+      },
+      "menu": {
+        "x": 531.1875,
+        "y": 319.3125,
+        "width": 691.21875,
+        "height": 210.6875,
+        "bottom": 530,
+        "right": 1222.40625
+      },
+      "footer": {
+        "x": 57.59375,
+        "y": 544,
+        "width": 1164.8125,
+        "height": 56,
+        "bottom": 600,
+        "right": 1222.40625
+      },
+      "buttons": [
+        {
+          "text": "내화보드(SFB-100F)",
+          "bottom": 418,
+          "height": 44,
+          "overflow": false
+        },
+        {
+          "text": "내화자켓(SFBA-200)",
+          "bottom": 418,
+          "height": 44,
+          "overflow": false
+        },
+        {
+          "text": "내화실리콘실란트(SFS-100)",
+          "bottom": 468,
+          "height": 44,
+          "overflow": false
+        },
+        {
+          "text": "세라믹섬유블랭킷(SFI-100)",
+          "bottom": 468,
+          "height": 44,
+          "overflow": false
+        },
+        {
+          "text": "내화채움재",
+          "bottom": 518,
+          "height": 44,
+          "overflow": false
+        },
+        {
+          "text": "일반 방화셔터 ▷",
+          "bottom": 418,
+          "height": 44,
+          "overflow": false
+        },
+        {
+          "text": "와이어 권취형 방화셔터 ▷",
+          "bottom": 468,
+          "height": 44,
+          "overflow": false
+        }
+      ],
+      "horizontalOverflow": false
+    },
+    {
+      "width": 1093,
+      "height": 614,
+      "hero": {
+        "x": 0,
+        "y": 0,
+        "width": 1093,
+        "height": 614,
+        "bottom": 614,
+        "right": 1093
+      },
+      "stage": {
+        "x": 462.03125,
+        "y": 96,
+        "width": 581.796875,
+        "height": 242.25,
+        "bottom": 338.25,
+        "right": 1043.828125
+      },
+      "copy": {
+        "x": 49.171875,
+        "y": 184.421875,
+        "width": 387.859375,
+        "height": 271.15625,
+        "bottom": 455.578125,
+        "right": 437.03125
+      },
+      "menu": {
+        "x": 462.03125,
+        "y": 338.25,
+        "width": 581.796875,
+        "height": 205.75,
+        "bottom": 544,
+        "right": 1043.828125
+      },
+      "footer": {
+        "x": 49.171875,
+        "y": 558,
+        "width": 994.65625,
+        "height": 56,
+        "bottom": 614,
+        "right": 1043.828125
+      },
+      "buttons": [
+        {
+          "text": "내화보드(SFB-100F)",
+          "bottom": 432,
+          "height": 44,
+          "overflow": false
+        },
+        {
+          "text": "내화자켓(SFBA-200)",
+          "bottom": 432,
+          "height": 44,
+          "overflow": false
+        },
+        {
+          "text": "내화실리콘실란트(SFS-100)",
+          "bottom": 482,
+          "height": 44,
+          "overflow": false
+        },
+        {
+          "text": "세라믹섬유블랭킷(SFI-100)",
+          "bottom": 482,
+          "height": 44,
+          "overflow": false
+        },
+        {
+          "text": "내화채움재",
+          "bottom": 532,
+          "height": 44,
+          "overflow": false
+        },
+        {
+          "text": "일반 방화셔터 ▷",
+          "bottom": 432,
+          "height": 44,
+          "overflow": false
+        },
+        {
+          "text": "와이어 권취형 방화셔터 ▷",
+          "bottom": 482,
+          "height": 44,
+          "overflow": false
+        }
+      ],
+      "horizontalOverflow": false
+    },
+    {
+      "width": 1024,
+      "height": 600,
+      "hero": {
+        "x": 0,
+        "y": 0,
+        "width": 1024,
+        "height": 600,
+        "bottom": 600,
+        "right": 1024
+      },
+      "stage": {
+        "x": 433.8125,
+        "y": 96,
+        "width": 544.109375,
+        "height": 228.25,
+        "bottom": 324.25,
+        "right": 977.921875
+      },
+      "copy": {
+        "x": 46.078125,
+        "y": 180.46875,
+        "width": 362.734375,
+        "height": 265.0625,
+        "bottom": 445.53125,
+        "right": 408.8125
+      },
+      "menu": {
+        "x": 433.8125,
+        "y": 324.25,
+        "width": 544.109375,
+        "height": 205.75,
+        "bottom": 530,
+        "right": 977.921875
+      },
+      "footer": {
+        "x": 46.078125,
+        "y": 544,
+        "width": 931.84375,
+        "height": 56,
+        "bottom": 600,
+        "right": 977.921875
+      },
+      "buttons": [
+        {
+          "text": "내화보드(SFB-100F)",
+          "bottom": 418,
+          "height": 44,
+          "overflow": false
+        },
+        {
+          "text": "내화자켓(SFBA-200)",
+          "bottom": 418,
+          "height": 44,
+          "overflow": false
+        },
+        {
+          "text": "내화실리콘실란트(SFS-100)",
+          "bottom": 468,
+          "height": 44,
+          "overflow": false
+        },
+        {
+          "text": "세라믹섬유블랭킷(SFI-100)",
+          "bottom": 468,
+          "height": 44,
+          "overflow": false
+        },
+        {
+          "text": "내화채움재",
+          "bottom": 518,
+          "height": 44,
+          "overflow": false
+        },
+        {
+          "text": "일반 방화셔터 ▷",
+          "bottom": 418,
+          "height": 44,
+          "overflow": false
+        },
+        {
+          "text": "와이어 권취형 방화셔터 ▷",
+          "bottom": 468,
+          "height": 44,
+          "overflow": false
+        }
+      ],
+      "horizontalOverflow": false
+    },
+    {
+      "width": 960,
+      "height": 540,
+      "hero": {
+        "x": 0,
+        "y": 0,
+        "width": 960,
+        "height": 540,
+        "bottom": 540,
+        "right": 960
+      },
+      "stage": {
+        "x": 407.625,
+        "y": 96,
+        "width": 509.1875,
+        "height": 159.25,
+        "bottom": 255.25,
+        "right": 916.8125
+      },
+      "copy": {
+        "x": 43.1875,
+        "y": 153.28125,
+        "width": 339.4375,
+        "height": 259.4375,
+        "bottom": 412.71875,
+        "right": 382.625
+      },
+      "menu": {
+        "x": 407.625,
+        "y": 255.25,
+        "width": 509.1875,
+        "height": 214.75,
+        "bottom": 470,
+        "right": 916.8125
+      },
+      "footer": {
+        "x": 43.1875,
+        "y": 484,
+        "width": 873.625,
+        "height": 56,
+        "bottom": 540,
+        "right": 916.8125
+      },
+      "buttons": [
+        {
+          "text": "내화보드(SFB-100F)",
+          "bottom": 349,
+          "height": 44,
+          "overflow": false
+        },
+        {
+          "text": "내화자켓(SFBA-200)",
+          "bottom": 349,
+          "height": 44,
+          "overflow": false
+        },
+        {
+          "text": "내화실리콘실란트(SFS-100)",
+          "bottom": 408,
+          "height": 53,
+          "overflow": false
+        },
+        {
+          "text": "세라믹섬유블랭킷(SFI-100)",
+          "bottom": 408,
+          "height": 53,
+          "overflow": false
+        },
+        {
+          "text": "내화채움재",
+          "bottom": 458,
+          "height": 44,
+          "overflow": false
+        },
+        {
+          "text": "일반 방화셔터 ▷",
+          "bottom": 349,
+          "height": 44,
+          "overflow": false
+        },
+        {
+          "text": "와이어 권취형 방화셔터 ▷",
+          "bottom": 399,
+          "height": 44,
+          "overflow": false
+        }
+      ],
+      "horizontalOverflow": false
+    },
+    {
+      "width": 900,
+      "height": 600,
+      "hero": {
+        "x": 0,
+        "y": 0,
+        "width": 900,
+        "height": 600,
+        "bottom": 600,
+        "right": 900
+      },
+      "stage": {
+        "x": 383.09375,
+        "y": 96,
+        "width": 476.40625,
+        "height": 219.25,
+        "bottom": 315.25,
+        "right": 859.5
+      },
+      "copy": {
+        "x": 40.5,
+        "y": 185.9375,
+        "width": 317.59375,
+        "height": 254.125,
+        "bottom": 440.0625,
+        "right": 358.09375
+      },
+      "menu": {
+        "x": 383.09375,
+        "y": 315.25,
+        "width": 476.40625,
+        "height": 214.75,
+        "bottom": 530,
+        "right": 859.5
+      },
+      "footer": {
+        "x": 40.5,
+        "y": 544,
+        "width": 819,
+        "height": 56,
+        "bottom": 600,
+        "right": 859.5
+      },
+      "buttons": [
+        {
+          "text": "내화보드(SFB-100F)",
+          "bottom": 409,
+          "height": 44,
+          "overflow": false
+        },
+        {
+          "text": "내화자켓(SFBA-200)",
+          "bottom": 409,
+          "height": 44,
+          "overflow": false
+        },
+        {
+          "text": "내화실리콘실란트(SFS-100)",
+          "bottom": 468,
+          "height": 53,
+          "overflow": false
+        },
+        {
+          "text": "세라믹섬유블랭킷(SFI-100)",
+          "bottom": 468,
+          "height": 53,
+          "overflow": false
+        },
+        {
+          "text": "내화채움재",
+          "bottom": 518,
+          "height": 44,
+          "overflow": false
+        },
+        {
+          "text": "일반 방화셔터 ▷",
+          "bottom": 409,
+          "height": 44,
+          "overflow": false
+        },
+        {
+          "text": "와이어 권취형 방화셔터 ▷",
+          "bottom": 459,
+          "height": 44,
+          "overflow": false
+        }
+      ],
+      "horizontalOverflow": false
+    },
+    {
+      "width": 820,
+      "height": 1180,
+      "hero": {
+        "x": 0,
+        "y": 0,
+        "width": 820,
+        "height": 821.75,
+        "bottom": 821.75,
+        "right": 820
+      },
+      "stage": {
+        "x": 350.375,
+        "y": 118,
+        "width": 432.734375,
+        "height": 292,
+        "bottom": 410,
+        "right": 783.109375
+      },
+      "copy": {
+        "x": 36.890625,
+        "y": 257.1875,
+        "width": 288.484375,
+        "height": 319.375,
+        "bottom": 576.5625,
+        "right": 325.375
+      },
+      "menu": {
+        "x": 350.375,
+        "y": 410,
+        "width": 432.734375,
+        "height": 305.75,
+        "bottom": 715.75,
+        "right": 783.109375
+      },
+      "footer": {
+        "x": 36.890625,
+        "y": 743.75,
+        "width": 746.21875,
+        "height": 78,
+        "bottom": 821.75,
+        "right": 783.109375
+      },
+      "buttons": [
+        {
+          "text": "내화보드(SFB-100F)",
+          "bottom": 503.75,
+          "height": 44,
+          "overflow": false
+        },
+        {
+          "text": "내화자켓(SFBA-200)",
+          "bottom": 553.75,
+          "height": 44,
+          "overflow": false
+        },
+        {
+          "text": "내화실리콘실란트(SFS-100)",
+          "bottom": 603.75,
+          "height": 44,
+          "overflow": false
+        },
+        {
+          "text": "세라믹섬유블랭킷(SFI-100)",
+          "bottom": 653.75,
+          "height": 44,
+          "overflow": false
+        },
+        {
+          "text": "내화채움재",
+          "bottom": 703.75,
+          "height": 44,
+          "overflow": false
+        },
+        {
+          "text": "일반 방화셔터 ▷",
+          "bottom": 503.75,
+          "height": 44,
+          "overflow": false
+        },
+        {
+          "text": "와이어 권취형 방화셔터 ▷",
+          "bottom": 553.75,
+          "height": 44,
+          "overflow": false
+        }
+      ],
+      "horizontalOverflow": false
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "hero": {
+        "x": 0,
+        "y": 0,
+        "width": 390,
+        "height": 980.546875,
+        "bottom": 980.546875,
+        "right": 390
+      },
+      "stage": {
+        "x": 22,
+        "y": 380.5625,
+        "width": 346,
+        "height": 219.59375,
+        "bottom": 600.15625,
+        "right": 368
+      },
+      "copy": {
+        "x": 22,
+        "y": 116,
+        "width": 346,
+        "height": 239.5625,
+        "bottom": 355.5625,
+        "right": 368
+      },
+      "menu": {
+        "x": 22,
+        "y": 600.15625,
+        "width": 346,
+        "height": 317.390625,
+        "bottom": 917.546875,
+        "right": 368
+      },
+      "footer": {
+        "x": 22,
+        "y": 922.546875,
+        "width": 346,
+        "height": 58,
+        "bottom": 980.546875,
+        "right": 368
+      },
+      "buttons": [
+        {
+          "text": "내화보드(SFB-100F)",
+          "bottom": 695.546875,
+          "height": 44,
+          "overflow": false
+        },
+        {
+          "text": "내화자켓(SFBA-200)",
+          "bottom": 745.546875,
+          "height": 44,
+          "overflow": false
+        },
+        {
+          "text": "내화실리콘실란트(SFS-100)",
+          "bottom": 795.546875,
+          "height": 44,
+          "overflow": false
+        },
+        {
+          "text": "세라믹섬유블랭킷(SFI-100)",
+          "bottom": 845.546875,
+          "height": 44,
+          "overflow": false
+        },
+        {
+          "text": "내화채움재",
+          "bottom": 895.546875,
+          "height": 44,
+          "overflow": false
+        },
+        {
+          "text": "일반 방화셔터 ▷",
+          "bottom": 695.546875,
+          "height": 44,
+          "overflow": false
+        },
+        {
+          "text": "와이어 권취형 방화셔터 ▷",
+          "bottom": 745.546875,
+          "height": 44,
+          "overflow": false
+        }
+      ],
+      "horizontalOverflow": false
+    },
+    {
+      "width": 320,
+      "height": 640,
+      "hero": {
+        "x": 0,
+        "y": 0,
+        "width": 320,
+        "height": 950.0625,
+        "bottom": 950.0625,
+        "right": 320
+      },
+      "stage": {
+        "x": 22,
+        "y": 367.0625,
+        "width": 276,
+        "height": 205,
+        "bottom": 572.0625,
+        "right": 298
+      },
+      "copy": {
+        "x": 22,
+        "y": 116,
+        "width": 276,
+        "height": 226.0625,
+        "bottom": 342.0625,
+        "right": 298
+      },
+      "menu": {
+        "x": 22,
+        "y": 572.0625,
+        "width": 276,
+        "height": 315,
+        "bottom": 887.0625,
+        "right": 298
+      },
+      "footer": {
+        "x": 22,
+        "y": 892.0625,
+        "width": 276,
+        "height": 58,
+        "bottom": 950.0625,
+        "right": 298
+      },
+      "buttons": [
+        {
+          "text": "내화보드(SFB-100F)",
+          "bottom": 665.0625,
+          "height": 44,
+          "overflow": false
+        },
+        {
+          "text": "내화자켓(SFBA-200)",
+          "bottom": 715.0625,
+          "height": 44,
+          "overflow": false
+        },
+        {
+          "text": "내화실리콘실란트(SFS-100)",
+          "bottom": 765.0625,
+          "height": 44,
+          "overflow": false
+        },
+        {
+          "text": "세라믹섬유블랭킷(SFI-100)",
+          "bottom": 815.0625,
+          "height": 44,
+          "overflow": false
+        },
+        {
+          "text": "내화채움재",
+          "bottom": 865.0625,
+          "height": 44,
+          "overflow": false
+        },
+        {
+          "text": "일반 방화셔터 ▷",
+          "bottom": 665.0625,
+          "height": 44,
+          "overflow": false
+        },
+        {
+          "text": "와이어 권취형 방화셔터 ▷",
+          "bottom": 721.0625,
+          "height": 50,
+          "overflow": false
+        }
+      ],
+      "horizontalOverflow": false
+    },
+    {
+      "width": 1280,
+      "height": 400,
+      "hero": {
+        "x": 0,
+        "y": 0,
+        "width": 1280,
+        "height": 534.6875,
+        "bottom": 534.6875,
+        "right": 1280
+      },
+      "stage": {
+        "x": 531.1875,
+        "y": 110,
+        "width": 691.21875,
+        "height": 144,
+        "bottom": 254,
+        "right": 1222.40625
+      },
+      "copy": {
+        "x": 57.59375,
+        "y": 140,
+        "width": 435.203125,
+        "height": 294.6875,
+        "bottom": 434.6875,
+        "right": 492.796875
+      },
+      "menu": {
+        "x": 531.1875,
+        "y": 254,
+        "width": 691.21875,
+        "height": 210.6875,
+        "bottom": 464.6875,
+        "right": 1222.40625
+      },
+      "footer": {
+        "x": 57.59375,
+        "y": 478.6875,
+        "width": 1164.8125,
+        "height": 56,
+        "bottom": 534.6875,
+        "right": 1222.40625
+      },
+      "buttons": [
+        {
+          "text": "내화보드(SFB-100F)",
+          "bottom": 352.6875,
+          "height": 44,
+          "overflow": false
+        },
+        {
+          "text": "내화자켓(SFBA-200)",
+          "bottom": 352.6875,
+          "height": 44,
+          "overflow": false
+        },
+        {
+          "text": "내화실리콘실란트(SFS-100)",
+          "bottom": 402.6875,
+          "height": 44,
+          "overflow": false
+        },
+        {
+          "text": "세라믹섬유블랭킷(SFI-100)",
+          "bottom": 402.6875,
+          "height": 44,
+          "overflow": false
+        },
+        {
+          "text": "내화채움재",
+          "bottom": 452.6875,
+          "height": 44,
+          "overflow": false
+        },
+        {
+          "text": "일반 방화셔터 ▷",
+          "bottom": 352.6875,
+          "height": 44,
+          "overflow": false
+        },
+        {
+          "text": "와이어 권취형 방화셔터 ▷",
+          "bottom": 402.6875,
+          "height": 44,
+          "overflow": false
+        }
+      ],
+      "horizontalOverflow": false
+    }
+  ],
+  "errors": []
+}

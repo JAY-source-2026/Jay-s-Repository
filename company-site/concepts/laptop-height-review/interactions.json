@@ -1,0 +1,10 @@
+{
+  "checks": [
+    "1366x650: all five products and both videos fit; menu positions stay fixed; videos play and pause correctly",
+    "1024x600: all five products and both videos fit; menu positions stay fixed; videos play and pause correctly",
+    "960x540: all five products and both videos fit; menu positions stay fixed; videos play and pause correctly",
+    "1280x400: natural page scrolling keeps menu accessible",
+    "Technology link and existing 3D system selection work"
+  ],
+  "errors": []
+}
