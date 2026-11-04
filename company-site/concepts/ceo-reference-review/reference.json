@@ -1,0 +1,18 @@
+{
+  "url": "https://www.eyecapkorea.com/ko/company/ceo-message",
+  "reviewed": "Desktop and mobile rendered pages, including revealed text and images",
+  "influences": [
+    "Large brand wordmark with a restrained section title",
+    "White background and thin horizontal dividers",
+    "Image beside a bounded message column on desktop",
+    "Image followed by message on mobile"
+  ],
+  "implementation": "Existing DOENC architectural image, a 1120px maximum container and a maximum 648px body column. Original user headline and five paragraphs retained.",
+  "third_party_assets_copied": false,
+  "image": {
+    "path": "assets/images/hero-tower.jpg",
+    "origin": "Existing website image; reused unchanged",
+    "sha256": "5ba379139b4c2b17b87d1f883bd47b348373a534b389da6938f4fed948db9ba9",
+    "description": "Architectural visual; not presented as a DOENC facility or CEO portrait"
+  }
+}

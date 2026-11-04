@@ -1,0 +1,108 @@
+{
+  "errors": [],
+  "httpErrors": [],
+  "layouts": [
+    {
+      "viewport": 320,
+      "sectionHeight": 1063.65625,
+      "letterWidth": 280,
+      "textWidth": 280,
+      "textFont": "16px",
+      "lineHeight": "29.6px",
+      "paragraphGap": "16px",
+      "pageOverflow": 0,
+      "sectionOverflow": 0,
+      "headingHidden": true,
+      "contentFits": true
+    },
+    {
+      "viewport": 390,
+      "sectionHeight": 915.6875,
+      "letterWidth": 350,
+      "textWidth": 350,
+      "textFont": "16px",
+      "lineHeight": "29.6px",
+      "paragraphGap": "16px",
+      "pageOverflow": 0,
+      "sectionOverflow": 0,
+      "headingHidden": false,
+      "contentFits": true
+    },
+    {
+      "viewport": 680,
+      "sectionHeight": 696.9375,
+      "letterWidth": 640,
+      "textWidth": 640,
+      "textFont": "16px",
+      "lineHeight": "29.6px",
+      "paragraphGap": "16px",
+      "pageOverflow": 0,
+      "sectionOverflow": 0,
+      "headingHidden": false,
+      "contentFits": true
+    },
+    {
+      "viewport": 820,
+      "sectionHeight": 812.875,
+      "letterWidth": 772,
+      "textWidth": 674,
+      "textFont": "16.5px",
+      "lineHeight": "30.525px",
+      "paragraphGap": "16px",
+      "pageOverflow": 0,
+      "sectionOverflow": 0,
+      "headingHidden": false,
+      "contentFits": true
+    },
+    {
+      "viewport": 1440,
+      "sectionHeight": 808.453125,
+      "letterWidth": 872,
+      "textWidth": 774,
+      "textFont": "16.5px",
+      "lineHeight": "30.525px",
+      "paragraphGap": "16px",
+      "pageOverflow": 0,
+      "sectionOverflow": 0,
+      "headingHidden": false,
+      "contentFits": true
+    },
+    {
+      "viewport": 1920,
+      "sectionHeight": 808.453125,
+      "letterWidth": 872,
+      "textWidth": 774,
+      "textFont": "16.5px",
+      "lineHeight": "30.525px",
+      "paragraphGap": "16px",
+      "pageOverflow": 0,
+      "sectionOverflow": 0,
+      "headingHidden": false,
+      "contentFits": true
+    }
+  ],
+  "otherSectionsUnchanged": true,
+  "exactUserCopy": true,
+  "passed": true,
+  "checkedAt": "2026-11-04T02:14:55.347Z",
+  "directAnchorNavigation": [
+    {
+      "width": 320,
+      "sectionTop": 100.4375,
+      "headingTop": 136.4375,
+      "headerBottom": 79
+    },
+    {
+      "width": 390,
+      "sectionTop": 99.6875,
+      "headingTop": 135.6875,
+      "headerBottom": 79
+    },
+    {
+      "width": 1440,
+      "sectionTop": 100.09375,
+      "headingTop": 154.09375,
+      "headerBottom": 93
+    }
+  ]
+}
