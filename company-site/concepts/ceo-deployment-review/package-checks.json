@@ -1,0 +1,13 @@
+{
+  "source_commit": "b308869a60d245487fbb4eed80000bc52edd1647",
+  "changed_runtime_files": [
+    "company-site/release.json",
+    "company-site/about.html",
+    "company-site/assets/css/about.css"
+  ],
+  "unchanged_package_files": 280,
+  "about_local_links_checked": 70,
+  "certificate_pdfs_preserved": 61,
+  "all_other_deployed_files_preserved": true,
+  "passed": true
+}

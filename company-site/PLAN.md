@@ -1,3 +1,17 @@
+# 2026-11-04 — CEO 인사말 커밋·공개 배포 완료
+
+**현재 최신 상태는 이 기록을 기준으로 한다.** 사용자가 여기까지 커밋하고 배포하도록 요청하여 CEO 인사말 재디자인과 새 문구를 `main`에 커밋·push하고 기존 `gh-pages`로 배포했다. 아래 인사말의 ‘미리보기’, ‘공개 배포 전’ 설명은 당시의 과거 기록이다.
+
+- **공개 홈페이지**: <https://jay-source-2026.github.io/Jay-s-Repository/company-site/>. [최신 CEO 인사말](https://jay-source-2026.github.io/Jay-s-Repository/company-site/about.html?v=20261104r7#ceo).
+- **반영 내용**: 큰 `DOENC` 제목, 건축 이미지와 좁은 본문 영역, 사용자 제공 핵심 문구와 본문 5개 문단, 하단 대표이사 표기. PC는 이미지/본문 두 열, 모바일은 이미지 아래로 본문이 이어진다. 앞서 등록한 분야별 자료실·인정서 61건·이미지 122장·검색·미리보기·다운로드는 유지한다. 메인 제품 메뉴·사진·셔터 영상·기존 3D 기술 소개도 그대로다.
+- **커밋·빌드**: 홈페이지 소스 `b308869a60d245487fbb4eed80000bc52edd1647`, 배포 `cc0c712789afa12098f39c042304f8b69c63b0a8`. GitHub Pages 빌드는 2026-11-04 02:42:05 UTC에 `built`로 완료됐다. 공개 `release.json`의 소스 커밋과 배포본을 대조했다. 이 확인 기록을 저장하는 후속 커밋은 홈페이지 실행 파일을 바꾸지 않는다.
+- **배포 범위 검증**: 직전 배포본과 비교해 `about.html`, 새 `assets/css/about.css`, `release.json`만 달라졌다. 나머지 패키지 파일 280개는 바이트 단위로 동일하다. 다른 프로젝트와 원본 자료·로컬 백업은 포함하지 않았다. 기존 Pages 루트와 옛 concept 페이지도 보존했다.
+- **공개 검수**: `concepts/ceo-deployment-review/package-checks.json`, `live-checks.json`, PC·모바일 화면. 일반 공개 URL의 회사소개 HTML·전용 CSS·건축 이미지·자료실 JSON·메인 HTML 5개가 패키지와 일치한다. 1440/390/320px에서 이미지 로드, 사용자 문구 그대로 표시, 적절한 열 전환, 가로 넘침 없음, 고정 헤더에 제목이 가려지지 않음을 확인했다. JS/사이트 HTTP 오류 없음. 배포 전 7개 폭 검수는 `concepts/ceo-reference-review/checks.json`.
+- **편집용 미리보기**: <https://redesigned-fishstick-77vprgr9qxvwcrj59-8000.app.github.dev/about.html?v=20261104r7#ceo>. 포트 8000의 기존 `company-site`를 사용한다. 꺼졌을 때만 `python3 -m http.server 8000 --bind 0.0.0.0 --directory company-site`로 재실행한다.
+- **백업**: 인사말 변경 파일 사본 `.local-backups/doenc-ceo-reference-20261104T022850Z/`, 원본 자료 포함 전체 백업은 `.local-backups/LATEST.json`. 백업·Git 커밋·공개 배포를 구분한다.
+
+---
+
 # 2026-11-04 — 참고 사이트 기반 CEO 인사말 재디자인 (미리보기)
 
 **최신 디자인은 이 기록을 기준으로 한다.** 사용자가 직전 인사말 디자인을 다시 수정하고 [아이캡코리아 CEO 페이지](https://www.eyecapkorea.com/ko/company/ceo-message)를 참고하도록 요청했다. **현재 파일·미리보기에 반영했으며 이번 변경은 아직 커밋·공개 배포하지 않았다.** 아래 흰 카드 형태의 인사말은 이전 시안이다. 공개 홈페이지는 자료실 배포 완료본을 유지한다.

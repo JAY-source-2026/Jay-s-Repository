@@ -1,0 +1,49 @@
+{
+  "url": "https://jay-source-2026.github.io/Jay-s-Repository/company-site/about.html?v=20261104r7#ceo",
+  "source_commit": "b308869a60d245487fbb4eed80000bc52edd1647",
+  "verified_files": [
+    "about.html",
+    "assets/css/about.css",
+    "assets/images/hero-tower.jpg",
+    "assets/data/archive.json",
+    "index.html"
+  ],
+  "layouts": [
+    {
+      "width": 1440,
+      "wrapper": 1120,
+      "textWidth": 648.046875,
+      "columns": "355.953px 648.047px",
+      "overflow": 0,
+      "headingVisible": true
+    },
+    {
+      "width": 390,
+      "wrapper": 390,
+      "textWidth": 342,
+      "columns": "342px",
+      "overflow": 0,
+      "headingVisible": true
+    },
+    {
+      "width": 320,
+      "wrapper": 320,
+      "textWidth": 272,
+      "columns": "272px",
+      "overflow": 0,
+      "headingVisible": true
+    }
+  ],
+  "errors": [],
+  "httpErrors": [],
+  "userCopyPreserved": true,
+  "passed": true,
+  "checkedAt": "2026-11-04T02:42:26.499Z",
+  "deployment_commit": "cc0c712789afa12098f39c042304f8b69c63b0a8",
+  "pages_build": {
+    "status": "built",
+    "created_at": "2026-11-04T02:41:12Z",
+    "updated_at": "2026-11-04T02:42:05Z",
+    "error": null
+  }
+}
