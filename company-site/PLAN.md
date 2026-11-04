@@ -1,3 +1,16 @@
+# 2026-11-04 — 노트북 첫 화면 높이 조정 커밋·공개 배포 완료
+
+**현재 최신 상태는 이 기록을 기준으로 한다.** 사용자가 여기까지 커밋하고 배포하도록 요청하여 노트북 첫 화면 높이 조정을 `main`에 커밋·push하고 기존 `gh-pages`에 공개 배포했다. 아래 ‘미리보기’, ‘아직 미배포’ 설명은 당시의 과거 상태다.
+
+- **공개 홈페이지**: <https://jay-source-2026.github.io/Jay-s-Repository/company-site/>. 새 첫 화면 CSS는 `20261104r8`이다. 공개 주소에서 1366×650·1280×600·1024×600·960×540에 제품 메뉴와 하단 안내까지 들어옴을 확인했다. 큰 모니터·모바일은 기존 배치를 유지한다.
+- **커밋·배포**: 홈페이지 소스 `4e7d07e385f114416751d4955a06e93045a8ddf5`, 배포 `22bda48b89d9f56ee4ada52e7c464e9e3623bff7`. GitHub Pages 빌드는 2026-11-04 08:02:18 UTC에 `built`로 완료됐다. 공개 `release.json`의 소스 커밋이 일치한다. 이 확인 기록을 저장하는 후속 커밋은 홈페이지 실행 파일을 바꾸지 않는다.
+- **배포 범위**: 직전 공개본과 비교해 `index.html`, `assets/css/signature.css`, `release.json`만 달라졌다. 나머지 패키지 파일 280개와 기존 Pages 루트·옛 concept 페이지를 보존했다. CEO 인사말, 인정서 61건·이미지 122장, 제품 사진·셔터 영상·기존 3D 기술 소개는 유지한다. 다른 프로젝트·원본 자료·로컬 백업은 포함하지 않았다.
+- **공개 검수**: `concepts/laptop-deployment-review/package-checks.json`, `live-checks.json`, PC·모바일·영상 화면. 일반 공개 URL의 HTML·CSS·JS·자료실 JSON·배포 정보 7개가 패키지와 바이트 단위로 일치한다. 6개 화면 크기의 배치·가로 넘침 없음, 제품 선택·셔터 영상 재생·제품 복귀 시 정지, 기술 소개 진입·메뉴 로딩을 확인했다. JS·사이트 HTTP 오류 없음. 세부 사전 검수는 아래 `concepts/laptop-height-review/` 기록이다.
+- **편집용 미리보기**: <https://redesigned-fishstick-77vprgr9qxvwcrj59-8000.app.github.dev/?v=20261104r8>. 포트 8000의 기존 `company-site`를 사용한다. 꺼졌을 때만 `python3 -m http.server 8000 --bind 0.0.0.0 --directory company-site`로 재실행한다.
+- **백업**: 이번 변경 파일·사전 검수 사본 `.local-backups/doenc-laptop-height-20261104T075910Z/`, 수정 전 `.local-backups/doenc-pre-laptop-height-20261104T074137Z/`. 원본 자료 포함 전체 백업은 기존 `.local-backups/LATEST.json` 참조. 백업·Git 커밋·공개 배포를 구분한다.
+
+---
+
 # 2026-11-04 — 노트북 첫 화면 높이 조정 (미리보기)
 
 **현재 편집 상태는 이 기록을 기준으로 한다.** 사용자가 큰 모니터와 달리 노트북에서 화면 아래가 잘린다고 알리고 조정 완료 여부를 확인했다. 첫 화면의 높이 대응을 수정하고 브라우저 검수를 완료했다. **현재 파일·편집용 미리보기에 반영했으며 이번 수정은 아직 Git 커밋·공개 배포하지 않았다.** 아래 CEO 인사말 배포본이 현재 공개 홈페이지다.

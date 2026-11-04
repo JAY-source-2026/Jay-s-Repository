@@ -1,0 +1,12 @@
+{
+  "source_commit": "4e7d07e385f114416751d4955a06e93045a8ddf5",
+  "changed_runtime_files": [
+    "company-site/assets/css/signature.css",
+    "company-site/index.html",
+    "company-site/release.json"
+  ],
+  "unchanged_package_files": 280,
+  "certificate_pdfs_preserved": 61,
+  "all_other_deployed_files_preserved": true,
+  "passed": true
+}

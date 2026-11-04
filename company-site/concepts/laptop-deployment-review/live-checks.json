@@ -1,0 +1,60 @@
+{
+  "source_commit": "4e7d07e385f114416751d4955a06e93045a8ddf5",
+  "files_match_package": [
+    "index.html",
+    "assets/css/signature.css",
+    "about.html",
+    "assets/css/about.css",
+    "assets/data/archive.json",
+    "assets/js/explorer.js",
+    "release.json"
+  ],
+  "layouts": [
+    {
+      "width": 1366,
+      "height": 650,
+      "heroBottom": 650,
+      "menuBottom": 580,
+      "overflow": false
+    },
+    {
+      "width": 1280,
+      "height": 600,
+      "heroBottom": 600,
+      "menuBottom": 530,
+      "overflow": false
+    },
+    {
+      "width": 1024,
+      "height": 600,
+      "heroBottom": 600,
+      "menuBottom": 530,
+      "overflow": false
+    },
+    {
+      "width": 960,
+      "height": 540,
+      "heroBottom": 540,
+      "menuBottom": 470,
+      "overflow": false
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "heroBottom": 1070,
+      "menuBottom": 904.34375,
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "heroBottom": 980.546875,
+      "menuBottom": 917.546875,
+      "overflow": false
+    }
+  ],
+  "product_and_video_interactions": true,
+  "existing_3d_initialized": true,
+  "errors": [],
+  "passed": true
+}
