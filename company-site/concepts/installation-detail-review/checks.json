@@ -1,0 +1,59 @@
+{
+  "passed": true,
+  "certificates": 60,
+  "splitBoard": true,
+  "progressiveSealant": true,
+  "blanketPhoto": true,
+  "lowerFace": true,
+  "keyboard": true,
+  "speed": {
+    "zoom": 0.65,
+    "firstConstruction": 1.3,
+    "totalToConstruction": 1.9500000000000002
+  },
+  "layouts": [
+    {
+      "width": 1440,
+      "height": 1000,
+      "overflow": false,
+      "overlap": false,
+      "captionVisible": true,
+      "canvasHeight": 600
+    },
+    {
+      "width": 1366,
+      "height": 650,
+      "overflow": false,
+      "overlap": false,
+      "captionVisible": true,
+      "canvasHeight": 420
+    },
+    {
+      "width": 1024,
+      "height": 600,
+      "overflow": false,
+      "overlap": false,
+      "captionVisible": true,
+      "canvasHeight": 420
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "overflow": false,
+      "overlap": false,
+      "captionVisible": true,
+      "canvasHeight": 390
+    },
+    {
+      "width": 320,
+      "height": 640,
+      "overflow": false,
+      "overlap": false,
+      "captionVisible": true,
+      "canvasHeight": 390
+    }
+  ],
+  "errors": [],
+  "bad": [],
+  "deviceScaleFactor": 0.65
+}

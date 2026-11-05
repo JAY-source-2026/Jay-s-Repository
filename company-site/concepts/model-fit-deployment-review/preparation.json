@@ -1,0 +1,13 @@
+{
+  "preparedAt": "2026-11-05T08:38:55.864474+00:00",
+  "authorization": "User requested committing and deploying all homepage work to date.",
+  "previousSource": "946e06c62265ab542adc39568eb84bcd3a329473",
+  "previousDeployment": "a83400cc427a0d95d768ef994832b023767b9330",
+  "scope": "company-site only; preserve company-promo and private originals",
+  "finalRuntimeHashesVerified": true,
+  "sourceChecksPassed": [
+    "installation-detail-review/checks.json",
+    "model-fit-review/geometry-checks.json",
+    "model-fit-review/checks.json"
+  ]
+}

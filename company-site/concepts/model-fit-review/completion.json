@@ -1,0 +1,28 @@
+{
+  "completedAt": "2026-11-05T08:36:11.451796+00:00",
+  "preview": "https://redesigned-fishstick-77vprgr9qxvwcrj59-8000.app.github.dev/?v=20261105r6#technology",
+  "cache": "20261105r6",
+  "committed": false,
+  "published": false,
+  "backup": ".local-backups/doenc-model-fit-final-20261105T083611Z",
+  "checks": [
+    "geometry-checks.json",
+    "checks.json"
+  ],
+  "files": {
+    "PLAN.md": "f2b8b939412028fd679ac6f59295a257daa83cfcbbc791f254d79ef67fd7d31e",
+    "SYSTEM-SOURCES.md": "7522de2239e7bf65a86bb37a98344b78ca40d14e0d8673169a5f5a503243f655",
+    "index.html": "6dd7282b2e3b6d659131e9844d22a4293824db5c6b5c0f270a1b3b008d18c39c",
+    "assets/css/home.css": "9e5f482df4c5f9398530feb8520862564139b5e372368f1784def81f17858420",
+    "assets/js/explorer.js": "c022678afb19e55fd445b8c2f8314da2ccdad433a40b39b599bad0bed3fd4e57",
+    "assets/js/hero3d.js": "cc660fd1e3e1ef6638a48f2adba0cd9b70b8fd7c464f96206184e2803e52bfca",
+    "assets/js/assemblies.js": "043a8af73aa5f4c2a4a39bf3d810f99f0cf4de127d5ffec3842a7ce7478a27db",
+    "assets/js/systems.js": "837c3d0a3243668c17fdef4b463bb6d7fad8d84b53ea592248fe96be5527c82b",
+    "assets/js/site-context.js": "3163fd7e63e7c34ca6f22d7c6a53c4243d03444aabb78f0023f9a0e7797c86c0",
+    "assets/js/factory.js": "f7fbea6816a0bbc022064f226bbf3feac7070fb190d4004a6ef9c02018dddff6",
+    "assets/js/installation-motion.js": "9edca41b54138f97e76dfaabe76a8659d63d966a42d1d7ab4d4d49c18382b6c3",
+    "assets/js/installation-tools.js": "7b9d6bb10d455464853020e5b07165f6f900872d1be67dfed76b682d097f1c8f",
+    "assets/js/installation-view.js": "af90a9029e8aee8da0ab6f93766b8336eba5cf6e725f8dbcfb01b88b3d554510",
+    "assets/js/installation-jacket.js": "28417bf56dec1414eb1e0079a79d6edeacda7c8057c568084aa9e85096a5cea5"
+  }
+}

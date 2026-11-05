@@ -39,9 +39,23 @@ export function buildFactory({ T, scene, models, box, mesh, group, mat, concrete
     floor.userData.component = withOpenings ? 'slab-with-service-openings' : 'factory-slab';
     return floor;
   }
-  slab(architecture, 0, FACTORY.width, -.22);
-  slab(architecture, 0, FACTORY.width, FACTORY.level - .22, true);
-  slab(architecture, 0, FACTORY.width + .25, roofY - .22);
+  // Independent strips allow a floor installation's own slab to remain visible
+  // without the architectural floors above it obscuring the work.
+  function floorStrips(y,withOpenings=false,extra=0){
+    let left=-FACTORY.width/2-extra;
+    for(const [id,bay]of Object.entries(FACTORY.bays)){
+      const start=bay.x-bay.width/2;
+      if(start>left+.001)slab(architecture,(left+start)/2,start-left,y,withOpenings);
+      const floor=slab(architecture,bay.x,bay.width,y,withOpenings);
+      floor.userData.contextSlab=true;floor.userData.workBay=id;
+      left=bay.x+bay.width/2;
+    }
+    const right=FACTORY.width/2+extra;
+    if(right>left)slab(architecture,(left+right)/2,right-left,y,withOpenings);
+  }
+  floorStrips(-.22);
+  floorStrips(FACTORY.level-.22,true);
+  floorStrips(roofY-.22,false,.125);
   box(FACTORY.width + .4, .18, 7.7, concrete, architecture, 0, -.36, 0);
   // A silver panel shell and a glazed corner follow the massing of the reference.
   for (let i = 0; i < 23; i++) {
@@ -120,11 +134,6 @@ export function buildFactory({ T, scene, models, box, mesh, group, mat, concrete
       }
       const geometry = new T.BufferGeometry(); geometry.setAttribute('position', new T.Float32BufferAttribute(positions, 3)); geometry.setIndex(indices); geometry.computeVertexNormals();
       const material = zinc.clone(); material.side = T.DoubleSide; mesh(geometry, material, routes);
-      for (const y of [2.6, 3.65, 4.2]) {
-        box(2.75, .045, .045, steel, routes, 0, y, z + .35);
-        box(2.75, .045, .045, steel, routes, 0, y, z - .35);
-        for (const x of [-1.35, 1.35]) box(.045, .045, .74, steel, routes, x, y, z);
-      }
     } else {
       const r = id === 'metal' ? .2032 : .1335;
       mesh(new T.TubeGeometry(curve, 56, r, 24, false), id === 'metal' ? steel : pvc, routes);

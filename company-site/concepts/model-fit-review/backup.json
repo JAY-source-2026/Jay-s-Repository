@@ -1,0 +1,15 @@
+{
+  "path": ".local-backups/doenc-pre-model-fit-20261105T081043Z",
+  "files": [
+    "PLAN.md",
+    "SYSTEM-SOURCES.md",
+    "index.html",
+    "assets/css/home.css",
+    "assets/js/hero3d.js",
+    "assets/js/assemblies.js",
+    "assets/js/explorer.js",
+    "assets/js/systems.js",
+    "assets/js/installation-motion.js",
+    "assets/js/factory.js"
+  ]
+}

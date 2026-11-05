@@ -277,3 +277,21 @@
  .certificate-spec ol { grid-template-columns: 1fr; }
 }
 .system-steps button { flex: 0 0 auto; }
+
+/* The active specification stays above the canvas, never over the work itself. */
+.explorer-viewport { height: auto; display: flex; flex-direction: column; align-self: start; }
+.explorer-render { position: relative; inset: auto; flex: 0 0 auto; height: clamp(420px, calc(100svh - 320px), 600px); }
+.installation-caption { border-left: 3px solid #a9d8fa; background: #203950; padding: 16px 20px 18px; color: #f5f9fc; }
+.installation-caption[hidden] { display: none; }
+.installation-caption-meta { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 6px 20px; font-size: 11px; line-height: 1.6; color: #c8e0f2; }
+.installation-caption-meta > span { font-weight: 650; letter-spacing: .04em; }
+.installation-caption-meta a { color: #c8e0f2; text-underline-offset: 3px; text-decoration: underline; overflow-wrap: anywhere; }
+.installation-caption h3 { margin: 9px 0 6px; font-size: 21px; line-height: 1.4; font-weight: 650; letter-spacing: -.025em; }
+.installation-caption p { margin: 0; font-size: 15px; line-height: 1.75; color: #e1edf6; word-break: keep-all; overflow-wrap: anywhere; }
+@media(max-width:760px){
+ .explorer-render { height: 390px; }
+ .installation-caption { margin: 16px var(--pad-edge) 0; padding: 14px 15px; }
+ .installation-caption h3 { font-size: 18px; }
+ .installation-caption p { font-size: 14px; }
+ .installation-caption-meta { font-size: 10px; }
+}

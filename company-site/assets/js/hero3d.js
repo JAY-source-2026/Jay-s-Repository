@@ -1,7 +1,8 @@
-import { SYSTEMS } from './systems.js?v=20261105r3';
-import { buildAssembly } from './assemblies.js?v=20261105r3';
-import { buildSiteContext } from './site-context.js?v=20261105r3';
-import { FACTORY, buildFactory } from './factory.js?v=20261105r3';
+import { SYSTEMS } from './systems.js?v=20261105r6';
+import { buildAssembly } from './assemblies.js?v=20261105r6';
+import { buildSiteContext } from './site-context.js?v=20261105r6';
+import { FACTORY, buildFactory } from './factory.js?v=20261105r6';
+import { fitInstallation, applyAssemblyTime } from './installation-view.js?v=20261105r6';
 // Product-scale fire protection demonstrator. No people or full-screen film.
 // All dimensions and timing are illustrative; this is not a fire-rating simulation.
 export async function initHero3D(canvas, host, { onUpdate = () => {} } = {}) {
@@ -66,6 +67,13 @@ export async function initHero3D(canvas, host, { onUpdate = () => {} } = {}) {
     if (kind === 'fabric') {
       g.strokeStyle = 'rgba(70,60,44,.12)'; g.lineWidth = .6;
       for (let j = 0; j < 256; j += 3) { g.beginPath(); g.moveTo(j, 0); g.lineTo(j, 256); g.moveTo(0, j); g.lineTo(256, j); g.stroke(); }
+    }
+    if (kind === 'fiber') {
+      for(let i=0;i<6500;i++){
+        const x=random()*256,y=random()*256,a=random()*Math.PI*2,len=2+random()*13;
+        g.strokeStyle=i%3?'rgba(255,255,250,.35)':'rgba(147,144,129,.14)';g.lineWidth=.4;
+        g.beginPath();g.moveTo(x,y);g.lineTo(x+Math.cos(a)*len,y+Math.sin(a)*len);g.stroke();
+      }
     }
     if (kind === 'tile') {
       g.strokeStyle = 'rgba(75,76,72,.3)'; g.lineWidth = 1;
@@ -153,8 +161,26 @@ export async function initHero3D(canvas, host, { onUpdate = () => {} } = {}) {
   }
   const foilTex = foilSurface();
   const foil = new T.MeshStandardMaterial({ color: '#eef1f3', map: foilTex, bumpMap: foilTex, bumpScale: .004, metalness: .5, roughness: .32, envMapIntensity: 1.6 });
-  const fiberTex=surface('fabric');textures.push(fiberTex);
+  const fiberTex=surface('fiber');textures.push(fiberTex);
   const wool = new T.MeshStandardMaterial({color:'#f5f1e7',map:fiberTex,bumpMap:fiberTex,bumpScale:.003,roughness:.98});
+  const blanketFoil=foil.clone();
+  // The original product photograph supplies its real crinkles, grid and print.
+  try{
+    const photo=await new T.TextureLoader().loadAsync(new URL('../images/products/blanket.webp',import.meta.url).href);
+    photo.colorSpace=T.SRGBColorSpace;photo.wrapS=photo.wrapT=T.RepeatWrapping;
+    photo.repeat.set(.76,.73);photo.offset.set(.12,.15);
+    photo.anisotropy=Math.min(8,renderer.capabilities.getMaxAnisotropy());textures.push(photo);
+    blanketFoil.map=photo;blanketFoil.color.set('#ffffff');blanketFoil.metalness=.62;blanketFoil.roughness=.4;blanketFoil.envMapIntensity=1.05;
+  }catch(error){console.warn('Blanket photograph unavailable; using the foil surface.',error);}
+  const labelCanvas=document.createElement('canvas');labelCanvas.width=512;labelCanvas.height=512;
+  const labelContext=labelCanvas.getContext('2d');labelContext.fillStyle='#155297';labelContext.fillRect(0,0,512,512);
+  for(const x of [128,384]){
+    labelContext.save();labelContext.translate(x,256);labelContext.rotate(-Math.PI/2);labelContext.fillStyle='#ffffff';
+    labelContext.font='bold 62px Arial';labelContext.fillText('DOENC',-190,-20);
+    labelContext.font='42px Arial';labelContext.fillText('SFS-100',45,70);labelContext.restore();
+  }
+  const labelTexture=new T.CanvasTexture(labelCanvas);labelTexture.colorSpace=T.SRGBColorSpace;textures.push(labelTexture);
+  const applicationMaterials={whiteSeal,steel,cartridgeWhite:mat('#f2f2eb',.32),gun:mat('#304c64',.35,.5),cartridgeLabel:new T.MeshStandardMaterial({map:labelTexture,roughness:.42})};
   function group(parent, x = 0, y = 0, z = 0) { const g = new T.Group(); g.position.set(x, y, z); parent.add(g); return g; }
   function animated(model, object, start, end, offset = [0, 0, 0], mode = 'slide') {
     model.parts.push({ object, home: object.position.clone(), offset: new T.Vector3(...offset), start, end, mode, face: model.animationSide ?? 1 }); return object;
@@ -167,7 +193,7 @@ export async function initHero3D(canvas, host, { onUpdate = () => {} } = {}) {
     s.holes.push(h);
     return mesh(new T.ExtrudeGeometry(s, { depth: WALL_T, bevelEnabled: false, curveSegments: 48 }), concrete.clone(), parent, 0, 0, WALL_Z - WALL_T / 2);
   }
-  const assemblyMaterials = { concrete, steel, zinc, pvc, foil, wool, mineral, bandCore, whiteSeal,
+  const assemblyMaterials = { concrete, steel, zinc, pvc, foil, blanketFoil, wool, mineral, bandCore, ...applicationMaterials,
     copper: mat('#a86f48', .3, .85), glasswool: mat('#d8c88e', .96) };
   function setAssembly(m, record) {
     if (m.assembly?.record.id === record.id) return;
@@ -178,8 +204,10 @@ export async function initHero3D(canvas, host, { onUpdate = () => {} } = {}) {
     m.assembly=a; m.parts=a.parts; m.wall=a.wall; m.pipes=a.pipes;
     m.room=a.room; m.service=a.service; m.record=record;
     // The upper-floor counterpart remains complete in the building view.
+    applyAssemblyTime(a.parts,m.id==='duct'?0:SYSTEMS[m.id].duration,false);
     m.upper=a.root.clone(true);m.upper.position.y+=LEVEL;m.root.add(m.upper);
     m.upper.visible=m.id!=='bundle' && !a.isFloor;
+    applyAssemblyTime(a.parts,0,false);
   }
   function buildBay(id) {
     const bay = FACTORY.bays[id], root = group(scene,bay.x,0,0);
@@ -189,7 +217,7 @@ export async function initHero3D(canvas, host, { onUpdate = () => {} } = {}) {
   }
   ids.filter(id => id !== 'firewall').forEach(buildBay);
   const architecture = buildFactory({ T, scene, models, box, mesh, group, mat, concrete, cladding, steel, zinc, frameMetal, glass, pvc, WALL_Z, CY });
-  const siteContext = buildSiteContext({ T, scene, box, mesh, group, mat, animated, concrete, zinc, steel, frameMetal, whiteSeal, textures, groundWidth: 32 });
+  const siteContext = buildSiteContext({ T, scene, box, mesh, group, mat, animated, concrete, zinc, steel, frameMetal, whiteSeal, applicationMaterials, textures, groundWidth: 32 });
   models.firewall = siteContext.model;
   // Batch repeated, static parts inside each animated group. Parent groups still
   // move independently, while hundreds of fixings and facade joints draw once.
@@ -242,22 +270,25 @@ export async function initHero3D(canvas, host, { onUpdate = () => {} } = {}) {
   function modelState(m, t, active) {
     // Keep the building and neighbours present while the camera approaches.
     m.root.visible = true; m.alpha = 1;
-    const installing = active && clock.mode === 'install' && transition >= 1;
+    const installing = active && clock.mode === 'install';
     if (m.contextSlabs) m.contextSlabs.visible = false; // factory already supplies these slabs
-    if (m.routeGroup) m.routeGroup.visible = !installing && m.record.id === SYSTEMS[m.id].default;
-    if (m.upper) m.upper.visible = !installing && m.id !== 'bundle' && !m.assembly?.isFloor;
-    const constructionTime = installing ? t : SYSTEMS[m.id].duration;
+    if (m.routeGroup) m.routeGroup.visible = !active && m.record.id === SYSTEMS[m.id].default;
+    if (m.upper) m.upper.visible = !active && m.id !== 'bundle' && !m.assembly?.isFloor;
+    const constructionTime = installing ? t : m.id==='duct'?0:SYSTEMS[m.id].duration;
     for (const p of m.parts) {
       const partTime = p.face < 0 ? SYSTEMS[m.id].duration : constructionTime;
       const r = ramp(partTime,p.start,p.end);
       p.object.visible = p.face < 0 ? !installing || t >= SYSTEMS[m.id].duration : partTime >= p.start;
       p.object.position.copy(p.home).addScaledVector(p.offset,1-r);
+      p.update?.(partTime,installing);
     }
     if (m.id === 'firewall') m.rear.visible = !installing || t >= SYSTEMS.firewall.duration;
   }
   function frameScene() {
     for (const id of ids) modelState(models[id],clock.elapsed,id===clock.selected);
     architecture.visible = true;
+    const floorCutaway=models[clock.selected]?.assembly?.isFloor?clock.selected:null;
+    architecture.traverse(object=>{if(object.userData.contextSlab)object.visible=object.userData.workBay!==floorCutaway;});
     siteContext.terrain.visible = true;
     const nextShadowState=ids.map(id=>models[id].record?.id||id).join(':')+`:${clock.selected}:${transition>=1}:${clock.elapsed>=clock.duration}`;
     if(nextShadowState!==shadowState){renderer.shadowMap.needsUpdate=true;shadowState=nextShadowState;}
@@ -267,7 +298,9 @@ export async function initHero3D(canvas, host, { onUpdate = () => {} } = {}) {
   function floorSide() {
     const a=models[clock.selected]?.assembly;
     if(!a?.isFloor)return 0;
-    const step=clock.mode==='install'?a.record.steps[Math.floor(clock.elapsed/3)]:null;
+    const timing=SYSTEMS[clock.selected].timing;
+    const index=timing?.steps.findIndex(slot=>clock.elapsed>=slot.start&&clock.elapsed<slot.end);
+    const step=clock.mode==='install'?a.record.steps[index]:null;
     return (step?.faces||a.record.geometry.faces).every(face=>face<0)?-1:1;
   }
   function destination() {
@@ -275,13 +308,8 @@ export async function initHero3D(canvas, host, { onUpdate = () => {} } = {}) {
       const model = models[clock.selected], base = model.root.position.y;
       const baseX = model.root.position.x;
       if (model.assembly) {
-        const a=model.assembly, span=a.viewSpan;
-        toTarget.set(baseX,CY,WALL_Z);
-        const lowerOnly=floorSide()<0;
-        const offset=a.isFloor ? new T.Vector3(span*.65,lowerOnly?-.9:span*1.3,Math.max(2.15,span*1.1)) : new T.Vector3(span*.85,span*.4,span*1.8);
-        const fit=Math.max(1,1.35/camera.aspect);
-        toPosition.copy(toTarget).addScaledVector(offset,fit);
-        if(a.isFloor&&lowerOnly)toPosition.y=Math.max(.35,toPosition.y);
+        const fit=fitInstallation(T,model.assembly,camera,floorSide()<0?-1:1);
+        toTarget.copy(fit.target);toPosition.copy(fit.position);
         return;
       }
       const poses = {
@@ -325,12 +353,13 @@ export async function initHero3D(canvas, host, { onUpdate = () => {} } = {}) {
       floors: ids.map(id => ({ id, floor: SYSTEMS[id].floor, y: models[id].root.position.y, parts: models[id].parts.length,
         installed: models[id].parts.filter(p => p.object.visible).length })),
       certificates: Object.fromEntries(ids.filter(id=>models[id].record).map(id=>[id,models[id].record.id])),
-      assemblies: Object.fromEntries(ids.filter(id=>models[id].assembly).map(id=>[id,{orientation:models[id].assembly.isFloor?'floor':'wall',pipes:models[id].pipes.length,pipeVisible:models[id].pipes.every(p=>p.visible),layers:models[id].assembly.blanketLayer}])),
+      assemblies: Object.fromEntries(ids.filter(id=>models[id].assembly).map(id=>[id,{orientation:models[id].assembly.isFloor?'floor':'wall',pipes:models[id].pipes.length,pipeVisible:models[id].pipes.every(p=>p.visible),layers:models[id].assembly.blanketLayer,existingInsulation:models[id].assembly.existingInsulation,workBounds:Object.fromEntries(Object.entries(models[id].assembly.workBounds).map(([side,box])=>[side,{min:box.min.toArray(),max:box.max.toArray()}]))}])),
       architectureVisible:architecture.visible, terrainVisible:siteContext.terrain.visible,
+      cutawayBay:models[clock.selected]?.assembly?.isFloor?clock.selected:null,
       polymer: {pipeVisible:models.polymer.pipes.every(p=>p.visible)},
       fireObjects, damperObjects,
       wallsOpaque: ids.filter(id => models[id].wall).every(id => models[id].wall.material.opacity === 1 && !models[id].wall.material.transparent),
-      metalBoards: models.metal.parts.filter(p => p.object.userData.component === 'metal-board').map(p => ({ half: p.object.userData.half, face: p.face, visible: p.object.visible, offset: p.object.position.clone().sub(p.home).toArray() })),
+      construction: Object.fromEntries(ids.map(id=>[id,models[id].parts.filter(p=>['board-half','board-piece','jacket-clamp','sealant-pass'].includes(p.object.userData.component)).map(p=>({component:p.object.userData.component,half:p.object.userData.half,face:p.object.userData.workFace,visible:p.object.visible,offset:p.object.position.clone().sub(p.home).toArray(),progress:p.object.userData.progress,openAngle:p.object.userData.openAngle,latched:p.object.userData.latched,toolVisible:p.object.userData.toolVisible,nozzle:p.object.userData.nozzle}))])),
       firewall: { boardSize: siteContext.boardSize, thickness: siteContext.wallThickness, studXs: siteContext.studXs, rearVisible: models.firewall.rear.visible, installedFrontBoards: models.firewall.frontBoards.filter(o => o.visible).length },
     };
   }
@@ -371,8 +400,8 @@ export async function initHero3D(canvas, host, { onUpdate = () => {} } = {}) {
     if (id !== null && !ids.includes(id)) return;
     stop();
     clock.selected = id; clock.mode = id ? mode : 'overview'; clock.duration = id ? SYSTEMS[id].duration : 18;
-    clock.elapsed = mode === 'install' && reduce.matches ? clock.duration : elapsed;
-    fromPosition.copy(camera.position); fromTarget.copy(target); destination(); cameraSide=floorSide();transition = 0; transitionSeconds = mode === 'preview' || !id ? 2.4 : 1.8;
+    clock.elapsed = mode === 'install' && reduce.matches && id!=='duct' ? clock.duration : elapsed;
+    fromPosition.copy(camera.position); fromTarget.copy(target); destination(); cameraSide=floorSide();transition = 0; transitionSeconds = mode === 'preview' || !id ? 1.2 : .65;
     if (reduce.matches) { camera.position.copy(toPosition); target.copy(toTarget); transition = 1; }
     frameScene(); emit(); resume();
   }

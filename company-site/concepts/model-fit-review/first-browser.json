@@ -1,0 +1,59 @@
+{
+  "errors": [],
+  "opened": [
+    {
+      "component": "jacket-clamp",
+      "face": 1,
+      "visible": true,
+      "offset": [
+        0,
+        0,
+        0
+      ],
+      "progress": 0.25675675675675674,
+      "openAngle": 1.116000462204352,
+      "latched": false
+    },
+    {
+      "component": "jacket-clamp",
+      "face": -1,
+      "visible": true,
+      "offset": [
+        0,
+        0,
+        0
+      ],
+      "progress": 0.25675675675675674,
+      "openAngle": 1.116000462204352,
+      "latched": false
+    }
+  ],
+  "closed": [
+    {
+      "component": "jacket-clamp",
+      "face": 1,
+      "visible": true,
+      "offset": [
+        0,
+        0,
+        0
+      ],
+      "progress": 1,
+      "openAngle": 0,
+      "latched": true
+    },
+    {
+      "component": "jacket-clamp",
+      "face": -1,
+      "visible": true,
+      "offset": [
+        0,
+        0,
+        0
+      ],
+      "progress": 1,
+      "openAngle": 0,
+      "latched": true
+    }
+  ]
+}

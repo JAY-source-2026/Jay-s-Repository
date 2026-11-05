@@ -1,0 +1,4386 @@
+{
+  "passed": true,
+  "certificates": 60,
+  "results": [
+    {
+      "id": "FS-MP24-0617-15",
+      "fits": [
+        {
+          "side": 1,
+          "aspect": 1.64,
+          "xMax": 0.7780066121504126,
+          "yMax": 1.2065931889457322,
+          "preservedSmall": true,
+          "distance": 1.6243152403397565
+        },
+        {
+          "side": 1,
+          "aspect": 2.17,
+          "xMax": 0.58798656402151,
+          "yMax": 1.2065931889457322,
+          "preservedSmall": true,
+          "distance": 1.6243152403397565
+        },
+        {
+          "side": 1,
+          "aspect": 1,
+          "xMax": 0.9115155418229733,
+          "yMax": 0.8429864530915699,
+          "preservedSmall": true,
+          "distance": 2.1928255744586713
+        },
+        {
+          "side": 1,
+          "aspect": 0.82,
+          "xMax": 0.8951406059934354,
+          "yMax": 0.6716221251777027,
+          "preservedSmall": true,
+          "distance": 2.674177529827648
+        },
+        {
+          "side": -1,
+          "aspect": 1.64,
+          "xMax": 0.4444111995599748,
+          "yMax": 0.9725313254447612,
+          "preservedSmall": true,
+          "distance": 1.6243152403397565
+        },
+        {
+          "side": -1,
+          "aspect": 2.17,
+          "xMax": 0.33586837201767683,
+          "yMax": 0.9725313254447612,
+          "preservedSmall": true,
+          "distance": 1.6243152403397565
+        },
+        {
+          "side": -1,
+          "aspect": 1,
+          "xMax": 0.550860944092416,
+          "yMax": 0.7030237400559222,
+          "preservedSmall": true,
+          "distance": 2.1928255744586713
+        },
+        {
+          "side": -1,
+          "aspect": 0.82,
+          "xMax": 0.5566855348258338,
+          "yMax": 0.5850281181185143,
+          "preservedSmall": true,
+          "distance": 2.674177529827648
+        }
+      ],
+      "ductBoardPieces": 0,
+      "existingInsulation": 0,
+      "jackets": 0,
+      "workLength": 0.1
+    },
+    {
+      "id": "FS-MP24-0617-16",
+      "fits": [
+        {
+          "side": 1,
+          "aspect": 1.64,
+          "xMax": 0.901721443960943,
+          "yMax": 1.346052629041656,
+          "preservedSmall": true,
+          "distance": 1.6243152403397565
+        },
+        {
+          "side": 1,
+          "aspect": 2.17,
+          "xMax": 0.681485330919791,
+          "yMax": 1.346052629041656,
+          "preservedSmall": true,
+          "distance": 1.6243152403397565
+        },
+        {
+          "side": 1,
+          "aspect": 1,
+          "xMax": 1.04403086289724,
+          "yMax": 0.9245713972310232,
+          "preservedSmall": true,
+          "distance": 2.1928255744586713
+        },
+        {
+          "side": 1,
+          "aspect": 0.82,
+          "xMax": 1.019433374341694,
+          "yMax": 0.7308178285189124,
+          "preservedSmall": true,
+          "distance": 2.674177529827648
+        },
+        {
+          "side": -1,
+          "aspect": 1.64,
+          "xMax": 0.5317539889238755,
+          "yMax": 1.0189623628878361,
+          "preservedSmall": true,
+          "distance": 1.6243152403397565
+        },
+        {
+          "side": -1,
+          "aspect": 2.17,
+          "xMax": 0.4018785907074451,
+          "yMax": 1.0189623628878361,
+          "preservedSmall": true,
+          "distance": 1.6243152403397565
+        },
+        {
+          "side": -1,
+          "aspect": 1,
+          "xMax": 0.653865669575788,
+          "yMax": 0.7258622396633914,
+          "preservedSmall": true,
+          "distance": 2.1928255744586713
+        },
+        {
+          "side": -1,
+          "aspect": 0.82,
+          "xMax": 0.6579951975183833,
+          "yMax": 0.5987809124919871,
+          "preservedSmall": true,
+          "distance": 2.674177529827648
+        }
+      ],
+      "ductBoardPieces": 0,
+      "existingInsulation": 0,
+      "jackets": 0,
+      "workLength": 0.1
+    },
+    {
+      "id": "FS-MP24-0617-17",
+      "fits": [
+        {
+          "side": 1,
+          "aspect": 1.64,
+          "xMax": 0.682410427737884,
+          "yMax": 0.8399999999999997,
+          "preservedSmall": false,
+          "distance": 3.2516066781096207
+        },
+        {
+          "side": 1,
+          "aspect": 2.17,
+          "xMax": 0.5157387564470645,
+          "yMax": 0.8399999999999997,
+          "preservedSmall": false,
+          "distance": 3.2516066781096207
+        },
+        {
+          "side": 1,
+          "aspect": 1,
+          "xMax": 0.8599999999999998,
+          "yMax": 0.6366341901654833,
+          "preservedSmall": false,
+          "distance": 4.030605167874788
+        },
+        {
+          "side": 1,
+          "aspect": 0.82,
+          "xMax": 0.86,
+          "yMax": 0.5177975443087225,
+          "preservedSmall": false,
+          "distance": 4.769067521743635
+        },
+        {
+          "side": -1,
+          "aspect": 1.64,
+          "xMax": 0.48178689517137346,
+          "yMax": 0.8399999999999997,
+          "preservedSmall": false,
+          "distance": 2.0269132679223962
+        },
+        {
+          "side": -1,
+          "aspect": 2.17,
+          "xMax": 0.36411544151200576,
+          "yMax": 0.8399999999999997,
+          "preservedSmall": false,
+          "distance": 2.0269132679223962
+        },
+        {
+          "side": -1,
+          "aspect": 1,
+          "xMax": 0.7330083024140481,
+          "yMax": 0.7689322414796682,
+          "preservedSmall": false,
+          "distance": 2.1928255744586713
+        },
+        {
+          "side": -1,
+          "aspect": 0.82,
+          "xMax": 0.7389268333334783,
+          "yMax": 0.6290059214880509,
+          "preservedSmall": false,
+          "distance": 2.674177529827648
+        }
+      ],
+      "ductBoardPieces": 0,
+      "existingInsulation": 0,
+      "jackets": 0,
+      "workLength": 0.6
+    },
+    {
+      "id": "FS-MP24-0617-18",
+      "fits": [
+        {
+          "side": 1,
+          "aspect": 1.64,
+          "xMax": 0.509563288146401,
+          "yMax": 0.8399999999999995,
+          "preservedSmall": false,
+          "distance": 3.161845965118176
+        },
+        {
+          "side": 1,
+          "aspect": 2.17,
+          "xMax": 0.3851077385069574,
+          "yMax": 0.8399999999999995,
+          "preservedSmall": false,
+          "distance": 3.161845965118176
+        },
+        {
+          "side": 1,
+          "aspect": 1,
+          "xMax": 0.8356837925600975,
+          "yMax": 0.8399999999999995,
+          "preservedSmall": false,
+          "distance": 3.161845965118176
+        },
+        {
+          "side": 1,
+          "aspect": 0.82,
+          "xMax": 0.86,
+          "yMax": 0.7013624371077896,
+          "preservedSmall": false,
+          "distance": 3.6529264989616035
+        },
+        {
+          "side": -1,
+          "aspect": 1.64,
+          "xMax": 0.49217879445662016,
+          "yMax": 0.8400000000000002,
+          "preservedSmall": false,
+          "distance": 3.0189502478836356
+        },
+        {
+          "side": -1,
+          "aspect": 2.17,
+          "xMax": 0.37196922714693875,
+          "yMax": 0.8400000000000002,
+          "preservedSmall": false,
+          "distance": 3.0189502478836356
+        },
+        {
+          "side": -1,
+          "aspect": 1,
+          "xMax": 0.8071732229088571,
+          "yMax": 0.8400000000000002,
+          "preservedSmall": false,
+          "distance": 3.0189502478836356
+        },
+        {
+          "side": -1,
+          "aspect": 0.82,
+          "xMax": 0.8599999999999997,
+          "yMax": 0.7274400607567165,
+          "preservedSmall": false,
+          "distance": 3.3936596807899675
+        }
+      ],
+      "ductBoardPieces": 0,
+      "existingInsulation": 0,
+      "jackets": 0,
+      "workLength": 1
+    },
+    {
+      "id": "FS-MP23-1103-3",
+      "fits": [
+        {
+          "side": 1,
+          "aspect": 1.64,
+          "xMax": 0.44968394157731595,
+          "yMax": 0.8399999999999999,
+          "preservedSmall": false,
+          "distance": 4.005042757463285
+        },
+        {
+          "side": 1,
+          "aspect": 2.17,
+          "xMax": 0.33985330146857057,
+          "yMax": 0.8399999999999999,
+          "preservedSmall": false,
+          "distance": 4.005042757463285
+        },
+        {
+          "side": 1,
+          "aspect": 1,
+          "xMax": 0.7374816641867981,
+          "yMax": 0.8400000000000002,
+          "preservedSmall": false,
+          "distance": 4.005042757463286
+        },
+        {
+          "side": 1,
+          "aspect": 0.82,
+          "xMax": 0.8600000000000001,
+          "yMax": 0.8011924402649854,
+          "preservedSmall": false,
+          "distance": 4.165662206240322
+        },
+        {
+          "side": -1,
+          "aspect": 1.64,
+          "xMax": 0.43552135012227017,
+          "yMax": 0.8399999999999999,
+          "preservedSmall": false,
+          "distance": 3.8621470402287463
+        },
+        {
+          "side": -1,
+          "aspect": 2.17,
+          "xMax": 0.3291497761292733,
+          "yMax": 0.8399999999999999,
+          "preservedSmall": false,
+          "distance": 3.8621470402287463
+        },
+        {
+          "side": -1,
+          "aspect": 1,
+          "xMax": 0.7142550142005231,
+          "yMax": 0.8399999999999996,
+          "preservedSmall": false,
+          "distance": 3.862147040228747
+        },
+        {
+          "side": -1,
+          "aspect": 0.82,
+          "xMax": 0.8599999999999994,
+          "yMax": 0.8287284233454915,
+          "preservedSmall": false,
+          "distance": 3.9063953880686872
+        }
+      ],
+      "ductBoardPieces": 0,
+      "existingInsulation": 0,
+      "jackets": 0,
+      "workLength": 1
+    },
+    {
+      "id": "FS-MP24-0617-19",
+      "fits": [
+        {
+          "side": 1,
+          "aspect": 1.64,
+          "xMax": 0.4103564103099182,
+          "yMax": 0.8399999999999997,
+          "preservedSmall": false,
+          "distance": 2.273257088577342
+        },
+        {
+          "side": 1,
+          "aspect": 2.17,
+          "xMax": 0.31013111193929305,
+          "yMax": 0.8399999999999997,
+          "preservedSmall": false,
+          "distance": 2.273257088577342
+        },
+        {
+          "side": 1,
+          "aspect": 1,
+          "xMax": 0.6729845129082658,
+          "yMax": 0.8399999999999997,
+          "preservedSmall": false,
+          "distance": 2.273257088577342
+        },
+        {
+          "side": 1,
+          "aspect": 0.82,
+          "xMax": 0.691408528906492,
+          "yMax": 0.6998636935635739,
+          "preservedSmall": false,
+          "distance": 2.674177529827648
+        },
+        {
+          "side": -1,
+          "aspect": 1.64,
+          "xMax": 0.40094329520970207,
+          "yMax": 0.8399999999999999,
+          "preservedSmall": false,
+          "distance": 2.2176562451101147
+        },
+        {
+          "side": -1,
+          "aspect": 2.17,
+          "xMax": 0.30301705260088085,
+          "yMax": 0.8399999999999999,
+          "preservedSmall": false,
+          "distance": 2.2176562451101147
+        },
+        {
+          "side": -1,
+          "aspect": 1,
+          "xMax": 0.6575470041439113,
+          "yMax": 0.8399999999999999,
+          "preservedSmall": false,
+          "distance": 2.2176562451101147
+        },
+        {
+          "side": -1,
+          "aspect": 0.82,
+          "xMax": 0.6597695375722331,
+          "yMax": 0.6824738723432267,
+          "preservedSmall": false,
+          "distance": 2.674177529827648
+        }
+      ],
+      "ductBoardPieces": 0,
+      "existingInsulation": 1,
+      "jackets": 0,
+      "workLength": 0.7
+    },
+    {
+      "id": "FS-MP24-0617-20",
+      "fits": [
+        {
+          "side": 1,
+          "aspect": 1.64,
+          "xMax": 0.44540807127454796,
+          "yMax": 0.8399999999999989,
+          "preservedSmall": false,
+          "distance": 2.467185319735909
+        },
+        {
+          "side": 1,
+          "aspect": 2.17,
+          "xMax": 0.3366217681521929,
+          "yMax": 0.8399999999999989,
+          "preservedSmall": false,
+          "distance": 2.467185319735909
+        },
+        {
+          "side": 1,
+          "aspect": 1,
+          "xMax": 0.7304692368902586,
+          "yMax": 0.8399999999999989,
+          "preservedSmall": false,
+          "distance": 2.467185319735909
+        },
+        {
+          "side": 1,
+          "aspect": 0.82,
+          "xMax": 0.8162506260166345,
+          "yMax": 0.7647545799900812,
+          "preservedSmall": false,
+          "distance": 2.674177529827648
+        },
+        {
+          "side": -1,
+          "aspect": 1.64,
+          "xMax": 0.4231341873355513,
+          "yMax": 0.8399999999999995,
+          "preservedSmall": false,
+          "distance": 2.3242896025013686
+        },
+        {
+          "side": -1,
+          "aspect": 2.17,
+          "xMax": 0.3197880494148867,
+          "yMax": 0.8399999999999995,
+          "preservedSmall": false,
+          "distance": 2.3242896025013686
+        },
+        {
+          "side": -1,
+          "aspect": 1,
+          "xMax": 0.693940067230304,
+          "yMax": 0.8399999999999995,
+          "preservedSmall": false,
+          "distance": 2.3242896025013686
+        },
+        {
+          "side": -1,
+          "aspect": 0.82,
+          "xMax": 0.7302899796672927,
+          "yMax": 0.7170741287829028,
+          "preservedSmall": false,
+          "distance": 2.674177529827648
+        }
+      ],
+      "ductBoardPieces": 0,
+      "existingInsulation": 1,
+      "jackets": 0,
+      "workLength": 0.7
+    },
+    {
+      "id": "FS-MP24-0617-21",
+      "fits": [
+        {
+          "side": 1,
+          "aspect": 1.64,
+          "xMax": 0.4812255828903627,
+          "yMax": 0.84,
+          "preservedSmall": false,
+          "distance": 3.00634327253156
+        },
+        {
+          "side": 1,
+          "aspect": 2.17,
+          "xMax": 0.3636912239355737,
+          "yMax": 0.84,
+          "preservedSmall": false,
+          "distance": 3.00634327253156
+        },
+        {
+          "side": 1,
+          "aspect": 1,
+          "xMax": 0.7892099559401947,
+          "yMax": 0.84,
+          "preservedSmall": false,
+          "distance": 3.00634327253156
+        },
+        {
+          "side": 1,
+          "aspect": 0.82,
+          "xMax": 0.8600000000000001,
+          "yMax": 0.7446492688379072,
+          "preservedSmall": false,
+          "distance": 3.3206738600488825
+        },
+        {
+          "side": -1,
+          "aspect": 1.64,
+          "xMax": 0.46304653482558383,
+          "yMax": 0.8399999999999999,
+          "preservedSmall": false,
+          "distance": 2.86344755529702
+        },
+        {
+          "side": -1,
+          "aspect": 2.17,
+          "xMax": 0.3499522198681832,
+          "yMax": 0.8399999999999999,
+          "preservedSmall": false,
+          "distance": 2.86344755529702
+        },
+        {
+          "side": -1,
+          "aspect": 1,
+          "xMax": 0.7593963171139574,
+          "yMax": 0.8399999999999999,
+          "preservedSmall": false,
+          "distance": 2.86344755529702
+        },
+        {
+          "side": -1,
+          "aspect": 0.82,
+          "xMax": 0.8599999999999999,
+          "yMax": 0.7757974711090929,
+          "preservedSmall": false,
+          "distance": 3.0614070418772465
+        }
+      ],
+      "ductBoardPieces": 0,
+      "existingInsulation": 1,
+      "jackets": 0,
+      "workLength": 0.7
+    },
+    {
+      "id": "FS-MP23-1103-1",
+      "fits": [
+        {
+          "side": 1,
+          "aspect": 1.64,
+          "xMax": 0.4259065795910237,
+          "yMax": 0.8400000000000003,
+          "preservedSmall": false,
+          "distance": 3.7680140299411384
+        },
+        {
+          "side": 1,
+          "aspect": 2.17,
+          "xMax": 0.3218833136079626,
+          "yMax": 0.8400000000000003,
+          "preservedSmall": false,
+          "distance": 3.7680140299411384
+        },
+        {
+          "side": 1,
+          "aspect": 1,
+          "xMax": 0.698486790529279,
+          "yMax": 0.8399999999999999,
+          "preservedSmall": false,
+          "distance": 3.768014029941139
+        },
+        {
+          "side": 1,
+          "aspect": 0.82,
+          "xMax": 0.8518131591820477,
+          "yMax": 0.8399999999999999,
+          "preservedSmall": false,
+          "distance": 3.7680140299411393
+        },
+        {
+          "side": -1,
+          "aspect": 1.64,
+          "xMax": 0.41085675944600214,
+          "yMax": 0.8400000000000002,
+          "preservedSmall": false,
+          "distance": 3.625118312706598
+        },
+        {
+          "side": -1,
+          "aspect": 2.17,
+          "xMax": 0.3105092559868403,
+          "yMax": 0.8400000000000002,
+          "preservedSmall": false,
+          "distance": 3.625118312706598
+        },
+        {
+          "side": -1,
+          "aspect": 1,
+          "xMax": 0.673805085491443,
+          "yMax": 0.84,
+          "preservedSmall": false,
+          "distance": 3.625118312706599
+        },
+        {
+          "side": -1,
+          "aspect": 0.82,
+          "xMax": 0.7935222071387783,
+          "yMax": 0.8094816808390064,
+          "preservedSmall": false,
+          "distance": 3.7438485417587066
+        }
+      ],
+      "ductBoardPieces": 0,
+      "existingInsulation": 1,
+      "jackets": 0,
+      "workLength": 0.7
+    },
+    {
+      "id": "FS-MP25-1218-01",
+      "fits": [
+        {
+          "side": 1,
+          "aspect": 1.64,
+          "xMax": 0.941758748845274,
+          "yMax": 1.286395357509857,
+          "preservedSmall": true,
+          "distance": 1.6243152403397565
+        },
+        {
+          "side": 1,
+          "aspect": 2.17,
+          "xMax": 0.7117439392194698,
+          "yMax": 1.286395357509857,
+          "preservedSmall": true,
+          "distance": 1.6243152403397565
+        },
+        {
+          "side": 1,
+          "aspect": 1,
+          "xMax": 1.0958235907029943,
+          "yMax": 0.8845630154689039,
+          "preservedSmall": true,
+          "distance": 2.1928255744586713
+        },
+        {
+          "side": 1,
+          "aspect": 0.82,
+          "xMax": 1.0725654066145573,
+          "yMax": 0.6995461994415907,
+          "preservedSmall": true,
+          "distance": 2.674177529827648
+        },
+        {
+          "side": -1,
+          "aspect": 1.64,
+          "xMax": 0.568965238973767,
+          "yMax": 0.948472166313506,
+          "preservedSmall": true,
+          "distance": 1.6243152403397565
+        },
+        {
+          "side": -1,
+          "aspect": 2.17,
+          "xMax": 0.4300013787635843,
+          "yMax": 0.948472166313506,
+          "preservedSmall": true,
+          "distance": 1.6243152403397565
+        },
+        {
+          "side": -1,
+          "aspect": 1,
+          "xMax": 0.7020053568041029,
+          "yMax": 0.6775521792553609,
+          "preservedSmall": true,
+          "distance": 2.1928255744586713
+        },
+        {
+          "side": -1,
+          "aspect": 0.82,
+          "xMax": 0.7077018047927607,
+          "yMax": 0.5686588418868712,
+          "preservedSmall": true,
+          "distance": 2.674177529827648
+        }
+      ],
+      "ductBoardPieces": 0,
+      "existingInsulation": 0,
+      "jackets": 0,
+      "workLength": 0.1
+    },
+    {
+      "id": "FS-MP25-1218-02",
+      "fits": [
+        {
+          "side": 1,
+          "aspect": 1.64,
+          "xMax": 0.700626139226998,
+          "yMax": 0.8400000000000003,
+          "preservedSmall": false,
+          "distance": 3.1578581706631517
+        },
+        {
+          "side": 1,
+          "aspect": 2.17,
+          "xMax": 0.5295054692775468,
+          "yMax": 0.8400000000000003,
+          "preservedSmall": false,
+          "distance": 3.1578581706631517
+        },
+        {
+          "side": 1,
+          "aspect": 1,
+          "xMax": 0.8600000000000001,
+          "yMax": 0.6184350896727054,
+          "preservedSmall": false,
+          "distance": 4.002550888481147
+        },
+        {
+          "side": 1,
+          "aspect": 0.82,
+          "xMax": 0.86,
+          "yMax": 0.5027181628495432,
+          "preservedSmall": false,
+          "distance": 4.739689855553023
+        },
+        {
+          "side": -1,
+          "aspect": 1.64,
+          "xMax": 0.5373325949710887,
+          "yMax": 0.8399999999999999,
+          "preservedSmall": false,
+          "distance": 1.8036340406031723
+        },
+        {
+          "side": -1,
+          "aspect": 2.17,
+          "xMax": 0.4060946800703159,
+          "yMax": 0.8399999999999999,
+          "preservedSmall": false,
+          "distance": 1.8036340406031723
+        },
+        {
+          "side": -1,
+          "aspect": 1,
+          "xMax": 0.7326337286935029,
+          "yMax": 0.6881161137846906,
+          "preservedSmall": false,
+          "distance": 2.1928255744586713
+        },
+        {
+          "side": -1,
+          "aspect": 0.82,
+          "xMax": 0.7392800608569517,
+          "yMax": 0.5705600581966103,
+          "preservedSmall": false,
+          "distance": 2.674177529827648
+        }
+      ],
+      "ductBoardPieces": 0,
+      "existingInsulation": 0,
+      "jackets": 0,
+      "workLength": 0.6
+    },
+    {
+      "id": "FS-MP25-1218-03",
+      "fits": [
+        {
+          "side": 1,
+          "aspect": 1.64,
+          "xMax": 0.5209699308956283,
+          "yMax": 0.8400000000000003,
+          "preservedSmall": false,
+          "distance": 3.032265271396371
+        },
+        {
+          "side": 1,
+          "aspect": 2.17,
+          "xMax": 0.39372842703632727,
+          "yMax": 0.8400000000000003,
+          "preservedSmall": false,
+          "distance": 3.032265271396371
+        },
+        {
+          "side": 1,
+          "aspect": 1,
+          "xMax": 0.8543906866688301,
+          "yMax": 0.8400000000000003,
+          "preservedSmall": false,
+          "distance": 3.032265271396371
+        },
+        {
+          "side": 1,
+          "aspect": 0.82,
+          "xMax": 0.8600000000000005,
+          "yMax": 0.6848644805319216,
+          "preservedSmall": false,
+          "distance": 3.566984022627705
+        },
+        {
+          "side": -1,
+          "aspect": 1.64,
+          "xMax": 0.5029833853875577,
+          "yMax": 0.84,
+          "preservedSmall": false,
+          "distance": 2.8893695541618314
+        },
+        {
+          "side": -1,
+          "aspect": 2.17,
+          "xMax": 0.38013490877216344,
+          "yMax": 0.84,
+          "preservedSmall": false,
+          "distance": 2.8893695541618314
+        },
+        {
+          "side": -1,
+          "aspect": 1,
+          "xMax": 0.8248927520355945,
+          "yMax": 0.84,
+          "preservedSmall": false,
+          "distance": 2.8893695541618314
+        },
+        {
+          "side": -1,
+          "aspect": 0.82,
+          "xMax": 0.8599999999999999,
+          "yMax": 0.7106236810339188,
+          "preservedSmall": false,
+          "distance": 3.307717204456069
+        }
+      ],
+      "ductBoardPieces": 0,
+      "existingInsulation": 0,
+      "jackets": 0,
+      "workLength": 1
+    },
+    {
+      "id": "FS-MP25-1218-04",
+      "fits": [
+        {
+          "side": 1,
+          "aspect": 1.64,
+          "xMax": 0.5672669762212191,
+          "yMax": 0.8399999999999999,
+          "preservedSmall": false,
+          "distance": 3.6178933844051384
+        },
+        {
+          "side": 1,
+          "aspect": 2.17,
+          "xMax": 0.42871789907963104,
+          "yMax": 0.8399999999999999,
+          "preservedSmall": false,
+          "distance": 3.6178933844051384
+        },
+        {
+          "side": 1,
+          "aspect": 1,
+          "xMax": 0.8599999999999998,
+          "yMax": 0.772616325245848,
+          "preservedSmall": false,
+          "distance": 3.851157347916998
+        },
+        {
+          "side": 1,
+          "aspect": 0.82,
+          "xMax": 0.8600000000000001,
+          "yMax": 0.6266303036936736,
+          "preservedSmall": false,
+          "distance": 4.528599358195634
+        },
+        {
+          "side": -1,
+          "aspect": 1.64,
+          "xMax": 0.5524185289815907,
+          "yMax": 0.8399999999999995,
+          "preservedSmall": false,
+          "distance": 3.4749976671705984
+        },
+        {
+          "side": -1,
+          "aspect": 2.17,
+          "xMax": 0.41749603111972755,
+          "yMax": 0.8399999999999995,
+          "preservedSmall": false,
+          "distance": 3.4749976671705984
+        },
+        {
+          "side": -1,
+          "aspect": 1,
+          "xMax": 0.8600000000000007,
+          "yMax": 0.7946287031593301,
+          "preservedSmall": false,
+          "distance": 3.624128296732042
+        },
+        {
+          "side": -1,
+          "aspect": 0.82,
+          "xMax": 0.8600000000000002,
+          "yMax": 0.6441094818678368,
+          "preservedSmall": false,
+          "distance": 4.269332540023997
+        }
+      ],
+      "ductBoardPieces": 0,
+      "existingInsulation": 0,
+      "jackets": 0,
+      "workLength": 1.6
+    },
+    {
+      "id": "FS-MP25-1218-05",
+      "fits": [
+        {
+          "side": 1,
+          "aspect": 1.64,
+          "xMax": 0.60250447019351,
+          "yMax": 0.8399999999999994,
+          "preservedSmall": false,
+          "distance": 5.569308305194821
+        },
+        {
+          "side": 1,
+          "aspect": 2.17,
+          "xMax": 0.45534900051491084,
+          "yMax": 0.8399999999999994,
+          "preservedSmall": false,
+          "distance": 5.569308305194821
+        },
+        {
+          "side": 1,
+          "aspect": 1,
+          "xMax": 0.8600000000000003,
+          "yMax": 0.7264994221307366,
+          "preservedSmall": false,
+          "distance": 6.180247471919298
+        },
+        {
+          "side": 1,
+          "aspect": 0.82,
+          "xMax": 0.8600000000000003,
+          "yMax": 0.5912390221595549,
+          "preservedSmall": false,
+          "distance": 7.214643296675136
+        },
+        {
+          "side": -1,
+          "aspect": 1.64,
+          "xMax": 0.5927934399009581,
+          "yMax": 0.8400000000000001,
+          "preservedSmall": false,
+          "distance": 5.4264125879602805
+        },
+        {
+          "side": -1,
+          "aspect": 2.17,
+          "xMax": 0.44800978868090846,
+          "yMax": 0.8400000000000001,
+          "preservedSmall": false,
+          "distance": 5.4264125879602805
+        },
+        {
+          "side": -1,
+          "aspect": 1,
+          "xMax": 0.8600000000000003,
+          "yMax": 0.7388441274606168,
+          "preservedSmall": false,
+          "distance": 5.953218420734341
+        },
+        {
+          "side": -1,
+          "aspect": 0.82,
+          "xMax": 0.86,
+          "yMax": 0.6011332584402439,
+          "preservedSmall": false,
+          "distance": 6.955376478503498
+        }
+      ],
+      "ductBoardPieces": 0,
+      "existingInsulation": 0,
+      "jackets": 0,
+      "workLength": 3.2
+    },
+    {
+      "id": "FS-MP25-1218-12",
+      "fits": [
+        {
+          "side": 1,
+          "aspect": 1.64,
+          "xMax": 0.4595970449062747,
+          "yMax": 0.8400000000000001,
+          "preservedSmall": false,
+          "distance": 3.8310976366990714
+        },
+        {
+          "side": 1,
+          "aspect": 2.17,
+          "xMax": 0.3473452320950647,
+          "yMax": 0.8400000000000001,
+          "preservedSmall": false,
+          "distance": 3.8310976366990714
+        },
+        {
+          "side": 1,
+          "aspect": 1,
+          "xMax": 0.7537391536462905,
+          "yMax": 0.8399999999999999,
+          "preservedSmall": false,
+          "distance": 3.83109763669907
+        },
+        {
+          "side": 1,
+          "aspect": 0.82,
+          "xMax": 0.8600000000000001,
+          "yMax": 0.782850048066931,
+          "preservedSmall": false,
+          "distance": 4.060872434577148
+        },
+        {
+          "side": -1,
+          "aspect": 1.64,
+          "xMax": 0.4448871438976067,
+          "yMax": 0.84,
+          "preservedSmall": false,
+          "distance": 3.688201919464531
+        },
+        {
+          "side": -1,
+          "aspect": 2.17,
+          "xMax": 0.3362280718857489,
+          "yMax": 0.84,
+          "preservedSmall": false,
+          "distance": 3.688201919464531
+        },
+        {
+          "side": -1,
+          "aspect": 1,
+          "xMax": 0.7296149159920748,
+          "yMax": 0.8400000000000002,
+          "preservedSmall": false,
+          "distance": 3.68820191946453
+        },
+        {
+          "side": -1,
+          "aspect": 0.82,
+          "xMax": 0.8600000000000001,
+          "yMax": 0.8102145099882202,
+          "preservedSmall": false,
+          "distance": 3.801605616405511
+        }
+      ],
+      "ductBoardPieces": 0,
+      "existingInsulation": 0,
+      "jackets": 0,
+      "workLength": 1
+    },
+    {
+      "id": "FS-MP24-0617-22",
+      "fits": [
+        {
+          "side": 1,
+          "aspect": 1.64,
+          "xMax": 0.35935890482301164,
+          "yMax": 0.6809308322472821,
+          "preservedSmall": false,
+          "distance": 2.4442790348076056
+        },
+        {
+          "side": 1,
+          "aspect": 2.17,
+          "xMax": 0.27158921839158484,
+          "yMax": 0.6809308322472821,
+          "preservedSmall": false,
+          "distance": 2.4442790348076056
+        },
+        {
+          "side": 1,
+          "aspect": 1,
+          "xMax": 0.4273763135496939,
+          "yMax": 0.5137454774970883,
+          "preservedSmall": false,
+          "distance": 3.2997766969902678
+        },
+        {
+          "side": 1,
+          "aspect": 0.82,
+          "xMax": 0.422804760873844,
+          "yMax": 0.42532707937216707,
+          "preservedSmall": false,
+          "distance": 4.024117923158863
+        },
+        {
+          "side": -1,
+          "aspect": 1.64,
+          "xMax": 0.11091141812721991,
+          "yMax": 0.19857260758063325,
+          "preservedSmall": false,
+          "distance": 2.388074538200179
+        },
+        {
+          "side": -1,
+          "aspect": 2.17,
+          "xMax": 0.08382245425282979,
+          "yMax": 0.19857260758063325,
+          "preservedSmall": false,
+          "distance": 2.388074538200179
+        },
+        {
+          "side": -1,
+          "aspect": 1,
+          "xMax": 0.13305257633751,
+          "yMax": 0.1485093239734863,
+          "preservedSmall": false,
+          "distance": 3.223900626570242
+        },
+        {
+          "side": -1,
+          "aspect": 0.82,
+          "xMax": 0.1322026782042287,
+          "yMax": 0.12238462818357158,
+          "preservedSmall": false,
+          "distance": 3.9315861299637094
+        }
+      ],
+      "ductBoardPieces": 0,
+      "existingInsulation": 0,
+      "jackets": 0,
+      "workLength": 0.1
+    },
+    {
+      "id": "FS-MP24-0617-23",
+      "fits": [
+        {
+          "side": 1,
+          "aspect": 1.64,
+          "xMax": 0.34899131080327767,
+          "yMax": 0.8399999999999997,
+          "preservedSmall": false,
+          "distance": 2.6895442479655514
+        },
+        {
+          "side": 1,
+          "aspect": 2.17,
+          "xMax": 0.2637538017130762,
+          "yMax": 0.8399999999999997,
+          "preservedSmall": false,
+          "distance": 2.6895442479655514
+        },
+        {
+          "side": 1,
+          "aspect": 1,
+          "xMax": 0.45689023281249225,
+          "yMax": 0.6900863069726035,
+          "preservedSmall": false,
+          "distance": 3.2997766969902678
+        },
+        {
+          "side": 1,
+          "aspect": 0.82,
+          "xMax": 0.4495428331225925,
+          "yMax": 0.5694528681942059,
+          "preservedSmall": false,
+          "distance": 4.024117923158863
+        },
+        {
+          "side": -1,
+          "aspect": 1.64,
+          "xMax": 0.12481439161966805,
+          "yMax": 0.2050199272620138,
+          "preservedSmall": false,
+          "distance": 2.388074538200179
+        },
+        {
+          "side": -1,
+          "aspect": 2.17,
+          "xMax": 0.09432977062500258,
+          "yMax": 0.2050199272620138,
+          "preservedSmall": false,
+          "distance": 2.388074538200179
+        },
+        {
+          "side": -1,
+          "aspect": 1,
+          "xMax": 0.1495774935879138,
+          "yMax": 0.1535516131061469,
+          "preservedSmall": false,
+          "distance": 3.223900626570242
+        },
+        {
+          "side": -1,
+          "aspect": 0.82,
+          "xMax": 0.14854519691833717,
+          "yMax": 0.12663491885510994,
+          "preservedSmall": false,
+          "distance": 3.9315861299637094
+        }
+      ],
+      "ductBoardPieces": 0,
+      "existingInsulation": 0,
+      "jackets": 0,
+      "workLength": 0.3
+    },
+    {
+      "id": "FS-MP24-0617-24",
+      "fits": [
+        {
+          "side": 1,
+          "aspect": 1.64,
+          "xMax": 0.32836091211797885,
+          "yMax": 0.8256539346191208,
+          "preservedSmall": false,
+          "distance": 2.4442790348076056
+        },
+        {
+          "side": 1,
+          "aspect": 2.17,
+          "xMax": 0.24816216399699786,
+          "yMax": 0.8256539346191208,
+          "preservedSmall": false,
+          "distance": 2.4442790348076056
+        },
+        {
+          "side": 1,
+          "aspect": 1,
+          "xMax": 0.380776228261836,
+          "yMax": 0.607566095442644,
+          "preservedSmall": false,
+          "distance": 3.2997766969902678
+        },
+        {
+          "side": 1,
+          "aspect": 0.82,
+          "xMax": 0.37208309478135343,
+          "yMax": 0.4965218334899739,
+          "preservedSmall": false,
+          "distance": 4.024117923158863
+        },
+        {
+          "side": -1,
+          "aspect": 1.64,
+          "xMax": 0.15424950515653935,
+          "yMax": 0.19316145461280593,
+          "preservedSmall": false,
+          "distance": 2.388074538200179
+        },
+        {
+          "side": -1,
+          "aspect": 2.17,
+          "xMax": 0.1165756628832832,
+          "yMax": 0.19316145461280593,
+          "preservedSmall": false,
+          "distance": 2.388074538200179
+        },
+        {
+          "side": -1,
+          "aspect": 1,
+          "xMax": 0.18460881194488343,
+          "yMax": 0.14080087810184053,
+          "preservedSmall": false,
+          "distance": 3.223900626570242
+        },
+        {
+          "side": -1,
+          "aspect": 0.82,
+          "xMax": 0.18321305172580488,
+          "yMax": 0.11451754897056621,
+          "preservedSmall": false,
+          "distance": 3.93158612996371
+        }
+      ],
+      "ductBoardPieces": 0,
+      "existingInsulation": 0,
+      "jackets": 0,
+      "workLength": 0.7
+    },
+    {
+      "id": "FS-MP24-0617-25",
+      "fits": [
+        {
+          "side": 1,
+          "aspect": 1.64,
+          "xMax": 0.3055646021351439,
+          "yMax": 0.8400000000000003,
+          "preservedSmall": false,
+          "distance": 2.9836605395179716
+        },
+        {
+          "side": 1,
+          "aspect": 2.17,
+          "xMax": 0.23093361636020096,
+          "yMax": 0.8400000000000003,
+          "preservedSmall": false,
+          "distance": 2.9836605395179716
+        },
+        {
+          "side": 1,
+          "aspect": 1,
+          "xMax": 0.4451926968794053,
+          "yMax": 0.7585939275965217,
+          "preservedSmall": false,
+          "distance": 3.2997766969902673
+        },
+        {
+          "side": 1,
+          "aspect": 0.82,
+          "xMax": 0.4323447305023561,
+          "yMax": 0.6207491910373525,
+          "preservedSmall": false,
+          "distance": 4.0241179231588635
+        },
+        {
+          "side": -1,
+          "aspect": 1.64,
+          "xMax": 0.18291308969628187,
+          "yMax": 0.21278028610975366,
+          "preservedSmall": false,
+          "distance": 2.388074538200179
+        },
+        {
+          "side": -1,
+          "aspect": 2.17,
+          "xMax": 0.1382384641022591,
+          "yMax": 0.21278028610975366,
+          "preservedSmall": false,
+          "distance": 2.388074538200179
+        },
+        {
+          "side": -1,
+          "aspect": 1,
+          "xMax": 0.21845429251169346,
+          "yMax": 0.15456224087215484,
+          "preservedSmall": false,
+          "distance": 3.223900626570242
+        },
+        {
+          "side": -1,
+          "aspect": 0.82,
+          "xMax": 0.21657397770552053,
+          "yMax": 0.12549102075418925,
+          "preservedSmall": false,
+          "distance": 3.93158612996371
+        }
+      ],
+      "ductBoardPieces": 0,
+      "existingInsulation": 0,
+      "jackets": 0,
+      "workLength": 1
+    },
+    {
+      "id": "FS-MP24-0617-26",
+      "fits": [
+        {
+          "side": 1,
+          "aspect": 1.64,
+          "xMax": 0.2577245044840509,
+          "yMax": 0.8399999999999997,
+          "preservedSmall": false,
+          "distance": 5.033412026197447
+        },
+        {
+          "side": 1,
+          "aspect": 2.17,
+          "xMax": 0.19477796652250848,
+          "yMax": 0.8399999999999997,
+          "preservedSmall": false,
+          "distance": 5.033412026197447
+        },
+        {
+          "side": 1,
+          "aspect": 1,
+          "xMax": 0.42266818735384326,
+          "yMax": 0.8400000000000002,
+          "preservedSmall": false,
+          "distance": 5.033412026197446
+        },
+        {
+          "side": 1,
+          "aspect": 0.82,
+          "xMax": 0.5154490089681018,
+          "yMax": 0.8399999999999997,
+          "preservedSmall": false,
+          "distance": 5.033412026197447
+        },
+        {
+          "side": -1,
+          "aspect": 1.64,
+          "xMax": 0.3253268772383666,
+          "yMax": 0.3129638924443038,
+          "preservedSmall": false,
+          "distance": 2.3965661455507545
+        },
+        {
+          "side": -1,
+          "aspect": 2.17,
+          "xMax": 0.2458691606778439,
+          "yMax": 0.3129638924443038,
+          "preservedSmall": false,
+          "distance": 2.3965661455507545
+        },
+        {
+          "side": -1,
+          "aspect": 1,
+          "xMax": 0.38486863378678454,
+          "yMax": 0.2233180260891629,
+          "preservedSmall": false,
+          "distance": 3.2353642964935183
+        },
+        {
+          "side": -1,
+          "aspect": 0.82,
+          "xMax": 0.37975724828965446,
+          "yMax": 0.17972888665460135,
+          "preservedSmall": false,
+          "distance": 3.9455662152359983
+        }
+      ],
+      "ductBoardPieces": 0,
+      "existingInsulation": 0,
+      "jackets": 0,
+      "workLength": 2
+    },
+    {
+      "id": "FS-MP23-1103-2",
+      "fits": [
+        {
+          "side": 1,
+          "aspect": 1.64,
+          "xMax": 0.3022306113134903,
+          "yMax": 0.3785689053790062,
+          "preservedSmall": false,
+          "distance": 2.696742479362833
+        },
+        {
+          "side": 1,
+          "aspect": 2.17,
+          "xMax": 0.228413918227707,
+          "yMax": 0.3785689053790062,
+          "preservedSmall": false,
+          "distance": 2.696742479362833
+        },
+        {
+          "side": 1,
+          "aspect": 1,
+          "xMax": 0.35914452061552465,
+          "yMax": 0.27220584954779525,
+          "preservedSmall": false,
+          "distance": 3.640602347139825
+        },
+        {
+          "side": 1,
+          "aspect": 0.82,
+          "xMax": 0.3551598154479266,
+          "yMax": 0.21989560084370421,
+          "preservedSmall": false,
+          "distance": 4.439758959926615
+        },
+        {
+          "side": -1,
+          "aspect": 1.64,
+          "xMax": 0.46876449294779765,
+          "yMax": 0.8399999999999994,
+          "preservedSmall": false,
+          "distance": 3.869581912765015
+        },
+        {
+          "side": -1,
+          "aspect": 2.17,
+          "xMax": 0.3542736260066305,
+          "yMax": 0.8399999999999994,
+          "preservedSmall": false,
+          "distance": 3.869581912765015
+        },
+        {
+          "side": -1,
+          "aspect": 1,
+          "xMax": 0.768773768434388,
+          "yMax": 0.8399999999999994,
+          "preservedSmall": false,
+          "distance": 3.869581912765015
+        },
+        {
+          "side": -1,
+          "aspect": 0.82,
+          "xMax": 0.8600000000000001,
+          "yMax": 0.7723297299912928,
+          "preservedSmall": false,
+          "distance": 4.158749333652042
+        }
+      ],
+      "ductBoardPieces": 0,
+      "existingInsulation": 0,
+      "jackets": 0,
+      "workLength": 1
+    },
+    {
+      "id": "FS-MP24-0617-27",
+      "fits": [
+        {
+          "side": 1,
+          "aspect": 1.64,
+          "xMax": 0.30745208622611897,
+          "yMax": 0.48587651871438664,
+          "preservedSmall": false,
+          "distance": 2.4442790348076056
+        },
+        {
+          "side": 1,
+          "aspect": 2.17,
+          "xMax": 0.2323601020326429,
+          "yMax": 0.48587651871438664,
+          "preservedSmall": false,
+          "distance": 2.4442790348076056
+        },
+        {
+          "side": 1,
+          "aspect": 1,
+          "xMax": 0.3626252289672696,
+          "yMax": 0.35249289034736075,
+          "preservedSmall": false,
+          "distance": 3.2997766969902673
+        },
+        {
+          "side": 1,
+          "aspect": 0.82,
+          "xMax": 0.3572766814927336,
+          "yMax": 0.2860134382254306,
+          "preservedSmall": false,
+          "distance": 4.024117923158863
+        },
+        {
+          "side": -1,
+          "aspect": 1.64,
+          "xMax": 0.12602544672048782,
+          "yMax": 0.17403506565742755,
+          "preservedSmall": false,
+          "distance": 2.388074538200179
+        },
+        {
+          "side": -1,
+          "aspect": 2.17,
+          "xMax": 0.09524503807447006,
+          "yMax": 0.17403506565742755,
+          "preservedSmall": false,
+          "distance": 2.388074538200179
+        },
+        {
+          "side": -1,
+          "aspect": 1,
+          "xMax": 0.1511428563786716,
+          "yMax": 0.1272921591999397,
+          "preservedSmall": false,
+          "distance": 3.223900626570242
+        },
+        {
+          "side": -1,
+          "aspect": 0.82,
+          "xMax": 0.1501568796396643,
+          "yMax": 0.103708212817171,
+          "preservedSmall": false,
+          "distance": 3.93158612996371
+        }
+      ],
+      "ductBoardPieces": 0,
+      "existingInsulation": 1,
+      "jackets": 0,
+      "workLength": 0.7
+    },
+    {
+      "id": "FS-MP24-0617-28",
+      "fits": [
+        {
+          "side": 1,
+          "aspect": 1.64,
+          "xMax": 0.3456313615311601,
+          "yMax": 0.6236604459223652,
+          "preservedSmall": false,
+          "distance": 2.4442790348076056
+        },
+        {
+          "side": 1,
+          "aspect": 2.17,
+          "xMax": 0.26121448521248963,
+          "yMax": 0.6236604459223652,
+          "preservedSmall": false,
+          "distance": 2.4442790348076056
+        },
+        {
+          "side": 1,
+          "aspect": 1,
+          "xMax": 0.4046386480645714,
+          "yMax": 0.4530424555668804,
+          "preservedSmall": false,
+          "distance": 3.2997766969902673
+        },
+        {
+          "side": 1,
+          "aspect": 0.82,
+          "xMax": 0.39722407572552254,
+          "yMax": 0.3678387510544271,
+          "preservedSmall": false,
+          "distance": 4.024117923158863
+        },
+        {
+          "side": -1,
+          "aspect": 1.64,
+          "xMax": 0.15424950515653935,
+          "yMax": 0.19316145461280593,
+          "preservedSmall": false,
+          "distance": 2.388074538200179
+        },
+        {
+          "side": -1,
+          "aspect": 2.17,
+          "xMax": 0.1165756628832832,
+          "yMax": 0.19316145461280593,
+          "preservedSmall": false,
+          "distance": 2.388074538200179
+        },
+        {
+          "side": -1,
+          "aspect": 1,
+          "xMax": 0.18460881194488343,
+          "yMax": 0.14080087810184053,
+          "preservedSmall": false,
+          "distance": 3.223900626570242
+        },
+        {
+          "side": -1,
+          "aspect": 0.82,
+          "xMax": 0.18321305172580488,
+          "yMax": 0.11451754897056621,
+          "preservedSmall": false,
+          "distance": 3.93158612996371
+        }
+      ],
+      "ductBoardPieces": 0,
+      "existingInsulation": 1,
+      "jackets": 0,
+      "workLength": 0.7
+    },
+    {
+      "id": "FS-MP24-0617-29",
+      "fits": [
+        {
+          "side": 1,
+          "aspect": 1.64,
+          "xMax": 0.3896707087238803,
+          "yMax": 0.8400000000000003,
+          "preservedSmall": false,
+          "distance": 2.632567191476562
+        },
+        {
+          "side": 1,
+          "aspect": 2.17,
+          "xMax": 0.2944976784825639,
+          "yMax": 0.8400000000000003,
+          "preservedSmall": false,
+          "distance": 2.632567191476562
+        },
+        {
+          "side": 1,
+          "aspect": 1,
+          "xMax": 0.4905928632700244,
+          "yMax": 0.6625234450720163,
+          "preservedSmall": false,
+          "distance": 3.2997766969902678
+        },
+        {
+          "side": 1,
+          "aspect": 0.82,
+          "xMax": 0.47778084891348327,
+          "yMax": 0.5389115708878532,
+          "preservedSmall": false,
+          "distance": 4.024117923158863
+        },
+        {
+          "side": -1,
+          "aspect": 1.64,
+          "xMax": 0.21202655640845086,
+          "yMax": 0.23291083231615417,
+          "preservedSmall": false,
+          "distance": 2.388074538200179
+        },
+        {
+          "side": -1,
+          "aspect": 2.17,
+          "xMax": 0.16024126843772324,
+          "yMax": 0.23291083231615417,
+          "preservedSmall": false,
+          "distance": 2.388074538200179
+        },
+        {
+          "side": -1,
+          "aspect": 1,
+          "xMax": 0.25268580101354704,
+          "yMax": 0.16858340606547065,
+          "preservedSmall": false,
+          "distance": 3.223900626570242
+        },
+        {
+          "side": -1,
+          "aspect": 0.82,
+          "xMax": 0.25024390137385,
+          "yMax": 0.1366323985478767,
+          "preservedSmall": false,
+          "distance": 3.93158612996371
+        }
+      ],
+      "ductBoardPieces": 0,
+      "existingInsulation": 1,
+      "jackets": 0,
+      "workLength": 0.7
+    },
+    {
+      "id": "FS-MP24-0617-30",
+      "fits": [
+        {
+          "side": 1,
+          "aspect": 1.64,
+          "xMax": 0.3323648992520587,
+          "yMax": 0.8399999999999994,
+          "preservedSmall": false,
+          "distance": 4.040786803309249
+        },
+        {
+          "side": 1,
+          "aspect": 2.17,
+          "xMax": 0.2511882187895743,
+          "yMax": 0.8399999999999994,
+          "preservedSmall": false,
+          "distance": 4.040786803309249
+        },
+        {
+          "side": 1,
+          "aspect": 1,
+          "xMax": 0.5450784347733763,
+          "yMax": 0.8399999999999992,
+          "preservedSmall": false,
+          "distance": 4.040786803309249
+        },
+        {
+          "side": 1,
+          "aspect": 0.82,
+          "xMax": 0.6548337487826991,
+          "yMax": 0.8292673804836539,
+          "preservedSmall": false,
+          "distance": 4.091960577392197
+        },
+        {
+          "side": -1,
+          "aspect": 1.64,
+          "xMax": 0.3253268772383666,
+          "yMax": 0.3129638924443038,
+          "preservedSmall": false,
+          "distance": 2.3965661455507545
+        },
+        {
+          "side": -1,
+          "aspect": 2.17,
+          "xMax": 0.2458691606778439,
+          "yMax": 0.3129638924443038,
+          "preservedSmall": false,
+          "distance": 2.3965661455507545
+        },
+        {
+          "side": -1,
+          "aspect": 1,
+          "xMax": 0.38486863378678454,
+          "yMax": 0.2233180260891629,
+          "preservedSmall": false,
+          "distance": 3.2353642964935183
+        },
+        {
+          "side": -1,
+          "aspect": 0.82,
+          "xMax": 0.37975724828965446,
+          "yMax": 0.17972888665460135,
+          "preservedSmall": false,
+          "distance": 3.9455662152359983
+        }
+      ],
+      "ductBoardPieces": 0,
+      "existingInsulation": 1,
+      "jackets": 0,
+      "workLength": 1.4
+    },
+    {
+      "id": "FS-MP25-1218-06",
+      "fits": [
+        {
+          "side": 1,
+          "aspect": 1.64,
+          "xMax": 0.38006117654399246,
+          "yMax": 0.6957554821102786,
+          "preservedSmall": false,
+          "distance": 2.4442790348076056
+        },
+        {
+          "side": 1,
+          "aspect": 2.17,
+          "xMax": 0.2872351748996072,
+          "yMax": 0.6957554821102786,
+          "preservedSmall": false,
+          "distance": 2.4442790348076056
+        },
+        {
+          "side": 1,
+          "aspect": 1,
+          "xMax": 0.45216262754860925,
+          "yMax": 0.5260829152480125,
+          "preservedSmall": false,
+          "distance": 3.2997766969902678
+        },
+        {
+          "side": 1,
+          "aspect": 0.82,
+          "xMax": 0.4474076036233626,
+          "yMax": 0.4360475345548223,
+          "preservedSmall": false,
+          "distance": 4.024117923158863
+        },
+        {
+          "side": -1,
+          "aspect": 1.64,
+          "xMax": 0.12088033213316739,
+          "yMax": 0.39982529545274836,
+          "preservedSmall": false,
+          "distance": 2.388074538200179
+        },
+        {
+          "side": -1,
+          "aspect": 2.17,
+          "xMax": 0.09135656437714033,
+          "yMax": 0.39982529545274836,
+          "preservedSmall": false,
+          "distance": 2.388074538200179
+        },
+        {
+          "side": -1,
+          "aspect": 1,
+          "xMax": 0.14786696741530936,
+          "yMax": 0.299615384413655,
+          "preservedSmall": false,
+          "distance": 3.223900626570242
+        },
+        {
+          "side": -1,
+          "aspect": 0.82,
+          "xMax": 0.14839694443010729,
+          "yMax": 0.24716469281857478,
+          "preservedSmall": false,
+          "distance": 3.9315861299637094
+        }
+      ],
+      "ductBoardPieces": 0,
+      "existingInsulation": 0,
+      "jackets": 0,
+      "workLength": 0.13
+    },
+    {
+      "id": "FS-MP25-1218-07",
+      "fits": [
+        {
+          "side": 1,
+          "aspect": 1.64,
+          "xMax": 0.3545382105594442,
+          "yMax": 0.8399999999999997,
+          "preservedSmall": false,
+          "distance": 2.7900563508596403
+        },
+        {
+          "side": 1,
+          "aspect": 2.17,
+          "xMax": 0.26794592871773665,
+          "yMax": 0.8399999999999997,
+          "preservedSmall": false,
+          "distance": 2.7900563508596403
+        },
+        {
+          "side": 1,
+          "aspect": 1,
+          "xMax": 0.48336560781176563,
+          "yMax": 0.7154128206565851,
+          "preservedSmall": false,
+          "distance": 3.2997766969902678
+        },
+        {
+          "side": 1,
+          "aspect": 0.82,
+          "xMax": 0.4754934855509647,
+          "yMax": 0.5908750815166424,
+          "preservedSmall": false,
+          "distance": 4.024117923158863
+        },
+        {
+          "side": -1,
+          "aspect": 1.64,
+          "xMax": 0.13714896234373153,
+          "yMax": 0.6662988277528931,
+          "preservedSmall": false,
+          "distance": 2.388074538200179
+        },
+        {
+          "side": -1,
+          "aspect": 2.17,
+          "xMax": 0.10365175034272797,
+          "yMax": 0.6662988277528931,
+          "preservedSmall": false,
+          "distance": 2.388074538200179
+        },
+        {
+          "side": -1,
+          "aspect": 1,
+          "xMax": 0.1665933802011764,
+          "yMax": 0.49620656423956505,
+          "preservedSmall": false,
+          "distance": 3.223900626570242
+        },
+        {
+          "side": -1,
+          "aspect": 0.82,
+          "xMax": 0.16658453016775482,
+          "yMax": 0.40801684139333605,
+          "preservedSmall": false,
+          "distance": 3.9315861299637094
+        }
+      ],
+      "ductBoardPieces": 0,
+      "existingInsulation": 0,
+      "jackets": 0,
+      "workLength": 0.33
+    },
+    {
+      "id": "FS-MP25-1218-08",
+      "fits": [
+        {
+          "side": 1,
+          "aspect": 1.64,
+          "xMax": 0.3401478047241038,
+          "yMax": 0.8399999999999999,
+          "preservedSmall": false,
+          "distance": 2.471232797523055
+        },
+        {
+          "side": 1,
+          "aspect": 2.17,
+          "xMax": 0.257070230298401,
+          "yMax": 0.8399999999999999,
+          "preservedSmall": false,
+          "distance": 2.471232797523055
+        },
+        {
+          "side": 1,
+          "aspect": 1,
+          "xMax": 0.3989422421481919,
+          "yMax": 0.6245345527441543,
+          "preservedSmall": false,
+          "distance": 3.2997766969902673
+        },
+        {
+          "side": 1,
+          "aspect": 0.82,
+          "xMax": 0.3895162059840426,
+          "yMax": 0.5101378350200082,
+          "preservedSmall": false,
+          "distance": 4.024117923158863
+        },
+        {
+          "side": -1,
+          "aspect": 1.64,
+          "xMax": 0.17629657092291834,
+          "yMax": 0.6798312599725104,
+          "preservedSmall": false,
+          "distance": 2.388074538200179
+        },
+        {
+          "side": -1,
+          "aspect": 2.17,
+          "xMax": 0.1332379614348323,
+          "yMax": 0.6798312599725104,
+          "preservedSmall": false,
+          "distance": 2.388074538200179
+        },
+        {
+          "side": -1,
+          "aspect": 1,
+          "xMax": 0.20630876808468163,
+          "yMax": 0.5014721102719991,
+          "preservedSmall": false,
+          "distance": 3.223900626570242
+        },
+        {
+          "side": -1,
+          "aspect": 0.82,
+          "xMax": 0.20248746555269442,
+          "yMax": 0.4103243622829807,
+          "preservedSmall": false,
+          "distance": 3.9315861299637103
+        }
+      ],
+      "ductBoardPieces": 0,
+      "existingInsulation": 0,
+      "jackets": 0,
+      "workLength": 0.73
+    },
+    {
+      "id": "FS-MP25-1218-09",
+      "fits": [
+        {
+          "side": 1,
+          "aspect": 1.64,
+          "xMax": 0.3103951572944508,
+          "yMax": 0.84,
+          "preservedSmall": false,
+          "distance": 3.051318052757266
+        },
+        {
+          "side": 1,
+          "aspect": 2.17,
+          "xMax": 0.2345843585082485,
+          "yMax": 0.84,
+          "preservedSmall": false,
+          "distance": 3.051318052757266
+        },
+        {
+          "side": 1,
+          "aspect": 1,
+          "xMax": 0.4642017545644615,
+          "yMax": 0.7758459321265316,
+          "preservedSmall": false,
+          "distance": 3.2997766969902673
+        },
+        {
+          "side": 1,
+          "aspect": 0.82,
+          "xMax": 0.4504162977777173,
+          "yMax": 0.6345579305752498,
+          "preservedSmall": false,
+          "distance": 4.024117923158863
+        },
+        {
+          "side": -1,
+          "aspect": 1.64,
+          "xMax": 0.20231137698340798,
+          "yMax": 0.8400000000000001,
+          "preservedSmall": false,
+          "distance": 2.4981747400347536
+        },
+        {
+          "side": -1,
+          "aspect": 2.17,
+          "xMax": 0.15289892085381987,
+          "yMax": 0.8400000000000001,
+          "preservedSmall": false,
+          "distance": 2.4981747400347536
+        },
+        {
+          "side": -1,
+          "aspect": 1,
+          "xMax": 0.2471263800881951,
+          "yMax": 0.6503169023593419,
+          "preservedSmall": false,
+          "distance": 3.223900626570242
+        },
+        {
+          "side": -1,
+          "aspect": 0.82,
+          "xMax": 0.2413246765564897,
+          "yMax": 0.5329593334854237,
+          "preservedSmall": false,
+          "distance": 3.9315861299637103
+        }
+      ],
+      "ductBoardPieces": 0,
+      "existingInsulation": 0,
+      "jackets": 0,
+      "workLength": 1.03
+    },
+    {
+      "id": "FS-MP25-1218-10",
+      "fits": [
+        {
+          "side": 1,
+          "aspect": 1.64,
+          "xMax": 0.2693509066898566,
+          "yMax": 0.8399999999999993,
+          "preservedSmall": false,
+          "distance": 3.7705952881885154
+        },
+        {
+          "side": 1,
+          "aspect": 2.17,
+          "xMax": 0.20356474053979948,
+          "yMax": 0.8399999999999993,
+          "preservedSmall": false,
+          "distance": 3.7705952881885154
+        },
+        {
+          "side": 1,
+          "aspect": 1,
+          "xMax": 0.44173548697136467,
+          "yMax": 0.84,
+          "preservedSmall": false,
+          "distance": 3.7705952881885167
+        },
+        {
+          "side": 1,
+          "aspect": 0.82,
+          "xMax": 0.4990360250308273,
+          "yMax": 0.7869301365684318,
+          "preservedSmall": false,
+          "distance": 4.024117923158863
+        },
+        {
+          "side": -1,
+          "aspect": 1.64,
+          "xMax": 0.17385801136680268,
+          "yMax": 0.8399999999999997,
+          "preservedSmall": false,
+          "distance": 3.29145669095698
+        },
+        {
+          "side": -1,
+          "aspect": 2.17,
+          "xMax": 0.1313949947656942,
+          "yMax": 0.8399999999999997,
+          "preservedSmall": false,
+          "distance": 3.29145669095698
+        },
+        {
+          "side": -1,
+          "aspect": 1,
+          "xMax": 0.28512713864155637,
+          "yMax": 0.8399999999999997,
+          "preservedSmall": false,
+          "distance": 3.29145669095698
+        },
+        {
+          "side": -1,
+          "aspect": 0.82,
+          "xMax": 0.2833654621621263,
+          "yMax": 0.7019435141708694,
+          "preservedSmall": false,
+          "distance": 3.93158612996371
+        }
+      ],
+      "ductBoardPieces": 0,
+      "existingInsulation": 0,
+      "jackets": 0,
+      "workLength": 1.43
+    },
+    {
+      "id": "FS-MP25-1218-11",
+      "fits": [
+        {
+          "side": 1,
+          "aspect": 1.64,
+          "xMax": 0.2622619072895164,
+          "yMax": 0.8400000000000005,
+          "preservedSmall": false,
+          "distance": 5.08504861090804
+        },
+        {
+          "side": 1,
+          "aspect": 2.17,
+          "xMax": 0.19820715573954237,
+          "yMax": 0.8400000000000005,
+          "preservedSmall": false,
+          "distance": 5.08504861090804
+        },
+        {
+          "side": 1,
+          "aspect": 1,
+          "xMax": 0.4301095279548069,
+          "yMax": 0.8400000000000005,
+          "preservedSmall": false,
+          "distance": 5.08504861090804
+        },
+        {
+          "side": 1,
+          "aspect": 0.82,
+          "xMax": 0.5245238145790329,
+          "yMax": 0.8400000000000005,
+          "preservedSmall": false,
+          "distance": 5.08504861090804
+        },
+        {
+          "side": -1,
+          "aspect": 1.64,
+          "xMax": 0.18608263448084528,
+          "yMax": 0.8399999999999997,
+          "preservedSmall": false,
+          "distance": 4.548850594244261
+        },
+        {
+          "side": -1,
+          "aspect": 2.17,
+          "xMax": 0.1406338804371365,
+          "yMax": 0.8399999999999997,
+          "preservedSmall": false,
+          "distance": 4.548850594244261
+        },
+        {
+          "side": -1,
+          "aspect": 1,
+          "xMax": 0.30517552054858615,
+          "yMax": 0.8399999999999997,
+          "preservedSmall": false,
+          "distance": 4.548850594244261
+        },
+        {
+          "side": -1,
+          "aspect": 0.82,
+          "xMax": 0.37216526896169055,
+          "yMax": 0.8399999999999997,
+          "preservedSmall": false,
+          "distance": 4.548850594244261
+        }
+      ],
+      "ductBoardPieces": 0,
+      "existingInsulation": 0,
+      "jackets": 0,
+      "workLength": 2.03
+    },
+    {
+      "id": "FS-NP24-0617-1",
+      "fits": [
+        {
+          "side": 1,
+          "aspect": 1.64,
+          "xMax": 0.560909030348933,
+          "yMax": 0.5697102491337074,
+          "preservedSmall": false,
+          "distance": 1.6243152403397565
+        },
+        {
+          "side": 1,
+          "aspect": 2.17,
+          "xMax": 0.42391281556324883,
+          "yMax": 0.5697102491337074,
+          "preservedSmall": false,
+          "distance": 1.6243152403397565
+        },
+        {
+          "side": 1,
+          "aspect": 1,
+          "xMax": 0.6600783850982611,
+          "yMax": 0.39863303829847047,
+          "preservedSmall": false,
+          "distance": 2.1928255744586713
+        },
+        {
+          "side": 1,
+          "aspect": 0.82,
+          "xMax": 0.6496240514204099,
+          "yMax": 0.31782559381335457,
+          "preservedSmall": false,
+          "distance": 2.674177529827648
+        },
+        {
+          "side": -1,
+          "aspect": 1.64,
+          "xMax": 0.3034676438291141,
+          "yMax": 0.3992973330326367,
+          "preservedSmall": false,
+          "distance": 1.6243152403397565
+        },
+        {
+          "side": -1,
+          "aspect": 2.17,
+          "xMax": 0.2293488183777637,
+          "yMax": 0.3992973330326367,
+          "preservedSmall": false,
+          "distance": 1.6243152403397565
+        },
+        {
+          "side": -1,
+          "aspect": 1,
+          "xMax": 0.375046056946302,
+          "yMax": 0.31009551159765686,
+          "preservedSmall": false,
+          "distance": 2.1928255744586713
+        },
+        {
+          "side": -1,
+          "aspect": 0.82,
+          "xMax": 0.3784188697882069,
+          "yMax": 0.2607711730036753,
+          "preservedSmall": false,
+          "distance": 2.674177529827648
+        }
+      ],
+      "ductBoardPieces": 0,
+      "existingInsulation": 0,
+      "jackets": 2,
+      "workLength": 0.1
+    },
+    {
+      "id": "FS-NP24-0617-2",
+      "fits": [
+        {
+          "side": 1,
+          "aspect": 1.64,
+          "xMax": 0.6327171828426512,
+          "yMax": 0.7165970400674305,
+          "preservedSmall": false,
+          "distance": 1.6243152403397565
+        },
+        {
+          "side": 1,
+          "aspect": 2.17,
+          "xMax": 0.478182571364953,
+          "yMax": 0.7165970400674305,
+          "preservedSmall": false,
+          "distance": 1.6243152403397565
+        },
+        {
+          "side": 1,
+          "aspect": 1,
+          "xMax": 0.7433731215686596,
+          "yMax": 0.5006643867254504,
+          "preservedSmall": false,
+          "distance": 2.1928255744586713
+        },
+        {
+          "side": 1,
+          "aspect": 0.82,
+          "xMax": 0.7310175016556673,
+          "yMax": 0.39889329664232703,
+          "preservedSmall": false,
+          "distance": 2.674177529827648
+        },
+        {
+          "side": -1,
+          "aspect": 1.64,
+          "xMax": 0.3545404998313238,
+          "yMax": 0.49586876758420395,
+          "preservedSmall": false,
+          "distance": 1.6243152403397565
+        },
+        {
+          "side": -1,
+          "aspect": 2.17,
+          "xMax": 0.26794765885869637,
+          "yMax": 0.49586876758420395,
+          "preservedSmall": false,
+          "distance": 1.6243152403397565
+        },
+        {
+          "side": -1,
+          "aspect": 1,
+          "xMax": 0.4388156752713411,
+          "yMax": 0.3864977565763586,
+          "preservedSmall": false,
+          "distance": 2.1928255744586713
+        },
+        {
+          "side": -1,
+          "aspect": 0.82,
+          "xMax": 0.4431091371890549,
+          "yMax": 0.32567757597033387,
+          "preservedSmall": false,
+          "distance": 2.674177529827648
+        }
+      ],
+      "ductBoardPieces": 0,
+      "existingInsulation": 0,
+      "jackets": 2,
+      "workLength": 0.1
+    },
+    {
+      "id": "FS-NP24-0617-3",
+      "fits": [
+        {
+          "side": 1,
+          "aspect": 1.64,
+          "xMax": 0.43950272673272744,
+          "yMax": 0.7997659934374447,
+          "preservedSmall": false,
+          "distance": 1.6243152403397565
+        },
+        {
+          "side": 1,
+          "aspect": 2.17,
+          "xMax": 0.3321587427841811,
+          "yMax": 0.7997659934374447,
+          "preservedSmall": false,
+          "distance": 1.6243152403397565
+        },
+        {
+          "side": 1,
+          "aspect": 1,
+          "xMax": 0.5267639515770837,
+          "yMax": 0.570059966208293,
+          "preservedSmall": false,
+          "distance": 2.1928255744586713
+        },
+        {
+          "side": 1,
+          "aspect": 0.82,
+          "xMax": 0.5231606337073911,
+          "yMax": 0.45854858574415963,
+          "preservedSmall": false,
+          "distance": 2.674177529827648
+        },
+        {
+          "side": -1,
+          "aspect": 1.64,
+          "xMax": 0.4333110686855721,
+          "yMax": 0.7584916988902712,
+          "preservedSmall": false,
+          "distance": 1.6243152403397565
+        },
+        {
+          "side": -1,
+          "aspect": 2.17,
+          "xMax": 0.3274793330158241,
+          "yMax": 0.7584916988902712,
+          "preservedSmall": false,
+          "distance": 1.6243152403397565
+        },
+        {
+          "side": -1,
+          "aspect": 1,
+          "xMax": 0.520161271742339,
+          "yMax": 0.5409302189539096,
+          "preservedSmall": false,
+          "distance": 2.1928255744586713
+        },
+        {
+          "side": -1,
+          "aspect": 0.82,
+          "xMax": 0.5170136351241854,
+          "yMax": 0.4352302965909175,
+          "preservedSmall": false,
+          "distance": 2.674177529827648
+        }
+      ],
+      "ductBoardPieces": 0,
+      "existingInsulation": 0,
+      "jackets": 2,
+      "workLength": 0.1
+    },
+    {
+      "id": "FS-NP24-0617-4",
+      "fits": [
+        {
+          "side": 1,
+          "aspect": 1.64,
+          "xMax": 0.452892165249932,
+          "yMax": 0.8400000000000001,
+          "preservedSmall": false,
+          "distance": 1.7538523149484604
+        },
+        {
+          "side": 1,
+          "aspect": 2.17,
+          "xMax": 0.3422779497741421,
+          "yMax": 0.8400000000000001,
+          "preservedSmall": false,
+          "distance": 1.7538523149484604
+        },
+        {
+          "side": 1,
+          "aspect": 1,
+          "xMax": 0.5880774841461236,
+          "yMax": 0.6519380560281537,
+          "preservedSmall": false,
+          "distance": 2.1928255744586713
+        },
+        {
+          "side": 1,
+          "aspect": 0.82,
+          "xMax": 0.5838516174085133,
+          "yMax": 0.5234360423196486,
+          "preservedSmall": false,
+          "distance": 2.674177529827648
+        },
+        {
+          "side": -1,
+          "aspect": 1.64,
+          "xMax": 0.4512957535304143,
+          "yMax": 0.84,
+          "preservedSmall": false,
+          "distance": 1.7413228444588502
+        },
+        {
+          "side": -1,
+          "aspect": 2.17,
+          "xMax": 0.3410714450644606,
+          "yMax": 0.84,
+          "preservedSmall": false,
+          "distance": 1.7413228444588502
+        },
+        {
+          "side": -1,
+          "aspect": 1,
+          "xMax": 0.5820531571739914,
+          "yMax": 0.6471350452562608,
+          "preservedSmall": false,
+          "distance": 2.1928255744586713
+        },
+        {
+          "side": -1,
+          "aspect": 0.82,
+          "xMax": 0.5781740683192809,
+          "yMax": 0.5198789421483566,
+          "preservedSmall": false,
+          "distance": 2.674177529827648
+        }
+      ],
+      "ductBoardPieces": 0,
+      "existingInsulation": 0,
+      "jackets": 2,
+      "workLength": 0.1
+    },
+    {
+      "id": "FS-NP24-0617-5",
+      "fits": [
+        {
+          "side": 1,
+          "aspect": 1.64,
+          "xMax": 0.4351894037929558,
+          "yMax": 0.8399999999999996,
+          "preservedSmall": false,
+          "distance": 2.004740192287176
+        },
+        {
+          "side": 1,
+          "aspect": 2.17,
+          "xMax": 0.32889890424905416,
+          "yMax": 0.8399999999999996,
+          "preservedSmall": false,
+          "distance": 2.004740192287176
+        },
+        {
+          "side": 1,
+          "aspect": 1,
+          "xMax": 0.6498417100738244,
+          "yMax": 0.7588005615388133,
+          "preservedSmall": false,
+          "distance": 2.1928255744586713
+        },
+        {
+          "side": 1,
+          "aspect": 0.82,
+          "xMax": 0.6448140234146303,
+          "yMax": 0.6083107974185941,
+          "preservedSmall": false,
+          "distance": 2.674177529827648
+        },
+        {
+          "side": -1,
+          "aspect": 1.64,
+          "xMax": 0.43328738636025166,
+          "yMax": 0.8399999999999997,
+          "preservedSmall": false,
+          "distance": 1.9943029296361228
+        },
+        {
+          "side": -1,
+          "aspect": 2.17,
+          "xMax": 0.3274614348529091,
+          "yMax": 0.8399999999999997,
+          "preservedSmall": false,
+          "distance": 1.9943029296361228
+        },
+        {
+          "side": -1,
+          "aspect": 1,
+          "xMax": 0.6436592833793566,
+          "yMax": 0.7545517824497782,
+          "preservedSmall": false,
+          "distance": 2.1928255744586713
+        },
+        {
+          "side": -1,
+          "aspect": 0.82,
+          "xMax": 0.6390102526288841,
+          "yMax": 0.6052648310004395,
+          "preservedSmall": false,
+          "distance": 2.674177529827648
+        }
+      ],
+      "ductBoardPieces": 0,
+      "existingInsulation": 0,
+      "jackets": 2,
+      "workLength": 0.1
+    },
+    {
+      "id": "FS-NP24-0617-6",
+      "fits": [
+        {
+          "side": 1,
+          "aspect": 1.64,
+          "xMax": 0.5644902912542442,
+          "yMax": 0.8399999999999997,
+          "preservedSmall": false,
+          "distance": 2.254117280139834
+        },
+        {
+          "side": 1,
+          "aspect": 2.17,
+          "xMax": 0.42661939062532744,
+          "yMax": 0.8399999999999997,
+          "preservedSmall": false,
+          "distance": 2.254117280139834
+        },
+        {
+          "side": 1,
+          "aspect": 1,
+          "xMax": 0.8600000000000002,
+          "yMax": 0.7769860381949013,
+          "preservedSmall": false,
+          "distance": 2.4118631950561036
+        },
+        {
+          "side": 1,
+          "aspect": 0.82,
+          "xMax": 0.8599999999999998,
+          "yMax": 0.6307689720905343,
+          "preservedSmall": false,
+          "distance": 2.899311276531598
+        },
+        {
+          "side": -1,
+          "aspect": 1.64,
+          "xMax": 0.4187450832958954,
+          "yMax": 0.8399999999999997,
+          "preservedSmall": false,
+          "distance": 1.9131278249598263
+        },
+        {
+          "side": -1,
+          "aspect": 2.17,
+          "xMax": 0.31647093852777347,
+          "yMax": 0.8399999999999997,
+          "preservedSmall": false,
+          "distance": 1.9131278249598263
+        },
+        {
+          "side": -1,
+          "aspect": 1,
+          "xMax": 0.6040569354033104,
+          "yMax": 0.7241290245483516,
+          "preservedSmall": false,
+          "distance": 2.1928255744586713
+        },
+        {
+          "side": -1,
+          "aspect": 0.82,
+          "xMax": 0.610213548664029,
+          "yMax": 0.5987764674129757,
+          "preservedSmall": false,
+          "distance": 2.674177529827648
+        }
+      ],
+      "ductBoardPieces": 0,
+      "existingInsulation": 0,
+      "jackets": 2,
+      "workLength": 0.1
+    },
+    {
+      "id": "FS-NP24-0617-7",
+      "fits": [
+        {
+          "side": 1,
+          "aspect": 1.64,
+          "xMax": 0.5853005081016389,
+          "yMax": 0.8400000000000001,
+          "preservedSmall": false,
+          "distance": 2.3632862152731184
+        },
+        {
+          "side": 1,
+          "aspect": 2.17,
+          "xMax": 0.4423469277818837,
+          "yMax": 0.8400000000000001,
+          "preservedSmall": false,
+          "distance": 2.3632862152731184
+        },
+        {
+          "side": 1,
+          "aspect": 1,
+          "xMax": 0.8600000000000003,
+          "yMax": 0.7470316035301457,
+          "preservedSmall": false,
+          "distance": 2.6182471767056015
+        },
+        {
+          "side": 1,
+          "aspect": 0.82,
+          "xMax": 0.8600000000000007,
+          "yMax": 0.6056415689678618,
+          "preservedSmall": false,
+          "distance": 3.1560471282188893
+        },
+        {
+          "side": -1,
+          "aspect": 1.64,
+          "xMax": 0.4499463663008883,
+          "yMax": 0.8399999999999995,
+          "preservedSmall": false,
+          "distance": 2.015768863131199
+        },
+        {
+          "side": -1,
+          "aspect": 2.17,
+          "xMax": 0.34005163167440405,
+          "yMax": 0.8399999999999995,
+          "preservedSmall": false,
+          "distance": 2.015768863131199
+        },
+        {
+          "side": -1,
+          "aspect": 1,
+          "xMax": 0.6822212924876687,
+          "yMax": 0.7660893170772451,
+          "preservedSmall": false,
+          "distance": 2.1928255744586713
+        },
+        {
+          "side": -1,
+          "aspect": 0.82,
+          "xMax": 0.6903360621156697,
+          "yMax": 0.6259903965130034,
+          "preservedSmall": false,
+          "distance": 2.674177529827648
+        }
+      ],
+      "ductBoardPieces": 0,
+      "existingInsulation": 0,
+      "jackets": 2,
+      "workLength": 0.1
+    },
+    {
+      "id": "FS-NP24-0617-8",
+      "fits": [
+        {
+          "side": 1,
+          "aspect": 1.64,
+          "xMax": 0.41332948694565536,
+          "yMax": 0.8400000000000001,
+          "preservedSmall": false,
+          "distance": 2.368147830387211
+        },
+        {
+          "side": 1,
+          "aspect": 2.17,
+          "xMax": 0.3123780454335828,
+          "yMax": 0.8400000000000001,
+          "preservedSmall": false,
+          "distance": 2.368147830387211
+        },
+        {
+          "side": 1,
+          "aspect": 1,
+          "xMax": 0.6778603585908746,
+          "yMax": 0.8400000000000001,
+          "preservedSmall": false,
+          "distance": 2.368147830387211
+        },
+        {
+          "side": 1,
+          "aspect": 0.82,
+          "xMax": 0.727160395406919,
+          "yMax": 0.7347415041467846,
+          "preservedSmall": false,
+          "distance": 2.674177529827648
+        },
+        {
+          "side": -1,
+          "aspect": 1.64,
+          "xMax": 0.4136444418804891,
+          "yMax": 0.8399999999999997,
+          "preservedSmall": false,
+          "distance": 2.3615502484572106
+        },
+        {
+          "side": -1,
+          "aspect": 2.17,
+          "xMax": 0.31261607589124524,
+          "yMax": 0.8399999999999997,
+          "preservedSmall": false,
+          "distance": 2.3615502484572106
+        },
+        {
+          "side": -1,
+          "aspect": 1,
+          "xMax": 0.6783768846840021,
+          "yMax": 0.8399999999999997,
+          "preservedSmall": false,
+          "distance": 2.3615502484572106
+        },
+        {
+          "side": -1,
+          "aspect": 0.82,
+          "xMax": 0.7254195011662641,
+          "yMax": 0.7326349961342713,
+          "preservedSmall": false,
+          "distance": 2.674177529827648
+        }
+      ],
+      "ductBoardPieces": 0,
+      "existingInsulation": 0,
+      "jackets": 2,
+      "workLength": 0.1
+    },
+    {
+      "id": "FS-NP24-0617-9",
+      "fits": [
+        {
+          "side": 1,
+          "aspect": 1.64,
+          "xMax": 0.41981564336278787,
+          "yMax": 0.8399999999999996,
+          "preservedSmall": false,
+          "distance": 2.469414874280117
+        },
+        {
+          "side": 1,
+          "aspect": 2.17,
+          "xMax": 0.31728002539860467,
+          "yMax": 0.8399999999999996,
+          "preservedSmall": false,
+          "distance": 2.469414874280117
+        },
+        {
+          "side": 1,
+          "aspect": 1,
+          "xMax": 0.6884976551149721,
+          "yMax": 0.8399999999999996,
+          "preservedSmall": false,
+          "distance": 2.469414874280117
+        },
+        {
+          "side": 1,
+          "aspect": 0.82,
+          "xMax": 0.7719444760194912,
+          "yMax": 0.769038396127459,
+          "preservedSmall": false,
+          "distance": 2.674177529827648
+        },
+        {
+          "side": -1,
+          "aspect": 1.64,
+          "xMax": 0.4203395479437646,
+          "yMax": 0.8399999999999997,
+          "preservedSmall": false,
+          "distance": 2.458977611629064
+        },
+        {
+          "side": -1,
+          "aspect": 2.17,
+          "xMax": 0.31767597171786816,
+          "yMax": 0.8399999999999997,
+          "preservedSmall": false,
+          "distance": 2.458977611629064
+        },
+        {
+          "side": -1,
+          "aspect": 1,
+          "xMax": 0.6893568586277738,
+          "yMax": 0.8399999999999997,
+          "preservedSmall": false,
+          "distance": 2.458977611629064
+        },
+        {
+          "side": -1,
+          "aspect": 0.82,
+          "xMax": 0.7692887666574959,
+          "yMax": 0.7656010400152091,
+          "preservedSmall": false,
+          "distance": 2.674177529827648
+        }
+      ],
+      "ductBoardPieces": 0,
+      "existingInsulation": 0,
+      "jackets": 2,
+      "workLength": 0.1
+    },
+    {
+      "id": "FS-NP24-0617-10",
+      "fits": [
+        {
+          "side": 1,
+          "aspect": 1.64,
+          "xMax": 0.4084788936683912,
+          "yMax": 0.8399999999999993,
+          "preservedSmall": false,
+          "distance": 2.6787948888095205
+        },
+        {
+          "side": 1,
+          "aspect": 2.17,
+          "xMax": 0.3087121592701205,
+          "yMax": 0.8399999999999993,
+          "preservedSmall": false,
+          "distance": 2.6787948888095205
+        },
+        {
+          "side": 1,
+          "aspect": 1,
+          "xMax": 0.6699053856161618,
+          "yMax": 0.8400000000000003,
+          "preservedSmall": false,
+          "distance": 2.67879488880952
+        },
+        {
+          "side": 1,
+          "aspect": 0.82,
+          "xMax": 0.7402324862707037,
+          "yMax": 0.7576148035120956,
+          "preservedSmall": false,
+          "distance": 2.941595282810413
+        },
+        {
+          "side": -1,
+          "aspect": 1.64,
+          "xMax": 0.4088878406050741,
+          "yMax": 0.8399999999999994,
+          "preservedSmall": false,
+          "distance": 2.6683576261584676
+        },
+        {
+          "side": -1,
+          "aspect": 2.17,
+          "xMax": 0.3090212251577519,
+          "yMax": 0.8399999999999994,
+          "preservedSmall": false,
+          "distance": 2.6683576261584676
+        },
+        {
+          "side": -1,
+          "aspect": 1,
+          "xMax": 0.6705760585923219,
+          "yMax": 0.8400000000000002,
+          "preservedSmall": false,
+          "distance": 2.6683576261584667
+        },
+        {
+          "side": -1,
+          "aspect": 0.82,
+          "xMax": 0.7377558807652879,
+          "yMax": 0.7545296092289641,
+          "preservedSmall": false,
+          "distance": 2.941595282810413
+        }
+      ],
+      "ductBoardPieces": 0,
+      "existingInsulation": 0,
+      "jackets": 2,
+      "workLength": 0.1
+    },
+    {
+      "id": "FS-NP24-0617-11",
+      "fits": [
+        {
+          "side": 1,
+          "aspect": 1.64,
+          "xMax": 0.17599871556404803,
+          "yMax": 0.31438206101308114,
+          "preservedSmall": false,
+          "distance": 2.4442790348076056
+        },
+        {
+          "side": 1,
+          "aspect": 2.17,
+          "xMax": 0.13301285415900405,
+          "yMax": 0.31438206101308114,
+          "preservedSmall": false,
+          "distance": 2.4442790348076056
+        },
+        {
+          "side": 1,
+          "aspect": 1,
+          "xMax": 0.21726014233690505,
+          "yMax": 0.2382026771657476,
+          "preservedSmall": false,
+          "distance": 3.2997766969902678
+        },
+        {
+          "side": 1,
+          "aspect": 0.82,
+          "xMax": 0.21908046339445547,
+          "yMax": 0.1976514438697773,
+          "preservedSmall": false,
+          "distance": 4.024117923158863
+        },
+        {
+          "side": -1,
+          "aspect": 1.64,
+          "xMax": 0.3690749578062156,
+          "yMax": 0.5210864256969505,
+          "preservedSmall": false,
+          "distance": 2.388074538200179
+        },
+        {
+          "side": -1,
+          "aspect": 2.17,
+          "xMax": 0.278932226176126,
+          "yMax": 0.5210864256969505,
+          "preservedSmall": false,
+          "distance": 2.388074538200179
+        },
+        {
+          "side": -1,
+          "aspect": 1,
+          "xMax": 0.43559509104362676,
+          "yMax": 0.3923291557934148,
+          "preservedSmall": false,
+          "distance": 3.223900626570242
+        },
+        {
+          "side": -1,
+          "aspect": 0.82,
+          "xMax": 0.4293102909727107,
+          "yMax": 0.3244502943669898,
+          "preservedSmall": false,
+          "distance": 3.9315861299637094
+        }
+      ],
+      "ductBoardPieces": 0,
+      "existingInsulation": 0,
+      "jackets": 1,
+      "workLength": 0.1
+    },
+    {
+      "id": "FS-NP24-0617-12",
+      "fits": [
+        {
+          "side": 1,
+          "aspect": 1.64,
+          "xMax": 0.20634933422636909,
+          "yMax": 0.23435980767449843,
+          "preservedSmall": false,
+          "distance": 2.4442790348076056
+        },
+        {
+          "side": 1,
+          "aspect": 2.17,
+          "xMax": 0.15595064890840798,
+          "yMax": 0.23435980767449843,
+          "preservedSmall": false,
+          "distance": 2.4442790348076056
+        },
+        {
+          "side": 1,
+          "aspect": 1,
+          "xMax": 0.245996433873788,
+          "yMax": 0.16976614116569447,
+          "preservedSmall": false,
+          "distance": 3.2997766969902673
+        },
+        {
+          "side": 1,
+          "aspect": 0.82,
+          "xMax": 0.24365707363596692,
+          "yMax": 0.13764496072257526,
+          "preservedSmall": false,
+          "distance": 4.024117923158863
+        },
+        {
+          "side": -1,
+          "aspect": 1.64,
+          "xMax": 0.3309106641129449,
+          "yMax": 0.4243174586510391,
+          "preservedSmall": false,
+          "distance": 2.388074538200179
+        },
+        {
+          "side": -1,
+          "aspect": 2.17,
+          "xMax": 0.25008916550471405,
+          "yMax": 0.4243174586510391,
+          "preservedSmall": false,
+          "distance": 2.388074538200179
+        },
+        {
+          "side": -1,
+          "aspect": 1,
+          "xMax": 0.390313523866058,
+          "yMax": 0.3047915031556276,
+          "preservedSmall": false,
+          "distance": 3.223900626570242
+        },
+        {
+          "side": -1,
+          "aspect": 0.82,
+          "xMax": 0.38456628644536794,
+          "yMax": 0.24609649927986493,
+          "preservedSmall": false,
+          "distance": 3.93158612996371
+        }
+      ],
+      "ductBoardPieces": 0,
+      "existingInsulation": 0,
+      "jackets": 1,
+      "workLength": 0.1
+    },
+    {
+      "id": "FS-NP24-0617-13",
+      "fits": [
+        {
+          "side": 1,
+          "aspect": 1.64,
+          "xMax": 0.23506264702378232,
+          "yMax": 0.2565902066103158,
+          "preservedSmall": false,
+          "distance": 2.4442790348076056
+        },
+        {
+          "side": 1,
+          "aspect": 2.17,
+          "xMax": 0.17765103277373412,
+          "yMax": 0.2565902066103158,
+          "preservedSmall": false,
+          "distance": 2.4442790348076056
+        },
+        {
+          "side": 1,
+          "aspect": 1,
+          "xMax": 0.279652017462664,
+          "yMax": 0.18522905413941212,
+          "preservedSmall": false,
+          "distance": 3.2997766969902673
+        },
+        {
+          "side": 1,
+          "aspect": 0.82,
+          "xMax": 0.276708980422272,
+          "yMax": 0.1499252873540363,
+          "preservedSmall": false,
+          "distance": 4.024117923158863
+        },
+        {
+          "side": -1,
+          "aspect": 1.64,
+          "xMax": 0.38553642224601065,
+          "yMax": 0.49212153281296744,
+          "preservedSmall": false,
+          "distance": 2.388074538200179
+        },
+        {
+          "side": -1,
+          "aspect": 2.17,
+          "xMax": 0.2913731486098882,
+          "yMax": 0.49212153281296744,
+          "preservedSmall": false,
+          "distance": 2.388074538200179
+        },
+        {
+          "side": -1,
+          "aspect": 1,
+          "xMax": 0.45183046451276454,
+          "yMax": 0.35089823642687623,
+          "preservedSmall": false,
+          "distance": 3.223900626570242
+        },
+        {
+          "side": -1,
+          "aspect": 0.82,
+          "xMax": 0.4437779167683609,
+          "yMax": 0.2823055554352613,
+          "preservedSmall": false,
+          "distance": 3.93158612996371
+        }
+      ],
+      "ductBoardPieces": 0,
+      "existingInsulation": 0,
+      "jackets": 1,
+      "workLength": 0.1
+    },
+    {
+      "id": "FS-NP24-0617-14",
+      "fits": [
+        {
+          "side": 1,
+          "aspect": 1.64,
+          "xMax": 0.2642112984672997,
+          "yMax": 0.2793854047274952,
+          "preservedSmall": false,
+          "distance": 2.4442790348076056
+        },
+        {
+          "side": 1,
+          "aspect": 2.17,
+          "xMax": 0.1996804283347334,
+          "yMax": 0.2793854047274952,
+          "preservedSmall": false,
+          "distance": 2.4442790348076056
+        },
+        {
+          "side": 1,
+          "aspect": 1,
+          "xMax": 0.31367699389703063,
+          "yMax": 0.20097456929194707,
+          "preservedSmall": false,
+          "distance": 3.2997766969902673
+        },
+        {
+          "side": 1,
+          "aspect": 0.82,
+          "xMax": 0.3100549213002209,
+          "yMax": 0.16238695838728237,
+          "preservedSmall": false,
+          "distance": 4.024117923158863
+        },
+        {
+          "side": -1,
+          "aspect": 1.64,
+          "xMax": 0.4426701422358242,
+          "yMax": 0.5625405079967523,
+          "preservedSmall": false,
+          "distance": 2.388074538200179
+        },
+        {
+          "side": -1,
+          "aspect": 2.17,
+          "xMax": 0.3345525498925123,
+          "yMax": 0.5625405079967523,
+          "preservedSmall": false,
+          "distance": 2.388074538200179
+        },
+        {
+          "side": -1,
+          "aspect": 1,
+          "xMax": 0.5153505887036001,
+          "yMax": 0.398010203918185,
+          "preservedSmall": false,
+          "distance": 3.223900626570242
+        },
+        {
+          "side": -1,
+          "aspect": 0.82,
+          "xMax": 0.5045367241940231,
+          "yMax": 0.3190110845968178,
+          "preservedSmall": false,
+          "distance": 3.93158612996371
+        }
+      ],
+      "ductBoardPieces": 0,
+      "existingInsulation": 0,
+      "jackets": 1,
+      "workLength": 0.1
+    },
+    {
+      "id": "FS-NP25-0224-01",
+      "fits": [
+        {
+          "side": 1,
+          "aspect": 1.64,
+          "xMax": 0.3487514324771661,
+          "yMax": 0.8399999999999996,
+          "preservedSmall": false,
+          "distance": 2.6893289881892444
+        },
+        {
+          "side": 1,
+          "aspect": 2.17,
+          "xMax": 0.2635725111808997,
+          "yMax": 0.8399999999999996,
+          "preservedSmall": false,
+          "distance": 2.6893289881892444
+        },
+        {
+          "side": 1,
+          "aspect": 1,
+          "xMax": 0.45654187653317435,
+          "yMax": 0.6900220595609377,
+          "preservedSmall": false,
+          "distance": 3.2997766969902678
+        },
+        {
+          "side": 1,
+          "aspect": 0.82,
+          "xMax": 0.44920487974560913,
+          "yMax": 0.5693923085132695,
+          "preservedSmall": false,
+          "distance": 4.024117923158863
+        },
+        {
+          "side": -1,
+          "aspect": 1.64,
+          "xMax": 0.12481439161966805,
+          "yMax": 0.2050199272620138,
+          "preservedSmall": false,
+          "distance": 2.388074538200179
+        },
+        {
+          "side": -1,
+          "aspect": 2.17,
+          "xMax": 0.09432977062500258,
+          "yMax": 0.2050199272620138,
+          "preservedSmall": false,
+          "distance": 2.388074538200179
+        },
+        {
+          "side": -1,
+          "aspect": 1,
+          "xMax": 0.1495774935879138,
+          "yMax": 0.1535516131061469,
+          "preservedSmall": false,
+          "distance": 3.223900626570242
+        },
+        {
+          "side": -1,
+          "aspect": 0.82,
+          "xMax": 0.14854519691833717,
+          "yMax": 0.12663491885510994,
+          "preservedSmall": false,
+          "distance": 3.9315861299637094
+        }
+      ],
+      "ductBoardPieces": 0,
+      "existingInsulation": 0,
+      "jackets": 0,
+      "workLength": 0.3
+    },
+    {
+      "id": "FS-NP25-0224-02",
+      "fits": [
+        {
+          "side": 1,
+          "aspect": 1.64,
+          "xMax": 0.37460327817760963,
+          "yMax": 0.8399999999999995,
+          "preservedSmall": false,
+          "distance": 2.712577044030332
+        },
+        {
+          "side": 1,
+          "aspect": 2.17,
+          "xMax": 0.2831103116181013,
+          "yMax": 0.8399999999999995,
+          "preservedSmall": false,
+          "distance": 2.712577044030332
+        },
+        {
+          "side": 1,
+          "aspect": 1,
+          "xMax": 0.4943882162273664,
+          "yMax": 0.6969049704130607,
+          "preservedSmall": false,
+          "distance": 3.2997766969902678
+        },
+        {
+          "side": 1,
+          "aspect": 0.82,
+          "xMax": 0.4858788398903503,
+          "yMax": 0.575889282782471,
+          "preservedSmall": false,
+          "distance": 4.024117923158863
+        },
+        {
+          "side": -1,
+          "aspect": 1.64,
+          "xMax": 0.153108986611619,
+          "yMax": 0.21777078760991242,
+          "preservedSmall": false,
+          "distance": 2.388074538200179
+        },
+        {
+          "side": -1,
+          "aspect": 2.17,
+          "xMax": 0.11571370416730653,
+          "yMax": 0.21777078760991242,
+          "preservedSmall": false,
+          "distance": 2.388074538200179
+        },
+        {
+          "side": -1,
+          "aspect": 1,
+          "xMax": 0.1831037070050475,
+          "yMax": 0.16356655741950415,
+          "preservedSmall": false,
+          "distance": 3.223900626570242
+        },
+        {
+          "side": -1,
+          "aspect": 0.82,
+          "xMax": 0.18164948679342233,
+          "yMax": 0.13509575872049848,
+          "preservedSmall": false,
+          "distance": 3.9315861299637094
+        }
+      ],
+      "ductBoardPieces": 0,
+      "existingInsulation": 0,
+      "jackets": 0,
+      "workLength": 0.3
+    },
+    {
+      "id": "FS-NP25-0224-03",
+      "fits": [
+        {
+          "side": 1,
+          "aspect": 1.64,
+          "xMax": 0.3460583025202767,
+          "yMax": 0.6240149848348907,
+          "preservedSmall": false,
+          "distance": 2.4442790348076056
+        },
+        {
+          "side": 1,
+          "aspect": 2.17,
+          "xMax": 0.26153715029182206,
+          "yMax": 0.6240149848348907,
+          "preservedSmall": false,
+          "distance": 2.4442790348076056
+        },
+        {
+          "side": 1,
+          "aspect": 1,
+          "xMax": 0.4051262813093399,
+          "yMax": 0.4532796614257904,
+          "preservedSmall": false,
+          "distance": 3.2997766969902673
+        },
+        {
+          "side": 1,
+          "aspect": 0.82,
+          "xMax": 0.3976969485597858,
+          "yMax": 0.3680230990113522,
+          "preservedSmall": false,
+          "distance": 4.024117923158863
+        },
+        {
+          "side": -1,
+          "aspect": 1.64,
+          "xMax": 0.18291308969628187,
+          "yMax": 0.21278028610975366,
+          "preservedSmall": false,
+          "distance": 2.388074538200179
+        },
+        {
+          "side": -1,
+          "aspect": 2.17,
+          "xMax": 0.1382384641022591,
+          "yMax": 0.21278028610975366,
+          "preservedSmall": false,
+          "distance": 2.388074538200179
+        },
+        {
+          "side": -1,
+          "aspect": 1,
+          "xMax": 0.21845429251169346,
+          "yMax": 0.15456224087215484,
+          "preservedSmall": false,
+          "distance": 3.223900626570242
+        },
+        {
+          "side": -1,
+          "aspect": 0.82,
+          "xMax": 0.21657397770552053,
+          "yMax": 0.12549102075418925,
+          "preservedSmall": false,
+          "distance": 3.93158612996371
+        }
+      ],
+      "ductBoardPieces": 0,
+      "existingInsulation": 0,
+      "jackets": 0,
+      "workLength": 0.3
+    },
+    {
+      "id": "FS-NP25-0224-04",
+      "fits": [
+        {
+          "side": 1,
+          "aspect": 1.64,
+          "xMax": 0.3831818545581191,
+          "yMax": 0.738586504377965,
+          "preservedSmall": false,
+          "distance": 2.4442790348076056
+        },
+        {
+          "side": 1,
+          "aspect": 2.17,
+          "xMax": 0.28959365966604395,
+          "yMax": 0.738586504377965,
+          "preservedSmall": false,
+          "distance": 2.4442790348076056
+        },
+        {
+          "side": 1,
+          "aspect": 1,
+          "xMax": 0.4456351291280222,
+          "yMax": 0.5368112923014146,
+          "preservedSmall": false,
+          "distance": 3.2997766969902673
+        },
+        {
+          "side": 1,
+          "aspect": 0.82,
+          "xMax": 0.4360671741304722,
+          "yMax": 0.435968298186824,
+          "preservedSmall": false,
+          "distance": 4.024117923158863
+        },
+        {
+          "side": -1,
+          "aspect": 1.64,
+          "xMax": 0.21202655640845086,
+          "yMax": 0.23291083231615417,
+          "preservedSmall": false,
+          "distance": 2.388074538200179
+        },
+        {
+          "side": -1,
+          "aspect": 2.17,
+          "xMax": 0.16024126843772324,
+          "yMax": 0.23291083231615417,
+          "preservedSmall": false,
+          "distance": 2.388074538200179
+        },
+        {
+          "side": -1,
+          "aspect": 1,
+          "xMax": 0.25268580101354704,
+          "yMax": 0.16858340606547065,
+          "preservedSmall": false,
+          "distance": 3.223900626570242
+        },
+        {
+          "side": -1,
+          "aspect": 0.82,
+          "xMax": 0.25024390137385,
+          "yMax": 0.1366323985478767,
+          "preservedSmall": false,
+          "distance": 3.93158612996371
+        }
+      ],
+      "ductBoardPieces": 0,
+      "existingInsulation": 0,
+      "jackets": 0,
+      "workLength": 0.45
+    },
+    {
+      "id": "FS-NP25-0224-05",
+      "fits": [
+        {
+          "side": 1,
+          "aspect": 1.64,
+          "xMax": 0.4114693159028515,
+          "yMax": 0.6380331925132394,
+          "preservedSmall": false,
+          "distance": 2.4442790348076056
+        },
+        {
+          "side": 1,
+          "aspect": 2.17,
+          "xMax": 0.310972201880496,
+          "yMax": 0.6380331925132394,
+          "preservedSmall": false,
+          "distance": 2.4442790348076056
+        },
+        {
+          "side": 1,
+          "aspect": 1,
+          "xMax": 0.4811288012702075,
+          "yMax": 0.4602695210319084,
+          "preservedSmall": false,
+          "distance": 3.2997766969902673
+        },
+        {
+          "side": 1,
+          "aspect": 0.82,
+          "xMax": 0.47203235903577234,
+          "yMax": 0.37241710076102924,
+          "preservedSmall": false,
+          "distance": 4.024117923158863
+        },
+        {
+          "side": -1,
+          "aspect": 1.64,
+          "xMax": 0.44503970900563833,
+          "yMax": 0.6025875719545002,
+          "preservedSmall": false,
+          "distance": 2.388074538200179
+        },
+        {
+          "side": -1,
+          "aspect": 2.17,
+          "xMax": 0.3363433745480401,
+          "yMax": 0.6025875719545002,
+          "preservedSmall": false,
+          "distance": 2.388074538200179
+        },
+        {
+          "side": -1,
+          "aspect": 1,
+          "xMax": 0.5173058114610171,
+          "yMax": 0.42701338568599495,
+          "preservedSmall": false,
+          "distance": 3.223900626570242
+        },
+        {
+          "side": -1,
+          "aspect": 0.82,
+          "xMax": 0.5060722789016553,
+          "yMax": 0.3425156157586257,
+          "preservedSmall": false,
+          "distance": 3.93158612996371
+        }
+      ],
+      "ductBoardPieces": 0,
+      "existingInsulation": 0,
+      "jackets": 1,
+      "workLength": 0.25
+    },
+    {
+      "id": "FS-MP25-0224-06",
+      "fits": [
+        {
+          "side": 1,
+          "aspect": 1.64,
+          "xMax": 0.5307094331900871,
+          "yMax": 0.6141562366447253,
+          "preservedSmall": false,
+          "distance": 7.106379176486433
+        },
+        {
+          "side": 1,
+          "aspect": 2.17,
+          "xMax": 0.40108915688098745,
+          "yMax": 0.6141562366447253,
+          "preservedSmall": false,
+          "distance": 7.106379176486433
+        },
+        {
+          "side": 1,
+          "aspect": 1,
+          "xMax": 0.6376984746318303,
+          "yMax": 0.4337469060137897,
+          "preservedSmall": false,
+          "distance": 9.593611888256687
+        },
+        {
+          "side": 1,
+          "aspect": 0.82,
+          "xMax": 0.634149769505279,
+          "yMax": 0.34735420273801765,
+          "preservedSmall": false,
+          "distance": 11.69952669299596
+        },
+        {
+          "side": -1,
+          "aspect": 1.64,
+          "xMax": 0.5256179767441939,
+          "yMax": 0.5974156041276176,
+          "preservedSmall": false,
+          "distance": 7.106379176486433
+        },
+        {
+          "side": -1,
+          "aspect": 2.17,
+          "xMax": 0.3972412358804046,
+          "yMax": 0.5974156041276176,
+          "preservedSmall": false,
+          "distance": 7.106379176486433
+        },
+        {
+          "side": -1,
+          "aspect": 1,
+          "xMax": 0.629587479931588,
+          "yMax": 0.42356211593542875,
+          "preservedSmall": false,
+          "distance": 9.593611888256687
+        },
+        {
+          "side": -1,
+          "aspect": 0.82,
+          "xMax": 0.6250860417669656,
+          "yMax": 0.3398298649395442,
+          "preservedSmall": false,
+          "distance": 11.69952669299596
+        }
+      ],
+      "ductBoardPieces": 20,
+      "existingInsulation": 0,
+      "jackets": 0,
+      "workLength": 1
+    },
+    {
+      "id": "FS-MP25-0625-02",
+      "fits": [
+        {
+          "side": 1,
+          "aspect": 1.64,
+          "xMax": 0.6933102826864707,
+          "yMax": 0.84,
+          "preservedSmall": false,
+          "distance": 3.8674669610310985
+        },
+        {
+          "side": 1,
+          "aspect": 2.17,
+          "xMax": 0.523976434841388,
+          "yMax": 0.84,
+          "preservedSmall": false,
+          "distance": 3.8674669610310985
+        },
+        {
+          "side": 1,
+          "aspect": 1,
+          "xMax": 0.8600000000000007,
+          "yMax": 0.60992780449775,
+          "preservedSmall": false,
+          "distance": 4.914587605340829
+        },
+        {
+          "side": 1,
+          "aspect": 0.82,
+          "xMax": 0.8600000000000003,
+          "yMax": 0.4892068853741083,
+          "preservedSmall": false,
+          "distance": 5.858000577429696
+        },
+        {
+          "side": -1,
+          "aspect": 1.64,
+          "xMax": 0.6827947335084107,
+          "yMax": 0.8399999999999994,
+          "preservedSmall": false,
+          "distance": 3.7245712437965577
+        },
+        {
+          "side": -1,
+          "aspect": 2.17,
+          "xMax": 0.5160291995178772,
+          "yMax": 0.8399999999999994,
+          "preservedSmall": false,
+          "distance": 3.7245712437965577
+        },
+        {
+          "side": -1,
+          "aspect": 1,
+          "xMax": 0.8600000000000004,
+          "yMax": 0.6199608071931954,
+          "preservedSmall": false,
+          "distance": 4.687558554155874
+        },
+        {
+          "side": -1,
+          "aspect": 0.82,
+          "xMax": 0.8600000000000001,
+          "yMax": 0.4968201907840555,
+          "preservedSmall": false,
+          "distance": 5.598733759258058
+        }
+      ],
+      "ductBoardPieces": 0,
+      "existingInsulation": 0,
+      "jackets": 0,
+      "workLength": 1.6
+    },
+    {
+      "id": "FS-MP25-1218-13",
+      "fits": [
+        {
+          "side": 1,
+          "aspect": 1.64,
+          "xMax": 0.7803483724677878,
+          "yMax": 0.8399999999999999,
+          "preservedSmall": false,
+          "distance": 5.900298921654913
+        },
+        {
+          "side": 1,
+          "aspect": 2.17,
+          "xMax": 0.5897563736622912,
+          "yMax": 0.8399999999999999,
+          "preservedSmall": false,
+          "distance": 5.900298921654913
+        },
+        {
+          "side": 1,
+          "aspect": 1,
+          "xMax": 0.8599999999999998,
+          "yMax": 0.5304045438593726,
+          "preservedSmall": false,
+          "distance": 8.20596742954923
+        },
+        {
+          "side": 1,
+          "aspect": 0.82,
+          "xMax": 0.8600000000000003,
+          "yMax": 0.4254614694453281,
+          "preservedSmall": false,
+          "distance": 9.74900010646785
+        },
+        {
+          "side": -1,
+          "aspect": 1.64,
+          "xMax": 0.774327516442002,
+          "yMax": 0.8399999999999997,
+          "preservedSmall": false,
+          "distance": 5.757403204420372
+        },
+        {
+          "side": -1,
+          "aspect": 2.17,
+          "xMax": 0.5852060492925729,
+          "yMax": 0.8399999999999997,
+          "preservedSmall": false,
+          "distance": 5.757403204420372
+        },
+        {
+          "side": -1,
+          "aspect": 1,
+          "xMax": 0.8599999999999999,
+          "yMax": 0.5345303989528419,
+          "preservedSmall": false,
+          "distance": 7.978938378364273
+        },
+        {
+          "side": -1,
+          "aspect": 0.82,
+          "xMax": 0.8600000000000001,
+          "yMax": 0.4285466778740641,
+          "preservedSmall": false,
+          "distance": 9.489733288296213
+        }
+      ],
+      "ductBoardPieces": 0,
+      "existingInsulation": 0,
+      "jackets": 0,
+      "workLength": 3.2
+    },
+    {
+      "id": "FS-MP25-0625-01",
+      "fits": [
+        {
+          "side": 1,
+          "aspect": 1.64,
+          "xMax": 0.6606559343691126,
+          "yMax": 0.8399999999999999,
+          "preservedSmall": false,
+          "distance": 4.0727964589069545
+        },
+        {
+          "side": 1,
+          "aspect": 2.17,
+          "xMax": 0.4992975725185921,
+          "yMax": 0.8399999999999999,
+          "preservedSmall": false,
+          "distance": 4.0727964589069545
+        },
+        {
+          "side": 1,
+          "aspect": 1,
+          "xMax": 0.837949089172284,
+          "yMax": 0.6199881136839829,
+          "preservedSmall": false,
+          "distance": 5.189869928350061
+        },
+        {
+          "side": 1,
+          "aspect": 0.82,
+          "xMax": 0.8300572199996713,
+          "yMax": 0.48929064898556046,
+          "preservedSmall": false,
+          "distance": 6.329109668719585
+        },
+        {
+          "side": -1,
+          "aspect": 1.64,
+          "xMax": 0.6511695352245426,
+          "yMax": 0.8400000000000001,
+          "preservedSmall": false,
+          "distance": 3.9299007416724145
+        },
+        {
+          "side": -1,
+          "aspect": 2.17,
+          "xMax": 0.49212812800380173,
+          "yMax": 0.8400000000000001,
+          "preservedSmall": false,
+          "distance": 3.9299007416724145
+        },
+        {
+          "side": -1,
+          "aspect": 1,
+          "xMax": 0.799328276333221,
+          "yMax": 0.5964227592361606,
+          "preservedSmall": false,
+          "distance": 5.189869928350061
+        },
+        {
+          "side": -1,
+          "aspect": 0.82,
+          "xMax": 0.7941859327145115,
+          "yMax": 0.47253088525288395,
+          "preservedSmall": false,
+          "distance": 6.329109668719585
+        }
+      ],
+      "ductBoardPieces": 0,
+      "existingInsulation": 0,
+      "jackets": 0,
+      "workLength": 1
+    },
+    {
+      "id": "FS-NP25-0625-05",
+      "fits": [
+        {
+          "side": 1,
+          "aspect": 1.64,
+          "xMax": 0.5154034478580446,
+          "yMax": 0.4646562622241116,
+          "preservedSmall": false,
+          "distance": 4.59681213016151
+        },
+        {
+          "side": 1,
+          "aspect": 2.17,
+          "xMax": 0.3895214997636835,
+          "yMax": 0.4646562622241116,
+          "preservedSmall": false,
+          "distance": 4.59681213016151
+        },
+        {
+          "side": 1,
+          "aspect": 1,
+          "xMax": 0.6296052158219247,
+          "yMax": 0.3293135880075034,
+          "preservedSmall": false,
+          "distance": 6.205696375718039
+        },
+        {
+          "side": 1,
+          "aspect": 0.82,
+          "xMax": 0.6314128980102297,
+          "yMax": 0.26416528827911634,
+          "preservedSmall": false,
+          "distance": 7.567922409412242
+        },
+        {
+          "side": -1,
+          "aspect": 1.64,
+          "xMax": 0.5217926839168835,
+          "yMax": 0.3914607547084499,
+          "preservedSmall": false,
+          "distance": 4.59681213016151
+        },
+        {
+          "side": -1,
+          "aspect": 2.17,
+          "xMax": 0.39435023116299034,
+          "yMax": 0.3914607547084499,
+          "preservedSmall": false,
+          "distance": 4.59681213016151
+        },
+        {
+          "side": -1,
+          "aspect": 1,
+          "xMax": 0.6250212747538508,
+          "yMax": 0.2870490519957517,
+          "preservedSmall": false,
+          "distance": 6.205696375718039
+        },
+        {
+          "side": -1,
+          "aspect": 0.82,
+          "xMax": 0.6205603557587358,
+          "yMax": 0.23983805089930935,
+          "preservedSmall": false,
+          "distance": 7.567922409412242
+        }
+      ],
+      "ductBoardPieces": 0,
+      "existingInsulation": 0,
+      "jackets": 4,
+      "workLength": 0.1
+    },
+    {
+      "id": "FS-NP25-0625-04",
+      "fits": [
+        {
+          "side": 1,
+          "aspect": 1.64,
+          "xMax": 0.5812493061797059,
+          "yMax": 0.5346114874717693,
+          "preservedSmall": false,
+          "distance": 4.3450432679088475
+        },
+        {
+          "side": 1,
+          "aspect": 2.17,
+          "xMax": 0.43928518992383303,
+          "yMax": 0.5346114874717693,
+          "preservedSmall": false,
+          "distance": 4.3450432679088475
+        },
+        {
+          "side": 1,
+          "aspect": 1,
+          "xMax": 0.6881320377906297,
+          "yMax": 0.38070708435969186,
+          "preservedSmall": false,
+          "distance": 5.865808411676945
+        },
+        {
+          "side": 1,
+          "aspect": 0.82,
+          "xMax": 0.6792379619756546,
+          "yMax": 0.30609718267532293,
+          "preservedSmall": false,
+          "distance": 7.1534248922889585
+        },
+        {
+          "side": -1,
+          "aspect": 1.64,
+          "xMax": 0.5812493061797058,
+          "yMax": 0.5346114874717696,
+          "preservedSmall": false,
+          "distance": 4.3450432679088475
+        },
+        {
+          "side": -1,
+          "aspect": 2.17,
+          "xMax": 0.439285189923833,
+          "yMax": 0.5346114874717696,
+          "preservedSmall": false,
+          "distance": 4.3450432679088475
+        },
+        {
+          "side": -1,
+          "aspect": 1,
+          "xMax": 0.6881320377906296,
+          "yMax": 0.3807070843596919,
+          "preservedSmall": false,
+          "distance": 5.8658084116769444
+        },
+        {
+          "side": -1,
+          "aspect": 0.82,
+          "xMax": 0.6792379619756546,
+          "yMax": 0.30609718267532304,
+          "preservedSmall": false,
+          "distance": 7.153424892288958
+        }
+      ],
+      "ductBoardPieces": 0,
+      "existingInsulation": 0,
+      "jackets": 8,
+      "workLength": 0.1
+    },
+    {
+      "id": "FS-MP25-0625-03",
+      "fits": [
+        {
+          "side": 1,
+          "aspect": 1.64,
+          "xMax": 0.7043028574048313,
+          "yMax": 0.8400000000000001,
+          "preservedSmall": false,
+          "distance": 3.921038087492667
+        },
+        {
+          "side": 1,
+          "aspect": 2.17,
+          "xMax": 0.5322841871630983,
+          "yMax": 0.8400000000000001,
+          "preservedSmall": false,
+          "distance": 3.921038087492667
+        },
+        {
+          "side": 1,
+          "aspect": 1,
+          "xMax": 0.8599999999999998,
+          "yMax": 0.5970095113720587,
+          "preservedSmall": false,
+          "distance": 5.077782886184394
+        },
+        {
+          "side": 1,
+          "aspect": 0.82,
+          "xMax": 0.8600000000000002,
+          "yMax": 0.4781507236654359,
+          "preservedSmall": false,
+          "distance": 6.071800422121105
+        },
+        {
+          "side": -1,
+          "aspect": 1.64,
+          "xMax": 0.8103148099272599,
+          "yMax": 0.8180663826335176,
+          "preservedSmall": false,
+          "distance": 2.6110867488461578
+        },
+        {
+          "side": -1,
+          "aspect": 2.17,
+          "xMax": 0.6124038194841964,
+          "yMax": 0.8180663826335176,
+          "preservedSmall": false,
+          "distance": 2.6110867488461578
+        },
+        {
+          "side": -1,
+          "aspect": 1,
+          "xMax": 0.8600000000000002,
+          "yMax": 0.4938698328898406,
+          "preservedSmall": false,
+          "distance": 4.121363618534568
+        },
+        {
+          "side": -1,
+          "aspect": 0.82,
+          "xMax": 0.86,
+          "yMax": 0.3961937163775318,
+          "preservedSmall": false,
+          "distance": 5.060908497367911
+        }
+      ],
+      "ductBoardPieces": 0,
+      "existingInsulation": 0,
+      "jackets": 0,
+      "workLength": 0.6
+    },
+    {
+      "id": "FS-OS25-0513-01",
+      "fits": [
+        {
+          "side": 1,
+          "aspect": 1.64,
+          "xMax": 0.5883526095679925,
+          "yMax": 0.8011140536534943,
+          "preservedSmall": false,
+          "distance": 1.6243152403397565
+        },
+        {
+          "side": 1,
+          "aspect": 2.17,
+          "xMax": 0.444653585111294,
+          "yMax": 0.8011140536534943,
+          "preservedSmall": false,
+          "distance": 1.6243152403397565
+        },
+        {
+          "side": 1,
+          "aspect": 1,
+          "xMax": 0.6530769213196236,
+          "yMax": 0.534602494931588,
+          "preservedSmall": false,
+          "distance": 2.1928255744586713
+        },
+        {
+          "side": 1,
+          "aspect": 0.82,
+          "xMax": 0.6253316758438664,
+          "yMax": 0.41711283865342225,
+          "preservedSmall": false,
+          "distance": 2.674177529827648
+        },
+        {
+          "side": -1,
+          "aspect": 1.64,
+          "xMax": 0.49100307011655425,
+          "yMax": 0.7034124543485669,
+          "preservedSmall": false,
+          "distance": 1.6243152403397565
+        },
+        {
+          "side": -1,
+          "aspect": 2.17,
+          "xMax": 0.3710806612862438,
+          "yMax": 0.7034124543485669,
+          "preservedSmall": false,
+          "distance": 1.6243152403397565
+        },
+        {
+          "side": -1,
+          "aspect": 1,
+          "xMax": 0.5563332189666156,
+          "yMax": 0.4798193390127683,
+          "preservedSmall": false,
+          "distance": 2.1928255744586713
+        },
+        {
+          "side": -1,
+          "aspect": 0.82,
+          "xMax": 0.5377211661979592,
+          "yMax": 0.3780675316207007,
+          "preservedSmall": false,
+          "distance": 2.674177529827648
+        }
+      ],
+      "ductBoardPieces": 0,
+      "existingInsulation": 0,
+      "jackets": 0,
+      "workLength": 0.7
+    },
+    {
+      "id": "FS-MP26-0507-14",
+      "fits": [
+        {
+          "side": 1,
+          "aspect": 1.64,
+          "xMax": 0.4857058096925243,
+          "yMax": 0.47211459224595914,
+          "preservedSmall": false,
+          "distance": 7.106379176486433
+        },
+        {
+          "side": 1,
+          "aspect": 2.17,
+          "xMax": 0.36707720179527187,
+          "yMax": 0.47211459224595914,
+          "preservedSmall": false,
+          "distance": 7.106379176486433
+        },
+        {
+          "side": 1,
+          "aspect": 1,
+          "xMax": 0.5860769521583264,
+          "yMax": 0.3335849210772648,
+          "preservedSmall": false,
+          "distance": 9.593611888256687
+        },
+        {
+          "side": 1,
+          "aspect": 0.82,
+          "xMax": 0.5840581545950579,
+          "yMax": 0.26720162022904054,
+          "preservedSmall": false,
+          "distance": 11.69952669299596
+        },
+        {
+          "side": -1,
+          "aspect": 1.64,
+          "xMax": 0.4798550063537752,
+          "yMax": 0.4455245843250663,
+          "preservedSmall": false,
+          "distance": 7.106379176486433
+        },
+        {
+          "side": -1,
+          "aspect": 2.17,
+          "xMax": 0.3626553965070006,
+          "yMax": 0.4455245843250663,
+          "preservedSmall": false,
+          "distance": 7.106379176486433
+        },
+        {
+          "side": -1,
+          "aspect": 1,
+          "xMax": 0.5773404844665405,
+          "yMax": 0.3159479066675437,
+          "preservedSmall": false,
+          "distance": 9.593611888256687
+        },
+        {
+          "side": -1,
+          "aspect": 0.82,
+          "xMax": 0.5745049278876109,
+          "yMax": 0.2535185008261603,
+          "preservedSmall": false,
+          "distance": 11.69952669299596
+        }
+      ],
+      "ductBoardPieces": 0,
+      "existingInsulation": 0,
+      "jackets": 0,
+      "workLength": 1
+    },
+    {
+      "id": "FS-MP26-0507-15",
+      "fits": [
+        {
+          "side": 1,
+          "aspect": 1.64,
+          "xMax": 0.5361043034416967,
+          "yMax": 0.8400000000000004,
+          "preservedSmall": false,
+          "distance": 7.431684325020288
+        },
+        {
+          "side": 1,
+          "aspect": 2.17,
+          "xMax": 0.4051663860112362,
+          "yMax": 0.8400000000000004,
+          "preservedSmall": false,
+          "distance": 7.431684325020288
+        },
+        {
+          "side": 1,
+          "aspect": 1,
+          "xMax": 0.7412825707515406,
+          "yMax": 0.7242165096346699,
+          "preservedSmall": false,
+          "distance": 8.612600598106244
+        },
+        {
+          "side": 1,
+          "aspect": 0.82,
+          "xMax": 0.7225372719911235,
+          "yMax": 0.5932947805849137,
+          "preservedSmall": false,
+          "distance": 10.503171461105174
+        },
+        {
+          "side": -1,
+          "aspect": 1.64,
+          "xMax": 0.6966701477847944,
+          "yMax": 0.32380452611022487,
+          "preservedSmall": false,
+          "distance": 4.561592375475915
+        },
+        {
+          "side": -1,
+          "aspect": 2.17,
+          "xMax": 0.526515687726757,
+          "yMax": 0.32380452611022487,
+          "preservedSmall": false,
+          "distance": 4.561592375475915
+        },
+        {
+          "side": -1,
+          "aspect": 1,
+          "xMax": 0.8288796610686926,
+          "yMax": 0.22184373244555172,
+          "preservedSmall": false,
+          "distance": 6.158149706892486
+        },
+        {
+          "side": -1,
+          "aspect": 0.82,
+          "xMax": 0.8201847791593333,
+          "yMax": 0.17514777420884015,
+          "preservedSmall": false,
+          "distance": 7.509938666942057
+        }
+      ],
+      "ductBoardPieces": 0,
+      "existingInsulation": 0,
+      "jackets": 0,
+      "workLength": 2.26
+    }
+  ]
+}
