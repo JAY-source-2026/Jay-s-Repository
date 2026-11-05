@@ -1,0 +1,26 @@
+{
+  "passed": true,
+  "base": "https://jay-source-2026.github.io/Jay-s-Repository/company-site/",
+  "release": {
+    "source_commit": "a620c16f764788346524476d6be834c8576630eb",
+    "site": "company-site",
+    "files": 292,
+    "original_documents": "private source folders excluded; approved firestop and fireproof certificate copies included",
+    "published_firestop_certificates": 60,
+    "published_fireproof_certificates": 1
+  },
+  "certificates": 60,
+  "shutterPhotos": 4,
+  "captionAndSealant": true,
+  "largePipeDistance": 5.569308305194822,
+  "ductInitialAndSplitBoards": true,
+  "existingInsulation": true,
+  "jacket": true,
+  "privateDocumentFallback": true,
+  "mobile": {
+    "overflow": false,
+    "overlap": false
+  },
+  "errors": [],
+  "bad": []
+}

@@ -1,0 +1,10 @@
+{
+  "status": "built",
+  "commit": "1941dd3635af3e4eba0ff8929dd90d17ca4c4b85",
+  "created_at": "2026-11-05T08:41:32Z",
+  "updated_at": "2026-11-05T08:42:28Z",
+  "duration": 56697,
+  "error": {
+    "message": null
+  }
+}

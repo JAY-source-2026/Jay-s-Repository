@@ -1,0 +1,25 @@
+{
+  "passed": true,
+  "source_commit": "a620c16f764788346524476d6be834c8576630eb",
+  "package_files": 294,
+  "checked_references": 266,
+  "changed_runtime_files": [
+    "company-site/index.html",
+    "company-site/release.json",
+    "company-site/assets/js/installation-tools.js",
+    "company-site/assets/js/site-context.js",
+    "company-site/assets/js/assemblies.js",
+    "company-site/assets/js/installation-view.js",
+    "company-site/assets/js/installation-motion.js",
+    "company-site/assets/js/explorer.js",
+    "company-site/assets/js/hero3d.js",
+    "company-site/assets/js/systems.js",
+    "company-site/assets/js/installation-jacket.js",
+    "company-site/assets/js/factory.js",
+    "company-site/assets/css/home.css"
+  ],
+  "unchanged_package_files": 281,
+  "certificate_pdfs_preserved": 61,
+  "images_preserved": 144,
+  "all_other_deployed_files_preserved": true
+}
