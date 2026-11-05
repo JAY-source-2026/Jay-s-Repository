@@ -47,7 +47,7 @@
 .signature-showcase { min-width: 0; }
 .signature-stage { position: relative; height: calc(clamp(420px, 36vw, 550px) - 48px); }
 .signature-slide { margin: 0; position: absolute; inset: 0; display: flex; flex-direction: column; opacity: 0; visibility: hidden; pointer-events: none; transition: opacity .35s ease, visibility .35s; }
-.signature-slide.is-active { opacity: 1; visibility: visible; pointer-events: auto; }
+.signature-slide.is-active { opacity: 1; visibility: visible; pointer-events: auto; transition: opacity .35s ease, visibility 0s; }
 /* The opening pair becomes one centered product after an explicit selection. */
 .signature-products { position: absolute; inset: 22px -8px 30px; isolation: isolate; perspective: 1100px; }
 .signature-products::before { content: ''; position: absolute; z-index: -1; inset: 15% -6% -13%; background: radial-gradient(ellipse closest-side at 50% 65%, #31597955, #142b4333 50%, transparent 100%); pointer-events: none; }
@@ -68,6 +68,18 @@
 .signature-products[data-focus] .signature-product-target:not(.is-focused) .signature-product { opacity: .86; }
 .signature-products[data-mode=single] .signature-product-target.is-focused .signature-product { transform: none; }
 .signature-products.is-rolling .signature-product-target { will-change: transform, opacity; }
+/* Site photographs use the same orbit, with room for the full photo. */
+.signature-shutter-photos { inset: 12px 0 48px; }
+.signature-shutter-photos .signature-product-target { width: 90%; align-items: center; }
+.signature-shutter-photos .signature-product-target::after { display: none; }
+.signature-shutter-photos .signature-product { height: 100%; object-position: center; }
+.signature-shutter-photos:not(.is-ready) .signature-product-target { left: 50%; transform: translateX(-50%); }
+.signature-shutter-photos:not(.is-ready) .signature-product-target:not(:first-child) { opacity: 0; }
+.signature-media-actions { position: absolute; left: 0; right: 0; bottom: 4px; height: 40px; display: flex; align-items: center; justify-content: center; }
+.signature-media-actions button { min-height: 40px; padding: 8px 12px; border: 0; background: transparent; color: #b9d9f6; font: inherit; font-size: 12px; cursor: pointer; }
+.signature-media-actions button:hover { color: #fff; }
+.signature-media-actions button span { margin-left: 10px; }
+.signature-shutter-video .signature-video-frame { inset: 8px 0 48px; }
 .signature-video-frame { position: absolute; inset: 0 0 18px; display: grid; place-items: center; background: #030a12; border: 1px solid #ffffff20; box-shadow: 0 24px 70px #0004; }
 .signature-video-frame video { width: 100%; height: 100%; min-height: 0; display: block; object-fit: contain; }
 .signature-video-play { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); padding: 13px 19px; background: #fff; border: 1px solid #b2c2d1; color: #203346; white-space: nowrap; font: inherit; font-size: 13px; cursor: pointer; }
@@ -82,6 +94,9 @@
 .signature-category[data-current=true] .signature-category-trigger::before { transform: scaleX(1); }
 .signature-submenu { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
 #signatureShutterMenu { grid-template-columns: 1fr; }
+@media (min-width: 900px) {
+  #signatureShutterMenu { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
 .signature-submenu button { min-width: 0; min-height: 44px; display: flex; align-items: center; justify-content: space-between; gap: 7px; padding: 9px 11px; border: 1px solid #ffffff25; color: #c0d1df; background: #112437; font: inherit; font-size: 12px; text-align: left; line-height: 1.5; word-break: keep-all; cursor: pointer; transition: color .2s, background .2s, border-color .2s; }
 .signature-submenu button span { color: #8cb4d7; flex-shrink: 0; }
 .signature-submenu button .signature-product-label { color: inherit; flex-shrink: 1; min-width: 0; }
@@ -145,6 +160,8 @@
   .signature-actions a { min-height: 44px; padding: 11px 15px; font-size: 11px; gap: 25px; }
   .signature-stage { height: calc(clamp(235px, 64vw, 380px) - 30px); }
   .signature-products { inset: 12px 0 32px; perspective: 700px; }
+  .signature-shutter-photos { inset: 0 0 48px; }
+  .signature-shutter-photos .signature-product-target { width: 96%; }
   .signature-product-target.is-focused .signature-product { transform: translateY(-9px) scale(1.12); }
   .signature-video-frame { inset: 0 -8px 18px; }
   .signature-categories { gap: 16px; padding-bottom: 22px; }

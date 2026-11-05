@@ -34,7 +34,8 @@ export function buildSiteContext({ T, scene, box, mesh, group, mat, animated, co
   const cut = new T.Shape();
   cut.moveTo(-groundWidth / 2, -5.45); cut.lineTo(groundWidth / 2, -5.45); cut.lineTo(groundWidth / 2, -.55); cut.lineTo(-groundWidth / 2, -.55); cut.closePath();
   const opening = new T.Path();
-  opening.moveTo(-3.5, -4.95); opening.lineTo(-3.5, -1.45); opening.lineTo(3.5, -1.45); opening.lineTo(3.5, -4.95); opening.closePath(); cut.holes.push(opening);
+  // Clearance around the concrete shell prevents coplanar earth/floor flicker.
+  opening.moveTo(-3.53, -5.23); opening.lineTo(-3.53, -1.42); opening.lineTo(3.53, -1.42); opening.lineTo(3.53, -5.23); opening.closePath(); cut.holes.push(opening);
   const earth = mesh(new T.ExtrudeGeometry(cut, { depth: 11.4, bevelEnabled: false }), soil, terrain, 0, 0, -5.2);
   earth.userData.component = 'earth-section';
   box(groundWidth, .09, 11.4, grass, terrain, 0, -.505, .5).userData.component = 'ground-surface';
