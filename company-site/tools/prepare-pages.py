@@ -43,16 +43,17 @@ def public_html(html):
 
 
 def public_explorer(script):
-    marker = "  a.target = '_blank'; a.rel = 'noopener'; return a;"
-    assert script.count(marker) == 1, 'Document-link function changed; review public fallback.'
-    return script.replace(marker, """  // Original PDFs/PPTs are intentionally not part of the public package.
+    marker = re.compile(r"a\.target\s*=\s*['\"]_blank['\"]\s*;\s*a\.rel\s*=\s*['\"]noopener['\"]\s*;\s*return a;")
+    assert len(marker.findall(script)) == 1, 'Document-link function changed; review public fallback.'
+    fallback = """  // Original PDFs/PPTs are intentionally not part of the public package.
   const path = decodeURIComponent(new URL(href, location.href).pathname);
   if (/\\/assets\\/(?:자료|docs)\\//.test(path)) {
     a.href = '#contact'; a.title = '제품·기술자료 문의';
     if (text) a.textContent = text.replace(' ↗', '') + ' 문의 ↓';
     return a;
   }
-""" + marker)
+"""
+    return marker.sub(lambda match: fallback + match.group(0), script, count=1)
 
 
 def main():
@@ -81,7 +82,10 @@ def main():
             if private_url(relative.as_posix()):
                 raise SystemExit('Private source unexpectedly tracked: ' + relative.as_posix())
             # Generated masters and prompts belong to source history, not runtime.
-            if relative.as_posix().startswith('assets/media/hero/') and relative.suffix in ('.png', '.json'):
+            # This uploaded steel-shutter PNG is a displayed product photo.
+            if (relative.as_posix().startswith('assets/media/hero/')
+                    and relative.suffix in ('.png', '.json')
+                    and relative.name != 'shutter-steel-photo.png'):
                 continue
             content = source.extractfile(member).read()
             if is_page:

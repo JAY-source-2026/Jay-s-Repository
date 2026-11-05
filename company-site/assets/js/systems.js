@@ -1,16 +1,8 @@
-// Sources supplied by DOENC. Page numbers below are physical PDF pages (1-based).
-// Recognition applies to each complete specified assembly, not an isolated material.
-const source = name => new URL('../자료/' + name, import.meta.url).href;
-const certificate = path => new URL('../downloads/firestop-certificates/' + path, import.meta.url).href;
+// Certificate records and installation sequences come from the supplied PDFs.
 export const SOURCES = {
-  metal: certificate('metal-pipes/FS-MP23-1103-3.pdf'),
-  polymer: certificate('nonmetal-pipes/FS-NP24-0617-5.pdf'),
-  duct: certificate('metal-ducts/FS-MP25-0224-06.pdf'),
   catalog: new URL('../docs/doenc-catalog-2025-web.pdf', import.meta.url).href,
-  technical: source('3. 내화채움구조 인정제도 기술자료_(주)디오이엔씨 (07.08).pdf'),
-  shutter: source('셔터 영상.mp4'),
-  firewall: source('내화구조 벽체 인정서(FR-WS26-0102-1) - (주)디오이엔씨.pdf'),
-  utilityTunnel: source('공동구(통신구,전력구)방화벽 기술자료.pptx'),
+  firewall: new URL('../downloads/fireproof-certificates/FR-WS26-0102-1.pdf', import.meta.url).href,
+  utilityTunnel: new URL('../자료/공동구(통신구,전력구)방화벽 기술자료.pptx', import.meta.url).href,
 };
 export const MATERIALS = {
   board: { name: '내화채움보드', code: 'SFB-100F', page: 6 },
@@ -19,54 +11,13 @@ export const MATERIALS = {
   blanket: { name: '세라믹섬유블랭킷', code: 'SFI-100', page: 9 },
   band: { name: '내화밴드', code: 'SFBA-120', page: 10 },
 };
+export const CATEGORIES = {
+  metal: {name:'금속배관', en:'METAL PIPE', default:'FS-MP23-1103-3'},
+  polymer: {name:'비금속배관', en:'NON-METAL PIPE', default:'FS-NP24-0617-5'},
+  duct: {name:'금속덕트', en:'METAL DUCT', default:'FS-MP25-0224-06'},
+  bundle: {name:'다발배관', en:'BUNDLED PIPES', default:'FS-MP25-0625-02'},
+};
 export const SYSTEMS = {
-  metal: {
-    routeLabel: "1층 → 슬래브 → 2층",
-    previewDescription: "1층과 2층의 벽체를 연결하는 금속배관입니다. 클릭하면 1층 벽체 앞면의 시공을 확대해 보여드립니다.",
-    instructions: ["배관 외경과 개구부를 확인합니다. 이 장면은 1층 벽체 관통부의 시공입니다.", "SFB-100F 상부 반원형 보드를 먼저 설치합니다. 보드 두께는 8.84 mm 이상입니다.", "하부 반원형 보드를 배관 아래에서 올려 맞춥니다. 한 면에 분할 보드 2장을 사용합니다.", "보드를 나사로 고정하고, 접촉부와 이음매에 SFS-100 실란트를 시공합니다.", "25 mm 블랭킷을 700 mm와 300 mm로 연결해 첫 번째 겹을 시공합니다.", "같은 길이로 두 번째 겹을 감쌉니다. 총 두께는 25 mm × 2겹입니다.", "인정도면에 따라 철선과 테이프로 블랭킷을 고정합니다.", "관통부 주변의 채움과 단열 구조가 화재 확산을 막는 원리를 보여줍니다.", "앞면 시공 완료. 전체 인정구조는 벽체 양면 시공이며 원문 시방서를 참고하세요."],
-    floor: 1, name: '금속배관', en: 'METAL PIPE', code: 'DO-SW400-2H-F', certificate: 'FS-MP23-1103-3',
-    title: '양면의 채움보드, 두 겹의 단열 보호.',
-    description: '공장에서 규격에 맞게 제작된 SFB-100F 보드를 벽체 양면에 설치합니다. 접점과 이음매를 SFS-100으로 마감한 뒤, 은박 세라믹섬유블랭킷을 각 면 1,000 mm 길이로 두 겹 시공하고 철선으로 고정합니다.',
-    materials: ['board', 'sealant', 'blanket'],
-    facts: ['보드 8.84 mm 이상 · 한 면 2장', '블랭킷 25 mm × 2겹 · 양면', '인정서 기재 성능: 차염 2시간'],
-    steps: [ [0, '1층 벽체 관통부 확인'], [1.8, '상부 분할 보드 설치'], [3.1, '하부 분할 보드 설치'], [4.4, '나사 고정 · 이음매 실란트'], [6.8, '블랭킷 1겹 · 700 + 300 mm'], [9.4, '블랭킷 2겹 · 700 + 300 mm'], [12, '철선 · 테이프 마감'], [14.5, '화재차단 원리'], [17, '앞면 시공 완료'] ],
-    drawingPage: 4, specPage: 10, duration: 18,
-  },
-  polymer: {
-    routeLabel: "1층 → 슬래브 → 2층",
-    previewDescription: "1층 벽에서 나와 층간 슬래브를 지나 2층 벽으로 연결됩니다. 클릭하면 앞면 내화자켓 시공을 보여드립니다.",
-    instructions: ["250A 배관 외경 267 mm 이하, 개구부 277 mm 이하를 확인합니다.", "SFBA-200 내화자켓을 배관 둘레에 감쌉니다. 벽체 양면에 각각 1개를 설치합니다.", "자켓의 고리를 체결하고 벽체에 밀착시킵니다.", "L형 브라켓 12개를 벽체 방향으로 배치해 앞면을 고정합니다.", "열에 의해 관이 연화되고 내부 내화밴드가 안쪽으로 팽창하는 원리입니다.", "관통부 차단 원리 표시 완료. 실제 규격과 양면 시공은 인정서를 참고하세요."],
-    floor: 1, name: '비금속배관', en: 'NON-METAL PIPE', code: 'DO-NW250-2H-J', certificate: 'FS-NP24-0617-5',
-    title: '관을 감싸는 자켓, 안쪽으로 팽창하는 내화밴드.',
-    description: '250A 내화자켓 SFBA-200을 관 둘레에 감싸고 고리를 체결합니다. 브라켓은 벽체 방향으로 배치하며, 한 면 12개씩 양면에 고정합니다. 화재 시 내부 내화밴드가 팽창하여 관통부를 막습니다.',
-    materials: ['jacket'],
-    facts: ['외경 267 mm 이하 · 개구부 277 mm 이하', '자켓 너비 132 mm 이상 · 양면 각 1개', '브라켓 한 면 12개 · 총 24개'],
-    steps: [[0, '1층 벽체 관통부 확인'], [2, '앞면 내화자켓 감싸기'], [5, '고리 체결 · 벽체 밀착'], [7, '앞면 브라켓 12개 고정'], [11, '내화밴드 발포 · 팽창'], [17, '관통부 차단']],
-    drawingPage: 4, specPage: 9, duration: 18,
-  },
-  duct: {
-    routeLabel: "1층 → 슬래브 → 2층",
-    previewDescription: "직사각형 금속덕트가 1층 벽과 층간 슬래브를 지나 2층 벽으로 이어집니다. 클릭하면 벽체 시공을 보여드립니다.",
-    instructions: ["벽체에 근접한 방화댐퍼와 덕트를 결합합니다. 도면 기준 덕트는 2,600 × 650 mm입니다.", "SFI-100 블랭킷 25 mm를 길이 2,150 mm로 관통 시공합니다.", "개구부 안쪽 4면에 SFBA-120 밴드 12 mm를 두 겹 설치합니다.", "SFB-100F 상부 분할 보드를 위쪽에서 설치합니다.", "하부와 측면의 분할 보드를 차례로 맞춰 개구부 둘레를 마감합니다.", "보드를 나사로 고정하고 접합부를 SFS-100 실란트로 밀실하게 채웁니다.", "벽체 각 면에 두께 50 mm, 길이 400 mm의 보온재를 설치합니다.", "두께 25 mm, 길이 1,000 mm의 보온재를 이어 시공합니다.", "찬넬과 전산볼트로 고정합니다. 고정 간격은 500 mm 이하입니다.", "덕트 내부의 댐퍼와 외곽 관통부 채움구조의 차단 원리를 함께 보여줍니다.", "앞면 시공 완료. 양면 구성과 세부 규격은 연결된 인정도면·시방서를 참고하세요."],
-    floor: 1, name: '금속덕트', en: 'METAL DUCT', code: 'DO-DW2600-2H-F', certificate: 'FS-MP25-0224-06',
-    title: '중공부부터 외곽까지, 겹겹이 연결되는 보호 구조.',
-    description: '벽체에 근접한 방화댐퍼와 덕트를 결합하고, 관통하는 SFI-100 위에 SFBA-120 밴드를 개구부 내부 4면에 두 겹 설치합니다. 양면 보드·실란트·보온재를 순서대로 시공하고 찬넬과 전산볼트로 고정합니다.',
-    materials: ['band', 'board', 'sealant', 'blanket'],
-    facts: ['덕트 2,600 × 650 mm 기준 도면', '밴드 12 mm · 너비 140 mm · 2겹', '양면 보온재 · 찬넬 간격 500 mm 이하'],
-    steps: [[0, '1층 덕트 · 방화댐퍼 결합'], [2, '관통 블랭킷 25 mm'], [4, '내화밴드 · 내부 4면 2겹'], [6, '상부 분할 보드'], [6.8, '하부 · 측면 분할 보드'], [8, '나사 · 실란트 마감'], [9, '50 mm 보온재 · 너비 400 mm'], [11, '25 mm 보온재 · 너비 1,000 mm'], [13, '찬넬 · 전산볼트 고정'], [15, '댐퍼 · 관통부 화재차단'], [17, '앞면 시공 완료']],
-    drawingPage: 4, specPage: 7, duration: 18,
-  },
-  shutter: {
-    routeLabel: "1층",
-    previewDescription: "1층 개구부에 설치한 한 조의 스크린셔터입니다. 클릭하면 상부에서 바닥까지 내려오는 동작을 보여드립니다.",
-    instructions: ["1층 개구부의 상부 케이스와 중앙·측면 가이드를 확인합니다.", "스크린이 상부에 감겨 있는 개방 상태입니다.", "양쪽 스크린과 하단바가 가이드레일을 따라 내려옵니다.", "바닥까지 내려와 개구부를 구획합니다. 제공 영상 기반의 작동 원리 표현입니다."],
-    floor: 1, name: '스크린셔터', en: 'SCREEN SHUTTER', code: 'DOENC FIRE SCREEN', certificate: null,
-    title: '두 장의 스크린이 내려와 공간을 구획합니다.',
-    description: '제공된 실제 구동 영상의 중앙 가이드, 양쪽 스크린, 하단바를 반영했습니다. 평탄한 원단이 두 개의 개구부를 따라 함께 내려옵니다. 실제 영상은 아래에서 확인할 수 있습니다.',
-    materials: [], facts: ['중앙 가이드 · 두 개의 스크린', '평탄한 원단 · 하단바', '구동 영상 기준 · 재생 시간 축약'],
-    steps: [[0, '1층 스크린셔터 확인'], [2, '개방 상태'], [3, '양쪽 스크린 하강'], [15.5, '하단 도달 · 폐쇄']],
-    duration: 18,
-  },
   firewall: {
     routeLabel: "지하 공동구",
     previewDescription: "기존 공동구의 중앙 출입문과 케이블 선반 구성을 유지했습니다. 클릭하면 앞면 내화벽체를 순서대로 시공합니다.",
@@ -80,3 +31,39 @@ export const SYSTEMS = {
     drawingPage: 3, specPage: 8, duration: 21,
   },
 };
+
+let records = [], loading;
+export function getCertificates() { return records; }
+export function applyCertificate(id) {
+  const record = records.find(item => item.id === id);
+  if (!record) return null;
+  const {category, steps} = record, meta = CATEGORIES[category];
+  const materials = [];
+  for (const [key, pattern] of [['board',/^SFB-/],['jacket',/^SFBA-200/],['sealant',/^SFS-/],['blanket',/^SFI-/],['band',/^SFBA-(?!200)/]]) {
+    if (record.materials.some(code => pattern.test(code))) materials.push(key);
+  }
+  const orientation = record.geometry.orientation === 'floor' ? '바닥 관통부' : '벽체 관통부';
+  SYSTEMS[category] = {
+    ...meta, floor: 1, record, certificate: id, code: record.code,
+    routeLabel: orientation, title: record.title, previewDescription: `${record.code} · ${orientation}의 시공 순서를 확인하세요.`,
+    description: `${record.title}. 오른쪽 화살표에서 다른 인정서를 선택할 수 있습니다.`,
+    facts: [record.code, orientation, ...record.materials], materials,
+    steps: [...steps.map((step,i) => [i * 3, step.kind === 'service' ? '관통재 설치 · 연결부 확인' : step.title]), [steps.length * 3, '시공 완료 · 마감 확인']],
+    instructions: [...steps.map(step => `원문 PDF ${step.page}쪽 · ` + step.text), '시공 순서를 완료했습니다. 선택한 인정서의 도면·시방과 설치 상태를 확인합니다.'],
+    drawingPage: record.drawingPage, specPage: record.specPage, duration: steps.length * 3 + 1,
+  };
+  SOURCES[category] = new URL('../../' + record.pdf, import.meta.url).href;
+  return SYSTEMS[category];
+}
+export function loadCertificates() {
+  if (!loading) loading = (async () => {
+    const response = await fetch(new URL('../data/installation-certificates.json?v=20261105r3', import.meta.url));
+    if (!response.ok) throw new Error('인정서 시방 자료를 불러오지 못했습니다.');
+    const data = await response.json();
+    if (!Array.isArray(data.certificates) || data.certificates.length !== 60) throw new Error('인정서 시방 자료를 확인해주세요.');
+    records = data.certificates;
+    for (const meta of Object.values(CATEGORIES)) applyCertificate(meta.default);
+    return records;
+  })().catch(error => { loading = null; throw error; });
+  return loading;
+}

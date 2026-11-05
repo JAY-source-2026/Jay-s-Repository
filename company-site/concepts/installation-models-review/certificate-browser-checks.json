@@ -1,0 +1,427 @@
+{
+  "checked": 60,
+  "results": [
+    {
+      "id": "FS-MP24-0617-15",
+      "category": "metal",
+      "orientation": "wall",
+      "steps": 4,
+      "drawCalls": 373
+    },
+    {
+      "id": "FS-MP24-0617-16",
+      "category": "metal",
+      "orientation": "wall",
+      "steps": 7,
+      "drawCalls": 391
+    },
+    {
+      "id": "FS-MP24-0617-17",
+      "category": "metal",
+      "orientation": "wall",
+      "steps": 7,
+      "drawCalls": 391
+    },
+    {
+      "id": "FS-MP24-0617-18",
+      "category": "metal",
+      "orientation": "wall",
+      "steps": 7,
+      "drawCalls": 391
+    },
+    {
+      "id": "FS-MP23-1103-3",
+      "category": "metal",
+      "orientation": "wall",
+      "steps": 9,
+      "drawCalls": 417
+    },
+    {
+      "id": "FS-MP24-0617-19",
+      "category": "metal",
+      "orientation": "wall",
+      "steps": 8,
+      "drawCalls": 401
+    },
+    {
+      "id": "FS-MP24-0617-20",
+      "category": "metal",
+      "orientation": "wall",
+      "steps": 8,
+      "drawCalls": 401
+    },
+    {
+      "id": "FS-MP24-0617-21",
+      "category": "metal",
+      "orientation": "wall",
+      "steps": 8,
+      "drawCalls": 401
+    },
+    {
+      "id": "FS-MP23-1103-1",
+      "category": "metal",
+      "orientation": "wall",
+      "steps": 8,
+      "drawCalls": 407
+    },
+    {
+      "id": "FS-MP25-1218-01",
+      "category": "metal",
+      "orientation": "wall",
+      "steps": 6,
+      "drawCalls": 385
+    },
+    {
+      "id": "FS-MP25-1218-02",
+      "category": "metal",
+      "orientation": "wall",
+      "steps": 6,
+      "drawCalls": 385
+    },
+    {
+      "id": "FS-MP25-1218-03",
+      "category": "metal",
+      "orientation": "wall",
+      "steps": 6,
+      "drawCalls": 385
+    },
+    {
+      "id": "FS-MP25-1218-04",
+      "category": "metal",
+      "orientation": "wall",
+      "steps": 7,
+      "drawCalls": 394
+    },
+    {
+      "id": "FS-MP25-1218-05",
+      "category": "metal",
+      "orientation": "wall",
+      "steps": 7,
+      "drawCalls": 394
+    },
+    {
+      "id": "FS-MP25-1218-12",
+      "category": "metal",
+      "orientation": "wall",
+      "steps": 7,
+      "drawCalls": 395
+    },
+    {
+      "id": "FS-MP24-0617-22",
+      "category": "metal",
+      "orientation": "floor",
+      "steps": 9,
+      "drawCalls": 376
+    },
+    {
+      "id": "FS-MP24-0617-23",
+      "category": "metal",
+      "orientation": "floor",
+      "steps": 9,
+      "drawCalls": 376
+    },
+    {
+      "id": "FS-MP24-0617-24",
+      "category": "metal",
+      "orientation": "floor",
+      "steps": 9,
+      "drawCalls": 376
+    },
+    {
+      "id": "FS-MP24-0617-25",
+      "category": "metal",
+      "orientation": "floor",
+      "steps": 10,
+      "drawCalls": 383
+    },
+    {
+      "id": "FS-MP24-0617-26",
+      "category": "metal",
+      "orientation": "floor",
+      "steps": 11,
+      "drawCalls": 390
+    },
+    {
+      "id": "FS-MP23-1103-2",
+      "category": "metal",
+      "orientation": "floor",
+      "steps": 9,
+      "drawCalls": 398
+    },
+    {
+      "id": "FS-MP24-0617-27",
+      "category": "metal",
+      "orientation": "floor",
+      "steps": 10,
+      "drawCalls": 384
+    },
+    {
+      "id": "FS-MP24-0617-28",
+      "category": "metal",
+      "orientation": "floor",
+      "steps": 10,
+      "drawCalls": 384
+    },
+    {
+      "id": "FS-MP24-0617-29",
+      "category": "metal",
+      "orientation": "floor",
+      "steps": 10,
+      "drawCalls": 384
+    },
+    {
+      "id": "FS-MP24-0617-30",
+      "category": "metal",
+      "orientation": "floor",
+      "steps": 11,
+      "drawCalls": 391
+    },
+    {
+      "id": "FS-MP25-1218-06",
+      "category": "metal",
+      "orientation": "floor",
+      "steps": 8,
+      "drawCalls": 374
+    },
+    {
+      "id": "FS-MP25-1218-07",
+      "category": "metal",
+      "orientation": "floor",
+      "steps": 8,
+      "drawCalls": 374
+    },
+    {
+      "id": "FS-MP25-1218-08",
+      "category": "metal",
+      "orientation": "floor",
+      "steps": 8,
+      "drawCalls": 374
+    },
+    {
+      "id": "FS-MP25-1218-09",
+      "category": "metal",
+      "orientation": "floor",
+      "steps": 9,
+      "drawCalls": 381
+    },
+    {
+      "id": "FS-MP25-1218-10",
+      "category": "metal",
+      "orientation": "floor",
+      "steps": 9,
+      "drawCalls": 381
+    },
+    {
+      "id": "FS-MP25-1218-11",
+      "category": "metal",
+      "orientation": "floor",
+      "steps": 10,
+      "drawCalls": 387
+    },
+    {
+      "id": "FS-NP24-0617-1",
+      "category": "polymer",
+      "orientation": "wall",
+      "steps": 4,
+      "drawCalls": 329
+    },
+    {
+      "id": "FS-NP24-0617-2",
+      "category": "polymer",
+      "orientation": "wall",
+      "steps": 4,
+      "drawCalls": 337
+    },
+    {
+      "id": "FS-NP24-0617-3",
+      "category": "polymer",
+      "orientation": "wall",
+      "steps": 4,
+      "drawCalls": 337
+    },
+    {
+      "id": "FS-NP24-0617-4",
+      "category": "polymer",
+      "orientation": "wall",
+      "steps": 4,
+      "drawCalls": 369
+    },
+    {
+      "id": "FS-NP24-0617-5",
+      "category": "polymer",
+      "orientation": "wall",
+      "steps": 4,
+      "drawCalls": 369
+    },
+    {
+      "id": "FS-NP24-0617-6",
+      "category": "polymer",
+      "orientation": "wall",
+      "steps": 6,
+      "drawCalls": 351
+    },
+    {
+      "id": "FS-NP24-0617-7",
+      "category": "polymer",
+      "orientation": "wall",
+      "steps": 6,
+      "drawCalls": 359
+    },
+    {
+      "id": "FS-NP24-0617-8",
+      "category": "polymer",
+      "orientation": "wall",
+      "steps": 6,
+      "drawCalls": 359
+    },
+    {
+      "id": "FS-NP24-0617-9",
+      "category": "polymer",
+      "orientation": "wall",
+      "steps": 6,
+      "drawCalls": 391
+    },
+    {
+      "id": "FS-NP24-0617-10",
+      "category": "polymer",
+      "orientation": "wall",
+      "steps": 6,
+      "drawCalls": 391
+    },
+    {
+      "id": "FS-NP24-0617-11",
+      "category": "polymer",
+      "orientation": "floor",
+      "steps": 4,
+      "drawCalls": 324
+    },
+    {
+      "id": "FS-NP24-0617-12",
+      "category": "polymer",
+      "orientation": "floor",
+      "steps": 4,
+      "drawCalls": 324
+    },
+    {
+      "id": "FS-NP24-0617-13",
+      "category": "polymer",
+      "orientation": "floor",
+      "steps": 4,
+      "drawCalls": 340
+    },
+    {
+      "id": "FS-NP24-0617-14",
+      "category": "polymer",
+      "orientation": "floor",
+      "steps": 4,
+      "drawCalls": 340
+    },
+    {
+      "id": "FS-NP25-0224-01",
+      "category": "polymer",
+      "orientation": "floor",
+      "steps": 9,
+      "drawCalls": 334
+    },
+    {
+      "id": "FS-NP25-0224-02",
+      "category": "polymer",
+      "orientation": "floor",
+      "steps": 9,
+      "drawCalls": 334
+    },
+    {
+      "id": "FS-NP25-0224-03",
+      "category": "polymer",
+      "orientation": "floor",
+      "steps": 9,
+      "drawCalls": 334
+    },
+    {
+      "id": "FS-NP25-0224-04",
+      "category": "polymer",
+      "orientation": "floor",
+      "steps": 9,
+      "drawCalls": 334
+    },
+    {
+      "id": "FS-NP25-0224-05",
+      "category": "polymer",
+      "orientation": "floor",
+      "steps": 10,
+      "drawCalls": 358
+    },
+    {
+      "id": "FS-MP25-0224-06",
+      "category": "duct",
+      "orientation": "wall",
+      "steps": 11,
+      "drawCalls": 349
+    },
+    {
+      "id": "FS-MP25-0625-02",
+      "category": "bundle",
+      "orientation": "wall",
+      "steps": 8,
+      "drawCalls": 430
+    },
+    {
+      "id": "FS-MP25-1218-13",
+      "category": "bundle",
+      "orientation": "wall",
+      "steps": 8,
+      "drawCalls": 481
+    },
+    {
+      "id": "FS-MP25-0625-01",
+      "category": "bundle",
+      "orientation": "wall",
+      "steps": 8,
+      "drawCalls": 495
+    },
+    {
+      "id": "FS-NP25-0625-05",
+      "category": "bundle",
+      "orientation": "wall",
+      "steps": 6,
+      "drawCalls": 419
+    },
+    {
+      "id": "FS-NP25-0625-04",
+      "category": "bundle",
+      "orientation": "wall",
+      "steps": 6,
+      "drawCalls": 538
+    },
+    {
+      "id": "FS-MP25-0625-03",
+      "category": "bundle",
+      "orientation": "wall",
+      "steps": 8,
+      "drawCalls": 390
+    },
+    {
+      "id": "FS-OS25-0513-01",
+      "category": "bundle",
+      "orientation": "wall",
+      "steps": 6,
+      "drawCalls": 352
+    },
+    {
+      "id": "FS-MP26-0507-14",
+      "category": "duct",
+      "orientation": "wall",
+      "steps": 7,
+      "drawCalls": 328
+    },
+    {
+      "id": "FS-MP26-0507-15",
+      "category": "duct",
+      "orientation": "floor",
+      "steps": 8,
+      "drawCalls": 299
+    }
+  ],
+  "errors": [],
+  "bad": []
+}

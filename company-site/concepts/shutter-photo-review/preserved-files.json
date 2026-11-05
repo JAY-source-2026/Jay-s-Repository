@@ -1,0 +1,74 @@
+[
+  {
+    "path": "assets/media/hero/wire-shutter-operation.mp4",
+    "sha256": "1da8be288a136c026a45eed30d947a9d382083e0f63321f5fdd4d1dc0afb437a"
+  },
+  {
+    "path": "assets/media/hero/shutter-operation.mp4",
+    "sha256": "30559167b1134c0d00f95ceeac0422dc0f5a0bd718668456a2e99bc1cc3aef44"
+  },
+  {
+    "path": "assets/media/hero/doenc-band-isolated-v1.webp",
+    "sha256": "40a28754c65150773432b4bfb7a22c0b18e321e41d552a86901bfc8558c0e6f0"
+  },
+  {
+    "path": "assets/media/hero/doenc-jacket-isolated-v1.webp",
+    "sha256": "17115f7a3ffd5eaa13a8aceebd31af015295dfb668785efbc5ad60ef73a5308d"
+  },
+  {
+    "path": "assets/media/hero/doenc-board-isolated-v1.png",
+    "sha256": "61319b5c1cb0e6eb83ca47a02f17b1b566999503015b5bf6041f77f9ada20e5f"
+  },
+  {
+    "path": "assets/media/hero/doenc-product-campaign-v1.webp",
+    "sha256": "2e723f79242be92b70b7760c72655b694639b7de5a4c00f05f331cb8b68c8f70"
+  },
+  {
+    "path": "assets/media/hero/doenc-sealant-isolated-v1.png",
+    "sha256": "6f47e4991698231ee92bf73408f93c8a614987fb364183475d1217ccdf92c883"
+  },
+  {
+    "path": "assets/media/hero/doenc-blanket-isolated-v1.png",
+    "sha256": "cb3d3c13ad8d818c9ff86e04af7b0dd719aff5a0b9570ed94d563c11cbfbaa70"
+  },
+  {
+    "path": "assets/media/hero/doenc-product-campaign-v1.png",
+    "sha256": "a86badf7d8d507be5b603d6c2999f0b74e8896b9dbb6a8862aecc1ddfa3d8be1"
+  },
+  {
+    "path": "assets/media/hero/doenc-board-isolated-v1.webp",
+    "sha256": "193b89604d12ee970e2505b6242d6854d3fb13aece2e080abeb1b00308930bf8"
+  },
+  {
+    "path": "assets/media/hero/doenc-sealant-isolated-v1.webp",
+    "sha256": "3b5623fb666228fe37a5100deed2996e8942b53cf08442dc5994f8dfc8637bb0"
+  },
+  {
+    "path": "assets/media/hero/doenc-band-isolated-v1.png",
+    "sha256": "30ca2ef271158db069d97804d9e0fed8fbd1726f4e51e2971ee778f49feb05af"
+  },
+  {
+    "path": "assets/media/hero/doenc-jacket-isolated-v1.png",
+    "sha256": "b41eb3ff4843d71801414f175f6366a3f5a647ebd1996368c8428cdaafa01833"
+  },
+  {
+    "path": "assets/media/hero/doenc-blanket-isolated-v1.webp",
+    "sha256": "0a46a4f629be31964afcfc8b931abb68cbbdcb6da728bc29e189d50b791dcf9e"
+  },
+  {
+    "path": "assets/js/factory.js",
+    "sha256": "ba4df6e2d371b90f95c5f587e6305f636eb15bccfb57f7f2ed10e0de68a945df"
+  },
+  {
+    "path": "assets/js/systems.js",
+    "sha256": "a2075af52d9143ac11c59c8245266acefe8c129c98a533379c3de52456d9edf3"
+  },
+  {
+    "path": "assets/js/explorer.js",
+    "sha256": "6e45bedc557476b9d631924d1d64c5ed77b5b346d3dfb7639a3701e3f3a3c16e"
+  },
+  {
+    "path": "assets/js/hero3d.js",
+    "sha256": "40be54985bfeb42b9678fca92a57702cc9c7d8205df1b4eca50c4f71ca9b2ca1"
+  }
+]

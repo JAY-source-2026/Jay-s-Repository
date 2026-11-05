@@ -1,0 +1,61 @@
+{
+  "version": "20261105r4",
+  "published": false,
+  "committed": false,
+  "before": ".local-backups/doenc-pre-model-caption-removal-20261105T014922Z",
+  "after": ".local-backups/doenc-model-caption-removal-20261105T015111Z",
+  "checks": {
+    "passed": true,
+    "captionRemoved": true,
+    "stageButtonsBelowModel": true,
+    "overview": {
+      "width": 1440,
+      "canvasOffset": 0,
+      "canvasHeight": 624,
+      "viewportHeight": 624,
+      "timelineBelow": false,
+      "overflow": false
+    },
+    "layouts": [
+      {
+        "width": 1440,
+        "canvasOffset": 0,
+        "canvasHeight": 624,
+        "viewportHeight": 624,
+        "timelineBelow": true,
+        "overflow": false
+      },
+      {
+        "width": 1366,
+        "canvasOffset": 0,
+        "canvasHeight": 474,
+        "viewportHeight": 474,
+        "timelineBelow": true,
+        "overflow": false
+      },
+      {
+        "width": 390,
+        "canvasOffset": 0,
+        "canvasHeight": 405,
+        "viewportHeight": 405,
+        "timelineBelow": true,
+        "overflow": false
+      },
+      {
+        "width": 320,
+        "canvasOffset": 0,
+        "canvasHeight": 405,
+        "viewportHeight": 405,
+        "timelineBelow": true,
+        "overflow": false
+      }
+    ],
+    "errors": []
+  },
+  "hashes": {
+    "index.html": "f0dcf65f3c4b1691c27e90d78886691e1aec525b2c72709e1f0651ec12bc6f34",
+    "assets/css/home.css": "da6253be6a64d8ee404bcf6a1ee1dcc90bac2e00ab620787e220282dc536a999",
+    "assets/js/explorer.js": "f172a272de06d4267eafe64f85549b5f8204e0a6be0bf33fd76e83ab2c327c37",
+    "PLAN.md": "434d002857848ecfe1a79eac1c0fc7aa64ea50cb60cf382cdf3481ca2b14264f"
+  }
+}

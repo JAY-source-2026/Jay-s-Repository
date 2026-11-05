@@ -1,0 +1,54 @@
+{
+  "backup": ".local-backups/doenc-pre-shutter-photos-20261105T002848Z",
+  "photos": [
+    {
+      "key": "standard",
+      "source": "assets/자료/방화셔터 자료/일반셔터 사진.jpg",
+      "asset": "assets/media/hero/shutter-standard-photo.jpg",
+      "bytes": 104620,
+      "sha256": "2cb40aa34dbf2be9c75ef797ed4ab402ed34c48aba885346f8bf48209b57d16d",
+      "unchanged_copy": true
+    },
+    {
+      "key": "large",
+      "source": "assets/자료/방화셔터 자료/대형셔터 사진.jpg",
+      "asset": "assets/media/hero/shutter-large-photo.jpg",
+      "bytes": 948482,
+      "sha256": "d2bb5283d614a23c1d597808fe3e18778cb3974482c50974177d6836bb4d5d6c",
+      "unchanged_copy": true
+    },
+    {
+      "key": "wire",
+      "source": "assets/자료/방화셔터 자료/와이어 권취형 셔터 사진.jpg",
+      "asset": "assets/media/hero/shutter-wire-photo.jpg",
+      "bytes": 35379,
+      "sha256": "4fbae974815d469eeea498f536c811ebeaef7c290bc56a667e305b065393dadf",
+      "unchanged_copy": true
+    },
+    {
+      "key": "steel",
+      "source": "assets/자료/방화셔터 자료/철재 방화셔터 사진.PNG",
+      "asset": "assets/media/hero/shutter-steel-photo.png",
+      "bytes": 402852,
+      "sha256": "295aee6e62199dcb4ebff0e053130494b5cb638376555a121c9c253e284a3bdd",
+      "width": 652,
+      "height": 506,
+      "unchanged_copy": true
+    }
+  ],
+  "replacements": [
+    {
+      "date": "2026-11-05",
+      "key": "steel",
+      "previous": {
+        "key": "steel",
+        "source": "assets/자료/방화셔터 자료/철재 방화셔터 사진.jpg",
+        "asset": "assets/media/hero/shutter-steel-photo.jpg",
+        "bytes": 170120,
+        "sha256": "bbd0a6db0fa89f915531c065e9d71144e3794ac270781dc4b5a5f492301b110f",
+        "unchanged_copy": true
+      },
+      "backup": ".local-backups/doenc-pre-steel-photo-20261105T004036Z"
+    }
+  ]
+}

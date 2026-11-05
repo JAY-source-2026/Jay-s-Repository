@@ -1,0 +1,9 @@
+{
+  "alignedPixelsIdentical": true,
+  "alignmentPixels": [
+    0,
+    -1
+  ],
+  "meanDifference": 0,
+  "note": "The camera is unchanged. Screenshots differ only by a one-pixel vertical clip offset after scrolling."
+}

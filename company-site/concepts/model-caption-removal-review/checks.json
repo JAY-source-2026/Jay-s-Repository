@@ -1,0 +1,48 @@
+{
+  "passed": true,
+  "captionRemoved": true,
+  "stageButtonsBelowModel": true,
+  "overview": {
+    "width": 1440,
+    "canvasOffset": 0,
+    "canvasHeight": 624,
+    "viewportHeight": 624,
+    "timelineBelow": false,
+    "overflow": false
+  },
+  "layouts": [
+    {
+      "width": 1440,
+      "canvasOffset": 0,
+      "canvasHeight": 624,
+      "viewportHeight": 624,
+      "timelineBelow": true,
+      "overflow": false
+    },
+    {
+      "width": 1366,
+      "canvasOffset": 0,
+      "canvasHeight": 474,
+      "viewportHeight": 474,
+      "timelineBelow": true,
+      "overflow": false
+    },
+    {
+      "width": 390,
+      "canvasOffset": 0,
+      "canvasHeight": 405,
+      "viewportHeight": 405,
+      "timelineBelow": true,
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "canvasOffset": 0,
+      "canvasHeight": 405,
+      "viewportHeight": 405,
+      "timelineBelow": true,
+      "overflow": false
+    }
+  ],
+  "errors": []
+}

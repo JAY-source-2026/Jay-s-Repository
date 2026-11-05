@@ -1,0 +1,10 @@
+{
+  "photo": {
+    "src": "http://127.0.0.1:8000/assets/media/hero/shutter-steel-photo.png?v=20261105r2",
+    "loaded": true,
+    "width": 652,
+    "height": 506,
+    "front": "true"
+  },
+  "servedMatchesSource": true
+}

@@ -1,0 +1,76 @@
+{
+  "passed": true,
+  "certificates": 60,
+  "motion": [
+    {
+      "selected": "bundle",
+      "mode": "preview",
+      "transition": 0.10416666666666667,
+      "camera": [
+        12.412160821021628,
+        12.162158474018401,
+        39.729471586794936
+      ],
+      "architecture": true,
+      "terrain": true,
+      "floors": [
+        "metal",
+        "polymer",
+        "duct",
+        "bundle",
+        "firewall"
+      ]
+    }
+  ],
+  "floorViews": {
+    "lower": [
+      -2.755,
+      0.7499999999999999,
+      1.5999999999999999
+    ],
+    "upper": [
+      -2.755,
+      3.34,
+      1.5999999999999999
+    ]
+  },
+  "reentryStable": true,
+  "pipePermanent": true,
+  "noFireOrDamper": true,
+  "keyboard": true,
+  "layouts": [
+    {
+      "width": 1440,
+      "height": 1000,
+      "overflow": false,
+      "overlap": false
+    },
+    {
+      "width": 1366,
+      "height": 650,
+      "overflow": false,
+      "overlap": false
+    },
+    {
+      "width": 1024,
+      "height": 600,
+      "overflow": false,
+      "overlap": false
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "overflow": false,
+      "overlap": false
+    },
+    {
+      "width": 320,
+      "height": 640,
+      "overflow": false,
+      "overlap": false
+    }
+  ],
+  "deviceScaleFactor": 0.5,
+  "errors": [],
+  "bad": []
+}

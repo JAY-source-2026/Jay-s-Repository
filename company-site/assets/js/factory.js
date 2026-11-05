@@ -6,7 +6,7 @@ export const FACTORY = {
     metal: { x: -7.8, width: 4.2 },
     polymer: { x: -3.6, width: 4.2 },
     duct: { x: 1.2, width: 5.4 },
-    shutter: { x: 7, width: 6.2 },
+    bundle: { x: 7, width: 6.2 },
   },
 };
 
@@ -104,7 +104,7 @@ export function buildFactory({ T, scene, models, box, mesh, group, mat, concrete
     curve.add(new T.QuadraticBezierCurve3(V(CY, end), V(CY, z), V(CY + radius, z)));
     curve.add(new T.LineCurve3(V(CY + radius, z), V(upperY - radius, z)));
     curve.add(new T.QuadraticBezierCurve3(V(upperY - radius, z), V(upperY, z), V(upperY, end)));
-    const routes = group(m.service); routes.userData.component = id + '-interfloor-route'; m.routeGroup = routes;
+    const routes = group(m.root, 0, 0, WALL_Z); routes.userData.component = id + '-interfloor-route'; m.routeGroup = routes;
     if (id === 'duct') {
       // Sweep a hollow rectangular shell; its width remains horizontal at elbows.
       const corners = [[-1.301, -.326], [1.301, -.326], [1.301, .326], [-1.301, .326]];
@@ -138,11 +138,7 @@ export function buildFactory({ T, scene, models, box, mesh, group, mat, concrete
       }
     }
     m.route = { from: [m.root.position.x, CY, WALL_Z], through: [m.root.position.x, FACTORY.level, WALL_Z + z], to: [m.root.position.x, upperY, WALL_Z] };
-    // Slabs also stay visible in a selected bay, showing a real opening around the route.
-    const localSlab = group(m.room, -m.root.position.x, 0, 0);
-    slab(localSlab, m.root.position.x, FACTORY.bays[id].width, -.22);
-    slab(localSlab, m.root.position.x, FACTORY.bays[id].width, FACTORY.level - .22, true);
-    m.contextSlabs = localSlab;
+
   }
   for (const id of ['metal', 'polymer', 'duct']) route(id, models[id]);
   return architecture;

@@ -1,0 +1,241 @@
+{
+  "passed": true,
+  "state": {
+    "selected": "bundle",
+    "mode": "install",
+    "elapsed": 10,
+    "duration": 19,
+    "phase": 3,
+    "running": false,
+    "drawCalls": 40,
+    "visible": true,
+    "transition": 1,
+    "transitionSeconds": 1.8,
+    "camera": [
+      7.7745625,
+      2.0145,
+      1.0902500000000004
+    ],
+    "target": [
+      7,
+      1.65,
+      -0.55
+    ],
+    "reduced": true,
+    "components": {
+      "service-pipe": 4,
+      "board": 4,
+      "split-board": 8,
+      "sealant": 4,
+      "blanket": 16,
+      "foil-seam": 24,
+      "fixing": 6,
+      "metal-interfloor-route": 1,
+      "jacket": 2,
+      "brackets": 2,
+      "polymer-interfloor-route": 1,
+      "duct-closed-end": 4,
+      "band": 4,
+      "duct-interfloor-route": 1,
+      "bundle-pipe": 4,
+      "rubber": 2,
+      "two-storey-factory": 1,
+      "factory-slab": 2,
+      "slab-with-service-openings": 1,
+      "roof-ventilation": 10,
+      "earth-section": 1,
+      "ground-surface": 1,
+      "tree": 4,
+      "utility-tunnel": 1,
+      "cable-racks": 1,
+      "firewall-runner": 1,
+      "firewall-stud": 22,
+      "firewall-bracing": 1,
+      "firewall-board": 62,
+      "context-door": 1
+    },
+    "factory": {
+      "storeys": 2,
+      "width": 27.2,
+      "level": 3.3,
+      "routes": {
+        "metal": {
+          "from": [
+            -7.8,
+            1.65,
+            -0.55
+          ],
+          "through": [
+            -7.8,
+            3.3,
+            1.5999999999999999
+          ],
+          "to": [
+            -7.8,
+            4.949999999999999,
+            -0.55
+          ]
+        },
+        "polymer": {
+          "from": [
+            -3.6,
+            1.65,
+            -0.55
+          ],
+          "through": [
+            -3.6,
+            3.3,
+            1.5999999999999999
+          ],
+          "to": [
+            -3.6,
+            4.949999999999999,
+            -0.55
+          ]
+        },
+        "duct": {
+          "from": [
+            1.2,
+            1.65,
+            -0.55
+          ],
+          "through": [
+            1.2,
+            3.3,
+            1.9000000000000001
+          ],
+          "to": [
+            1.2,
+            4.949999999999999,
+            -0.55
+          ]
+        }
+      }
+    },
+    "routeVisibility": {
+      "metal": true,
+      "polymer": true,
+      "duct": true
+    },
+    "visibleFloors": [
+      "metal",
+      "polymer",
+      "duct",
+      "bundle",
+      "firewall"
+    ],
+    "floors": [
+      {
+        "id": "metal",
+        "floor": 1,
+        "y": 0,
+        "parts": 7,
+        "installed": 7
+      },
+      {
+        "id": "polymer",
+        "floor": 1,
+        "y": 0,
+        "parts": 2,
+        "installed": 2
+      },
+      {
+        "id": "duct",
+        "floor": 1,
+        "y": 0,
+        "parts": 7,
+        "installed": 7
+      },
+      {
+        "id": "bundle",
+        "floor": 1,
+        "y": 0,
+        "parts": 4,
+        "installed": 2
+      },
+      {
+        "id": "firewall",
+        "floor": 0,
+        "y": -4.95,
+        "parts": 57,
+        "installed": 57
+      }
+    ],
+    "certificates": {
+      "metal": "FS-MP23-1103-3",
+      "polymer": "FS-NP24-0617-5",
+      "duct": "FS-MP25-0224-06",
+      "bundle": "FS-OS25-0513-01"
+    },
+    "assemblies": {
+      "metal": {
+        "orientation": "wall",
+        "pipes": 1,
+        "pipeVisible": true,
+        "layers": 2
+      },
+      "polymer": {
+        "orientation": "wall",
+        "pipes": 1,
+        "pipeVisible": true,
+        "layers": 0
+      },
+      "duct": {
+        "orientation": "wall",
+        "pipes": 0,
+        "pipeVisible": true,
+        "layers": 3
+      },
+      "bundle": {
+        "orientation": "wall",
+        "pipes": 2,
+        "pipeVisible": true,
+        "layers": 1
+      }
+    },
+    "architectureVisible": true,
+    "terrainVisible": true,
+    "polymer": {
+      "pipeVisible": true
+    },
+    "fireObjects": 0,
+    "damperObjects": 0,
+    "wallsOpaque": true,
+    "metalBoards": [],
+    "firewall": {
+      "boardSize": [
+        0.914,
+        0.6,
+        0.00984
+      ],
+      "thickness": 0.11968,
+      "studXs": [
+        -3.199,
+        -2.899,
+        -2.585,
+        -2.2849999999999997,
+        -1.9849999999999997,
+        -1.6709999999999998,
+        -1.3709999999999996,
+        -1.0709999999999997,
+        -0.7569999999999998,
+        -0.45699999999999974,
+        -0.15699999999999986,
+        0.15700000000000014,
+        0.4570000000000002,
+        0.7570000000000003,
+        1.0710000000000002,
+        1.3710000000000004,
+        1.6710000000000005,
+        1.9850000000000003,
+        2.2850000000000006,
+        2.585,
+        2.899,
+        3.1990000000000003
+      ],
+      "rearVisible": true,
+      "installedFrontBoards": 31
+    }
+  },
+  "errors": []
+}

@@ -1,0 +1,106 @@
+{
+  "passed": true,
+  "initialPair": true,
+  "moving": {
+    "rolling": true,
+    "transforms": [
+      "translateX(-50%) translate3d(-59.4635px, -1.63565px, -3.77887px) rotateY(-5.54242deg)",
+      "translateX(-50%) translate3d(291.058px, -64.6425px, -149.345px) rotateY(37.6576deg)",
+      "translateX(-50%) translate3d(59.4635px, -160.004px, -369.661px) rotateY(80.8576deg)",
+      "translateX(-50%) translate3d(-291.058px, -96.9975px, -224.095px) rotateY(-48.7424deg)"
+    ]
+  },
+  "rapidSelection": true,
+  "keyboard": true,
+  "reducedMotion": true,
+  "touch": true,
+  "technology": true,
+  "videos": [
+    {
+      "src": "http://127.0.0.1:8000/assets/media/hero/shutter-operation.mp4",
+      "time": 0.0432,
+      "width": 848,
+      "height": 480
+    },
+    {
+      "src": "http://127.0.0.1:8000/assets/media/hero/wire-shutter-operation.mp4",
+      "time": 0.0599,
+      "width": 720,
+      "height": 1280
+    }
+  ],
+  "layouts": [
+    {
+      "width": 1920,
+      "height": 1080,
+      "overflow": false,
+      "heroHeight": 1070,
+      "clipped": false
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "overflow": false,
+      "heroHeight": 900,
+      "clipped": false
+    },
+    {
+      "width": 1366,
+      "height": 650,
+      "overflow": false,
+      "heroHeight": 650,
+      "clipped": false
+    },
+    {
+      "width": 1280,
+      "height": 600,
+      "overflow": false,
+      "heroHeight": 600,
+      "clipped": false
+    },
+    {
+      "width": 1093,
+      "height": 614,
+      "overflow": false,
+      "heroHeight": 614,
+      "clipped": false
+    },
+    {
+      "width": 1024,
+      "height": 600,
+      "overflow": false,
+      "heroHeight": 600,
+      "clipped": false
+    },
+    {
+      "width": 960,
+      "height": 540,
+      "overflow": false,
+      "heroHeight": 540,
+      "clipped": false
+    },
+    {
+      "width": 820,
+      "height": 1180,
+      "overflow": false,
+      "heroHeight": 821.75,
+      "clipped": false
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "overflow": false,
+      "heroHeight": 980.546875,
+      "clipped": false
+    },
+    {
+      "width": 320,
+      "height": 640,
+      "overflow": false,
+      "heroHeight": 950.0625,
+      "clipped": false
+    }
+  ],
+  "errors": [],
+  "badResponses": []
+}
