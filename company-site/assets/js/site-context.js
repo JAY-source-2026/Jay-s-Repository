@@ -1,6 +1,7 @@
 // Site scenery follows the supplied utility-tunnel photographs. The wall assembly
 // follows FR-WS26-0102-1; doors and cable penetrations are separate contextual items.
-export function buildSiteContext({ T, scene, box, mesh, group, mat, animated, concrete, zinc, steel, frameMetal, whiteSeal, textures, groundWidth = 14.2 }) {
+import { caulkingPass } from './installation-tools.js?v=20261105r6';
+export function buildSiteContext({ T, scene, box, mesh, group, mat, animated, concrete, zinc, steel, frameMetal, whiteSeal, applicationMaterials, textures, groundWidth = 14.2 }) {
   const terrain = group(scene);
   const baseY = -4.95, wallZ = 4.2, width = 6.398, height = 3;
   function batchBoxes(items, material, parent) {
@@ -166,18 +167,17 @@ export function buildSiteContext({ T, scene, box, mesh, group, mat, animated, co
     transform.position.set(x, y, z); transform.rotation.x = Math.PI / 2; transform.updateMatrix(); screws.setMatrixAt(index, transform.matrix);
   });
   screws.receiveShadow = true; fixings.add(screws); animated(m, fixings, 14.5, 16, [0, 0, .06]);
-  const seams = group(service), seamBoxes = [];
+  const seamPaths = [],v=(x,y)=>new T.Vector3(x,y,.067);
   for (let col = 0; col <= 7; col++) {
     const x = (col - 3.5) * .914;
-    seamBoxes.push([.015, 3, .004, x, 1.5, .063]);
+    seamPaths.push([v(x,0),v(x,3)]);
   }
   for (let row = 0; row <= 5; row++) {
     const y = row * .6;
-    if (row >= 4) seamBoxes.push([width, .015, .004, 0, y, .063]);
-    else for (const side of [-1, 1]) seamBoxes.push([2.742, .015, .004, side * 1.828, y, .063]);
+    if (row >= 4) seamPaths.push([v(-width/2,y),v(width/2,y)]);
+    else for (const side of [-1, 1]) seamPaths.push([v(side*1.828-1.371,y),v(side*1.828+1.371,y)]);
   }
-  batchBoxes(seamBoxes, whiteSeal, seams).castShadow = false;
-  animated(m, seams, 16.5, 19.8);
+  m.parts.push(caulkingPass({T,parent:service,paths:seamPaths,materials:applicationMaterials,start:16.5,end:19.8,scale:2}));
   // Photo-based metal door is separate from the certified board assembly.
   const door = group(service);
   for (const x of [-.467, .467]) box(.055, 2.42, .16, frameMetal, door, x, 1.21, 0);

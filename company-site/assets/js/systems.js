@@ -1,4 +1,5 @@
 // Certificate records and installation sequences come from the supplied PDFs.
+import { installationTimeline } from './installation-motion.js?v=20261105r6';
 export const SOURCES = {
   catalog: new URL('../docs/doenc-catalog-2025-web.pdf', import.meta.url).href,
   firewall: new URL('../downloads/fireproof-certificates/FR-WS26-0102-1.pdf', import.meta.url).href,
@@ -38,6 +39,7 @@ export function applyCertificate(id) {
   const record = records.find(item => item.id === id);
   if (!record) return null;
   const {category, steps} = record, meta = CATEGORIES[category];
+  const timing = installationTimeline(record);
   const materials = [];
   for (const [key, pattern] of [['board',/^SFB-/],['jacket',/^SFBA-200/],['sealant',/^SFS-/],['blanket',/^SFI-/],['band',/^SFBA-(?!200)/]]) {
     if (record.materials.some(code => pattern.test(code))) materials.push(key);
@@ -48,9 +50,10 @@ export function applyCertificate(id) {
     routeLabel: orientation, title: record.title, previewDescription: `${record.code} · ${orientation}의 시공 순서를 확인하세요.`,
     description: `${record.title}. 오른쪽 화살표에서 다른 인정서를 선택할 수 있습니다.`,
     facts: [record.code, orientation, ...record.materials], materials,
-    steps: [...steps.map((step,i) => [i * 3, step.kind === 'service' ? '관통재 설치 · 연결부 확인' : step.title]), [steps.length * 3, '시공 완료 · 마감 확인']],
+    timing,
+    steps: [...steps.map((step,i) => [timing.steps[i].start, step.kind === 'service' ? '관통재 설치 · 연결부 확인' : step.kind === 'glasswool' ? '기존 은박 보온재 확인' : step.title]), [timing.complete, '시공 완료 · 마감 확인']],
     instructions: [...steps.map(step => `원문 PDF ${step.page}쪽 · ` + step.text), '시공 순서를 완료했습니다. 선택한 인정서의 도면·시방과 설치 상태를 확인합니다.'],
-    drawingPage: record.drawingPage, specPage: record.specPage, duration: steps.length * 3 + 1,
+    drawingPage: record.drawingPage, specPage: record.specPage, duration: timing.duration,
   };
   SOURCES[category] = new URL('../../' + record.pdf, import.meta.url).href;
   return SYSTEMS[category];

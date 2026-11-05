@@ -61,7 +61,7 @@
     </script>
 
     <link rel="stylesheet" href="assets/css/style.css?v=20261023d">
-    <link rel="stylesheet" href="assets/css/home.css?v=20261105r4">
+    <link rel="stylesheet" href="assets/css/home.css?v=20261105r6">
     <link rel="stylesheet" href="assets/css/signature.css?v=20261105r1">
     <noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
 </head>
@@ -283,6 +283,11 @@
                         <p class="certificate-status" id="certificateStatus" role="status">인정서 목록을 준비하고 있습니다.</p>
                     </div>
                     <div class="explorer-viewport" id="heroMedia" role="group" aria-busy="true" aria-label="다섯 가지 화재차단 시스템의 3D 모형">
+                        <div class="installation-caption" id="installationCaption" hidden>
+                            <div class="installation-caption-meta"><span id="installationStep"></span><a id="installationSource" target="_blank" rel="noopener"></a></div>
+                            <h3 id="installationTitle"></h3>
+                            <p id="installationDescription"></p>
+                        </div>
                         <div class="explorer-render" id="explorerRender">
                             <canvas class="explorer-canvas" id="hero3d" aria-hidden="true"></canvas>
                             <div class="explorer-fallback"><p id="explorerLoadStatus"></p></div>
@@ -447,6 +452,6 @@
 
     <script src="assets/js/main.js?v=20261023d"></script>
     <script type="module" src="assets/js/signature.js?v=20261105r1"></script>
-    <script type="module" src="assets/js/explorer.js?v=20261105r4"></script>
+    <script type="module" src="assets/js/explorer.js?v=20261105r6"></script>
 </body>
 </html>
