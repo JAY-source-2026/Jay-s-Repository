@@ -1,0 +1,21 @@
+{
+  "sourceCommit": "53507a3526e1d51cbd2d6f5b265d1738978d14a5",
+  "deploymentCommit": "a83400cc427a0d95d768ef994832b023767b9330",
+  "build": {
+    "status": "built",
+    "commit": "a83400cc427a0d95d768ef994832b023767b9330",
+    "created_at": "2026-11-05T02:16:29Z",
+    "updated_at": "2026-11-05T02:17:41Z",
+    "duration": 72344,
+    "error": {
+      "message": null
+    }
+  },
+  "published": true,
+  "publicUrl": "https://jay-source-2026.github.io/Jay-s-Repository/company-site/",
+  "backup": ".local-backups/doenc-installation-publication-20261105T022051Z",
+  "runtimeChanges": 17,
+  "liveByteMatches": 17,
+  "certificatePdfsPreserved": 61,
+  "publicBrowserPassed": true
+}

@@ -1,0 +1,29 @@
+{
+  "passed": true,
+  "source_commit": "53507a3526e1d51cbd2d6f5b265d1738978d14a5",
+  "package_files": 290,
+  "checked_references": 257,
+  "changed_runtime_files": [
+    "company-site/assets/css/home.css",
+    "company-site/assets/css/signature.css",
+    "company-site/assets/data/installation-certificates.json",
+    "company-site/assets/js/assemblies.js",
+    "company-site/assets/js/explorer.js",
+    "company-site/assets/js/factory.js",
+    "company-site/assets/js/hero3d.js",
+    "company-site/assets/js/signature.js",
+    "company-site/assets/js/site-context.js",
+    "company-site/assets/js/systems.js",
+    "company-site/assets/media/hero/shutter-large-photo.jpg",
+    "company-site/assets/media/hero/shutter-standard-photo.jpg",
+    "company-site/assets/media/hero/shutter-steel-photo.jpg",
+    "company-site/assets/media/hero/shutter-steel-photo.png",
+    "company-site/assets/media/hero/shutter-wire-photo.jpg",
+    "company-site/index.html",
+    "company-site/release.json"
+  ],
+  "unchanged_package_files": 273,
+  "all_other_deployed_files_preserved": true,
+  "certificate_pdfs_preserved": 61,
+  "steelPngMatchesSource": true
+}

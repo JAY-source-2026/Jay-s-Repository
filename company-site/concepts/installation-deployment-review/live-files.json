@@ -1,0 +1,109 @@
+{
+  "passed": true,
+  "querylessPublicUrls": true,
+  "sourceCommit": "53507a3526e1d51cbd2d6f5b265d1738978d14a5",
+  "files": [
+    {
+      "path": "company-site/assets/css/home.css",
+      "httpStatus": 200,
+      "sha256": "da6253be6a64d8ee404bcf6a1ee1dcc90bac2e00ab620787e220282dc536a999",
+      "bytes": 20922
+    },
+    {
+      "path": "company-site/assets/css/signature.css",
+      "httpStatus": 200,
+      "sha256": "b37ddf71d448b7506715c083af455a94e31feb21ed48697f6699aa85b56f6c8f",
+      "bytes": 14089
+    },
+    {
+      "path": "company-site/assets/data/installation-certificates.json",
+      "httpStatus": 200,
+      "sha256": "12a8f77c8261f8f8b868d46e945723fa1f8bd696a50a405c98ff9497a1224d22",
+      "bytes": 283949
+    },
+    {
+      "path": "company-site/assets/js/assemblies.js",
+      "httpStatus": 200,
+      "sha256": "d78695e53c41ef6c3b1f30432c6c0ef398e574c28ee818df547ddaa2ac707d2a",
+      "bytes": 11555
+    },
+    {
+      "path": "company-site/assets/js/explorer.js",
+      "httpStatus": 200,
+      "sha256": "0ad9541ac9861813066228d6345412036b8e7f8170cd7a471f78bc127ffbedde",
+      "bytes": 12932
+    },
+    {
+      "path": "company-site/assets/js/factory.js",
+      "httpStatus": 200,
+      "sha256": "b7abdae1b920f03837bfddf1bc7a7be8cfbe1d7fd14af85dc608ba024b816256",
+      "bytes": 7941
+    },
+    {
+      "path": "company-site/assets/js/hero3d.js",
+      "httpStatus": 200,
+      "sha256": "9e295a1f021f386adbc4f5b5061e78511826ee8ba14cd2314562c9054a1c08bd",
+      "bytes": 27126
+    },
+    {
+      "path": "company-site/assets/js/signature.js",
+      "httpStatus": 200,
+      "sha256": "51d2d1f93609b66dcd5af251dc3ec6bacc102a19e3a016f1d3762d6f2f98b34d",
+      "bytes": 13040
+    },
+    {
+      "path": "company-site/assets/js/site-context.js",
+      "httpStatus": 200,
+      "sha256": "d46133653229ea43d96ecb3c75491cb3ee29027db8d21fd844818cdf15893d27",
+      "bytes": 12159
+    },
+    {
+      "path": "company-site/assets/js/systems.js",
+      "httpStatus": 200,
+      "sha256": "7c7411d7f3d47da917efb7336307f4e36e6f8331ae90dba0a523585f1b63311e",
+      "bytes": 5603
+    },
+    {
+      "path": "company-site/assets/media/hero/shutter-large-photo.jpg",
+      "httpStatus": 200,
+      "sha256": "d2bb5283d614a23c1d597808fe3e18778cb3974482c50974177d6836bb4d5d6c",
+      "bytes": 948482
+    },
+    {
+      "path": "company-site/assets/media/hero/shutter-standard-photo.jpg",
+      "httpStatus": 200,
+      "sha256": "2cb40aa34dbf2be9c75ef797ed4ab402ed34c48aba885346f8bf48209b57d16d",
+      "bytes": 104620
+    },
+    {
+      "path": "company-site/assets/media/hero/shutter-steel-photo.jpg",
+      "httpStatus": 200,
+      "sha256": "bbd0a6db0fa89f915531c065e9d71144e3794ac270781dc4b5a5f492301b110f",
+      "bytes": 170120
+    },
+    {
+      "path": "company-site/assets/media/hero/shutter-steel-photo.png",
+      "httpStatus": 200,
+      "sha256": "295aee6e62199dcb4ebff0e053130494b5cb638376555a121c9c253e284a3bdd",
+      "bytes": 402852
+    },
+    {
+      "path": "company-site/assets/media/hero/shutter-wire-photo.jpg",
+      "httpStatus": 200,
+      "sha256": "4fbae974815d469eeea498f536c811ebeaef7c290bc56a667e305b065393dadf",
+      "bytes": 35379
+    },
+    {
+      "path": "company-site/index.html",
+      "httpStatus": 200,
+      "sha256": "2d366d927f992a7673216d0a7c45fd36c71f9c12415a94a550c879338d501756",
+      "bytes": 43660
+    },
+    {
+      "path": "company-site/release.json",
+      "httpStatus": 200,
+      "sha256": "5bdaee345e1c44dd86e8e57789a174537fc5f61165d47523d93e59ab3a7d4c70",
+      "bytes": 310
+    }
+  ]
+}

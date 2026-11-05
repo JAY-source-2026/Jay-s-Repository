@@ -1,0 +1,50 @@
+{
+  "passed": true,
+  "base": "http://127.0.0.1:8001/company-site/",
+  "release": {
+    "source_commit": "53507a3526e1d51cbd2d6f5b265d1738978d14a5",
+    "site": "company-site",
+    "files": 288,
+    "original_documents": "private source folders excluded; approved firestop and fireproof certificate copies included",
+    "published_firestop_certificates": 60,
+    "published_fireproof_certificates": 1
+  },
+  "photos": 4,
+  "steelPngWidth": 652,
+  "videoPlayedAndPaused": true,
+  "certificates": 60,
+  "selected": "FS-MP25-0625-02",
+  "captionRemoved": true,
+  "sourceLinks": [
+    "http://127.0.0.1:8001/company-site/assets/downloads/firestop-certificates/bundled-pipes/FS-MP25-0625-02.pdf#page=4",
+    "http://127.0.0.1:8001/company-site/assets/downloads/firestop-certificates/bundled-pipes/FS-MP25-0625-02.pdf#page=9"
+  ],
+  "privateDocumentFallback": [
+    "#contact",
+    "#contact"
+  ],
+  "layouts": [
+    {
+      "width": 1440,
+      "overflow": false,
+      "modelOffset": 0
+    },
+    {
+      "width": 1366,
+      "overflow": false,
+      "modelOffset": 0
+    },
+    {
+      "width": 390,
+      "overflow": false,
+      "modelOffset": 0
+    },
+    {
+      "width": 320,
+      "overflow": false,
+      "modelOffset": 0
+    }
+  ],
+  "errors": [],
+  "bad": []
+}
