@@ -1,4 +1,4 @@
-import { SYSTEMS, MATERIALS, SOURCES, CATEGORIES, loadCertificates, applyCertificate } from './systems.js?v=20261105r6';
+import { SYSTEMS, MATERIALS, SOURCES, CATEGORIES, loadCertificates, applyCertificate } from './systems.js?v=20261106r2';
 const $=id=>document.getElementById(id);
 const buttons=[...document.querySelectorAll('[data-system]')];
 const toggles=[...document.querySelectorAll('[data-cert-toggle]')];
@@ -17,10 +17,11 @@ function explainStep(data,index){
  if(step.kind==='glasswool')return '은박 외장 보온재가 배관 전체에 연속으로 감겨 있는 상태에서 시작합니다. 기존 보온재의 이음부와 관통부 상태를 확인한 뒤 내화채움 제품을 시공합니다.';
  if(step.kind==='jacket')return '내화자켓을 벌린 상태로 배관 둘레에 위치시킨 뒤 양쪽을 오므립니다. 열린 끝의 고리를 체결부에 걸어 잠그고, 다음 단계에서 브라켓을 고정합니다.';
  if(step.kind==='board'&&data.record.category==='duct')return '재단된 내화보드 조각을 덕트의 위·아래·양옆에 나누어 부착하고 고정합니다. 각 조각의 이음매를 구분해 보여주며, 다음 단계에서 테두리와 이음부를 실란트로 마감합니다.';
+ if(step.kind==='fixing'&&/철선|철사/.test(step.text.replace(/\s/g,'')))return '철선을 보온재 둘레에 감아 밀착시키고 끝을 꼬아 고정합니다. 철선의 위치·규격·간격과 마감 조건은 연결된 시방에서 확인하세요.';
  if(step.kind==='fixing'&&data.record.category==='duct')return '보온재의 마감 상태와 고정 조건을 확인합니다. 상·하부 고정 부재는 모형에서 생략했으며, 부재 규격과 설치 간격은 연결된 시방에서 확인할 수 있습니다.';
  if(step.kind==='board')return `내화보드 두 조각을 위·아래에서 각각 끼워 관통재 주위에 맞댄 뒤 고정합니다.${board?.thickness?` 보드 두께 ${board.thickness} mm 이상.`:''} 테두리와 이음매는 다음 실란트 단계에서 마감합니다.`;
  if(step.kind==='sealant')return '실란트 카트리지의 노즐을 접합부에 대고 이동하며 빈틈을 채웁니다. '+(board?'보드 테두리·관통재 접점·두 조각의 이음매를 연결해 도포합니다. ':'관통재와 채움재의 접합부를 따라 도포합니다. ')+'도포 치수와 적용 부위는 선택한 시방을 따릅니다.';
- if(step.kind==='blanket')return `세라믹섬유블랭킷을 관통재 둘레에 감싸고 이음부를 밀착시킵니다.${step.thicknessMm?` 두께 ${step.thicknessMm} mm.`:''}${step.lengthMm?` 시공 길이 ${step.lengthMm} mm.`:''} 은박 표면과 내부 섬유층을 함께 보여줍니다. 세부 적용 조건은 연결된 시방을 확인하세요.`;
+ if(step.kind==='blanket')return `평평한 세라믹섬유블랭킷을 관통재에 대고 둘레를 따라 감아 이음부를 밀착시킵니다.${step.thicknessMm?` 두께 ${step.thicknessMm} mm.`:''}${step.lengthMm?` 시공 길이 ${step.lengthMm} mm.`:''} 겉면·안쪽·옆면 모두 같은 은박 표면입니다. 세부 적용 조건은 연결된 시방을 확인하세요.`;
  const brief={
   'insulation-band':'시방에 지정된 내화밴드와 세라믹섬유블랭킷 조합을 덕트 둘레에 설치합니다. 각 면에 적용하는 구성·두께·길이·수량은 연결된 시방에서 확인하세요.',
   band:'시방에 지정된 내화밴드를 관통재와 개구부 사이에 밀착하여 설치합니다. 밴드의 겹수·두께·너비와 배관별 적용 조건은 연결된 시방을 따릅니다.',
@@ -178,7 +179,7 @@ function startExplorer(){
  if(loading)return loading;
  loading=(async()=>{
   try{
-   const [records,{initHero3D}]=await Promise.all([loadCertificates(),import('./hero3d.js?v=20261105r6')]);populate(records);
+   const [records,{initHero3D}]=await Promise.all([loadCertificates(),import('./hero3d.js?v=20261106r2')]);populate(records);
    $('explorerLoadStatus').textContent='시공 모형을 준비하고 있습니다.';
    api=await initHero3D($('hero3d'),$('explorerRender'),{onUpdate:update});
    window.systemExplorer=api;
