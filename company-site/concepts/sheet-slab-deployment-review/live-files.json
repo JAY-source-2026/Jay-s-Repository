@@ -1,0 +1,66 @@
+{
+  "passed": true,
+  "source_commit": "aa96fe337d3c9ff20b058a030761c7f411f80724",
+  "files": [
+    {
+      "path": "company-site/release.json",
+      "sha256": "203cc95a30131038b081296de139c3851336071866e17f0686c2cfe30898bd2d",
+      "bytes": 310
+    },
+    {
+      "path": "company-site/index.html",
+      "sha256": "e733019da945581d499ba97d076c8bb6ea8b8c76da0592b4d7341674e32de5fd",
+      "bytes": 44079
+    },
+    {
+      "path": "company-site/assets/js/installation-motion.js",
+      "sha256": "97c90ec5a1cd8af2c967d2e5b628905c0d954c5e495648e8b63867dfc4c52729",
+      "bytes": 652
+    },
+    {
+      "path": "company-site/assets/js/explorer.js",
+      "sha256": "9b3381a73a104b758ca3a9aec9b2c5c96bc18a1bcd8158f71b5bccb988512232",
+      "bytes": 17283
+    },
+    {
+      "path": "company-site/assets/js/systems.js",
+      "sha256": "b8fdd0af243e205963660afee92b1e66d917354768197b6508c57aea6295b7d8",
+      "bytes": 5813
+    },
+    {
+      "path": "company-site/assets/js/assemblies.js",
+      "sha256": "edef6af3aaf03747fc2ca811ce511456627307b37cfa3e15bb2a09b66e34defa",
+      "bytes": 19254
+    },
+    {
+      "path": "company-site/assets/js/installation-view.js",
+      "sha256": "89a86f69b62f15517f0ece52d8129f5116b3e0be72798ae13c22643fa7996bdf",
+      "bytes": 4123
+    },
+    {
+      "path": "company-site/assets/js/installation-wire.js",
+      "sha256": "e7d598449e88ad1d0eb7f096d4692d698d70fcdf961c916d47a83c207219aac7",
+      "bytes": 6442
+    },
+    {
+      "path": "company-site/assets/js/hero3d.js",
+      "sha256": "b90e247549421260858b2f70493bcba7c951136a9d5d12778bd1429f50b9adb1",
+      "bytes": 30238
+    },
+    {
+      "path": "company-site/assets/js/installation-services.js",
+      "sha256": "a85d746a2d25f3136ec26eca9f1f5809476ddb7daa910a486dea28849348e58e",
+      "bytes": 2031
+    },
+    {
+      "path": "company-site/assets/js/installation-blanket.js",
+      "sha256": "098de4fa0e8785d5e1b63bda26091c97e8b86fa9aa7224dd57a6ed8c691067a6",
+      "bytes": 3814
+    },
+    {
+      "path": "company-site/assets/js/factory.js",
+      "sha256": "6b98cfca0ead91ec0a7c3d61b6b90af5dbecd7d0cdca8e70ce01d8792b59d5f9",
+      "bytes": 6290
+    }
+  ]
+}
