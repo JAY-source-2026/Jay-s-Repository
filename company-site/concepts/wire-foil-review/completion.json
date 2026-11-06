@@ -1,0 +1,52 @@
+{
+  "completedAt": "2026-11-06T05:38:07.671820+00:00",
+  "status": "local-preview-only",
+  "committed": false,
+  "published": false,
+  "preview": "https://redesigned-fishstick-77vprgr9qxvwcrj59-8000.app.github.dev/?v=20261106r1#technology",
+  "backupAfter": "/workspaces/Jay-s-Repository/.local-backups/doenc-wire-foil-20261106T053807Z",
+  "files": {
+    "company-site/PLAN.md": "37bfa8c946d86d4b36a7ce42538b637a4db82175573135f2f8d31e79065c1762",
+    "company-site/SYSTEM-SOURCES.md": "5cd5a446278dffb3cdcedf05f46dbc0ee3bb767f81202a3622770bb92b1cc375",
+    "company-site/index.html": "61317b97fd424974365acdc2107c38556cbea6c0c5939d12888064ca44ee1d03",
+    "company-site/assets/js/hero3d.js": "458647432929c7b7cf42f128aab9d4480308c437db7cb981918f39f597d18f83",
+    "company-site/assets/js/assemblies.js": "63af8ccd76ba20d80e258e19beb0b3c407cb6df08f22f4f877b23eda914e3074",
+    "company-site/assets/js/explorer.js": "151889df2b4def1a3229427c1e6756e5e4da74fac85f5cad378763f3c590b512",
+    "company-site/assets/js/systems.js": "847649331380d230a107ae5369f3cc93a01466fec849f1e7e8aefaad9dccef4b",
+    "company-site/assets/js/installation-motion.js": "ae20d5ea468ed1e592834c985cfe5cbecb32a3ef316b9c8accfb2c2b2dd31ef1",
+    "company-site/assets/js/installation-wire.js": "e7d598449e88ad1d0eb7f096d4692d698d70fcdf961c916d47a83c207219aac7"
+  },
+  "checks": {
+    "geometry": true,
+    "certificates": 60,
+    "wires": 159,
+    "browser": true,
+    "zoom": {
+      "seconds": 2.2,
+      "progressAt700ms": 0,
+      "elapsed": 0
+    },
+    "layouts": [
+      {
+        "width": 1366,
+        "height": 650,
+        "overflow": false,
+        "overlap": false
+      },
+      {
+        "width": 390,
+        "height": 844,
+        "overflow": false,
+        "overlap": false
+      },
+      {
+        "width": 320,
+        "height": 640,
+        "overflow": false,
+        "overlap": false
+      }
+    ],
+    "errors": [],
+    "bad": []
+  }
+}

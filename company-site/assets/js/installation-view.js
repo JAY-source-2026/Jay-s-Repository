@@ -39,11 +39,21 @@ export function fitInstallation(T, assembly, camera, side = 1) {
   assembly.root.updateWorldMatrix(true, false);
   const origin = new T.Vector3().setFromMatrixPosition(assembly.root.matrixWorld);
   const offset = assembly.isFloor
-    ? new T.Vector3(span * .65, side < 0 ? -.9 : span * 1.3, Math.max(2.15, span * 1.1))
+    ? new T.Vector3(span * .7, span * .15, Math.max(4.2, span * 2))
     : new T.Vector3(span * .85, span * .4, span * 1.8);
   offset.multiplyScalar(Math.max(1, 1.35 / camera.aspect));
   const direction = offset.clone().normalize();
   const bounds = assembly.workBounds[side < 0 ? 'back' : 'front'].clone();
+  if(assembly.isFloor){
+    bounds.union(assembly.workBounds.front).union(assembly.workBounds.back);
+    // Include space on both sides even when this certificate works on one face.
+    bounds.expandByPoint(new T.Vector3(-.45,-.3,-.7));
+    bounds.expandByPoint(new T.Vector3(.45,.3,.7));
+    if(assembly.sectionSlab){
+      assembly.sectionSlab.geometry.computeBoundingBox();
+      bounds.union(assembly.sectionSlab.geometry.boundingBox.clone().translate(assembly.sectionSlab.position));
+    }
+  }
   if (bounds.isEmpty()) return { target: origin, position: origin.clone().add(offset), bounds };
   bounds.applyMatrix4(assembly.root.matrixWorld);
   if (!assembly.isFloor && assembly.record.category === 'metal' && assembly.maxDiameter <= .061 && assembly.workLength <= .15) {
@@ -54,7 +64,7 @@ export function fitInstallation(T, assembly, camera, side = 1) {
   const tanV = Math.tan(T.MathUtils.degToRad(camera.fov / 2)), tanH = tanV * camera.aspect;
   const target = origin.clone();
   // Preserve the familiar close view for small, short installations.
-  if (assembly.workLength > .65 || assembly.maxDiameter > .15 || assembly.record.category === 'duct') bounds.getCenter(target);
+  if (assembly.isFloor || assembly.workLength > .65 || assembly.maxDiameter > .15 || assembly.record.category === 'duct') bounds.getCenter(target);
   let distance = offset.length();
   for (const x of [bounds.min.x, bounds.max.x]) for (const y of [bounds.min.y, bounds.max.y]) for (const z of [bounds.min.z, bounds.max.z]) {
     const corner = new T.Vector3(x, y, z).sub(target);

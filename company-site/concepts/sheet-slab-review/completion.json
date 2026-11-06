@@ -1,0 +1,53 @@
+{
+  "completedAt": "2026-11-06T06:07:41.532123+00:00",
+  "status": "local-preview-only",
+  "committed": false,
+  "published": false,
+  "preview": "https://redesigned-fishstick-77vprgr9qxvwcrj59-8000.app.github.dev/?v=20261106r2#technology",
+  "backupAfter": "/workspaces/Jay-s-Repository/.local-backups/doenc-sheet-slab-20261106T060741Z",
+  "files": {
+    "company-site/PLAN.md": "07720b010f235f84d11db1a475a8f5433fb7222e4150f03b177733467e41083c",
+    "company-site/SYSTEM-SOURCES.md": "a905dd75ca848a74be341bcb78273ac23857844ec287d9463f0a089f55d3ff73",
+    "company-site/index.html": "643a19308a8b5c14342012944e13e0eb00f39648874ea1d56ea58341f998cc14",
+    "company-site/assets/js/assemblies.js": "edef6af3aaf03747fc2ca811ce511456627307b37cfa3e15bb2a09b66e34defa",
+    "company-site/assets/js/hero3d.js": "b90e247549421260858b2f70493bcba7c951136a9d5d12778bd1429f50b9adb1",
+    "company-site/assets/js/explorer.js": "3270a4b19ebeafa64ba7be4e4cf1690fb17b4ed5090ba70ba355f6b147efc6ef",
+    "company-site/assets/js/systems.js": "b8fdd0af243e205963660afee92b1e66d917354768197b6508c57aea6295b7d8",
+    "company-site/assets/js/factory.js": "6b98cfca0ead91ec0a7c3d61b6b90af5dbecd7d0cdca8e70ce01d8792b59d5f9",
+    "company-site/assets/js/installation-blanket.js": "098de4fa0e8785d5e1b63bda26091c97e8b86fa9aa7224dd57a6ed8c691067a6",
+    "company-site/assets/js/installation-services.js": "a85d746a2d25f3136ec26eca9f1f5809476ddb7daa910a486dea28849348e58e",
+    "company-site/assets/js/installation-wire.js": "e7d598449e88ad1d0eb7f096d4692d698d70fcdf961c916d47a83c207219aac7",
+    "company-site/assets/js/installation-motion.js": "97c90ec5a1cd8af2c967d2e5b628905c0d954c5e495648e8b63867dfc4c52729",
+    "company-site/assets/js/installation-view.js": "89a86f69b62f15517f0ece52d8129f5116b3e0be72798ae13c22643fa7996bdf"
+  },
+  "verification": {
+    "certificates": 60,
+    "sheets": 134,
+    "floorCertificates": 26,
+    "geometryPassed": true,
+    "browserPassed": true,
+    "livePassed": true,
+    "layouts": [
+      {
+        "width": 1366,
+        "height": 650,
+        "overflow": false,
+        "overlap": false
+      },
+      {
+        "width": 390,
+        "height": 844,
+        "overflow": false,
+        "overlap": false
+      },
+      {
+        "width": 320,
+        "height": 640,
+        "overflow": false,
+        "overlap": false
+      }
+    ],
+    "errors": [],
+    "bad": []
+  }
+}

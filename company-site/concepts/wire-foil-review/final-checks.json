@@ -1,0 +1,125 @@
+{
+  "passed": true,
+  "zoom": {
+    "seconds": 2.2,
+    "progressAt700ms": 0,
+    "elapsed": 0
+  },
+  "liveWinding": [
+    {
+      "component": "winding-wire",
+      "face": 1,
+      "visible": true,
+      "offset": [
+        0,
+        0,
+        0
+      ],
+      "progress": 0.1865671641791045,
+      "wrapped": 0.15625,
+      "twisted": 0,
+      "distance": 0.185,
+      "coverage": [
+        0.085,
+        1.085
+      ],
+      "freeEnd": [
+        -0.3235164175747919,
+        0.28560117694717446,
+        -0.00103125
+      ]
+    },
+    {
+      "component": "winding-wire",
+      "face": 1,
+      "visible": false,
+      "offset": [
+        0,
+        0,
+        0
+      ],
+      "progress": 0,
+      "wrapped": 0,
+      "twisted": 0,
+      "distance": 0.985,
+      "coverage": [
+        0.085,
+        1.085
+      ],
+      "freeEnd": [
+        0.05771097741091011,
+        0.42749193793104495,
+        -0.0015
+      ]
+    },
+    {
+      "component": "winding-wire",
+      "face": -1,
+      "visible": true,
+      "offset": [
+        0,
+        0,
+        0
+      ],
+      "progress": 0.1865671641791045,
+      "wrapped": 0.15625,
+      "twisted": 0,
+      "distance": 0.185,
+      "coverage": [
+        0.085,
+        1.085
+      ],
+      "freeEnd": [
+        -0.3235164175747919,
+        0.28560117694717446,
+        -0.00103125
+      ]
+    },
+    {
+      "component": "winding-wire",
+      "face": -1,
+      "visible": false,
+      "offset": [
+        0,
+        0,
+        0
+      ],
+      "progress": 0,
+      "wrapped": 0,
+      "twisted": 0,
+      "distance": 0.985,
+      "coverage": [
+        0.085,
+        1.085
+      ],
+      "freeEnd": [
+        0.05771097741091011,
+        0.42749193793104495,
+        -0.0015
+      ]
+    }
+  ],
+  "ductWires": 20,
+  "layouts": [
+    {
+      "width": 1366,
+      "height": 650,
+      "overflow": false,
+      "overlap": false
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "overflow": false,
+      "overlap": false
+    },
+    {
+      "width": 320,
+      "height": 640,
+      "overflow": false,
+      "overlap": false
+    }
+  ],
+  "errors": [],
+  "bad": []
+}

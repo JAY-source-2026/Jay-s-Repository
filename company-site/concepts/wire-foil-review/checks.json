@@ -1,0 +1,514 @@
+{
+  "passed": true,
+  "zoom": {
+    "seconds": 2.2,
+    "progressAt700ms": 0,
+    "elapsed": 0
+  },
+  "liveWinding": [
+    {
+      "component": "winding-wire",
+      "face": 1,
+      "visible": true,
+      "offset": [
+        0,
+        0,
+        0
+      ],
+      "progress": 0.1865671641791045,
+      "wrapped": 0.15625,
+      "twisted": 0,
+      "distance": 0.185,
+      "coverage": [
+        0.085,
+        1.085
+      ],
+      "freeEnd": [
+        -0.32330439100256225,
+        0.28720257018471124,
+        -0.00103125
+      ]
+    },
+    {
+      "component": "winding-wire",
+      "face": 1,
+      "visible": false,
+      "offset": [
+        0,
+        0,
+        0
+      ],
+      "progress": 0,
+      "wrapped": 0,
+      "twisted": 0,
+      "distance": 0.985,
+      "coverage": [
+        0.085,
+        1.085
+      ],
+      "freeEnd": [
+        0.05887704571625457,
+        0.4280650715107661,
+        -0.0015
+      ]
+    },
+    {
+      "component": "winding-wire",
+      "face": -1,
+      "visible": true,
+      "offset": [
+        0,
+        0,
+        0
+      ],
+      "progress": 0.1865671641791045,
+      "wrapped": 0.15625,
+      "twisted": 0,
+      "distance": 0.185,
+      "coverage": [
+        0.085,
+        1.085
+      ],
+      "freeEnd": [
+        -0.32330439100256225,
+        0.28720257018471124,
+        -0.00103125
+      ]
+    },
+    {
+      "component": "winding-wire",
+      "face": -1,
+      "visible": false,
+      "offset": [
+        0,
+        0,
+        0
+      ],
+      "progress": 0,
+      "wrapped": 0,
+      "twisted": 0,
+      "distance": 0.985,
+      "coverage": [
+        0.085,
+        1.085
+      ],
+      "freeEnd": [
+        0.05887704571625457,
+        0.4280650715107661,
+        -0.0015
+      ]
+    }
+  ],
+  "samples": [
+    {
+      "fraction": 0.2,
+      "wires": [
+        {
+          "component": "winding-wire",
+          "face": 1,
+          "visible": true,
+          "offset": [
+            0,
+            0,
+            0
+          ],
+          "progress": 0.208955223880597,
+          "wrapped": 0.1953125,
+          "twisted": 0,
+          "distance": 0.185,
+          "coverage": [
+            0.085,
+            1.085
+          ],
+          "freeEnd": [
+            -0.3832231056294752,
+            0.1996788182475645,
+            -0.0009140625
+          ]
+        },
+        {
+          "component": "winding-wire",
+          "face": 1,
+          "visible": false,
+          "offset": [
+            0,
+            0,
+            0
+          ],
+          "progress": 0,
+          "wrapped": 0,
+          "twisted": 0,
+          "distance": 0.985,
+          "coverage": [
+            0.085,
+            1.085
+          ],
+          "freeEnd": [
+            0.05887704571625457,
+            0.4280650715107661,
+            -0.0015
+          ]
+        },
+        {
+          "component": "winding-wire",
+          "face": -1,
+          "visible": true,
+          "offset": [
+            0,
+            0,
+            0
+          ],
+          "progress": 0.208955223880597,
+          "wrapped": 0.1953125,
+          "twisted": 0,
+          "distance": 0.185,
+          "coverage": [
+            0.085,
+            1.085
+          ],
+          "freeEnd": [
+            -0.3832231056294752,
+            0.1996788182475645,
+            -0.0009140625
+          ]
+        },
+        {
+          "component": "winding-wire",
+          "face": -1,
+          "visible": false,
+          "offset": [
+            0,
+            0,
+            0
+          ],
+          "progress": 0,
+          "wrapped": 0,
+          "twisted": 0,
+          "distance": 0.985,
+          "coverage": [
+            0.085,
+            1.085
+          ],
+          "freeEnd": [
+            0.05887704571625457,
+            0.4280650715107661,
+            -0.0015
+          ]
+        }
+      ]
+    },
+    {
+      "fraction": 0.5,
+      "wires": [
+        {
+          "component": "winding-wire",
+          "face": 1,
+          "visible": true,
+          "offset": [
+            0,
+            0,
+            0
+          ],
+          "progress": 0.5223880597014929,
+          "wrapped": 0.796875,
+          "twisted": 0,
+          "distance": 0.185,
+          "coverage": [
+            0.085,
+            1.085
+          ],
+          "freeEnd": [
+            0.4267448993346163,
+            0.06790804579930142,
+            0.000890625
+          ]
+        },
+        {
+          "component": "winding-wire",
+          "face": 1,
+          "visible": true,
+          "offset": [
+            0,
+            0,
+            0
+          ],
+          "progress": 0.27431059506531247,
+          "wrapped": 0.3125,
+          "twisted": 0,
+          "distance": 0.985,
+          "coverage": [
+            0.085,
+            1.085
+          ],
+          "freeEnd": [
+            -0.41856679820730636,
+            -0.10919767474960224,
+            -0.0005625000000000001
+          ]
+        },
+        {
+          "component": "winding-wire",
+          "face": -1,
+          "visible": true,
+          "offset": [
+            0,
+            0,
+            0
+          ],
+          "progress": 0.5223880597014929,
+          "wrapped": 0.796875,
+          "twisted": 0,
+          "distance": 0.185,
+          "coverage": [
+            0.085,
+            1.085
+          ],
+          "freeEnd": [
+            0.4267448993346163,
+            0.06790804579930142,
+            0.000890625
+          ]
+        },
+        {
+          "component": "winding-wire",
+          "face": -1,
+          "visible": true,
+          "offset": [
+            0,
+            0,
+            0
+          ],
+          "progress": 0.27431059506531247,
+          "wrapped": 0.3125,
+          "twisted": 0,
+          "distance": 0.985,
+          "coverage": [
+            0.085,
+            1.085
+          ],
+          "freeEnd": [
+            -0.41856679820730636,
+            -0.10919767474960224,
+            -0.0005625000000000001
+          ]
+        }
+      ]
+    },
+    {
+      "fraction": 0.95,
+      "wires": [
+        {
+          "component": "winding-wire",
+          "face": 1,
+          "visible": true,
+          "offset": [
+            0,
+            0,
+            0
+          ],
+          "progress": 0.9925373134328356,
+          "wrapped": 1,
+          "twisted": 0.9969099985710405,
+          "distance": 0.185,
+          "coverage": [
+            0.085,
+            1.085
+          ],
+          "freeEnd": [
+            0.1964678552086544,
+            0.20220731108567735,
+            0.0038985867366376804
+          ]
+        },
+        {
+          "component": "winding-wire",
+          "face": 1,
+          "visible": true,
+          "offset": [
+            0,
+            0,
+            0
+          ],
+          "progress": 0.9600870827285923,
+          "wrapped": 1,
+          "twisted": 0.9201091114138501,
+          "distance": 0.985,
+          "coverage": [
+            0.085,
+            1.085
+          ],
+          "freeEnd": [
+            0.19724432739577966,
+            0.20145318996054226,
+            0.0030727758871982014
+          ]
+        },
+        {
+          "component": "winding-wire",
+          "face": -1,
+          "visible": true,
+          "offset": [
+            0,
+            0,
+            0
+          ],
+          "progress": 0.9925373134328356,
+          "wrapped": 1,
+          "twisted": 0.9969099985710405,
+          "distance": 0.185,
+          "coverage": [
+            0.085,
+            1.085
+          ],
+          "freeEnd": [
+            0.1964678552086544,
+            0.20220731108567735,
+            0.0038985867366376804
+          ]
+        },
+        {
+          "component": "winding-wire",
+          "face": -1,
+          "visible": true,
+          "offset": [
+            0,
+            0,
+            0
+          ],
+          "progress": 0.9600870827285923,
+          "wrapped": 1,
+          "twisted": 0.9201091114138501,
+          "distance": 0.985,
+          "coverage": [
+            0.085,
+            1.085
+          ],
+          "freeEnd": [
+            0.19724432739577966,
+            0.20145318996054226,
+            0.0030727758871982014
+          ]
+        }
+      ]
+    },
+    {
+      "fraction": 1,
+      "wires": [
+        {
+          "component": "winding-wire",
+          "face": 1,
+          "visible": true,
+          "offset": [
+            0,
+            0,
+            0
+          ],
+          "progress": 1,
+          "wrapped": 1,
+          "twisted": 1,
+          "distance": 0.185,
+          "coverage": [
+            0.085,
+            1.085
+          ],
+          "freeEnd": [
+            0.19642608909612402,
+            0.20224787494397925,
+            0.0039000000000000003
+          ]
+        },
+        {
+          "component": "winding-wire",
+          "face": 1,
+          "visible": true,
+          "offset": [
+            0,
+            0,
+            0
+          ],
+          "progress": 1,
+          "wrapped": 1,
+          "twisted": 1,
+          "distance": 0.985,
+          "coverage": [
+            0.085,
+            1.085
+          ],
+          "freeEnd": [
+            0.19642608909612402,
+            0.20224787494397925,
+            0.0039000000000000003
+          ]
+        },
+        {
+          "component": "winding-wire",
+          "face": -1,
+          "visible": true,
+          "offset": [
+            0,
+            0,
+            0
+          ],
+          "progress": 1,
+          "wrapped": 1,
+          "twisted": 1,
+          "distance": 0.185,
+          "coverage": [
+            0.085,
+            1.085
+          ],
+          "freeEnd": [
+            0.19642608909612402,
+            0.20224787494397925,
+            0.0039000000000000003
+          ]
+        },
+        {
+          "component": "winding-wire",
+          "face": -1,
+          "visible": true,
+          "offset": [
+            0,
+            0,
+            0
+          ],
+          "progress": 1,
+          "wrapped": 1,
+          "twisted": 1,
+          "distance": 0.985,
+          "coverage": [
+            0.085,
+            1.085
+          ],
+          "freeEnd": [
+            0.19642608909612402,
+            0.20224787494397925,
+            0.0039000000000000003
+          ]
+        }
+      ]
+    }
+  ],
+  "layouts": [
+    {
+      "width": 1366,
+      "height": 650,
+      "overflow": false,
+      "overlap": false
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "overflow": false,
+      "overlap": false
+    },
+    {
+      "width": 320,
+      "height": 640,
+      "overflow": false,
+      "overlap": false
+    }
+  ],
+  "errors": [],
+  "bad": []
+}

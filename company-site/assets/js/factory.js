@@ -90,8 +90,19 @@ export function buildFactory({ T, scene, models, box, mesh, group, mat, concrete
     box(.22, roofY, .24, concrete, architecture, x, roofY / 2, -3.22);
   }
   for (const y of [FACTORY.level, roofY]) {
-    box(FACTORY.width, .2, .12, panel, architecture, 0, y - .11, 3.55);
-    box(FACTORY.width, .035, .14, frameMetal, architecture, 0, y + .025, 3.55);
+    let left=-FACTORY.width/2;
+    const frontBeam=(x,width,id)=>{
+      for(const [height,dy,depth,material]of [[.2,-.11,.12,panel],[.035,.025,.14,frameMetal]]){
+        const beam=box(width,height,depth,material,architecture,x,y+dy,3.55);
+        if(id){beam.userData.component='front-floor-beam';beam.userData.contextSlab=true;beam.userData.workBay=id;}
+      }
+    };
+    for(const [id,bay]of Object.entries(FACTORY.bays)){
+      const start=bay.x-bay.width/2;
+      if(start>left)frontBeam((left+start)/2,start-left);
+      frontBeam(bay.x,bay.width,id);left=bay.x+bay.width/2;
+    }
+    const right=FACTORY.width/2;if(right>left)frontBeam((left+right)/2,right-left);
   }
   // Low roof parapet, repeated air-handling units and an unobstructed cutaway.
   for (const z of [-3.56, 3.56]) {
@@ -110,45 +121,5 @@ export function buildFactory({ T, scene, models, box, mesh, group, mat, concrete
     }
   }
 
-  function route(id, m) {
-    const end = id === 'duct' ? 1.9 : 1.7, radius = id === 'duct' ? .55 : .45;
-    const z = end + radius, upperY = CY + FACTORY.level;
-    const curve = new T.CurvePath();
-    const V = (y, depth) => new T.Vector3(0, y, depth);
-    curve.add(new T.QuadraticBezierCurve3(V(CY, end), V(CY, z), V(CY + radius, z)));
-    curve.add(new T.LineCurve3(V(CY + radius, z), V(upperY - radius, z)));
-    curve.add(new T.QuadraticBezierCurve3(V(upperY - radius, z), V(upperY, z), V(upperY, end)));
-    const routes = group(m.root, 0, 0, WALL_Z); routes.userData.component = id + '-interfloor-route'; m.routeGroup = routes;
-    if (id === 'duct') {
-      // Sweep a hollow rectangular shell; its width remains horizontal at elbows.
-      const corners = [[-1.301, -.326], [1.301, -.326], [1.301, .326], [-1.301, .326]];
-      const positions = [], indices = [], segments = 56;
-      for (let i = 0; i <= segments; i++) {
-        const t = i / segments, p = curve.getPointAt(t), tangent = curve.getTangentAt(t);
-        const normal = new T.Vector3(0, -tangent.z, tangent.y).normalize();
-        for (const [x, h] of corners) positions.push(x, p.y + normal.y * h, p.z + normal.z * h);
-      }
-      for (let i = 0; i < segments; i++) for (let j = 0; j < 4; j++) {
-        const a = i * 4 + j, b = i * 4 + (j + 1) % 4, c = b + 4, d = a + 4;
-        indices.push(a, b, d, b, c, d);
-      }
-      const geometry = new T.BufferGeometry(); geometry.setAttribute('position', new T.Float32BufferAttribute(positions, 3)); geometry.setIndex(indices); geometry.computeVertexNormals();
-      const material = zinc.clone(); material.side = T.DoubleSide; mesh(geometry, material, routes);
-    } else {
-      const r = id === 'metal' ? .2032 : .1335;
-      mesh(new T.TubeGeometry(curve, 56, r, 24, false), id === 'metal' ? steel : pvc, routes);
-      if (id === 'polymer') for (const y of [CY, upperY]) {
-        const extension = mesh(new T.CylinderGeometry(r, r, end - .925, 32), pvc, routes, 0, y, (.925 + end) / 2);
-        extension.rotation.x = Math.PI / 2;
-      }
-      for (const y of [2.6, 4.1]) {
-        const collar = mesh(new T.TorusGeometry(r + .009, .016, 8, 32), steel, routes, 0, y, z); collar.rotation.x = Math.PI / 2;
-        box(.1, .06, z - .16, zinc, routes, 0, y, (z + .16) / 2);
-      }
-    }
-    m.route = { from: [m.root.position.x, CY, WALL_Z], through: [m.root.position.x, FACTORY.level, WALL_Z + z], to: [m.root.position.x, upperY, WALL_Z] };
-
-  }
-  for (const id of ['metal', 'polymer', 'duct']) route(id, models[id]);
   return architecture;
 }

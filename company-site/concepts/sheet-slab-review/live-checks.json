@@ -1,0 +1,54 @@
+{
+  "passed": true,
+  "samples": [
+    {
+      "elapsed": 11.100000000000001,
+      "blanket": {
+        "component": "blanket-wrap",
+        "visible": true,
+        "offset": [
+          0,
+          0,
+          0
+        ],
+        "progress": 0.2325581395348837,
+        "wrapped": 0.05868991735644983,
+        "flatLength": 1.2757416193412168,
+        "sheetWidth": 1.3552830707586367
+      }
+    },
+    {
+      "elapsed": 12.350000000000001,
+      "blanket": {
+        "component": "blanket-wrap",
+        "visible": true,
+        "offset": [
+          0,
+          0,
+          0
+        ],
+        "progress": 0.5232558139534883,
+        "wrapped": 0.4554788362018938,
+        "flatLength": 0.737980314965364,
+        "sheetWidth": 1.3552830707586367
+      }
+    },
+    {
+      "elapsed": 14.100000000000001,
+      "blanket": {
+        "component": "blanket-wrap",
+        "visible": true,
+        "offset": [
+          0,
+          0,
+          0
+        ],
+        "progress": 0.9302325581395348,
+        "wrapped": 0.9829039045711792,
+        "flatLength": 0.023170048710754898,
+        "sheetWidth": 1.3552830707586367
+      }
+    }
+  ],
+  "errors": []
+}
