@@ -1,0 +1,44 @@
+{
+  "passed": true,
+  "base": "https://jay-source-2026.github.io/Jay-s-Repository/company-site/",
+  "photoSha256": "357e14cf9571d99a3184b0f431902817aa0f3475ab7df979032cf65ef8941526",
+  "layouts": [
+    {
+      "width": 1366,
+      "scrollWidth": 1366
+    },
+    {
+      "width": 390,
+      "scrollWidth": 390
+    },
+    {
+      "width": 320,
+      "scrollWidth": 320
+    }
+  ],
+  "shutterPhotos": 4,
+  "productMenus": 5,
+  "shutterCertificates": 5,
+  "installationCertificates": 60,
+  "throughBlanket": {
+    "component": "blanket-wrap",
+    "visible": true,
+    "offset": [
+      0,
+      0,
+      0
+    ],
+    "progress": 1,
+    "stage": "closed",
+    "wrapped": 1,
+    "coverage": [
+      -1.075,
+      1.075
+    ],
+    "throughSupport": true,
+    "flatLength": 0,
+    "sheetWidth": 6.592822783634209
+  },
+  "errors": [],
+  "bad": []
+}

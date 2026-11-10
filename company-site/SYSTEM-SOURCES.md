@@ -3,7 +3,7 @@
 - 사용자가 지정한 `assets/자료/방화셔터 자료/와이어 권취형 방화셔터.jpg`(1400×1050)를 메인 와이어 권취형 방화셔터 사진의 근거로 사용한다. 게시용 사본은 `assets/media/hero/shutter-wire-photo.jpg`이며 원본과 SHA-256이 같다. 생성·합성·크롭을 하지 않았다.
 - 메인 사진 아래 영상 버튼과 해당 메인 영상 전환 UI만 삭제한다. 별도 방화셔터 소개의 실제 하강 영상, 자료실 인정서 및 원본 영상은 유지한다.
 - 이전 저장 파일에 포함되어 있던 파란 포장 내화밴드 표현(`installation-band.js`)도 현재 상태로 게시한다. 기존 근거와 형상 검수는 `concepts/band-wrapper-review/sources.json`·`geometry-checks.json`을 따른다. 기술 조건·시방 데이터·원본 PDF를 이번 사진 변경으로 수정하지 않는다.
-- 커밋·공개 배포 상태와 재개 링크는 `PLAN.md` 맨 위를 따른다. 이번 검수는 `concepts/shutter-photo-publication-review/`에 기록한다.
+- 소스 `fd4b052257ef2042d8bacf97536d0ed7ca831782`를 공개 배포 `35f8c52b3723d9d20bea35611a8ded7172e2ad63`로 게시했다. GitHub Pages 빌드 완료와 공개 변경 파일 40개의 일치를 확인했다. 재개 링크와 상세 검수는 `PLAN.md` 맨 위 및 `concepts/shutter-photo-publication-review/`를 따른다.
 
 ---
 

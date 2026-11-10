@@ -1,0 +1,206 @@
+{
+  "passed": true,
+  "source_commit": "fd4b052257ef2042d8bacf97536d0ed7ca831782",
+  "files": [
+    {
+      "path": "company-site/archive.html",
+      "status": 200,
+      "sha256": "51557967f8b76eae0bcc5403cda50edbc8c19ad5c510843ba3387c4cec51ace5"
+    },
+    {
+      "path": "company-site/release.json",
+      "status": 200,
+      "sha256": "fa574c14f783f3e03220b23c5019117620bc122191cf9041da0203d203c0a0d4"
+    },
+    {
+      "path": "company-site/about.html",
+      "status": 200,
+      "sha256": "abaa593517ddf1c7765288faa74e1e7c2de47f381b28fdbfa57e19b8d59a57a5"
+    },
+    {
+      "path": "company-site/index.html",
+      "status": 200,
+      "sha256": "04ecbe79b7d1bfb6d7ec2d376e4bcf236deba45b59a6682acf590bab3dabc504"
+    },
+    {
+      "path": "company-site/assets/data/archive.json",
+      "status": 200,
+      "sha256": "1b967db826ce28216d3d244b9dfe52b78d3a589ba0e7029ce41c67faa636959a"
+    },
+    {
+      "path": "company-site/assets/css/about.css",
+      "status": 200,
+      "sha256": "2d74fff0d86c11bae0ebaac7c6412d5e0cf796d823b64a0805a2d047bbd32896"
+    },
+    {
+      "path": "company-site/assets/css/home.css",
+      "status": 200,
+      "sha256": "a0a383bcb55d9b8e2e407e365cee27aa7b03225b96691b7f04094660e1f57002"
+    },
+    {
+      "path": "company-site/assets/css/material-details.css",
+      "status": 200,
+      "sha256": "b7d2872acdea615e37e9c622d5a22b9737b42960fd317baafc71af63e8019314"
+    },
+    {
+      "path": "company-site/assets/css/signature.css",
+      "status": 200,
+      "sha256": "451bb2902901b0fe940fb3a80bb8c96fecce80b0deef3d31d0ddc4355ae844fa"
+    },
+    {
+      "path": "company-site/assets/js/installation-jacket.js",
+      "status": 200,
+      "sha256": "f43d0c692782e776d41e719df109393762e0bba05c0efd195ecbbd2dedd657c3"
+    },
+    {
+      "path": "company-site/assets/js/installation-duct-channels.js",
+      "status": 200,
+      "sha256": "9debbcba195edc619cecca5eb2ec6dd7186ff1cf8c292503ce3d2eb71f5e14af"
+    },
+    {
+      "path": "company-site/assets/js/pages.js",
+      "status": 200,
+      "sha256": "e7d87e999daba206621ade96a446d5ec1bbcb260b8e2cf0820ddbabfb0a72cb6"
+    },
+    {
+      "path": "company-site/assets/js/installation-view.js",
+      "status": 200,
+      "sha256": "2780fc782827f01ba8d1d72e66d97cb87db0fb1db19f6b354e5a903af40f4b06"
+    },
+    {
+      "path": "company-site/assets/js/installation-motion.js",
+      "status": 200,
+      "sha256": "1c2870a73728d8677238f7dd06527ee7806d85199ff525e807de6a2171fb8327"
+    },
+    {
+      "path": "company-site/assets/js/installation-blanket.js",
+      "status": 200,
+      "sha256": "f4c8c9753c29431687980ee51610035bfab5f855498803b6d101c039b00e528c"
+    },
+    {
+      "path": "company-site/assets/js/installation-band.js",
+      "status": 200,
+      "sha256": "cfa6da9cbecadf7b939abe39cd6951d5807651ffe2a251e417b16c4b9475c487"
+    },
+    {
+      "path": "company-site/assets/js/explorer.js",
+      "status": 200,
+      "sha256": "d6c8ccec7b7ec9662a4daec9d4b5ec7844e078b008d924dc59fdd249866f06f9"
+    },
+    {
+      "path": "company-site/assets/js/assemblies.js",
+      "status": 200,
+      "sha256": "df5b1899c4fd184248048229b55c3d7477dd16667099317aadeb61710a507197"
+    },
+    {
+      "path": "company-site/assets/js/installation-duct-blanket.js",
+      "status": 200,
+      "sha256": "e8e0059273ab8e936d49bfc151643f96917fe5017d9e062fbcc8b5c5135cdf5b"
+    },
+    {
+      "path": "company-site/assets/js/systems.js",
+      "status": 200,
+      "sha256": "9e78fabb1864018d3d3bfacb61971d7040870e603f4f159b83b902a5a5f61a95"
+    },
+    {
+      "path": "company-site/assets/js/hero3d.js",
+      "status": 200,
+      "sha256": "467f1a19a9a28ac1199b805bcd8bd90202d1c484f07bcde26402d319d2837c8b"
+    },
+    {
+      "path": "company-site/assets/js/product-data.js",
+      "status": 200,
+      "sha256": "bd87cbf162e3b4499b4a50a0ea8f913c59922f1b57f00ad1b90f52916c9e7a71"
+    },
+    {
+      "path": "company-site/assets/js/signature.js",
+      "status": 200,
+      "sha256": "cba0ea51009ea7d02d6c9d90c73429c7a8bc8dbeb92e35dd37ab518d4d13fa5c"
+    },
+    {
+      "path": "company-site/assets/js/materials.js",
+      "status": 200,
+      "sha256": "99df03f1dcb99d79a8ae3124abb50c49c0fc427afde579df94a27eb86e5adb9f"
+    },
+    {
+      "path": "company-site/assets/images/certificates/shutter/FDS-OTS26-0630-2-page-1.webp",
+      "status": 200,
+      "sha256": "2e77c18a78aeaa407690ad8e71537846eb941b9cb4bfed603c341a7da79f72ac"
+    },
+    {
+      "path": "company-site/assets/images/certificates/shutter/FDS-OTS24-0807-1-page-1.webp",
+      "status": 200,
+      "sha256": "07330e3b002373a3ea2a52efcf3c883ddb92079f772c1de2bbc02527bf09d277"
+    },
+    {
+      "path": "company-site/assets/images/certificates/shutter/FDS-OTS25-0721-1-page-1.webp",
+      "status": 200,
+      "sha256": "22290309537b617014fae3b915a0a24cbbf0c09f80fa5ef09efef23d9c9f717c"
+    },
+    {
+      "path": "company-site/assets/images/certificates/shutter/FDS-OTS26-0630-2-page-3.webp",
+      "status": 200,
+      "sha256": "f768fdd3b9e6c8ec041f11f19066a06f8561b152c0e66beeb22fac1716af6a1d"
+    },
+    {
+      "path": "company-site/assets/images/certificates/shutter/FDS-OTS25-0721-1-page-3.webp",
+      "status": 200,
+      "sha256": "92d49ee2b55ce88b977b4edc5e7c10be017f96bc791d3979c092288c368e605c"
+    },
+    {
+      "path": "company-site/assets/images/certificates/shutter/FDS-NVS26-0309-1-page-1.webp",
+      "status": 200,
+      "sha256": "b1e9ccf73f3ad5cb46a0f3e4fb5fe467a5af0bc131d13d73f0cb2d7b4fbc05ef"
+    },
+    {
+      "path": "company-site/assets/images/certificates/shutter/FDS-NVS24-0611-1-page-3.webp",
+      "status": 200,
+      "sha256": "6dcada25c4f4f8aefc848179d193da0e80a46ebbb0d7a01b30d0b4cce3c89236"
+    },
+    {
+      "path": "company-site/assets/images/certificates/shutter/FDS-OTS24-0807-1-page-3.webp",
+      "status": 200,
+      "sha256": "08864c1c268229a480c2b335c4301f52ca7cf6e4f77277a345ca077098b523b2"
+    },
+    {
+      "path": "company-site/assets/images/certificates/shutter/FDS-NVS26-0309-1-page-3.webp",
+      "status": 200,
+      "sha256": "938b899d53aa3688b27982f889d874285d6629355bd3d55c4ebc2673c970d29d"
+    },
+    {
+      "path": "company-site/assets/images/certificates/shutter/FDS-NVS24-0611-1-page-1.webp",
+      "status": 200,
+      "sha256": "3b0d676d1a2825da121e9e3c6e8f5477675347a1f0486c491ed989df7eaf807b"
+    },
+    {
+      "path": "company-site/assets/media/hero/shutter-wire-photo.jpg",
+      "status": 200,
+      "sha256": "357e14cf9571d99a3184b0f431902817aa0f3475ab7df979032cf65ef8941526"
+    },
+    {
+      "path": "company-site/assets/downloads/shutter-certificates/FDS-NVS26-0309-1.pdf",
+      "status": 200,
+      "sha256": "c59c931ab56ea50e075c17e0f57950538caa90dec62d0a91f953f7bb80b6c716"
+    },
+    {
+      "path": "company-site/assets/downloads/shutter-certificates/FDS-NVS24-0611-1.pdf",
+      "status": 200,
+      "sha256": "51964aa3dde74b5433c8563ebedc3aaaef327630f6f6ddab982e03c7cba6d09a"
+    },
+    {
+      "path": "company-site/assets/downloads/shutter-certificates/FDS-OTS25-0721-1.pdf",
+      "status": 200,
+      "sha256": "2393b8d7a622cc3236f2b669dd04dd0afd2bcbc02d3806ac08b2592c689d6629"
+    },
+    {
+      "path": "company-site/assets/downloads/shutter-certificates/FDS-OTS24-0807-1.pdf",
+      "status": 200,
+      "sha256": "be5e986665f984cde1a744c576fd7724665f943edbcc5dbefa0c8c276ecba8e6"
+    },
+    {
+      "path": "company-site/assets/downloads/shutter-certificates/FDS-OTS26-0630-2.pdf",
+      "status": 200,
+      "sha256": "63e6e700b91b9b6a900a34d82344eadf1478ee6f4e8a60480777964fd3bae0f9"
+    }
+  ]
+}

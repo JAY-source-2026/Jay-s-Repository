@@ -1,0 +1,27 @@
+{
+  "run_id": 42746450778,
+  "deployment_commit": "b2fb84494526ef6056b26aab4b66ddc459852560",
+  "attempts": [
+    {
+      "attempt": 1,
+      "build": "success",
+      "deploy": "failure",
+      "reason": "GitHub Pages syncing_files exceeded 600000 ms; deployment canceled by deploy-pages action",
+      "finished_at": "2026-11-10T03:10:11Z"
+    },
+    {
+      "attempt": 2,
+      "action": "rerun failed deployment job",
+      "status": "rejected",
+      "reason": "Resource not accessible by integration"
+    },
+    {
+      "attempt": 3,
+      "action": "unchanged site tree pushed with retry deployment commit",
+      "deployment_commit": "35f8c52b3723d9d20bea35611a8ded7172e2ad63",
+      "status": "built",
+      "run_id": 42747799242,
+      "updated_at": "2026-11-10T03:12:14Z"
+    }
+  ]
+}
