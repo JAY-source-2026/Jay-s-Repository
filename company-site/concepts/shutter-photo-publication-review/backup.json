@@ -1,0 +1,14 @@
+{
+  "path": "/workspaces/Jay-s-Repository/.local-backups/doenc-shutter-photo-20261110T024723Z",
+  "files": [
+    "company-site/index.html",
+    "company-site/assets/css/signature.css",
+    "company-site/assets/js/signature.js",
+    "company-site/assets/media/hero/shutter-wire-photo.jpg",
+    "company-site/tools/prepare-pages.py",
+    "company-site/PLAN.md",
+    "company-site/SYSTEM-SOURCES.md"
+  ],
+  "source_photo": "company-site/assets/자료/방화셔터 자료/와이어 권취형 방화셔터.jpg",
+  "source_sha256": "357e14cf9571d99a3184b0f431902817aa0f3475ab7df979032cf65ef8941526"
+}

@@ -1,0 +1,30 @@
+{
+  "passed": true,
+  "results": [
+    {
+      "id": "FS-MP26-0507-14",
+      "wrap": {
+        "component": "blanket-wrap",
+        "visible": true,
+        "offset": [
+          0,
+          0,
+          0
+        ],
+        "progress": 1,
+        "stage": "closed",
+        "wrapped": 1,
+        "coverage": [
+          -1.075,
+          1.075
+        ],
+        "throughSupport": true,
+        "flatLength": 0,
+        "sheetWidth": 6.592822783634209
+      },
+      "caption": "\n                            시공 02 / 07FS-MP26-0507-14 · 시방 8쪽 ↗\n                            보온재 (세라믹 섬유 블랭킷) 설치 1\n                            세라믹섬유블랭킷을 관통재 둘레에 감아 벽체 내부를 통과하도록 연속 설치합니다. 지지구조 안에서 보온층이 끊기지 않도록 양쪽을 연결합니다. 두께 25 mm. 양쪽 시공 길이와 이음부 조건은 연결된 시방을 확인하세요.\n                        "
+    }
+  ],
+  "errors": [],
+  "bad": []
+}

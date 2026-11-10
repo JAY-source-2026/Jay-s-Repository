@@ -1,0 +1,91 @@
+{
+  "passed": true,
+  "results": [
+    {
+      "name": "initial",
+      "width": 1366,
+      "height": 768,
+      "header": {
+        "top": 0,
+        "bottom": 93,
+        "height": 93
+      },
+      "render": {
+        "top": 108,
+        "bottom": 506,
+        "height": 398
+      },
+      "detail": {
+        "top": 568,
+        "bottom": 647.390625,
+        "height": 79.390625
+      },
+      "overflow": false
+    },
+    {
+      "name": "FS-MP25-0224-06",
+      "width": 1366,
+      "height": 768,
+      "header": {
+        "top": 0,
+        "bottom": 93,
+        "height": 93
+      },
+      "render": {
+        "top": 108,
+        "bottom": 506,
+        "height": 398
+      },
+      "detail": {
+        "top": 610,
+        "bottom": 744.5,
+        "height": 134.5
+      },
+      "overflow": false
+    },
+    {
+      "name": "compact",
+      "width": 1366,
+      "height": 650,
+      "header": {
+        "top": 0,
+        "bottom": 93,
+        "height": 93
+      },
+      "render": {
+        "top": 108,
+        "bottom": 388,
+        "height": 280
+      },
+      "detail": {
+        "top": 492,
+        "bottom": 626.5,
+        "height": 134.5
+      },
+      "overflow": false
+    },
+    {
+      "name": "compact",
+      "width": 900,
+      "height": 700,
+      "header": {
+        "top": 0,
+        "bottom": 79,
+        "height": 79
+      },
+      "render": {
+        "top": 94,
+        "bottom": 424,
+        "height": 330
+      },
+      "detail": {
+        "top": 528,
+        "bottom": 667.484375,
+        "height": 139.484375
+      },
+      "overflow": false
+    }
+  ],
+  "errors": [],
+  "bad": []
+}

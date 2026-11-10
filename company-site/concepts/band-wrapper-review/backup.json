@@ -1,0 +1,11 @@
+{
+  "backup": ".local-backups/doenc-band-wrapper-20261110T012030Z",
+  "files": {
+    "index.html": "e44551d54f4c176ae1ba85da11458711a59d6c94057bcdb6f714247127224760",
+    "assets/js/assemblies.js": "4170b0516398395ab26a80ba487ed275bd8a1d38bb51e1a828f8060bb7b17d04",
+    "assets/js/hero3d.js": "d44382d828f6c1d1726c1f2c4320934d787cf1ba15a2298cd8f713e21c31cf08",
+    "assets/js/explorer.js": "c3c3d2e6cddd1472de5188a4b9fae18ef56f9d1bec9c63ce842c74b685f98ed2",
+    "PLAN.md": "bba5536de03fbb851f0c486060525a9e2b81234989e1b15271f55d543a038211",
+    "SYSTEM-SOURCES.md": "b9f3921a8f1ac04fb7ed8ab6fae6e3ad49924b58da211d4a6c0e4b3331fce009"
+  }
+}

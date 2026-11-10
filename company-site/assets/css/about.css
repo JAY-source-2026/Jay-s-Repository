@@ -1,3 +1,23 @@
+/* All company sections share the CEO message's centered reading width. */
+.about-page #main { padding-top: var(--hd-h); }
+.about-page #main .sec > .wrap { max-width: 1120px; padding-inline: 32px; }
+.about-page #main .sec:not(.ceo-section) { padding: 80px 0; }
+.about-page .sec-head { margin-bottom: 42px; }
+.about-page .sec-title { font-size: clamp(30px, 3.3vw, 44px); }
+.about-page .tl-year { grid-template-columns: 150px minmax(0, 1fr); gap: 32px; padding: 28px 0; }
+.about-page .tl-year > h3 { font-size: 34px; }
+.about-page .tl-list { gap: 10px; }
+.about-page .tl-list li { display: block; padding-left: 16px; position: relative; }
+.about-page .tl-list li::before { content: ''; position: absolute; top: .75em; left: 0; width: 4px; height: 4px; border-radius: 50%; background: #829bb1; }
+.about-page .tl-list span { font-size: 15px; line-height: 1.75; }
+.about-page .tl-year:first-child > h3 { color: var(--accent); }
+.about-page .cert-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 28px 22px; }
+.about-page .org { padding: 28px; }
+.about-page .org-cols { grid-template-columns: repeat(4, minmax(0, 1fr)); min-width: 0; gap: 16px; }
+.about-page .loc { grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: 32px; }
+.about-page .loc-list > div { grid-template-columns: 92px minmax(0, 1fr); gap: 12px; padding: 16px 0; }
+.about-page .loc-list span { font-size: 15px; overflow-wrap: anywhere; }
+
 /* CEO message: clear type, architectural imagery and a restrained reading width. */
 #ceo.ceo-section { padding: 56px 0 96px; background: #fff; }
 #ceo .ceo-wrap { max-width: 1120px; padding: 0 32px; }
@@ -26,7 +46,22 @@
     .ceo-copy { font-size: 15.5px; }
 }
 
+@media (max-width: 900px) {
+    .about-page .cert-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .about-page .org-cols { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .about-page .loc { grid-template-columns: 1fr; }
+}
+
 @media (max-width: 680px) {
+    .about-page #main .sec > .wrap { max-width: 540px; padding-inline: 24px; }
+    .about-page #main .sec:not(.ceo-section) { padding: 56px 0; }
+    .about-page .sec-head { margin-bottom: 30px; }
+    .about-page .tl-year { grid-template-columns: 1fr; gap: 16px; padding: 24px 0; }
+    .about-page .tl-year > h3 { font-size: 28px; }
+    .about-page .cert-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 16px; }
+    .about-page .org { padding: 22px; }
+    .about-page .org-cols { grid-template-columns: 1fr; }
+    .about-page .loc-list > div { grid-template-columns: 1fr; gap: 4px; }
     #ceo.ceo-section { padding: 36px 0 56px; }
     #ceo .ceo-wrap { max-width: 540px; padding: 0 24px; }
     .ceo-section-head { gap: 14px; margin-bottom: 26px; padding-bottom: 22px; }

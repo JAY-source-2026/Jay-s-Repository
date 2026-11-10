@@ -1,0 +1,49 @@
+{
+  "passed": true,
+  "results": [
+    {
+      "name": "initial",
+      "width": 1366,
+      "height": 768,
+      "header": {
+        "top": 0,
+        "bottom": 93,
+        "height": 93
+      },
+      "render": {
+        "top": 108,
+        "bottom": 506,
+        "height": 398
+      },
+      "detail": {
+        "top": 568,
+        "bottom": 647.390625,
+        "height": 79.390625
+      },
+      "overflow": false
+    },
+    {
+      "name": "FS-MP26-0507-14",
+      "width": 1366,
+      "height": 768,
+      "header": {
+        "top": 0,
+        "bottom": 93,
+        "height": 93
+      },
+      "render": {
+        "top": 108,
+        "bottom": 506,
+        "height": 398
+      },
+      "detail": {
+        "top": 610,
+        "bottom": 744.5,
+        "height": 134.5
+      },
+      "overflow": false
+    }
+  ],
+  "errors": [],
+  "bad": []
+}

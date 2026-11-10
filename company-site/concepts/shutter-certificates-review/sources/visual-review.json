@@ -1,0 +1,15 @@
+{
+  "reviewedAt": "2026-11-09",
+  "evidence": ["contact-page-1.jpg", "contact-page-3.jpg"],
+  "allFiveCertificateCoversReviewed": true,
+  "allFiveRepresentativeDrawingsReviewed": true,
+  "allTenPreviewPagesCompleteAndUncropped": true,
+  "certificateNumbersMatchOriginalFirstPages": true,
+  "originalPdfCopiesByteIdentical": true,
+  "notes": [
+    "Each supplied PDF has its certificate on physical page 1 and a representative structural drawing on physical page 3.",
+    "FDS-OTS25-0721-1 and FDS-NVS26-0309-1 produce existing MuPDF dictionary syntax warnings during extraction/rendering. Both rendered complete and visually readable certificate and drawing pages. Their original PDF bytes were preserved without repair or rewriting.",
+    "FDS-OTS26-0630-2 is the certificate number printed on the original cover and drawing. The cover's recognition-content line uses NVS; this discrepancy was not silently corrected. No additional performance claims are supplied in the archive metadata.",
+    "Titles retain the user-supplied descriptive source filename text after removal of the leading numeric list prefix."
+  ]
+}

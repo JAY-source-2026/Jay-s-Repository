@@ -1,0 +1,410 @@
+{
+  "passed": true,
+  "livePlayback": true,
+  "results": [
+    {
+      "id": "FS-NP24-0617-5",
+      "jackets": [
+        {
+          "component": "jacket-clamp",
+          "face": 1,
+          "visible": true,
+          "offset": [
+            0,
+            0,
+            0
+          ],
+          "progress": 1,
+          "openAngle": 0,
+          "latched": true,
+          "tightened": true,
+          "bracketsEngaged": true,
+          "seated": true,
+          "screwsFixed": true,
+          "stage": "fixed",
+          "nominal": 250,
+          "bracketCount": 12,
+          "hookCount": 3,
+          "wingBoltCount": 2
+        },
+        {
+          "component": "jacket-clamp",
+          "face": -1,
+          "visible": true,
+          "offset": [
+            0,
+            0,
+            0
+          ],
+          "progress": 1,
+          "openAngle": 0,
+          "latched": true,
+          "tightened": true,
+          "bracketsEngaged": true,
+          "seated": true,
+          "screwsFixed": true,
+          "stage": "fixed",
+          "nominal": 250,
+          "bracketCount": 12,
+          "hookCount": 3,
+          "wingBoltCount": 2
+        }
+      ]
+    },
+    {
+      "id": "FS-NP24-0617-1",
+      "jackets": [
+        {
+          "component": "jacket-clamp",
+          "face": 1,
+          "visible": true,
+          "offset": [
+            0,
+            0,
+            0
+          ],
+          "progress": 1,
+          "openAngle": 0,
+          "latched": true,
+          "tightened": true,
+          "bracketsEngaged": true,
+          "seated": true,
+          "screwsFixed": true,
+          "stage": "fixed",
+          "nominal": 50,
+          "bracketCount": 2,
+          "hookCount": 1,
+          "wingBoltCount": 0
+        },
+        {
+          "component": "jacket-clamp",
+          "face": -1,
+          "visible": true,
+          "offset": [
+            0,
+            0,
+            0
+          ],
+          "progress": 1,
+          "openAngle": 0,
+          "latched": true,
+          "tightened": true,
+          "bracketsEngaged": true,
+          "seated": true,
+          "screwsFixed": true,
+          "stage": "fixed",
+          "nominal": 50,
+          "bracketCount": 2,
+          "hookCount": 1,
+          "wingBoltCount": 0
+        }
+      ]
+    },
+    {
+      "id": "FS-NP24-0617-10",
+      "jackets": [
+        {
+          "component": "jacket-clamp",
+          "face": 1,
+          "visible": true,
+          "offset": [
+            0,
+            0,
+            0
+          ],
+          "progress": 1,
+          "openAngle": 0,
+          "latched": true,
+          "tightened": true,
+          "bracketsEngaged": true,
+          "seated": true,
+          "screwsFixed": true,
+          "stage": "fixed",
+          "nominal": 250,
+          "bracketCount": 12,
+          "hookCount": 3,
+          "wingBoltCount": 2
+        },
+        {
+          "component": "jacket-clamp",
+          "face": -1,
+          "visible": true,
+          "offset": [
+            0,
+            0,
+            0
+          ],
+          "progress": 1,
+          "openAngle": 0,
+          "latched": true,
+          "tightened": true,
+          "bracketsEngaged": true,
+          "seated": true,
+          "screwsFixed": true,
+          "stage": "fixed",
+          "nominal": 250,
+          "bracketCount": 12,
+          "hookCount": 3,
+          "wingBoltCount": 2
+        }
+      ]
+    },
+    {
+      "id": "FS-NP24-0617-11",
+      "jackets": [
+        {
+          "component": "jacket-clamp",
+          "face": -1,
+          "visible": true,
+          "offset": [
+            0,
+            0,
+            0
+          ],
+          "progress": 1,
+          "openAngle": 0,
+          "latched": true,
+          "tightened": true,
+          "bracketsEngaged": true,
+          "seated": true,
+          "screwsFixed": true,
+          "stage": "fixed",
+          "nominal": 100,
+          "bracketCount": 4,
+          "hookCount": 2,
+          "wingBoltCount": 0
+        }
+      ]
+    },
+    {
+      "id": "FS-NP25-0224-05",
+      "jackets": [
+        {
+          "component": "jacket-clamp",
+          "face": -1,
+          "visible": true,
+          "offset": [
+            0,
+            0,
+            0
+          ],
+          "progress": 1,
+          "openAngle": 0,
+          "latched": true,
+          "tightened": true,
+          "bracketsEngaged": true,
+          "seated": true,
+          "screwsFixed": true,
+          "stage": "fixed",
+          "nominal": 250,
+          "bracketCount": 12,
+          "hookCount": 3,
+          "wingBoltCount": 2
+        }
+      ]
+    },
+    {
+      "id": "FS-NP25-0625-04",
+      "jackets": [
+        {
+          "component": "jacket-clamp",
+          "face": 1,
+          "visible": true,
+          "offset": [
+            0,
+            0,
+            0
+          ],
+          "progress": 1,
+          "openAngle": 0,
+          "latched": true,
+          "tightened": true,
+          "bracketsEngaged": true,
+          "seated": true,
+          "screwsFixed": true,
+          "stage": "fixed",
+          "nominal": 250,
+          "bracketCount": 12,
+          "hookCount": 3,
+          "wingBoltCount": 2
+        },
+        {
+          "component": "jacket-clamp",
+          "face": 1,
+          "visible": true,
+          "offset": [
+            0,
+            0,
+            0
+          ],
+          "progress": 1,
+          "openAngle": 0,
+          "latched": true,
+          "tightened": true,
+          "bracketsEngaged": true,
+          "seated": true,
+          "screwsFixed": true,
+          "stage": "fixed",
+          "nominal": 150,
+          "bracketCount": 4,
+          "hookCount": 2,
+          "wingBoltCount": 0
+        },
+        {
+          "component": "jacket-clamp",
+          "face": 1,
+          "visible": true,
+          "offset": [
+            0,
+            0,
+            0
+          ],
+          "progress": 1,
+          "openAngle": 0,
+          "latched": true,
+          "tightened": true,
+          "bracketsEngaged": true,
+          "seated": true,
+          "screwsFixed": true,
+          "stage": "fixed",
+          "nominal": 100,
+          "bracketCount": 4,
+          "hookCount": 2,
+          "wingBoltCount": 0
+        },
+        {
+          "component": "jacket-clamp",
+          "face": 1,
+          "visible": true,
+          "offset": [
+            0,
+            0,
+            0
+          ],
+          "progress": 1,
+          "openAngle": 0,
+          "latched": true,
+          "tightened": true,
+          "bracketsEngaged": true,
+          "seated": true,
+          "screwsFixed": true,
+          "stage": "fixed",
+          "nominal": 50,
+          "bracketCount": 2,
+          "hookCount": 1,
+          "wingBoltCount": 0
+        },
+        {
+          "component": "jacket-clamp",
+          "face": -1,
+          "visible": true,
+          "offset": [
+            0,
+            0,
+            0
+          ],
+          "progress": 1,
+          "openAngle": 0,
+          "latched": true,
+          "tightened": true,
+          "bracketsEngaged": true,
+          "seated": true,
+          "screwsFixed": true,
+          "stage": "fixed",
+          "nominal": 250,
+          "bracketCount": 12,
+          "hookCount": 3,
+          "wingBoltCount": 2
+        },
+        {
+          "component": "jacket-clamp",
+          "face": -1,
+          "visible": true,
+          "offset": [
+            0,
+            0,
+            0
+          ],
+          "progress": 1,
+          "openAngle": 0,
+          "latched": true,
+          "tightened": true,
+          "bracketsEngaged": true,
+          "seated": true,
+          "screwsFixed": true,
+          "stage": "fixed",
+          "nominal": 150,
+          "bracketCount": 4,
+          "hookCount": 2,
+          "wingBoltCount": 0
+        },
+        {
+          "component": "jacket-clamp",
+          "face": -1,
+          "visible": true,
+          "offset": [
+            0,
+            0,
+            0
+          ],
+          "progress": 1,
+          "openAngle": 0,
+          "latched": true,
+          "tightened": true,
+          "bracketsEngaged": true,
+          "seated": true,
+          "screwsFixed": true,
+          "stage": "fixed",
+          "nominal": 100,
+          "bracketCount": 4,
+          "hookCount": 2,
+          "wingBoltCount": 0
+        },
+        {
+          "component": "jacket-clamp",
+          "face": -1,
+          "visible": true,
+          "offset": [
+            0,
+            0,
+            0
+          ],
+          "progress": 1,
+          "openAngle": 0,
+          "latched": true,
+          "tightened": true,
+          "bracketsEngaged": true,
+          "seated": true,
+          "screwsFixed": true,
+          "stage": "fixed",
+          "nominal": 50,
+          "bracketCount": 2,
+          "hookCount": 1,
+          "wingBoltCount": 0
+        }
+      ]
+    }
+  ],
+  "layouts": [
+    {
+      "width": 1366,
+      "height": 650,
+      "overflow": false,
+      "overlap": false
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "overflow": false,
+      "overlap": false
+    },
+    {
+      "width": 320,
+      "height": 640,
+      "overflow": false,
+      "overlap": false
+    }
+  ],
+  "errors": [],
+  "bad": []
+}

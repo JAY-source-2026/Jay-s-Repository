@@ -1,0 +1,269 @@
+{
+  "passed": true,
+  "historyYears": 22,
+  "events": 49,
+  "jumps": [
+    {
+      "width": 1920,
+      "target": "firestop"
+    },
+    {
+      "width": 1920,
+      "target": "shutter"
+    },
+    {
+      "width": 1920,
+      "target": "technology"
+    },
+    {
+      "width": 1366,
+      "target": "firestop"
+    },
+    {
+      "width": 1366,
+      "target": "shutter"
+    },
+    {
+      "width": 1366,
+      "target": "technology"
+    },
+    {
+      "width": 1180,
+      "target": "firestop"
+    },
+    {
+      "width": 1180,
+      "target": "shutter"
+    },
+    {
+      "width": 1180,
+      "target": "technology"
+    },
+    {
+      "width": 900,
+      "target": "firestop"
+    },
+    {
+      "width": 900,
+      "target": "shutter"
+    },
+    {
+      "width": 900,
+      "target": "technology"
+    },
+    {
+      "width": 390,
+      "target": "firestop"
+    },
+    {
+      "width": 390,
+      "target": "shutter"
+    },
+    {
+      "width": 390,
+      "target": "technology"
+    },
+    {
+      "width": 320,
+      "target": "firestop"
+    },
+    {
+      "width": 320,
+      "target": "shutter"
+    },
+    {
+      "width": 320,
+      "target": "technology"
+    }
+  ],
+  "layouts": [
+    {
+      "label": "home",
+      "width": 1920,
+      "height": 1080,
+      "scrollWidth": 1920
+    },
+    {
+      "label": "home",
+      "width": 1366,
+      "height": 768,
+      "scrollWidth": 1366
+    },
+    {
+      "label": "home",
+      "width": 1180,
+      "height": 768,
+      "scrollWidth": 1180
+    },
+    {
+      "label": "home",
+      "width": 900,
+      "height": 700,
+      "scrollWidth": 900
+    },
+    {
+      "label": "home",
+      "width": 390,
+      "height": 844,
+      "scrollWidth": 390
+    },
+    {
+      "label": "home",
+      "width": 320,
+      "height": 640,
+      "scrollWidth": 320
+    },
+    {
+      "label": "about",
+      "width": 1920,
+      "height": 1080,
+      "scrollWidth": 1920
+    },
+    {
+      "label": "about-history",
+      "width": 1920,
+      "height": 1080,
+      "scrollWidth": 1920
+    },
+    {
+      "label": "about-certs",
+      "width": 1920,
+      "height": 1080,
+      "scrollWidth": 1920
+    },
+    {
+      "label": "about-org",
+      "width": 1920,
+      "height": 1080,
+      "scrollWidth": 1920
+    },
+    {
+      "label": "about-location",
+      "width": 1920,
+      "height": 1080,
+      "scrollWidth": 1920
+    },
+    {
+      "label": "about",
+      "width": 1366,
+      "height": 768,
+      "scrollWidth": 1366
+    },
+    {
+      "label": "about-history",
+      "width": 1366,
+      "height": 768,
+      "scrollWidth": 1366
+    },
+    {
+      "label": "about-certs",
+      "width": 1366,
+      "height": 768,
+      "scrollWidth": 1366
+    },
+    {
+      "label": "about-org",
+      "width": 1366,
+      "height": 768,
+      "scrollWidth": 1366
+    },
+    {
+      "label": "about-location",
+      "width": 1366,
+      "height": 768,
+      "scrollWidth": 1366
+    },
+    {
+      "label": "about",
+      "width": 900,
+      "height": 700,
+      "scrollWidth": 900
+    },
+    {
+      "label": "about-history",
+      "width": 900,
+      "height": 700,
+      "scrollWidth": 900
+    },
+    {
+      "label": "about-certs",
+      "width": 900,
+      "height": 700,
+      "scrollWidth": 900
+    },
+    {
+      "label": "about-org",
+      "width": 900,
+      "height": 700,
+      "scrollWidth": 900
+    },
+    {
+      "label": "about-location",
+      "width": 900,
+      "height": 700,
+      "scrollWidth": 900
+    },
+    {
+      "label": "about",
+      "width": 390,
+      "height": 844,
+      "scrollWidth": 390
+    },
+    {
+      "label": "about-history",
+      "width": 390,
+      "height": 844,
+      "scrollWidth": 390
+    },
+    {
+      "label": "about-certs",
+      "width": 390,
+      "height": 844,
+      "scrollWidth": 390
+    },
+    {
+      "label": "about-org",
+      "width": 390,
+      "height": 844,
+      "scrollWidth": 390
+    },
+    {
+      "label": "about-location",
+      "width": 390,
+      "height": 844,
+      "scrollWidth": 390
+    },
+    {
+      "label": "about",
+      "width": 320,
+      "height": 640,
+      "scrollWidth": 320
+    },
+    {
+      "label": "about-history",
+      "width": 320,
+      "height": 640,
+      "scrollWidth": 320
+    },
+    {
+      "label": "about-certs",
+      "width": 320,
+      "height": 640,
+      "scrollWidth": 320
+    },
+    {
+      "label": "about-org",
+      "width": 320,
+      "height": 640,
+      "scrollWidth": 320
+    },
+    {
+      "label": "about-location",
+      "width": 320,
+      "height": 640,
+      "scrollWidth": 320
+    }
+  ],
+  "errors": [],
+  "failedResponses": []
+}

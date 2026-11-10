@@ -1,0 +1,62 @@
+{
+  "completedAt": "2026-11-09T07:43:04.235204+00:00",
+  "state": "local-preview-only",
+  "publicDeploymentUnchanged": true,
+  "preview": "https://redesigned-fishstick-77vprgr9qxvwcrj59-8000.app.github.dev/?v=20261109r8#technology",
+  "backup": "/workspaces/Jay-s-Repository/.local-backups/doenc-duct-front-20261109T072717Z",
+  "afterBackup": "/workspaces/Jay-s-Repository/.local-backups/doenc-duct-front-20261109T072717Z/after",
+  "files": [
+    {
+      "path": "index.html",
+      "sha256": "aa793d1a265d9b188c57f825bb9b5e18cf6cee409c034f1fb4b4141baba9f689"
+    },
+    {
+      "path": "assets/js/explorer.js",
+      "sha256": "7a99611c44f73d69c517d9177e08747693378f56ab4c8ec0e929fb306cf20547"
+    },
+    {
+      "path": "assets/js/hero3d.js",
+      "sha256": "0f7e6bc2b054022dcbd5519ee910e0d99a70ff45cdec619fe789d8229ef91520"
+    },
+    {
+      "path": "assets/js/assemblies.js",
+      "sha256": "624bd65ad90759c2ce2edff01c808102d0baffa6f99b98a9e21cedc9d4f130fd"
+    },
+    {
+      "path": "assets/js/installation-view.js",
+      "sha256": "0291f1ed9dc227f99d844a86ebc26f401b731b4ae0c5c5153d824720597f5a1e"
+    },
+    {
+      "path": "PLAN.md",
+      "sha256": "0207c1d84f2a9eec07e185bb2b752a61f37e351f4576f830579895f0b4e2c403"
+    },
+    {
+      "path": "SYSTEM-SOURCES.md",
+      "sha256": "ebc498a3677566355fe4173d9632a71863012e4a96f3ca9d53f77360990f425c"
+    }
+  ],
+  "preserved": {
+    "assets/js/installation-duct-blanket.js": "e8e0059273ab8e936d49bfc151643f96917fe5017d9e062fbcc8b5c5135cdf5b",
+    "assets/js/installation-duct-channels.js": "9debbcba195edc619cecca5eb2ec6dd7186ff1cf8c292503ce3d2eb71f5e14af",
+    "assets/js/installation-blanket.js": "43b9d2a4db82df4e093a509530dba3c0044aa1dd3fe37833999a07fcc4b7cd62",
+    "assets/js/installation-motion.js": "1c2870a73728d8677238f7dd06527ee7806d85199ff525e807de6a2171fb8327",
+    "assets/js/systems.js": "9e78fabb1864018d3d3bfacb61971d7040870e603f4f159b83b902a5a5f61a95",
+    "assets/data/installation-certificates.json": "12a8f77c8261f8f8b868d46e945723fa1f8bd696a50a405c98ff9497a1224d22",
+    "assets/data/archive.json": "1b967db826ce28216d3d244b9dfe52b78d3a589ba0e7029ce41c67faa636959a",
+    "assets/css/home.css": "a7cf5955cc71444b8611bcd541a0f97ec6692c57888179e4fee0dc30bae3d495",
+    "about.html": "abaa593517ddf1c7765288faa74e1e7c2de47f381b28fdbfa57e19b8d59a57a5"
+  },
+  "validation": [
+    "geometry-checks.json",
+    "checks.json"
+  ],
+  "syntaxAndDiffCheck": true,
+  "visualReview": [
+    "FS-MP25-0224-06.png",
+    "FS-MP26-0507-15.png"
+  ],
+  "floorFirstLayerCoverage": [
+    -3.52,
+    3.7
+  ]
+}

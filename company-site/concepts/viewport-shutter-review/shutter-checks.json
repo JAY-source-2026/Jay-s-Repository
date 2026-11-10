@@ -1,0 +1,46 @@
+{
+  "passed": true,
+  "results": [
+    {
+      "shutter": {
+        "height": 668,
+        "viewport": 768,
+        "top": 99.578125
+      }
+    },
+    {
+      "certificates": [
+        {
+          "href": "http://127.0.0.1:8000/assets/downloads/shutter-certificates/FDS-OTS24-0807-1.pdf#page=1",
+          "text": "일반셔터FDS-OTS24-0807-1↗인정서 새 탭에서 보기",
+          "target": "_blank"
+        },
+        {
+          "href": "http://127.0.0.1:8000/assets/downloads/shutter-certificates/FDS-OTS25-0721-1.pdf#page=1",
+          "text": "대형셔터FDS-OTS25-0721-1↗인정서 새 탭에서 보기",
+          "target": "_blank"
+        },
+        {
+          "href": "http://127.0.0.1:8000/assets/downloads/shutter-certificates/FDS-OTS26-0630-2.pdf#page=1",
+          "text": "와이어 권취형 대형셔터FDS-OTS26-0630-2↗인정서 새 탭에서 보기",
+          "target": "_blank"
+        },
+        {
+          "href": "http://127.0.0.1:8000/assets/downloads/shutter-certificates/FDS-NVS24-0611-1.pdf#page=1",
+          "text": "철재셔터FDS-NVS24-0611-1↗인정서 새 탭에서 보기",
+          "target": "_blank"
+        },
+        {
+          "href": "http://127.0.0.1:8000/assets/downloads/shutter-certificates/FDS-NVS26-0309-1.pdf#page=1",
+          "text": "투시형 철재셔터FDS-NVS26-0309-1↗인정서 새 탭에서 보기",
+          "target": "_blank"
+        }
+      ]
+    },
+    {
+      "newTabRequest": "http://127.0.0.1:8000/assets/downloads/shutter-certificates/FDS-OTS24-0807-1.pdf"
+    }
+  ],
+  "errors": [],
+  "bad": []
+}

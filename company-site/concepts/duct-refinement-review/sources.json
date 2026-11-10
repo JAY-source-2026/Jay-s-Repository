@@ -1,0 +1,39 @@
+{
+  "sources": [
+    {
+      "id": "FS-MP25-0224-06",
+      "file": "assets/downloads/firestop-certificates/metal-ducts/FS-MP25-0224-06.pdf",
+      "sha256": "640566c8e90edb96bd7edf47940bd0b37290d9706eb1a34741785cf653bed170",
+      "pages": [
+        4,
+        12
+      ]
+    },
+    {
+      "id": "FS-MP26-0507-14",
+      "file": "assets/downloads/firestop-certificates/metal-ducts/FS-MP26-0507-14.pdf",
+      "sha256": "f4a4f9002d5ac26e383216ea97b0ea45a3a3c6a017f8087d560b432c82328697",
+      "pages": [
+        4,
+        11
+      ]
+    },
+    {
+      "id": "FS-MP26-0507-15",
+      "file": "assets/downloads/firestop-certificates/metal-ducts/FS-MP26-0507-15.pdf",
+      "sha256": "cdd533814feae67b60ae9124552db344fe560740ea1091cc0c45ed5acc50e99d",
+      "pages": [
+        8,
+        10
+      ]
+    }
+  ],
+  "displaySuffix": {
+    "FS-MP25-0224-06": "보드 타입",
+    "FS-MP26-0507-14": "보드X 타입"
+  },
+  "numberCorrection": "The supplied board certificate is FS-MP25-0224-06; the original number is retained.",
+  "otherCertificateTimelinesUnchanged": 57,
+  "nonDuctWrappingUnchanged": true,
+  "scope": "Illustrative animation and display labels; source PDF and JSON retained."
+}

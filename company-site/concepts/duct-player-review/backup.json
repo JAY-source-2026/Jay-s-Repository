@@ -1,0 +1,53 @@
+{
+  "path": "/workspaces/Jay-s-Repository/.local-backups/doenc-duct-player-20261109T053336Z",
+  "files": [
+    {
+      "path": "index.html",
+      "sha256": "e5178ccb45fe01e3b8c461a09e4cef51b350eaa900c4e6794df10e9271f17fd5"
+    },
+    {
+      "path": "assets/css/home.css",
+      "sha256": "048a676fc455b3b19640a068bc41b493fcc19b35cb9c7c774c6a71e7324a8125"
+    },
+    {
+      "path": "assets/js/explorer.js",
+      "sha256": "42214b80d9262b4e4e229e8fb532fee445ff068306e0699109058299a1e5ca41"
+    },
+    {
+      "path": "assets/js/hero3d.js",
+      "sha256": "be59162b9b8a27157ddedd5579476607f057ef3e523532971f9b2d209aaa0d29"
+    },
+    {
+      "path": "assets/js/assemblies.js",
+      "sha256": "b669549d6dc89aa1c05353d86c99da3f8eded137c37c82561820ffb034a05ca7"
+    },
+    {
+      "path": "assets/js/installation-view.js",
+      "sha256": "e33efec782d185c8c94f1794768517ebc87c2e82a4914b8ef6430d09652bba70"
+    },
+    {
+      "path": "assets/js/installation-blanket.js",
+      "sha256": "098de4fa0e8785d5e1b63bda26091c97e8b86fa9aa7224dd57a6ed8c691067a6"
+    },
+    {
+      "path": "PLAN.md",
+      "sha256": "82c108bc4b5cda7fe0c69aee44123073f6f8643fbe14746ada41525ca1429505"
+    },
+    {
+      "path": "SYSTEM-SOURCES.md",
+      "sha256": "e49a097f966892bec63810854a560a2f301d9de109a5b29d5c69d3a94ae4ca0e"
+    }
+  ],
+  "preserved": {
+    "about.html": "abaa593517ddf1c7765288faa74e1e7c2de47f381b28fdbfa57e19b8d59a57a5",
+    "assets/css/about.css": "2d74fff0d86c11bae0ebaac7c6412d5e0cf796d823b64a0805a2d047bbd32896",
+    "assets/css/signature.css": "66b68fce39302010f7f14ca27af7b89e571e5ea48eff23230cc7b6e9239e72c9",
+    "assets/js/signature.js": "51d2d1f93609b66dcd5af251dc3ec6bacc102a19e3a016f1d3762d6f2f98b34d",
+    "assets/js/installation-jacket.js": "f43d0c692782e776d41e719df109393762e0bba05c0efd195ecbbd2dedd657c3",
+    "assets/js/installation-motion.js": "f9aeaf409323377aedc378e91fe9086ce1c57f4d862b55c87a89b2ea05f95882",
+    "assets/js/installation-services.js": "a85d746a2d25f3136ec26eca9f1f5809476ddb7daa910a486dea28849348e58e",
+    "assets/js/systems.js": "6f114099a5fc6f9b541716c0d551c9d4b13f77ff6ada241dfa902dcd96200dc5",
+    "assets/data/installation-certificates.json": "12a8f77c8261f8f8b868d46e945723fa1f8bd696a50a405c98ff9497a1224d22",
+    "assets/data/archive.json": "1b967db826ce28216d3d244b9dfe52b78d3a589ba0e7029ce41c67faa636959a"
+  }
+}

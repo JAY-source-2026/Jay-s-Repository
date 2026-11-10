@@ -1,0 +1,11 @@
+import {chromium} from '/tmp/doenc-browser/node_modules/playwright/index.mjs';
+const browser=await chromium.launch({headless:true,args:['--no-sandbox','--disable-dev-shm-usage','--enable-unsafe-swiftshader']});
+const page=await browser.newPage({viewport:{width:1366,height:768},reducedMotion:'reduce'});
+try{
+ await page.goto('http://127.0.0.1:8000/?v=20261109r7#technology',{waitUntil:'networkidle'});await page.waitForFunction(()=>!!window.systemExplorer);
+ await page.locator('[data-system="duct"]').click();await page.evaluate(()=>window.systemExplorer.seek(window.systemExplorer.getState().duration));
+ for(const [name,pos]of Object.entries({a:[1.8,1.2,2.2],b:[1.8,.8,2.2],c:[1.6,.9,1.8],d:[.8,1.2,2],e:[-1.8,.9,2.2],f:[1.8,1,2.8]})){
+  await page.evaluate(pos=>window.systemExplorer.reviewCamera([1.2+pos[0],1.65+pos[1],-.55+pos[2]],[1.2,1.65,0]),pos);
+  await page.locator('#explorerRender').screenshot({path:new URL('./camera-'+name+'.png',import.meta.url).pathname});console.log(name);
+ }
+}finally{await browser.close();}

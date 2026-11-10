@@ -1,0 +1,62 @@
+/* Material cards and one shared, accessible product detail window. */
+.material-card:focus-visible { outline: 2px solid var(--accent-bright); outline-offset: 7px; }
+.material-card .material-title > span { width: 22px; height: 22px; display: grid; place-items: center; border: 1px solid var(--line); border-radius: 50%; flex: none; font-size: 14px; line-height: 1; }
+.material-card:hover .material-title > span, .material-card:focus-visible .material-title > span { background: #c5ddf1; color: #101c2a; }
+.material-dialog { width: min(960px, calc(100% - 64px)); max-width: none; max-height: min(780px, calc(100dvh - 64px)); margin: auto; padding: 0; border: 1px solid #647d925e; border-radius: 12px; background: #142536; color: var(--text); box-shadow: 0 32px 110px #0009; overflow: hidden; }
+.material-dialog[open] { display: flex; flex-direction: column; animation: material-enter .22s ease-out; }
+.material-dialog::backdrop { background: #040b15b8; backdrop-filter: blur(7px); }
+.material-dialog-bar { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex: none; min-height: 62px; padding: 8px 18px 8px 30px; border-bottom: 1px solid var(--line-soft); }
+.material-dialog-bar > span { font-size: 9px; letter-spacing: .16em; color: var(--dim); }
+.material-dialog-bar > span > span { margin: 0 10px; color: #617d94; }
+.material-dialog-close { display: flex; align-items: center; justify-content: center; gap: 10px; min-width: 70px; min-height: 44px; border: 0; border-radius: 6px; color: var(--muted); background: transparent; cursor: pointer; font: inherit; font-size: 11px; }
+.material-dialog-close span:last-child { font-size: 27px; font-weight: 300; line-height: 1; }
+.material-dialog-close:hover { background: #ffffff0c; color: #fff; }
+.material-dialog-close:focus-visible { outline: 2px solid var(--accent-bright); outline-offset: -2px; }
+.material-dialog-scroll { overflow: auto; min-height: 0; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: #4e6a82 #142536; }
+.material-dialog-scroll:focus-visible { outline: 2px solid var(--accent-bright); outline-offset: -2px; }
+.material-dialog-layout { display: grid; grid-template-columns: .95fr 1.05fr; }
+.material-dialog-visual { position: sticky; top: 0; align-self: start; margin: 0; min-width: 0; padding: 36px 28px 25px; }
+.material-dialog-image { display: grid; place-items: center; height: min(430px, 55dvh); min-height: 240px; background: radial-gradient(ellipse, #5a7c9a21, transparent 70%); }
+.material-dialog-image img { width: 100%; height: 100%; max-height: min(430px, 55dvh); object-fit: contain; filter: drop-shadow(0 24px 20px #0006); }
+/* Optical alignment of the blanket's cylindrical face; preserve the source image. */
+.material-card[data-material="blanket"] .material-photo img,
+.material-dialog[data-product="blanket"] .material-dialog-image img,
+button.mini-material[data-material="blanket"] img { translate: -2% 0; }
+.material-dialog-visual figcaption { margin-top: 28px; font-size: 10px; color: var(--dim); text-align: center; }
+.material-dialog-copy { min-width: 0; padding: 37px 36px 32px 18px; }
+.material-dialog-code { color: #a9c9e2; font-size: 11px; font-weight: 500; letter-spacing: .14em; }
+.material-dialog-copy h2 { font-size: clamp(23px, 2.5vw, 30px); font-weight: 500; line-height: 1.4; margin: 8px 0 15px; }
+.material-dialog-copy h2:focus { outline: none; }
+.material-dialog-summary { font-size: 13px; line-height: 1.85; color: #bac9d6; }
+.material-dialog-copy section { margin-top: 27px; }
+.material-dialog-copy h3 { font-size: 12px; font-weight: 550; letter-spacing: .015em; margin-bottom: 13px; color: #e3edf5; }
+.material-dialog-spec dl { margin: 0; border-top: 1px solid var(--line); }
+.material-dialog-spec dl > div { display: grid; grid-template-columns: 82px 1fr; gap: 14px; padding: 10px 0; border-bottom: 1px solid var(--line-soft); font-size: 12px; line-height: 1.7; }
+.material-dialog-spec dt { color: var(--dim); }
+.material-dialog-spec dd { margin: 0; color: #e3edf5; white-space: pre-line; overflow-wrap: anywhere; }
+.material-dialog-description p { color: #b6c5d2; font-size: 12px; line-height: 1.9; }
+.material-dialog-description p + p { margin-top: 10px; }
+.material-dialog-note { border-left: 2px solid #6586a2; padding-left: 12px; margin-top: 23px; color: #9fb3c3; font-size: 11px; line-height: 1.8; }
+/* The small material thumbnails beneath the 3D viewer open the same window. */
+button.mini-material { border: 0; padding: 0; background: none; color: var(--muted); font-family: inherit; text-align: left; cursor: pointer; }
+button.mini-material img { background: radial-gradient(ellipse, #38577522, transparent 70%); padding: 5px; filter: drop-shadow(0 8px 5px #0004); }
+button.mini-material:focus-visible { outline: 2px solid var(--accent-bright); outline-offset: 4px; }
+@keyframes material-enter { from { opacity: 0; transform: translateY(10px) scale(.985); } to { opacity: 1; transform: none; } }
+@media (max-width: 700px) {
+  .material-dialog { width: calc(100% - 24px); max-height: calc(100dvh - 24px); border-radius: 10px; }
+  .material-dialog-bar { min-height: 54px; padding: 5px 12px 5px 20px; }
+  .material-dialog-bar > span { font-size: 8px; letter-spacing: .1em; }
+  .material-dialog-layout { grid-template-columns: 1fr; }
+  .material-dialog-visual { position: static; padding: 18px 30px 0; }
+  .material-dialog-image { height: 210px; min-height: 0; }
+  .material-dialog-image img { height: 210px; max-height: 210px; }
+  .material-dialog-visual figcaption { margin-top: 10px; font-size: 9px; }
+  .material-dialog-copy { padding: 23px 24px 28px; }
+  .material-dialog-copy h2 { font-size: 25px; }
+  .material-dialog-spec dl > div { grid-template-columns: 76px 1fr; gap: 12px; }
+}
+@media (max-width: 360px) {
+  .material-dialog-copy { padding-right: 19px; padding-left: 19px; }
+  .material-dialog-copy h2 { font-size: 23px; }
+}
+@media (prefers-reduced-motion: reduce) { .material-dialog[open] { animation: none; } }

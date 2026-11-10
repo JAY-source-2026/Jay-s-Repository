@@ -3,7 +3,7 @@
 
 Only public application files are emitted. Private source folders stay local;
 their public links lead to the existing contact section. The user-approved
-firestop and fireproof certificate copies under assets/downloads/ are included
+firestop, fireproof, and shutter certificate copies under assets/downloads/ are included
 as ordinary public assets. Other original documents stay excluded.
 """
 import argparse
@@ -98,10 +98,12 @@ def main():
             files.append(path.as_posix())
     certificates = [p for p in files if p.startswith('company-site/assets/downloads/firestop-certificates/') and p.endswith('.pdf')]
     fireproof_certificates = [p for p in files if p.startswith('company-site/assets/downloads/fireproof-certificates/') and p.endswith('.pdf')]
+    shutter_certificates = [p for p in files if p.startswith('company-site/assets/downloads/shutter-certificates/') and p.endswith('.pdf')]
     release = {'source_commit': sha, 'site': 'company-site', 'files': len(files),
-               'original_documents': 'private source folders excluded; approved firestop and fireproof certificate copies included',
+               'original_documents': 'private source folders excluded; approved firestop, fireproof, and shutter certificate copies included',
                'published_firestop_certificates': len(certificates),
-               'published_fireproof_certificates': len(fireproof_certificates)}
+               'published_fireproof_certificates': len(fireproof_certificates),
+               'published_shutter_certificates': len(shutter_certificates)}
     (output / 'company-site/release.json').write_text(json.dumps(release, indent=2) + '\n')
     (output / '.nojekyll').write_text('')
     print(json.dumps({'output': str(output), **release}, ensure_ascii=False))

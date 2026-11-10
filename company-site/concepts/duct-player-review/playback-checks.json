@@ -1,0 +1,294 @@
+{
+  "passed": true,
+  "layouts": [
+    {
+      "label": "native fullscreen",
+      "width": 1366,
+      "height": 650,
+      "overflow": false,
+      "controls": {
+        "left": 922,
+        "right": 1350,
+        "bottom": 628
+      },
+      "buttons": [
+        {
+          "text": "⛶전체화면 닫기",
+          "width": 118,
+          "height": 42
+        },
+        {
+          "text": "▶재생",
+          "width": 73,
+          "height": 42
+        },
+        {
+          "text": "■정지",
+          "width": 73,
+          "height": 42
+        },
+        {
+          "text": "↻처음부터 다시 재생",
+          "width": 140,
+          "height": 42
+        }
+      ],
+      "detailsBottom": 521.1875
+    },
+    {
+      "label": "fullscreen fallback",
+      "width": 1366,
+      "height": 650,
+      "overflow": false,
+      "controls": {
+        "left": 922,
+        "right": 1350,
+        "bottom": 628
+      },
+      "buttons": [
+        {
+          "text": "⛶전체화면 닫기",
+          "width": 118,
+          "height": 42
+        },
+        {
+          "text": "▶재생",
+          "width": 73,
+          "height": 42
+        },
+        {
+          "text": "■정지",
+          "width": 73,
+          "height": 42
+        },
+        {
+          "text": "↻처음부터 다시 재생",
+          "width": 140,
+          "height": 42
+        }
+      ],
+      "detailsBottom": 521.1875
+    },
+    {
+      "label": "player",
+      "width": 1366,
+      "height": 768,
+      "overflow": false,
+      "controls": {
+        "left": 876.53125,
+        "right": 1304.53125,
+        "bottom": 598.6875
+      },
+      "buttons": [
+        {
+          "text": "⛶전체화면 보기",
+          "width": 118,
+          "height": 42
+        },
+        {
+          "text": "▶재생",
+          "width": 73,
+          "height": 42
+        },
+        {
+          "text": "■정지",
+          "width": 73,
+          "height": 42
+        },
+        {
+          "text": "↻처음부터 다시 재생",
+          "width": 140,
+          "height": 42
+        }
+      ],
+      "detailsBottom": 743.1875
+    },
+    {
+      "label": "player",
+      "width": 1366,
+      "height": 650,
+      "overflow": false,
+      "controls": {
+        "left": 876.53125,
+        "right": 1304.53125,
+        "bottom": 480.6875
+      },
+      "buttons": [
+        {
+          "text": "⛶전체화면 보기",
+          "width": 118,
+          "height": 42
+        },
+        {
+          "text": "▶재생",
+          "width": 73,
+          "height": 42
+        },
+        {
+          "text": "■정지",
+          "width": 73,
+          "height": 42
+        },
+        {
+          "text": "↻처음부터 다시 재생",
+          "width": 140,
+          "height": 42
+        }
+      ],
+      "detailsBottom": 625.1875
+    },
+    {
+      "label": "player",
+      "width": 900,
+      "height": 700,
+      "overflow": false,
+      "controls": {
+        "left": 431.5,
+        "right": 859.5,
+        "bottom": 516.5
+      },
+      "buttons": [
+        {
+          "text": "⛶전체화면 보기",
+          "width": 118,
+          "height": 42
+        },
+        {
+          "text": "▶재생",
+          "width": 73,
+          "height": 42
+        },
+        {
+          "text": "■정지",
+          "width": 73,
+          "height": 42
+        },
+        {
+          "text": "↻처음부터 다시 재생",
+          "width": 140,
+          "height": 42
+        }
+      ],
+      "detailsBottom": 661
+    },
+    {
+      "label": "player",
+      "width": 390,
+      "height": 844,
+      "overflow": false,
+      "controls": {
+        "left": 22,
+        "right": 368,
+        "bottom": 754.15625
+      },
+      "buttons": [
+        {
+          "text": "⛶전체화면 보기",
+          "width": 169,
+          "height": 42
+        },
+        {
+          "text": "▶재생",
+          "width": 169,
+          "height": 42
+        },
+        {
+          "text": "■정지",
+          "width": 169,
+          "height": 42
+        },
+        {
+          "text": "↻처음부터 다시 재생",
+          "width": 169,
+          "height": 42
+        }
+      ],
+      "detailsBottom": 1109.046875
+    },
+    {
+      "label": "player",
+      "width": 320,
+      "height": 640,
+      "overflow": false,
+      "controls": {
+        "left": 22,
+        "right": 298,
+        "bottom": 732.9375
+      },
+      "buttons": [
+        {
+          "text": "⛶전체화면 보기",
+          "width": 134,
+          "height": 42
+        },
+        {
+          "text": "▶재생",
+          "width": 134,
+          "height": 42
+        },
+        {
+          "text": "■정지",
+          "width": 134,
+          "height": 42
+        },
+        {
+          "text": "↻처음부터 다시 재생",
+          "width": 134,
+          "height": 42
+        }
+      ],
+      "detailsBottom": 1113.921875
+    }
+  ],
+  "ducts": [
+    {
+      "id": "FS-MP25-0224-06",
+      "camera": [
+        1.7629658447797896,
+        2.6352945376670753,
+        5.079658447797895
+      ],
+      "target": [
+        1.2000000000000002,
+        1.6501043093024437,
+        -0.55
+      ],
+      "isolated": true
+    },
+    {
+      "id": "FS-MP26-0507-14",
+      "camera": [
+        1.7469259628661429,
+        2.744569772110772,
+        4.919259628661427
+      ],
+      "target": [
+        1.2000000000000002,
+        1.7874493370950222,
+        -0.55
+      ],
+      "isolated": true
+    },
+    {
+      "id": "FS-MP26-0507-15",
+      "camera": [
+        1.8410907762944975,
+        10.750907762944975,
+        1.7308907381785121
+      ],
+      "target": [
+        1.2000000000000002,
+        4.34,
+        -0.6731996729258531
+      ],
+      "isolated": true
+    }
+  ],
+  "pauseResumesFromSamePosition": true,
+  "nativeFullscreen": true,
+  "fullscreenFallback": true,
+  "pauseSurvivesScrolling": true,
+  "restartFromBeginning": true,
+  "errors": [],
+  "bad": []
+}

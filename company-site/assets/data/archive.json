@@ -1,5 +1,5 @@
 {
-  "_note": "분야별 자료 게시판. cat/board/group은 categories의 ID입니다. 날짜는 게시판 등록일입니다. 원본 폴더는 보존하며 사용자가 게시를 요청한 내화채움구조 60건·내화구조 1건만 assets/downloads/의 사본으로 제공합니다. 인정서 제목과 첨부 표시·다운로드 이름은 괄호 설명과 파일 앞 번호를 제거한 이름이며 원본 파일은 변경하지 않습니다. 인정서 본문은 빈 배열로 두고 미리보기를 표시합니다. previews는 PDF의 물리적인 1·3페이지 전체 이미지입니다.",
+  "_note": "분야별 자료 게시판. cat/board/group은 categories의 ID입니다. 날짜는 게시판 등록일입니다. 원본 폴더는 보존하며 사용자가 게시를 요청한 내화채움구조 60건·내화구조 1건·방화셔터 5건을 assets/downloads/의 사본으로 제공합니다. 인정서 제목과 첨부 표시·다운로드 이름은 괄호 설명과 파일 앞 번호를 제거한 이름이며 원본 파일은 변경하지 않습니다. 인정서 본문은 빈 배열로 두고 미리보기를 표시합니다. previews는 PDF의 물리적인 1·3페이지 전체 이미지입니다.",
   "categories": [
     {
       "id": "firestop",
@@ -2305,6 +2305,176 @@
           "src": "assets/images/certificates/fireproof/FR-WS26-0102-1-page-3.webp",
           "width": 1600,
           "height": 2264,
+          "label": "구조설명도 · 3페이지"
+        }
+      ]
+    },
+    {
+      "id": "certificate-fds-ots24-0807-1",
+      "cat": "shutter",
+      "board": "recognition",
+      "sourceNumber": 1,
+      "certificate": "FDS-OTS24-0807-1",
+      "title": "FDS-OTS24-0807-1 일반셔터 인정서",
+      "date": "2026-11-09",
+      "tag": "방화셔터",
+      "body": [],
+      "file": {
+        "name": "FDS-OTS24-0807-1 일반셔터 인정서.pdf",
+        "href": "assets/downloads/shutter-certificates/FDS-OTS24-0807-1.pdf",
+        "size": "2.08 MB",
+        "type": "application/pdf",
+        "pages": 18
+      },
+      "previews": [
+        {
+          "page": 1,
+          "src": "assets/images/certificates/shutter/FDS-OTS24-0807-1-page-1.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "인정서 · 1페이지"
+        },
+        {
+          "page": 3,
+          "src": "assets/images/certificates/shutter/FDS-OTS24-0807-1-page-3.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "구조설명도 · 3페이지"
+        }
+      ]
+    },
+    {
+      "id": "certificate-fds-ots25-0721-1",
+      "cat": "shutter",
+      "board": "recognition",
+      "sourceNumber": 2,
+      "certificate": "FDS-OTS25-0721-1",
+      "title": "FDS-OTS25-0721-1 대형셔터 인정서",
+      "date": "2026-11-09",
+      "tag": "방화셔터",
+      "body": [],
+      "file": {
+        "name": "FDS-OTS25-0721-1 대형셔터 인정서.pdf",
+        "href": "assets/downloads/shutter-certificates/FDS-OTS25-0721-1.pdf",
+        "size": "1.15 MB",
+        "type": "application/pdf",
+        "pages": 23
+      },
+      "previews": [
+        {
+          "page": 1,
+          "src": "assets/images/certificates/shutter/FDS-OTS25-0721-1-page-1.webp",
+          "width": 1600,
+          "height": 2262,
+          "label": "인정서 · 1페이지"
+        },
+        {
+          "page": 3,
+          "src": "assets/images/certificates/shutter/FDS-OTS25-0721-1-page-3.webp",
+          "width": 1600,
+          "height": 2262,
+          "label": "구조설명도 · 3페이지"
+        }
+      ]
+    },
+    {
+      "id": "certificate-fds-ots26-0630-2",
+      "cat": "shutter",
+      "board": "recognition",
+      "sourceNumber": 3,
+      "certificate": "FDS-OTS26-0630-2",
+      "title": "FDS-OTS26-0630-2 와이어 권취형 대형셔터 인정서",
+      "date": "2026-11-09",
+      "tag": "방화셔터",
+      "body": [],
+      "file": {
+        "name": "FDS-OTS26-0630-2 와이어 권취형 대형셔터 인정서.pdf",
+        "href": "assets/downloads/shutter-certificates/FDS-OTS26-0630-2.pdf",
+        "size": "2.43 MB",
+        "type": "application/pdf",
+        "pages": 19
+      },
+      "previews": [
+        {
+          "page": 1,
+          "src": "assets/images/certificates/shutter/FDS-OTS26-0630-2-page-1.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "인정서 · 1페이지"
+        },
+        {
+          "page": 3,
+          "src": "assets/images/certificates/shutter/FDS-OTS26-0630-2-page-3.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "구조설명도 · 3페이지"
+        }
+      ]
+    },
+    {
+      "id": "certificate-fds-nvs24-0611-1",
+      "cat": "shutter",
+      "board": "recognition",
+      "sourceNumber": 4,
+      "certificate": "FDS-NVS24-0611-1",
+      "title": "FDS-NVS24-0611-1 철재셔터 인정서",
+      "date": "2026-11-09",
+      "tag": "방화셔터",
+      "body": [],
+      "file": {
+        "name": "FDS-NVS24-0611-1 철재셔터 인정서.pdf",
+        "href": "assets/downloads/shutter-certificates/FDS-NVS24-0611-1.pdf",
+        "size": "2.00 MB",
+        "type": "application/pdf",
+        "pages": 18
+      },
+      "previews": [
+        {
+          "page": 1,
+          "src": "assets/images/certificates/shutter/FDS-NVS24-0611-1-page-1.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "인정서 · 1페이지"
+        },
+        {
+          "page": 3,
+          "src": "assets/images/certificates/shutter/FDS-NVS24-0611-1-page-3.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "구조설명도 · 3페이지"
+        }
+      ]
+    },
+    {
+      "id": "certificate-fds-nvs26-0309-1",
+      "cat": "shutter",
+      "board": "recognition",
+      "sourceNumber": 5,
+      "certificate": "FDS-NVS26-0309-1",
+      "title": "FDS-NVS26-0309-1 투시형 철재셔터 인정서",
+      "date": "2026-11-09",
+      "tag": "방화셔터",
+      "body": [],
+      "file": {
+        "name": "FDS-NVS26-0309-1 투시형 철재셔터 인정서.pdf",
+        "href": "assets/downloads/shutter-certificates/FDS-NVS26-0309-1.pdf",
+        "size": "0.80 MB",
+        "type": "application/pdf",
+        "pages": 18
+      },
+      "previews": [
+        {
+          "page": 1,
+          "src": "assets/images/certificates/shutter/FDS-NVS26-0309-1-page-1.webp",
+          "width": 1600,
+          "height": 2262,
+          "label": "인정서 · 1페이지"
+        },
+        {
+          "page": 3,
+          "src": "assets/images/certificates/shutter/FDS-NVS26-0309-1-page-3.webp",
+          "width": 1600,
+          "height": 2262,
           "label": "구조설명도 · 3페이지"
         }
       ]

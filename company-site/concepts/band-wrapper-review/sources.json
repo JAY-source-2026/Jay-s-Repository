@@ -1,0 +1,36 @@
+[
+  {
+    "path": "assets/자료/(주)디오이엔씨-2025년도 카달로그_251014.pdf",
+    "sha256": "12aded43e4b2d05ed0d709cb15ecb16c7a34f7973f5fd73815fb86956d80f339",
+    "pages": [
+      10
+    ]
+  },
+  {
+    "path": "assets/downloads/firestop-certificates/metal-ducts/FS-MP25-0224-06.pdf",
+    "sha256": "640566c8e90edb96bd7edf47940bd0b37290d9706eb1a34741785cf653bed170",
+    "pages": [
+      9
+    ]
+  },
+  {
+    "path": "assets/downloads/firestop-certificates/metal-ducts/FS-MP26-0507-14.pdf",
+    "sha256": "f4a4f9002d5ac26e383216ea97b0ea45a3a3c6a017f8087d560b432c82328697",
+    "pages": [
+      4,
+      9,
+      13
+    ]
+  },
+  {
+    "path": "assets/downloads/firestop-certificates/metal-ducts/FS-MP26-0507-15.pdf",
+    "sha256": "cdd533814feae67b60ae9124552db344fe560740ea1091cc0c45ed5acc50e99d",
+    "pages": [
+      9
+    ]
+  },
+  {
+    "path": "assets/images/products/band.webp",
+    "sha256": "1b17f652a8e06276e7fe412f00391602bcde13fd11f3a91aa8193908e612a275"
+  }
+]

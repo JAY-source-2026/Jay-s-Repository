@@ -1,0 +1,35 @@
+{
+  "path": "/workspaces/Jay-s-Repository/.local-backups/doenc-explorer-details-20261109T051201Z",
+  "files": [
+    {
+      "path": "company-site/index.html",
+      "sha256": "b1dcccd7067b3903bcd8afeff969009aad947ba7501ebb4db2d960b2235fedb9"
+    },
+    {
+      "path": "company-site/assets/css/home.css",
+      "sha256": "c1bec90dc451b2c5782fa5bb2a98e56ed16eed32fa162f59c27f8c6dc3aa813a"
+    },
+    {
+      "path": "company-site/assets/js/explorer.js",
+      "sha256": "a025f4d86a50d913a0c0131cd8a1600fcf6b0ac1b9a116bec9359f5a16d6c067"
+    },
+    {
+      "path": "company-site/PLAN.md",
+      "sha256": "468457431114c9c782b74ddeb0149ab4b4d4f44e2a709335ec6749b373b03132"
+    },
+    {
+      "path": "company-site/SYSTEM-SOURCES.md",
+      "sha256": "bdf520dda6e7b5f464db06438dd4cdf1968d4adf2efafdcc47ac9763f18a5b18"
+    }
+  ],
+  "preserved": {
+    "company-site/about.html": "abaa593517ddf1c7765288faa74e1e7c2de47f381b28fdbfa57e19b8d59a57a5",
+    "company-site/assets/css/about.css": "2d74fff0d86c11bae0ebaac7c6412d5e0cf796d823b64a0805a2d047bbd32896",
+    "company-site/assets/css/signature.css": "66b68fce39302010f7f14ca27af7b89e571e5ea48eff23230cc7b6e9239e72c9",
+    "company-site/assets/js/hero3d.js": "be59162b9b8a27157ddedd5579476607f057ef3e523532971f9b2d209aaa0d29",
+    "company-site/assets/js/systems.js": "6f114099a5fc6f9b541716c0d551c9d4b13f77ff6ada241dfa902dcd96200dc5",
+    "company-site/assets/data/installation-certificates.json": "12a8f77c8261f8f8b868d46e945723fa1f8bd696a50a405c98ff9497a1224d22",
+    "company-site/assets/data/archive.json": "1b967db826ce28216d3d244b9dfe52b78d3a589ba0e7029ce41c67faa636959a",
+    "company-site/assets/js/installation-jacket.js": "f43d0c692782e776d41e719df109393762e0bba05c0efd195ecbbd2dedd657c3"
+  }
+}

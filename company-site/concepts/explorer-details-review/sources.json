@@ -1,0 +1,15 @@
+{
+  "basis": "assets/data/installation-certificates.json: selected record steps (title + text); firewall instructions in assets/js/systems.js",
+  "sourceHashes": {
+    "assets/data/installation-certificates.json": "12a8f77c8261f8f8b868d46e945723fa1f8bd696a50a405c98ff9497a1224d22",
+    "assets/js/systems.js": "6f114099a5fc6f9b541716c0d551c9d4b13f77ff6ada241dfa902dcd96200dc5",
+    "assets/js/product-data.js": "bd87cbf162e3b4499b4a50a0ea8f913c59922f1b57f00ad1b90f52916c9e7a71"
+  },
+  "presentation": [
+    "인정서별 시공 단계에서 이름이 확인되는 보드·자켓·실란트·블랭킷·밴드 제품군을 표시한다. 나사·철사 등 부자재의 전체 목록을 대체하지 않는다.",
+    "추출된 materials 배열이 빈 인정서도 시공 단계의 자재 이름으로 표시한다. 기존 인정서 JSON과 3D 모형 데이터는 변경하지 않는다.",
+    "기존 투명 제품군 이미지를 재사용하고 자재 이름만 표시한다. SFB-100M과 SFB-100E를 SFB-100F로 표기하지 않는다. 내화벽체의 현장 사진·구조도 썸네일은 자재 사진으로 대체했다.",
+    "제품 상세 창은 원문 단계 또는 추출 제품 코드에서 기존 상세 제품과 일치하는 코드가 확인되는 경우만 연결한다. 이름만 확인되거나 다른 규격인 경우 사진·이름을 표시한다.",
+    "인정서 보기는 각 선택 인정서 PDF 원본의 #page=1로 연결한다. 상부 시공 단계의 원문 쪽 링크와 펼치는 상세 시방은 유지한다."
+  ]
+}

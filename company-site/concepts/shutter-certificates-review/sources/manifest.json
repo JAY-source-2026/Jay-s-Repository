@@ -1,0 +1,217 @@
+{
+  "generatedAt": "2026-11-09",
+  "sourcePolicy": "Supplied original PDFs copied byte-for-byte; all original pages retained. Preview images render complete physical PDF pages 1 and 3 without cropping or content edits. Titles follow source filenames with leading numbering removed.",
+  "previewSettings": {
+    "width": 1600,
+    "format": "WebP",
+    "quality": 90,
+    "method": 6
+  },
+  "items": [
+    {
+      "sourceNumber": 1,
+      "certificate": "FDS-OTS24-0807-1",
+      "title": "FDS-OTS24-0807-1 일반셔터 인정서",
+      "productName": "DO-FSS60(S)",
+      "sourcePath": "company-site/assets/자료/방화셔터 인정서/1) FDS-OTS24-0807-1 일반셔터 인정서.pdf",
+      "sourceSha256": "be5e986665f984cde1a744c576fd7724665f943edbcc5dbefa0c8c276ecba8e6",
+      "copyPath": "company-site/assets/downloads/shutter-certificates/FDS-OTS24-0807-1.pdf",
+      "copySha256": "be5e986665f984cde1a744c576fd7724665f943edbcc5dbefa0c8c276ecba8e6",
+      "hashMatches": true,
+      "pageCount": 18,
+      "file": {
+        "name": "FDS-OTS24-0807-1 일반셔터 인정서.pdf",
+        "href": "assets/downloads/shutter-certificates/FDS-OTS24-0807-1.pdf",
+        "size": "2.08 MB",
+        "type": "application/pdf",
+        "pages": 18
+      },
+      "previews": [
+        {
+          "page": 1,
+          "src": "assets/images/certificates/shutter/FDS-OTS24-0807-1-page-1.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "인정서 · 1페이지"
+        },
+        {
+          "page": 3,
+          "src": "assets/images/certificates/shutter/FDS-OTS24-0807-1-page-3.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "구조설명도 · 3페이지"
+        }
+      ],
+      "inspection": {
+        "certificateNumberMatchesFirstPage": true,
+        "representativeDrawingPhysicalPage": 3,
+        "drawingHeading": "입면도",
+        "completePagesRendered": true
+      }
+    },
+    {
+      "sourceNumber": 2,
+      "certificate": "FDS-OTS25-0721-1",
+      "title": "FDS-OTS25-0721-1 대형셔터 인정서",
+      "productName": "DO-FSS60(L)",
+      "sourcePath": "company-site/assets/자료/방화셔터 인정서/2) FDS-OTS25-0721-1 대형셔터 인정서.pdf",
+      "sourceSha256": "2393b8d7a622cc3236f2b669dd04dd0afd2bcbc02d3806ac08b2592c689d6629",
+      "copyPath": "company-site/assets/downloads/shutter-certificates/FDS-OTS25-0721-1.pdf",
+      "copySha256": "2393b8d7a622cc3236f2b669dd04dd0afd2bcbc02d3806ac08b2592c689d6629",
+      "hashMatches": true,
+      "pageCount": 23,
+      "file": {
+        "name": "FDS-OTS25-0721-1 대형셔터 인정서.pdf",
+        "href": "assets/downloads/shutter-certificates/FDS-OTS25-0721-1.pdf",
+        "size": "1.15 MB",
+        "type": "application/pdf",
+        "pages": 23
+      },
+      "previews": [
+        {
+          "page": 1,
+          "src": "assets/images/certificates/shutter/FDS-OTS25-0721-1-page-1.webp",
+          "width": 1600,
+          "height": 2262,
+          "label": "인정서 · 1페이지"
+        },
+        {
+          "page": 3,
+          "src": "assets/images/certificates/shutter/FDS-OTS25-0721-1-page-3.webp",
+          "width": 1600,
+          "height": 2262,
+          "label": "구조설명도 · 3페이지"
+        }
+      ],
+      "inspection": {
+        "certificateNumberMatchesFirstPage": true,
+        "representativeDrawingPhysicalPage": 3,
+        "drawingHeading": "정면도, 평면도",
+        "completePagesRendered": true
+      }
+    },
+    {
+      "sourceNumber": 3,
+      "certificate": "FDS-OTS26-0630-2",
+      "title": "FDS-OTS26-0630-2 와이어 권취형 대형셔터 인정서",
+      "productName": "DO-FSS60(LW-UJ)",
+      "sourcePath": "company-site/assets/자료/방화셔터 인정서/3) FDS-OTS26-0630-2 와이어 권취형 대형셔터 인정서.pdf",
+      "sourceSha256": "63e6e700b91b9b6a900a34d82344eadf1478ee6f4e8a60480777964fd3bae0f9",
+      "copyPath": "company-site/assets/downloads/shutter-certificates/FDS-OTS26-0630-2.pdf",
+      "copySha256": "63e6e700b91b9b6a900a34d82344eadf1478ee6f4e8a60480777964fd3bae0f9",
+      "hashMatches": true,
+      "pageCount": 19,
+      "file": {
+        "name": "FDS-OTS26-0630-2 와이어 권취형 대형셔터 인정서.pdf",
+        "href": "assets/downloads/shutter-certificates/FDS-OTS26-0630-2.pdf",
+        "size": "2.43 MB",
+        "type": "application/pdf",
+        "pages": 19
+      },
+      "previews": [
+        {
+          "page": 1,
+          "src": "assets/images/certificates/shutter/FDS-OTS26-0630-2-page-1.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "인정서 · 1페이지"
+        },
+        {
+          "page": 3,
+          "src": "assets/images/certificates/shutter/FDS-OTS26-0630-2-page-3.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "구조설명도 · 3페이지"
+        }
+      ],
+      "inspection": {
+        "certificateNumberMatchesFirstPage": true,
+        "representativeDrawingPhysicalPage": 3,
+        "drawingHeading": "입면도",
+        "completePagesRendered": true
+      }
+    },
+    {
+      "sourceNumber": 4,
+      "certificate": "FDS-NVS24-0611-1",
+      "title": "FDS-NVS24-0611-1 철재셔터 인정서",
+      "productName": "DO-FST60",
+      "sourcePath": "company-site/assets/자료/방화셔터 인정서/4) FDS-NVS24-0611-1 철재셔터 인정서.pdf",
+      "sourceSha256": "51964aa3dde74b5433c8563ebedc3aaaef327630f6f6ddab982e03c7cba6d09a",
+      "copyPath": "company-site/assets/downloads/shutter-certificates/FDS-NVS24-0611-1.pdf",
+      "copySha256": "51964aa3dde74b5433c8563ebedc3aaaef327630f6f6ddab982e03c7cba6d09a",
+      "hashMatches": true,
+      "pageCount": 18,
+      "file": {
+        "name": "FDS-NVS24-0611-1 철재셔터 인정서.pdf",
+        "href": "assets/downloads/shutter-certificates/FDS-NVS24-0611-1.pdf",
+        "size": "2.00 MB",
+        "type": "application/pdf",
+        "pages": 18
+      },
+      "previews": [
+        {
+          "page": 1,
+          "src": "assets/images/certificates/shutter/FDS-NVS24-0611-1-page-1.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "인정서 · 1페이지"
+        },
+        {
+          "page": 3,
+          "src": "assets/images/certificates/shutter/FDS-NVS24-0611-1-page-3.webp",
+          "width": 1600,
+          "height": 2264,
+          "label": "구조설명도 · 3페이지"
+        }
+      ],
+      "inspection": {
+        "certificateNumberMatchesFirstPage": true,
+        "representativeDrawingPhysicalPage": 3,
+        "drawingHeading": "입면도",
+        "completePagesRendered": true
+      }
+    },
+    {
+      "sourceNumber": 5,
+      "certificate": "FDS-NVS26-0309-1",
+      "title": "FDS-NVS26-0309-1 투시형 철재셔터 인정서",
+      "productName": "DO-FST60(IG)",
+      "sourcePath": "company-site/assets/자료/방화셔터 인정서/5) FDS-NVS26-0309-1 투시형 철재셔터 인정서.pdf",
+      "sourceSha256": "c59c931ab56ea50e075c17e0f57950538caa90dec62d0a91f953f7bb80b6c716",
+      "copyPath": "company-site/assets/downloads/shutter-certificates/FDS-NVS26-0309-1.pdf",
+      "copySha256": "c59c931ab56ea50e075c17e0f57950538caa90dec62d0a91f953f7bb80b6c716",
+      "hashMatches": true,
+      "pageCount": 18,
+      "file": {
+        "name": "FDS-NVS26-0309-1 투시형 철재셔터 인정서.pdf",
+        "href": "assets/downloads/shutter-certificates/FDS-NVS26-0309-1.pdf",
+        "size": "0.80 MB",
+        "type": "application/pdf",
+        "pages": 18
+      },
+      "previews": [
+        {
+          "page": 1,
+          "src": "assets/images/certificates/shutter/FDS-NVS26-0309-1-page-1.webp",
+          "width": 1600,
+          "height": 2262,
+          "label": "인정서 · 1페이지"
+        },
+        {
+          "page": 3,
+          "src": "assets/images/certificates/shutter/FDS-NVS26-0309-1-page-3.webp",
+          "width": 1600,
+          "height": 2262,
+          "label": "구조설명도 · 3페이지"
+        }
+      ],
+      "inspection": {
+        "certificateNumberMatchesFirstPage": true,
+        "representativeDrawingPhysicalPage": 3,
+        "drawingHeading": "입면도",
+        "completePagesRendered": true
+      }
+    }
+  ]
+}

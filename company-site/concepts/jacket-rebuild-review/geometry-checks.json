@@ -1,0 +1,1115 @@
+{
+  "passed": true,
+  "certificates": 60,
+  "jackets": 37,
+  "results": [
+    {
+      "id": "FS-MP24-0617-15",
+      "jackets": []
+    },
+    {
+      "id": "FS-MP24-0617-16",
+      "jackets": []
+    },
+    {
+      "id": "FS-MP24-0617-17",
+      "jackets": []
+    },
+    {
+      "id": "FS-MP24-0617-18",
+      "jackets": []
+    },
+    {
+      "id": "FS-MP23-1103-3",
+      "jackets": []
+    },
+    {
+      "id": "FS-MP24-0617-19",
+      "jackets": []
+    },
+    {
+      "id": "FS-MP24-0617-20",
+      "jackets": []
+    },
+    {
+      "id": "FS-MP24-0617-21",
+      "jackets": []
+    },
+    {
+      "id": "FS-MP23-1103-1",
+      "jackets": []
+    },
+    {
+      "id": "FS-MP25-1218-01",
+      "jackets": []
+    },
+    {
+      "id": "FS-MP25-1218-02",
+      "jackets": []
+    },
+    {
+      "id": "FS-MP25-1218-03",
+      "jackets": []
+    },
+    {
+      "id": "FS-MP25-1218-04",
+      "jackets": []
+    },
+    {
+      "id": "FS-MP25-1218-05",
+      "jackets": []
+    },
+    {
+      "id": "FS-MP25-1218-12",
+      "jackets": []
+    },
+    {
+      "id": "FS-MP24-0617-22",
+      "jackets": []
+    },
+    {
+      "id": "FS-MP24-0617-23",
+      "jackets": []
+    },
+    {
+      "id": "FS-MP24-0617-24",
+      "jackets": []
+    },
+    {
+      "id": "FS-MP24-0617-25",
+      "jackets": []
+    },
+    {
+      "id": "FS-MP24-0617-26",
+      "jackets": []
+    },
+    {
+      "id": "FS-MP23-1103-2",
+      "jackets": []
+    },
+    {
+      "id": "FS-MP24-0617-27",
+      "jackets": []
+    },
+    {
+      "id": "FS-MP24-0617-28",
+      "jackets": []
+    },
+    {
+      "id": "FS-MP24-0617-29",
+      "jackets": []
+    },
+    {
+      "id": "FS-MP24-0617-30",
+      "jackets": []
+    },
+    {
+      "id": "FS-MP25-1218-06",
+      "jackets": []
+    },
+    {
+      "id": "FS-MP25-1218-07",
+      "jackets": []
+    },
+    {
+      "id": "FS-MP25-1218-08",
+      "jackets": []
+    },
+    {
+      "id": "FS-MP25-1218-09",
+      "jackets": []
+    },
+    {
+      "id": "FS-MP25-1218-10",
+      "jackets": []
+    },
+    {
+      "id": "FS-MP25-1218-11",
+      "jackets": []
+    },
+    {
+      "id": "FS-NP24-0617-1",
+      "jackets": [
+        {
+          "component": "jacket-clamp",
+          "workFace": 1,
+          "nominal": 50,
+          "shellMm": 0.6,
+          "depthMm": 32,
+          "bandMm": 8,
+          "bracketCount": 2,
+          "hookCount": 1,
+          "wingBoltCount": 0,
+          "supportSurface": 0.0755,
+          "closure": "overlap-hooks",
+          "hinged": false,
+          "progress": 1,
+          "openAngle": 0,
+          "latched": true,
+          "tightened": true,
+          "bracketsEngaged": true,
+          "seated": true,
+          "screwsFixed": true,
+          "fixProgress": 1,
+          "stage": "fixed"
+        },
+        {
+          "component": "jacket-clamp",
+          "workFace": -1,
+          "nominal": 50,
+          "shellMm": 0.6,
+          "depthMm": 32,
+          "bandMm": 8,
+          "bracketCount": 2,
+          "hookCount": 1,
+          "wingBoltCount": 0,
+          "supportSurface": 0.0755,
+          "closure": "overlap-hooks",
+          "hinged": false,
+          "progress": 1,
+          "openAngle": 0,
+          "latched": true,
+          "tightened": true,
+          "bracketsEngaged": true,
+          "seated": true,
+          "screwsFixed": true,
+          "fixProgress": 1,
+          "stage": "fixed"
+        }
+      ]
+    },
+    {
+      "id": "FS-NP24-0617-2",
+      "jackets": [
+        {
+          "component": "jacket-clamp",
+          "workFace": 1,
+          "nominal": 100,
+          "shellMm": 0.6,
+          "depthMm": 42,
+          "bandMm": 10,
+          "bracketCount": 4,
+          "hookCount": 2,
+          "wingBoltCount": 0,
+          "supportSurface": 0.0755,
+          "closure": "overlap-hooks",
+          "hinged": false,
+          "progress": 1,
+          "openAngle": 0,
+          "latched": true,
+          "tightened": true,
+          "bracketsEngaged": true,
+          "seated": true,
+          "screwsFixed": true,
+          "fixProgress": 1,
+          "stage": "fixed"
+        },
+        {
+          "component": "jacket-clamp",
+          "workFace": -1,
+          "nominal": 100,
+          "shellMm": 0.6,
+          "depthMm": 42,
+          "bandMm": 10,
+          "bracketCount": 4,
+          "hookCount": 2,
+          "wingBoltCount": 0,
+          "supportSurface": 0.0755,
+          "closure": "overlap-hooks",
+          "hinged": false,
+          "progress": 1,
+          "openAngle": 0,
+          "latched": true,
+          "tightened": true,
+          "bracketsEngaged": true,
+          "seated": true,
+          "screwsFixed": true,
+          "fixProgress": 1,
+          "stage": "fixed"
+        }
+      ]
+    },
+    {
+      "id": "FS-NP24-0617-3",
+      "jackets": [
+        {
+          "component": "jacket-clamp",
+          "workFace": 1,
+          "nominal": 150,
+          "shellMm": 0.6,
+          "depthMm": 62,
+          "bandMm": 16,
+          "bracketCount": 4,
+          "hookCount": 2,
+          "wingBoltCount": 0,
+          "supportSurface": 0.0755,
+          "closure": "overlap-hooks",
+          "hinged": false,
+          "progress": 1,
+          "openAngle": 0,
+          "latched": true,
+          "tightened": true,
+          "bracketsEngaged": true,
+          "seated": true,
+          "screwsFixed": true,
+          "fixProgress": 1,
+          "stage": "fixed"
+        },
+        {
+          "component": "jacket-clamp",
+          "workFace": -1,
+          "nominal": 150,
+          "shellMm": 0.6,
+          "depthMm": 62,
+          "bandMm": 16,
+          "bracketCount": 4,
+          "hookCount": 2,
+          "wingBoltCount": 0,
+          "supportSurface": 0.0755,
+          "closure": "overlap-hooks",
+          "hinged": false,
+          "progress": 1,
+          "openAngle": 0,
+          "latched": true,
+          "tightened": true,
+          "bracketsEngaged": true,
+          "seated": true,
+          "screwsFixed": true,
+          "fixProgress": 1,
+          "stage": "fixed"
+        }
+      ]
+    },
+    {
+      "id": "FS-NP24-0617-4",
+      "jackets": [
+        {
+          "component": "jacket-clamp",
+          "workFace": 1,
+          "nominal": 200,
+          "shellMm": 1,
+          "depthMm": 132,
+          "bandMm": 24,
+          "bracketCount": 12,
+          "hookCount": 3,
+          "wingBoltCount": 2,
+          "supportSurface": 0.0755,
+          "closure": "overlap-hooks",
+          "hinged": false,
+          "progress": 1,
+          "openAngle": 0,
+          "latched": true,
+          "tightened": true,
+          "bracketsEngaged": true,
+          "seated": true,
+          "screwsFixed": true,
+          "fixProgress": 1,
+          "stage": "fixed"
+        },
+        {
+          "component": "jacket-clamp",
+          "workFace": -1,
+          "nominal": 200,
+          "shellMm": 1,
+          "depthMm": 132,
+          "bandMm": 24,
+          "bracketCount": 12,
+          "hookCount": 3,
+          "wingBoltCount": 2,
+          "supportSurface": 0.0755,
+          "closure": "overlap-hooks",
+          "hinged": false,
+          "progress": 1,
+          "openAngle": 0,
+          "latched": true,
+          "tightened": true,
+          "bracketsEngaged": true,
+          "seated": true,
+          "screwsFixed": true,
+          "fixProgress": 1,
+          "stage": "fixed"
+        }
+      ]
+    },
+    {
+      "id": "FS-NP24-0617-5",
+      "jackets": [
+        {
+          "component": "jacket-clamp",
+          "workFace": 1,
+          "nominal": 250,
+          "shellMm": 1,
+          "depthMm": 132,
+          "bandMm": 24,
+          "bracketCount": 12,
+          "hookCount": 3,
+          "wingBoltCount": 2,
+          "supportSurface": 0.0755,
+          "closure": "overlap-hooks",
+          "hinged": false,
+          "progress": 1,
+          "openAngle": 0,
+          "latched": true,
+          "tightened": true,
+          "bracketsEngaged": true,
+          "seated": true,
+          "screwsFixed": true,
+          "fixProgress": 1,
+          "stage": "fixed"
+        },
+        {
+          "component": "jacket-clamp",
+          "workFace": -1,
+          "nominal": 250,
+          "shellMm": 1,
+          "depthMm": 132,
+          "bandMm": 24,
+          "bracketCount": 12,
+          "hookCount": 3,
+          "wingBoltCount": 2,
+          "supportSurface": 0.0755,
+          "closure": "overlap-hooks",
+          "hinged": false,
+          "progress": 1,
+          "openAngle": 0,
+          "latched": true,
+          "tightened": true,
+          "bracketsEngaged": true,
+          "seated": true,
+          "screwsFixed": true,
+          "fixProgress": 1,
+          "stage": "fixed"
+        }
+      ]
+    },
+    {
+      "id": "FS-NP24-0617-6",
+      "jackets": [
+        {
+          "component": "jacket-clamp",
+          "workFace": 1,
+          "nominal": 50,
+          "shellMm": 0.6,
+          "depthMm": 32,
+          "bandMm": 8,
+          "bracketCount": 2,
+          "hookCount": 1,
+          "wingBoltCount": 0,
+          "supportSurface": 0.08434,
+          "closure": "overlap-hooks",
+          "hinged": false,
+          "progress": 1,
+          "openAngle": 0,
+          "latched": true,
+          "tightened": true,
+          "bracketsEngaged": true,
+          "seated": true,
+          "screwsFixed": true,
+          "fixProgress": 1,
+          "stage": "fixed"
+        },
+        {
+          "component": "jacket-clamp",
+          "workFace": -1,
+          "nominal": 50,
+          "shellMm": 0.6,
+          "depthMm": 32,
+          "bandMm": 8,
+          "bracketCount": 2,
+          "hookCount": 1,
+          "wingBoltCount": 0,
+          "supportSurface": 0.08434,
+          "closure": "overlap-hooks",
+          "hinged": false,
+          "progress": 1,
+          "openAngle": 0,
+          "latched": true,
+          "tightened": true,
+          "bracketsEngaged": true,
+          "seated": true,
+          "screwsFixed": true,
+          "fixProgress": 1,
+          "stage": "fixed"
+        }
+      ]
+    },
+    {
+      "id": "FS-NP24-0617-7",
+      "jackets": [
+        {
+          "component": "jacket-clamp",
+          "workFace": 1,
+          "nominal": 100,
+          "shellMm": 0.6,
+          "depthMm": 42,
+          "bandMm": 10,
+          "bracketCount": 4,
+          "hookCount": 2,
+          "wingBoltCount": 0,
+          "supportSurface": 0.08434,
+          "closure": "overlap-hooks",
+          "hinged": false,
+          "progress": 1,
+          "openAngle": 0,
+          "latched": true,
+          "tightened": true,
+          "bracketsEngaged": true,
+          "seated": true,
+          "screwsFixed": true,
+          "fixProgress": 1,
+          "stage": "fixed"
+        },
+        {
+          "component": "jacket-clamp",
+          "workFace": -1,
+          "nominal": 100,
+          "shellMm": 0.6,
+          "depthMm": 42,
+          "bandMm": 10,
+          "bracketCount": 4,
+          "hookCount": 2,
+          "wingBoltCount": 0,
+          "supportSurface": 0.08434,
+          "closure": "overlap-hooks",
+          "hinged": false,
+          "progress": 1,
+          "openAngle": 0,
+          "latched": true,
+          "tightened": true,
+          "bracketsEngaged": true,
+          "seated": true,
+          "screwsFixed": true,
+          "fixProgress": 1,
+          "stage": "fixed"
+        }
+      ]
+    },
+    {
+      "id": "FS-NP24-0617-8",
+      "jackets": [
+        {
+          "component": "jacket-clamp",
+          "workFace": 1,
+          "nominal": 150,
+          "shellMm": 0.6,
+          "depthMm": 62,
+          "bandMm": 16,
+          "bracketCount": 4,
+          "hookCount": 2,
+          "wingBoltCount": 0,
+          "supportSurface": 0.08434,
+          "closure": "overlap-hooks",
+          "hinged": false,
+          "progress": 1,
+          "openAngle": 0,
+          "latched": true,
+          "tightened": true,
+          "bracketsEngaged": true,
+          "seated": true,
+          "screwsFixed": true,
+          "fixProgress": 1,
+          "stage": "fixed"
+        },
+        {
+          "component": "jacket-clamp",
+          "workFace": -1,
+          "nominal": 150,
+          "shellMm": 0.6,
+          "depthMm": 62,
+          "bandMm": 16,
+          "bracketCount": 4,
+          "hookCount": 2,
+          "wingBoltCount": 0,
+          "supportSurface": 0.08434,
+          "closure": "overlap-hooks",
+          "hinged": false,
+          "progress": 1,
+          "openAngle": 0,
+          "latched": true,
+          "tightened": true,
+          "bracketsEngaged": true,
+          "seated": true,
+          "screwsFixed": true,
+          "fixProgress": 1,
+          "stage": "fixed"
+        }
+      ]
+    },
+    {
+      "id": "FS-NP24-0617-9",
+      "jackets": [
+        {
+          "component": "jacket-clamp",
+          "workFace": 1,
+          "nominal": 200,
+          "shellMm": 1,
+          "depthMm": 132,
+          "bandMm": 24,
+          "bracketCount": 12,
+          "hookCount": 3,
+          "wingBoltCount": 2,
+          "supportSurface": 0.08434,
+          "closure": "overlap-hooks",
+          "hinged": false,
+          "progress": 1,
+          "openAngle": 0,
+          "latched": true,
+          "tightened": true,
+          "bracketsEngaged": true,
+          "seated": true,
+          "screwsFixed": true,
+          "fixProgress": 1,
+          "stage": "fixed"
+        },
+        {
+          "component": "jacket-clamp",
+          "workFace": -1,
+          "nominal": 200,
+          "shellMm": 1,
+          "depthMm": 132,
+          "bandMm": 24,
+          "bracketCount": 12,
+          "hookCount": 3,
+          "wingBoltCount": 2,
+          "supportSurface": 0.08434,
+          "closure": "overlap-hooks",
+          "hinged": false,
+          "progress": 1,
+          "openAngle": 0,
+          "latched": true,
+          "tightened": true,
+          "bracketsEngaged": true,
+          "seated": true,
+          "screwsFixed": true,
+          "fixProgress": 1,
+          "stage": "fixed"
+        }
+      ]
+    },
+    {
+      "id": "FS-NP24-0617-10",
+      "jackets": [
+        {
+          "component": "jacket-clamp",
+          "workFace": 1,
+          "nominal": 250,
+          "shellMm": 1,
+          "depthMm": 132,
+          "bandMm": 24,
+          "bracketCount": 12,
+          "hookCount": 3,
+          "wingBoltCount": 2,
+          "supportSurface": 0.08434,
+          "closure": "overlap-hooks",
+          "hinged": false,
+          "progress": 1,
+          "openAngle": 0,
+          "latched": true,
+          "tightened": true,
+          "bracketsEngaged": true,
+          "seated": true,
+          "screwsFixed": true,
+          "fixProgress": 1,
+          "stage": "fixed"
+        },
+        {
+          "component": "jacket-clamp",
+          "workFace": -1,
+          "nominal": 250,
+          "shellMm": 1,
+          "depthMm": 132,
+          "bandMm": 24,
+          "bracketCount": 12,
+          "hookCount": 3,
+          "wingBoltCount": 2,
+          "supportSurface": 0.08434,
+          "closure": "overlap-hooks",
+          "hinged": false,
+          "progress": 1,
+          "openAngle": 0,
+          "latched": true,
+          "tightened": true,
+          "bracketsEngaged": true,
+          "seated": true,
+          "screwsFixed": true,
+          "fixProgress": 1,
+          "stage": "fixed"
+        }
+      ]
+    },
+    {
+      "id": "FS-NP24-0617-11",
+      "jackets": [
+        {
+          "component": "jacket-clamp",
+          "workFace": -1,
+          "nominal": 100,
+          "shellMm": 0.6,
+          "depthMm": 42,
+          "bandMm": 10,
+          "bracketCount": 4,
+          "hookCount": 2,
+          "wingBoltCount": 0,
+          "supportSurface": 0.0755,
+          "closure": "overlap-hooks",
+          "hinged": false,
+          "progress": 1,
+          "openAngle": 0,
+          "latched": true,
+          "tightened": true,
+          "bracketsEngaged": true,
+          "seated": true,
+          "screwsFixed": true,
+          "fixProgress": 1,
+          "stage": "fixed"
+        }
+      ]
+    },
+    {
+      "id": "FS-NP24-0617-12",
+      "jackets": [
+        {
+          "component": "jacket-clamp",
+          "workFace": -1,
+          "nominal": 150,
+          "shellMm": 0.6,
+          "depthMm": 62,
+          "bandMm": 16,
+          "bracketCount": 4,
+          "hookCount": 2,
+          "wingBoltCount": 0,
+          "supportSurface": 0.0755,
+          "closure": "overlap-hooks",
+          "hinged": false,
+          "progress": 1,
+          "openAngle": 0,
+          "latched": true,
+          "tightened": true,
+          "bracketsEngaged": true,
+          "seated": true,
+          "screwsFixed": true,
+          "fixProgress": 1,
+          "stage": "fixed"
+        }
+      ]
+    },
+    {
+      "id": "FS-NP24-0617-13",
+      "jackets": [
+        {
+          "component": "jacket-clamp",
+          "workFace": -1,
+          "nominal": 200,
+          "shellMm": 1,
+          "depthMm": 132,
+          "bandMm": 24,
+          "bracketCount": 12,
+          "hookCount": 3,
+          "wingBoltCount": 2,
+          "supportSurface": 0.0755,
+          "closure": "overlap-hooks",
+          "hinged": false,
+          "progress": 1,
+          "openAngle": 0,
+          "latched": true,
+          "tightened": true,
+          "bracketsEngaged": true,
+          "seated": true,
+          "screwsFixed": true,
+          "fixProgress": 1,
+          "stage": "fixed"
+        }
+      ]
+    },
+    {
+      "id": "FS-NP24-0617-14",
+      "jackets": [
+        {
+          "component": "jacket-clamp",
+          "workFace": -1,
+          "nominal": 250,
+          "shellMm": 1,
+          "depthMm": 132,
+          "bandMm": 24,
+          "bracketCount": 12,
+          "hookCount": 3,
+          "wingBoltCount": 2,
+          "supportSurface": 0.0755,
+          "closure": "overlap-hooks",
+          "hinged": false,
+          "progress": 1,
+          "openAngle": 0,
+          "latched": true,
+          "tightened": true,
+          "bracketsEngaged": true,
+          "seated": true,
+          "screwsFixed": true,
+          "fixProgress": 1,
+          "stage": "fixed"
+        }
+      ]
+    },
+    {
+      "id": "FS-NP25-0224-01",
+      "jackets": []
+    },
+    {
+      "id": "FS-NP25-0224-02",
+      "jackets": []
+    },
+    {
+      "id": "FS-NP25-0224-03",
+      "jackets": []
+    },
+    {
+      "id": "FS-NP25-0224-04",
+      "jackets": []
+    },
+    {
+      "id": "FS-NP25-0224-05",
+      "jackets": [
+        {
+          "component": "jacket-clamp",
+          "workFace": -1,
+          "nominal": 250,
+          "shellMm": 1,
+          "depthMm": 132,
+          "bandMm": 24,
+          "bracketCount": 12,
+          "hookCount": 3,
+          "wingBoltCount": 2,
+          "supportSurface": 0.0755,
+          "closure": "overlap-hooks",
+          "hinged": false,
+          "progress": 1,
+          "openAngle": 0,
+          "latched": true,
+          "tightened": true,
+          "bracketsEngaged": true,
+          "seated": true,
+          "screwsFixed": true,
+          "fixProgress": 1,
+          "stage": "fixed"
+        }
+      ]
+    },
+    {
+      "id": "FS-MP25-0224-06",
+      "jackets": []
+    },
+    {
+      "id": "FS-MP25-0625-02",
+      "jackets": []
+    },
+    {
+      "id": "FS-MP25-1218-13",
+      "jackets": []
+    },
+    {
+      "id": "FS-MP25-0625-01",
+      "jackets": []
+    },
+    {
+      "id": "FS-NP25-0625-05",
+      "jackets": [
+        {
+          "component": "jacket-clamp",
+          "workFace": 1,
+          "nominal": 50,
+          "shellMm": 0.6,
+          "depthMm": 32,
+          "bandMm": 8,
+          "bracketCount": 2,
+          "hookCount": 1,
+          "wingBoltCount": 0,
+          "supportSurface": 0.0877,
+          "closure": "overlap-hooks",
+          "hinged": false,
+          "progress": 1,
+          "openAngle": 0,
+          "latched": true,
+          "tightened": true,
+          "bracketsEngaged": true,
+          "seated": true,
+          "screwsFixed": true,
+          "fixProgress": 1,
+          "stage": "fixed"
+        },
+        {
+          "component": "jacket-clamp",
+          "workFace": 1,
+          "nominal": 100,
+          "shellMm": 0.6,
+          "depthMm": 42,
+          "bandMm": 10,
+          "bracketCount": 4,
+          "hookCount": 2,
+          "wingBoltCount": 0,
+          "supportSurface": 0.0877,
+          "closure": "overlap-hooks",
+          "hinged": false,
+          "progress": 1,
+          "openAngle": 0,
+          "latched": true,
+          "tightened": true,
+          "bracketsEngaged": true,
+          "seated": true,
+          "screwsFixed": true,
+          "fixProgress": 1,
+          "stage": "fixed"
+        },
+        {
+          "component": "jacket-clamp",
+          "workFace": -1,
+          "nominal": 50,
+          "shellMm": 0.6,
+          "depthMm": 32,
+          "bandMm": 8,
+          "bracketCount": 2,
+          "hookCount": 1,
+          "wingBoltCount": 0,
+          "supportSurface": 0.0877,
+          "closure": "overlap-hooks",
+          "hinged": false,
+          "progress": 1,
+          "openAngle": 0,
+          "latched": true,
+          "tightened": true,
+          "bracketsEngaged": true,
+          "seated": true,
+          "screwsFixed": true,
+          "fixProgress": 1,
+          "stage": "fixed"
+        },
+        {
+          "component": "jacket-clamp",
+          "workFace": -1,
+          "nominal": 100,
+          "shellMm": 0.6,
+          "depthMm": 42,
+          "bandMm": 10,
+          "bracketCount": 4,
+          "hookCount": 2,
+          "wingBoltCount": 0,
+          "supportSurface": 0.0877,
+          "closure": "overlap-hooks",
+          "hinged": false,
+          "progress": 1,
+          "openAngle": 0,
+          "latched": true,
+          "tightened": true,
+          "bracketsEngaged": true,
+          "seated": true,
+          "screwsFixed": true,
+          "fixProgress": 1,
+          "stage": "fixed"
+        }
+      ]
+    },
+    {
+      "id": "FS-NP25-0625-04",
+      "jackets": [
+        {
+          "component": "jacket-clamp",
+          "workFace": 1,
+          "nominal": 250,
+          "shellMm": 1,
+          "depthMm": 132,
+          "bandMm": 24,
+          "bracketCount": 12,
+          "hookCount": 3,
+          "wingBoltCount": 2,
+          "supportSurface": 0.0877,
+          "closure": "overlap-hooks",
+          "hinged": false,
+          "progress": 1,
+          "openAngle": 0,
+          "latched": true,
+          "tightened": true,
+          "bracketsEngaged": true,
+          "seated": true,
+          "screwsFixed": true,
+          "fixProgress": 1,
+          "stage": "fixed"
+        },
+        {
+          "component": "jacket-clamp",
+          "workFace": 1,
+          "nominal": 150,
+          "shellMm": 0.6,
+          "depthMm": 62,
+          "bandMm": 16,
+          "bracketCount": 4,
+          "hookCount": 2,
+          "wingBoltCount": 0,
+          "supportSurface": 0.0877,
+          "closure": "overlap-hooks",
+          "hinged": false,
+          "progress": 1,
+          "openAngle": 0,
+          "latched": true,
+          "tightened": true,
+          "bracketsEngaged": true,
+          "seated": true,
+          "screwsFixed": true,
+          "fixProgress": 1,
+          "stage": "fixed"
+        },
+        {
+          "component": "jacket-clamp",
+          "workFace": 1,
+          "nominal": 100,
+          "shellMm": 0.6,
+          "depthMm": 42,
+          "bandMm": 10,
+          "bracketCount": 4,
+          "hookCount": 2,
+          "wingBoltCount": 0,
+          "supportSurface": 0.0877,
+          "closure": "overlap-hooks",
+          "hinged": false,
+          "progress": 1,
+          "openAngle": 0,
+          "latched": true,
+          "tightened": true,
+          "bracketsEngaged": true,
+          "seated": true,
+          "screwsFixed": true,
+          "fixProgress": 1,
+          "stage": "fixed"
+        },
+        {
+          "component": "jacket-clamp",
+          "workFace": 1,
+          "nominal": 50,
+          "shellMm": 0.6,
+          "depthMm": 32,
+          "bandMm": 8,
+          "bracketCount": 2,
+          "hookCount": 1,
+          "wingBoltCount": 0,
+          "supportSurface": 0.0877,
+          "closure": "overlap-hooks",
+          "hinged": false,
+          "progress": 1,
+          "openAngle": 0,
+          "latched": true,
+          "tightened": true,
+          "bracketsEngaged": true,
+          "seated": true,
+          "screwsFixed": true,
+          "fixProgress": 1,
+          "stage": "fixed"
+        },
+        {
+          "component": "jacket-clamp",
+          "workFace": -1,
+          "nominal": 250,
+          "shellMm": 1,
+          "depthMm": 132,
+          "bandMm": 24,
+          "bracketCount": 12,
+          "hookCount": 3,
+          "wingBoltCount": 2,
+          "supportSurface": 0.0877,
+          "closure": "overlap-hooks",
+          "hinged": false,
+          "progress": 1,
+          "openAngle": 0,
+          "latched": true,
+          "tightened": true,
+          "bracketsEngaged": true,
+          "seated": true,
+          "screwsFixed": true,
+          "fixProgress": 1,
+          "stage": "fixed"
+        },
+        {
+          "component": "jacket-clamp",
+          "workFace": -1,
+          "nominal": 150,
+          "shellMm": 0.6,
+          "depthMm": 62,
+          "bandMm": 16,
+          "bracketCount": 4,
+          "hookCount": 2,
+          "wingBoltCount": 0,
+          "supportSurface": 0.0877,
+          "closure": "overlap-hooks",
+          "hinged": false,
+          "progress": 1,
+          "openAngle": 0,
+          "latched": true,
+          "tightened": true,
+          "bracketsEngaged": true,
+          "seated": true,
+          "screwsFixed": true,
+          "fixProgress": 1,
+          "stage": "fixed"
+        },
+        {
+          "component": "jacket-clamp",
+          "workFace": -1,
+          "nominal": 100,
+          "shellMm": 0.6,
+          "depthMm": 42,
+          "bandMm": 10,
+          "bracketCount": 4,
+          "hookCount": 2,
+          "wingBoltCount": 0,
+          "supportSurface": 0.0877,
+          "closure": "overlap-hooks",
+          "hinged": false,
+          "progress": 1,
+          "openAngle": 0,
+          "latched": true,
+          "tightened": true,
+          "bracketsEngaged": true,
+          "seated": true,
+          "screwsFixed": true,
+          "fixProgress": 1,
+          "stage": "fixed"
+        },
+        {
+          "component": "jacket-clamp",
+          "workFace": -1,
+          "nominal": 50,
+          "shellMm": 0.6,
+          "depthMm": 32,
+          "bandMm": 8,
+          "bracketCount": 2,
+          "hookCount": 1,
+          "wingBoltCount": 0,
+          "supportSurface": 0.0877,
+          "closure": "overlap-hooks",
+          "hinged": false,
+          "progress": 1,
+          "openAngle": 0,
+          "latched": true,
+          "tightened": true,
+          "bracketsEngaged": true,
+          "seated": true,
+          "screwsFixed": true,
+          "fixProgress": 1,
+          "stage": "fixed"
+        }
+      ]
+    },
+    {
+      "id": "FS-MP25-0625-03",
+      "jackets": []
+    },
+    {
+      "id": "FS-OS25-0513-01",
+      "jackets": []
+    },
+    {
+      "id": "FS-MP26-0507-14",
+      "jackets": []
+    },
+    {
+      "id": "FS-MP26-0507-15",
+      "jackets": []
+    }
+  ]
+}

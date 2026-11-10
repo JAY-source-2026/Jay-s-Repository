@@ -1,0 +1,526 @@
+{
+  "date": "2026-11-09",
+  "purpose": "내화자켓 3D 재구성을 위한 실제 제품 사진과 인정서 상세 시방 재검토. 숫자는 원문 최소 규격이며 정밀 CAD치수 전체를 뜻하지 않음.",
+  "primaryPhoto": {
+    "path": "assets/images/products/jacket.webp",
+    "meaning": "실제 카탈로그 추출 250A 제품 사진. 생성 hero 이미지는 조사에 사용하지 않음."
+  },
+  "pdfs": [
+    {
+      "id": "FS-NP24-0617-1",
+      "path": "assets/downloads/firestop-certificates/nonmetal-pipes/FS-NP24-0617-1.pdf",
+      "sha256": "f46381cb6e48d036bd7f5e9b81e7a645dbdaaa3532761471a24910fab40252e4"
+    },
+    {
+      "id": "FS-NP24-0617-2",
+      "path": "assets/downloads/firestop-certificates/nonmetal-pipes/FS-NP24-0617-2.pdf",
+      "sha256": "e3138059722acca31e4bc71f3949e385af2fb3fb90b59d1df9d69f59a6a6dd24"
+    },
+    {
+      "id": "FS-NP24-0617-3",
+      "path": "assets/downloads/firestop-certificates/nonmetal-pipes/FS-NP24-0617-3.pdf",
+      "sha256": "e02948bdbdc2bd11bc92cebbabea5050cde6bfacb4d17f23c7fdeb7d80f460be"
+    },
+    {
+      "id": "FS-NP24-0617-4",
+      "path": "assets/downloads/firestop-certificates/nonmetal-pipes/FS-NP24-0617-4.pdf",
+      "sha256": "0c026c92a8e25c44556170d167c6292424255e9d2d46e6ff8f8523f288a67eb2"
+    },
+    {
+      "id": "FS-NP24-0617-5",
+      "path": "assets/downloads/firestop-certificates/nonmetal-pipes/FS-NP24-0617-5.pdf",
+      "sha256": "e1aed69b4a8754fdb4a36f8d6f5e35311e7c325c7d1ea84c4a29362b826c80b5"
+    },
+    {
+      "id": "FS-NP24-0617-6",
+      "path": "assets/downloads/firestop-certificates/nonmetal-pipes/FS-NP24-0617-6.pdf",
+      "sha256": "c950fb3798b14194fa5ff8c630bdb5ca0e58e81e959ed6d0f3eea40c75ab710d"
+    },
+    {
+      "id": "FS-NP24-0617-7",
+      "path": "assets/downloads/firestop-certificates/nonmetal-pipes/FS-NP24-0617-7.pdf",
+      "sha256": "628ae8a127420a55c393c2a726001b9b858d887f51cc4a4be919e51314a8b34c"
+    },
+    {
+      "id": "FS-NP24-0617-8",
+      "path": "assets/downloads/firestop-certificates/nonmetal-pipes/FS-NP24-0617-8.pdf",
+      "sha256": "028d509ce09498fb1eeeab6b9e7695182665c5726f3da0cb90e55c60814d83c1"
+    },
+    {
+      "id": "FS-NP24-0617-9",
+      "path": "assets/downloads/firestop-certificates/nonmetal-pipes/FS-NP24-0617-9.pdf",
+      "sha256": "165c621f9d393a78ac1a8974c2dc0dbb87ea26692ec536364587a88003711979"
+    },
+    {
+      "id": "FS-NP24-0617-10",
+      "path": "assets/downloads/firestop-certificates/nonmetal-pipes/FS-NP24-0617-10.pdf",
+      "sha256": "4bf780984dad4a816db6ecc1273404cfa16f121ec3c5bcdc10e7c389d5ef9fd7"
+    },
+    {
+      "id": "FS-NP24-0617-11",
+      "path": "assets/downloads/firestop-certificates/nonmetal-pipes/FS-NP24-0617-11.pdf",
+      "sha256": "6e14663a9dbe5489b3653c4ab626c49e7de341a0b2d78934a56af42698709409"
+    },
+    {
+      "id": "FS-NP24-0617-12",
+      "path": "assets/downloads/firestop-certificates/nonmetal-pipes/FS-NP24-0617-12.pdf",
+      "sha256": "9d47af7c4050a81a2e88b1f8379ad8963e3518dda59d68ca6205d72b9f7cd34d"
+    },
+    {
+      "id": "FS-NP24-0617-13",
+      "path": "assets/downloads/firestop-certificates/nonmetal-pipes/FS-NP24-0617-13.pdf",
+      "sha256": "6421d62e8e244bffa2a66a01fd9792af8d6814e724f17dce348b9df68ff12fb7"
+    },
+    {
+      "id": "FS-NP24-0617-14",
+      "path": "assets/downloads/firestop-certificates/nonmetal-pipes/FS-NP24-0617-14.pdf",
+      "sha256": "bc879cc7974500f03085308afb43b64322c2dbbde0fcbd23668676956d128539"
+    },
+    {
+      "id": "FS-NP25-0224-05",
+      "path": "assets/downloads/firestop-certificates/nonmetal-pipes/FS-NP25-0224-05.pdf",
+      "sha256": "36a901f58fc98022f8c61a2a1fc104a958a166243a10bbc14373da7385dd2f9f"
+    },
+    {
+      "id": "FS-NP25-0625-05",
+      "path": "assets/downloads/firestop-certificates/bundled-pipes/FS-NP25-0625-05.pdf",
+      "sha256": "0deea0381163b9ec554a6b75b23a68d789cd8545f587207776f91146176a179e"
+    },
+    {
+      "id": "FS-NP25-0625-04",
+      "path": "assets/downloads/firestop-certificates/bundled-pipes/FS-NP25-0625-04.pdf",
+      "sha256": "d5abb4c9f8dcbfd51671247687419d28112dcff7e8416221906185908e06f70c"
+    }
+  ],
+  "sizes": [
+    {
+      "nominalA": 50,
+      "pipeODmm": 60,
+      "shellMm": {
+        "thickness": 0.6,
+        "width": 32
+      },
+      "linerMm": {
+        "layerThickness": 8,
+        "width": 30,
+        "layers": 1,
+        "lengths": [
+          230
+        ]
+      },
+      "bracket": {
+        "countPerJacket": 2,
+        "thicknessMm": 1.5,
+        "widthMm": 29.8,
+        "lengthMm": 40,
+        "heightMm": 21,
+        "wallSlots": 1
+      },
+      "hookCount": 1,
+      "wingBoltCount": 0,
+      "sources": [
+        "FS-NP24-0617-1 PDF 3, 13, 19, 20",
+        "FS-NP25-0625-04 PDF 28"
+      ],
+      "countNote": "50A 규격별 제품 도면에는 1고리구멍. 공통 시공 확대도 PDF13쪽은2개로 단순화되어 상충하므로 규격별 제품 도면을 우선."
+    },
+    {
+      "nominalA": 100,
+      "pipeODmm": 114,
+      "shellMm": {
+        "thickness": 0.6,
+        "width": 42
+      },
+      "linerMm": {
+        "layerThickness": 10,
+        "width": 40,
+        "layers": 1,
+        "lengths": [
+          405
+        ]
+      },
+      "bracket": {
+        "countPerJacket": 4,
+        "thicknessMm": 1.5,
+        "widthMm": 29.8,
+        "lengthMm": 40,
+        "heightMm": 21,
+        "wallSlots": 1
+      },
+      "hookCount": 2,
+      "wingBoltCount": 0,
+      "sources": [
+        "FS-NP24-0617-2 PDF 3, 13, 19",
+        "FS-NP25-0625-04 PDF 28"
+      ]
+    },
+    {
+      "nominalA": 150,
+      "pipeODmm": 165,
+      "shellMm": {
+        "thickness": 0.6,
+        "width": 62
+      },
+      "linerMm": {
+        "layerThickness": 8,
+        "width": 60,
+        "layers": 2,
+        "lengths": [
+          570,
+          620
+        ]
+      },
+      "bracket": {
+        "countPerJacket": 4,
+        "thicknessMm": 1.5,
+        "widthMm": 29.8,
+        "lengthMm": 40,
+        "heightMm": 21,
+        "wallSlots": 1
+      },
+      "hookCount": 2,
+      "wingBoltCount": 0,
+      "sources": [
+        "FS-NP24-0617-3 PDF 3, 13, 19",
+        "FS-NP25-0625-04 PDF 28"
+      ]
+    },
+    {
+      "nominalA": 200,
+      "pipeODmm": 216,
+      "shellMm": {
+        "thickness": 1,
+        "width": 132
+      },
+      "linerMm": {
+        "layerThickness": 12,
+        "width": 130,
+        "layers": 2,
+        "lengths": [
+          355,
+          375,
+          390,
+          415
+        ],
+        "split": "각 겹 좌우 반원부로 분할된 총4조각.4겹이 아님."
+      },
+      "bracket": {
+        "countPerJacket": 12,
+        "thicknessMm": 2,
+        "widthMm": 29.8,
+        "lengthMm": 60,
+        "heightMm": 29.5,
+        "wallSlots": 2
+      },
+      "hookCount": 3,
+      "wingBoltCount": 2,
+      "sources": [
+        "FS-NP24-0617-4 PDF 3, 13, 19, 20"
+      ]
+    },
+    {
+      "nominalA": 250,
+      "pipeODmm": 267,
+      "shellMm": {
+        "thickness": 1,
+        "width": 132
+      },
+      "linerMm": {
+        "layerThickness": 12,
+        "width": 130,
+        "layers": 2,
+        "lengths": [
+          425,
+          460,
+          465,
+          505
+        ],
+        "split": "각 겹 좌우 반원부로 분할된 총4조각.4겹이 아님."
+      },
+      "bracket": {
+        "countPerJacket": 12,
+        "thicknessMm": 2,
+        "widthMm": 29.8,
+        "lengthMm": 60,
+        "heightMm": 29.5,
+        "wallSlots": 2
+      },
+      "hookCount": 3,
+      "wingBoltCount": 2,
+      "sources": [
+        "FS-NP24-0617-5 PDF 3, 13, 14, 19, 20",
+        "FS-NP25-0224-05 PDF 13, 14, 22",
+        "FS-NP25-0625-04 PDF 11, 28"
+      ]
+    }
+  ],
+  "appearance": [
+    "아연도금 금속 외피는 넓고 평평한 판금 면들을 둘레에 따라 절곡한 다각형. 내부는 검은 내화밴드.",
+    "앞뒤 가장자리는 판금 탭이 안쪽으로 접혀 내화밴드를 잡으며 탭 사이 V자 틈이 존재. 매끈한 파이프플랜지나 두꺼운 금속 환형 덩어리가 아님.",
+    "브라켓 연결 슬롯은 지지구조 쪽 외피에 둘레를 따라 배치. 별도 L형 브라켓의 짧은 끝은 슬롯에 걸리고 긴 다리는 벽체/슬라브 면에 밀착되어 구멍을 통해 고정못 체결.",
+    "고리 체결은 양끝 겹침 플랩의 구멍에 절곡 갈고리가 끼워지는 동작. 경첩처럼 회전하는 단일 L부품이 아님.",
+    "200/250A 상세도는 3개 갈고리 + 두끝 나비볼트2개. 사진의 노란 체결부2개는 나비볼트의 시각 근거.",
+    "50/100/150A 도면은 C형 연속 내피, 200/250A는 반대편 하단에서 밴드2겹이 나뉨. 하단 금속 외피선은 V형으로 연결되어 있으며 별도 기계식 힌지나 후면 체결세트 도면 근거 없음."
+  ],
+  "assemblyOrder": [
+    "브라켓 체결 홈이 지지구조 쪽을 향하도록 열린 자켓을 배관 둘레로 감싼다.",
+    "자켓 양끝을 겹치고 구멍에 고리를 건다.",
+    "200/250A는 나비볼트를 조여 고정한다.",
+    "규격별 L형 브라켓을 자켓 홈에 걸어 고정한다.",
+    "자켓을 지지구조에 밀착한다.",
+    "브라켓 구멍을 통해 지지구조에 고정못을 체결한다."
+  ],
+  "fastenerSource": "FS-NP24-0617-1~5 상세 시방 PDF14쪽: 직결나사 #8(4.2mm)×64mm 이상 또는 타정기못17mm 이상. 원문은 앵커 종류를 별도 지정하지 않음.",
+  "placement": {
+    "wall": "각 벽체 면마다1개, 총2개. 보드 포함 구조는 해당 보드 단계 및 근거 유지.",
+    "floor": "FS-NP24-0617-11~14와 FS-NP25-0224-05는 하부1개, 브라켓은 슬라브 하부에 고정. FS-NP25-0224-05의 상부 밴드/블랭킷과 구분.",
+    "bundled": "FS-NP25-0625-04는250/150/100/50A 각각 적용. FS-NP25-0625-05는100/50A. 각 파이프의 규격별 폭/내피/브라켓 수가 다름."
+  },
+  "uncertainties": [
+    "사진만으로 판금 분할면과 탭의 정확한 총수를 확정하지 않음.",
+    "고리/구멍/볼트의 모든 세부 치수는 PDF에 기입되지 않아 형상 의미와 개수 중심으로 구현.",
+    "200/250A 반대편 밴드 분할을 별도 기계식 힌지 또는 두번째 체결세트로 해석할 근거 없음.",
+    "50A 공통 시공 확대도와 규격별 제품 도면의 고리개수 차이는 위 countNote 참조."
+  ],
+  "renderedEvidenceDirectory": "/tmp/jacket-source-review",
+  "certificateDetailPages": {
+    "FS-NP24-0617-1": {
+      "pdf": "assets/downloads/firestop-certificates/nonmetal-pipes/FS-NP24-0617-1.pdf",
+      "jacketDetailPage": 13,
+      "bracketsDetailPage": 14,
+      "productDetailPage": 19,
+      "bracketProductPage": 20,
+      "jacketSummaryPage": 7,
+      "bracketsSummaryPage": 8,
+      "wingBoltsExplicitInJacketDetailText": false,
+      "scope": "별도의 자켓 체결 확대도와 브라켓 체결 확대도",
+      "jacketTextExtract": "FS-NP24-0617-1 2024년06월17일 - 11 - 다. 내화채움재(내화자켓) 설치1 - 관통재 규격에 맞는 내화자켓을 브라켓 체결 부위가 벽체 방향으로 향하게 하여 자켓 양 끝을 겹치게 하여 배관에 감싸고 구멍에 고리를 걸어 체결한다.",
+      "bracketsTextExtract": "FS-NP24-0617-1 2024년06월17일 - 12 - 라. 내화채움재(내화자켓) 설치2 - 브라켓(두께 1.5㎜ 이상, 너비 29.8㎜ 이상, 길이 40㎜ 이상, 높이 21㎜ 이상)은 2개를 내 화자켓의 홈에 맞게 고정시킨 후 내화자켓은 지지구조에 밀착시킨다. - 이후 브라켓의 구멍에 고정못[직결 나사 {#8(4.2㎜) X 64㎜ 이상} 또는 타정기 못 (17㎜ 이상)]을 이용하여 지지구조에 고정한다. - 반대편도 동일하게 시공한다. 2.2.5 시공 시 주의사항 가. 관통재 삽입시 관통재에 의해 개구부가 파손되지 않도록 주의한다. 나. 시공시 규격에 맞는 내화채움재를 확인하고 내화채움재가 벽과 밀착되도록 시공하 여야 한다. 다. 개구부 내부 공간으로 관통재 외 다른 자재 및 구조물을 통과시키지 않도록 한다."
+    },
+    "FS-NP24-0617-2": {
+      "pdf": "assets/downloads/firestop-certificates/nonmetal-pipes/FS-NP24-0617-2.pdf",
+      "jacketDetailPage": 13,
+      "bracketsDetailPage": 14,
+      "productDetailPage": 19,
+      "bracketProductPage": 20,
+      "jacketSummaryPage": 7,
+      "bracketsSummaryPage": 8,
+      "wingBoltsExplicitInJacketDetailText": false,
+      "scope": "별도의 자켓 체결 확대도와 브라켓 체결 확대도",
+      "jacketTextExtract": "FS-NP24-0617-2 2024년06월17일 - 11 - 다. 내화채움재(내화자켓) 설치1 - 관통재 규격에 맞는 내화자켓을 브라켓 체결 부위가 벽체 방향으로 향하게 하여 자켓 양 끝을 겹치게 하여 배관에 감싸고 구멍에 고리를 걸어 체결한다.",
+      "bracketsTextExtract": "FS-NP24-0617-2 2024년06월17일 - 12 - 라. 내화채움재(내화자켓) 설치2 - 브라켓(두께 1.5㎜ 이상, 너비 29.8㎜ 이상, 길이 40㎜ 이상, 높이 21㎜ 이상)은 4개를 내 화자켓의 홈에 맞게 고정시킨 후 내화자켓은 지지구조에 밀착시킨다. - 이후 브라켓의 구멍에 고정못[직결 나사 {#8(4.2㎜) X 64㎜ 이상} 또는 타정기 못 (17㎜ 이상)]을 이용하여 지지구조에 고정한다. - 반대편도 동일하게 시공한다. 2.2.5 시공 시 주의사항 가. 관통재 삽입시 관통재에 의해 개구부가 파손되지 않도록 주의한다. 나. 시공시 규격에 맞는 내화채움재를 확인하고 내화채움재가 벽과 밀착되도록 시공하 여야 한다. 다. 개구부 내부 공간으로 관통재 외 다른 자재 및 구조물을 통과시키지 않도록 한다."
+    },
+    "FS-NP24-0617-3": {
+      "pdf": "assets/downloads/firestop-certificates/nonmetal-pipes/FS-NP24-0617-3.pdf",
+      "jacketDetailPage": 13,
+      "bracketsDetailPage": 14,
+      "productDetailPage": 19,
+      "bracketProductPage": 20,
+      "jacketSummaryPage": 7,
+      "bracketsSummaryPage": 8,
+      "wingBoltsExplicitInJacketDetailText": false,
+      "scope": "별도의 자켓 체결 확대도와 브라켓 체결 확대도",
+      "jacketTextExtract": "FS-NP24-0617-3 2024년06월17일 - 11 - 다. 내화채움재(내화자켓) 설치1 - 관통재 규격에 맞는 내화자켓을 브라켓 체결 부위가 벽체 방향으로 향하게 하여 자켓 양 끝을 겹치게 하여 배관에 감싸고 구멍에 고리를 걸어 체결한다.",
+      "bracketsTextExtract": "FS-NP24-0617-3 2024년06월17일 - 12 - 라. 내화채움재(내화자켓) 설치2 - 브라켓(두께 1.5㎜ 이상, 너비 29.8㎜ 이상, 길이 40㎜ 이상, 높이 21㎜ 이상)은 4개를 내 화자켓의 홈에 맞게 고정시킨 후 내화자켓은 지지구조에 밀착시킨다. - 이후 브라켓의 구멍에 고정못[직결 나사 {#8(4.2㎜) X 64㎜ 이상} 또는 타정기 못 (17㎜ 이상)]을 이용하여 지지구조에 고정한다. - 반대편도 동일하게 시공한다. 2.2.5 시공 시 주의사항 가. 관통재 삽입시 관통재에 의해 개구부가 파손되지 않도록 주의한다. 나. 시공시 규격에 맞는 내화채움재를 확인하고 내화채움재가 벽과 밀착되도록 시공하 여야 한다. 다. 개구부 내부 공간으로 관통재 외 다른 자재 및 구조물을 통과시키지 않도록 한다."
+    },
+    "FS-NP24-0617-4": {
+      "pdf": "assets/downloads/firestop-certificates/nonmetal-pipes/FS-NP24-0617-4.pdf",
+      "jacketDetailPage": 13,
+      "bracketsDetailPage": 14,
+      "productDetailPage": 19,
+      "bracketProductPage": 20,
+      "jacketSummaryPage": 7,
+      "bracketsSummaryPage": 8,
+      "wingBoltsExplicitInJacketDetailText": true,
+      "scope": "별도의 자켓 체결 확대도와 브라켓 체결 확대도",
+      "jacketTextExtract": "FS-NP24-0617-4 2024년06월17일 - 11 - 다. 내화채움재(내화자켓) 설치1 - 관통재 규격에 맞는 내화자켓을 브라켓 체결 부위가 벽체 방향으로 향하게 하여 자켓 양 끝을 겹치게 하여 배관에 감싸고 구멍에 고리를 걸어 체결 후 나비볼트를 조여 고정 한다.",
+      "bracketsTextExtract": "FS-NP24-0617-4 2024년06월17일 - 12 - 라. 내화채움재(내화자켓) 설치2 - 브라켓(두께 2.0㎜ 이상, 너비 29.8㎜ 이상, 길이 60㎜ 이상, 높이 29.5㎜ 이상)은 12개를 내화자켓의 홈에 맞게 고정시킨 후 내화자켓은 지지구조에 밀착시킨다. - 이후 브라켓의 구멍에 고정못[직결 나사 {#8(4.2㎜) X 64㎜ 이상} 또는 타정기 못 (17㎜ 이상)]을 이용하여 지지구조에 고정한다. - 반대편도 동일하게 시공한다. 2.2.5 시공 시 주의사항 가. 관통재 삽입시 관통재에 의해 개구부가 파손되지 않도록 주의한다. 나. 시공시 규격에 맞는 내화채움재를 확인하고 내화채움재가 벽과 밀착되도록 시공하 여야 한다. 다. 개구부 내부 공간으로 관통재 외 다른 자재 및 구조물을 통과시키지 않도록 한다."
+    },
+    "FS-NP24-0617-5": {
+      "pdf": "assets/downloads/firestop-certificates/nonmetal-pipes/FS-NP24-0617-5.pdf",
+      "jacketDetailPage": 13,
+      "bracketsDetailPage": 14,
+      "productDetailPage": 19,
+      "bracketProductPage": 20,
+      "jacketSummaryPage": 7,
+      "bracketsSummaryPage": 8,
+      "wingBoltsExplicitInJacketDetailText": true,
+      "scope": "별도의 자켓 체결 확대도와 브라켓 체결 확대도",
+      "jacketTextExtract": "FS-NP24-0617-5 2024년06월17일 - 11 - 다. 내화채움재(내화자켓) 설치1 - 관통재 규격에 맞는 내화자켓을 브라켓 체결 부위가 벽체 방향으로 향하게 하여 자켓 양 끝을 겹치게 하여 배관에 감싸고 구멍에 고리를 걸어 체결 후 나비볼트를 조여 고정 한다.",
+      "bracketsTextExtract": "FS-NP24-0617-5 2024년06월17일 - 12 - 라. 내화채움재(내화자켓) 설치2 - 브라켓(두께 2.0㎜ 이상, 너비 29.8㎜ 이상, 길이 60㎜ 이상, 높이 29.5㎜ 이상)은 12개를 내화자켓의 홈에 맞게 고정시킨 후 내화자켓은 지지구조에 밀착시킨다. - 이후 브라켓의 구멍에 고정못[직결 나사 {#8(4.2㎜) X 64㎜ 이상} 또는 타정기 못 (17㎜ 이상)]을 이용하여 지지구조에 고정한다. - 반대편도 동일하게 시공한다. 2.2.5 시공 시 주의사항 가. 관통재 삽입시 관통재에 의해 개구부가 파손되지 않도록 주의한다. 나. 시공시 규격에 맞는 내화채움재를 확인하고 내화채움재가 벽과 밀착되도록 시공하 여야 한다. 다. 개구부 내부 공간으로 관통재 외 다른 자재 및 구조물을 통과시키지 않도록 한다."
+    },
+    "FS-NP24-0617-6": {
+      "pdf": "assets/downloads/firestop-certificates/nonmetal-pipes/FS-NP24-0617-6.pdf",
+      "jacketDetailPage": 17,
+      "bracketsDetailPage": 18,
+      "productDetailPage": 26,
+      "bracketProductPage": 27,
+      "jacketSummaryPage": 8,
+      "bracketsSummaryPage": 9,
+      "wingBoltsExplicitInJacketDetailText": false,
+      "scope": "별도의 자켓 체결 확대도와 브라켓 체결 확대도",
+      "jacketTextExtract": "FS-NP24-0617-6 2024년06월17일 - 15 - 마. 내화채움재(내화자켓) 설치1 - 관통재 규격에 맞는 내화자켓을 브라켓 체결 부위가 벽체 방향으로 향하게 하여 자켓 양 끝을 겹치게 하여 배관에 감싸고 구멍에 고리를 걸어 체결한다.",
+      "bracketsTextExtract": "FS-NP24-0617-6 2024년06월17일 - 16 - 바. 내화채움재(내화자켓) 설치2 - 브라켓(두께 1.5㎜ 이상, 너비 29.8㎜ 이상, 길이 40㎜ 이상, 높이 21㎜ 이상)은 2개를 내 화자켓의 홈에 맞게 고정시킨 후 내화자켓은 지지구조에 밀착시킨다. - 이후 브라켓의 구멍에 고정못[직결 나사 {#8(4.2㎜) X 64㎜ 이상} 또는 타정기 못 (17㎜ 이상)]을 이용하여 내화보드, 지지구조에 고정한다. - 반대편도 동일하게 시공한다. 2.2.5 시공 시 주의사항 가. 관통재 삽입시 관통재에 의해 개구부가 파손되지 않도록 주의한다. 나. 시공시 규격에 맞는 내화채움재를 확인하고 내화채움재가 벽과 밀착되도록 시공하 여야 한다. 다. 개구부 내부 공간으로 관통재 외 다른 자재 및 구조물을 통과시키지 않도록 한다."
+    },
+    "FS-NP24-0617-7": {
+      "pdf": "assets/downloads/firestop-certificates/nonmetal-pipes/FS-NP24-0617-7.pdf",
+      "jacketDetailPage": 17,
+      "bracketsDetailPage": 18,
+      "productDetailPage": 26,
+      "bracketProductPage": 27,
+      "jacketSummaryPage": 8,
+      "bracketsSummaryPage": 9,
+      "wingBoltsExplicitInJacketDetailText": false,
+      "scope": "별도의 자켓 체결 확대도와 브라켓 체결 확대도",
+      "jacketTextExtract": "FS-NP24-0617-7 2024년06월17일 - 15 - 마. 내화채움재(내화자켓) 설치1 - 관통재 규격에 맞는 내화자켓을 브라켓 체결 부위가 벽체 방향으로 향하게 하여 자켓 양 끝을 겹치게 하여 배관에 감싸고 구멍에 고리를 걸어 체결한다.",
+      "bracketsTextExtract": "FS-NP24-0617-7 2024년06월17일 - 16 - 바. 내화채움재(내화자켓) 설치2 - 브라켓(두께 1.5㎜ 이상, 너비 29.8㎜ 이상, 길이 40㎜ 이상, 높이 21㎜ 이상)은 4개를 내 화자켓의 홈에 맞게 고정시킨 후 내화자켓은 지지구조에 밀착시킨다. - 이후 브라켓의 구멍에 고정못[직결 나사 {#8(4.2㎜) X 64㎜ 이상} 또는 타정기 못 (17㎜ 이상)]을 이용하여 내화보드, 지지구조에 고정한다. - 반대편도 동일하게 시공한다. 2.2.5 시공 시 주의사항 가. 관통재 삽입시 관통재에 의해 개구부가 파손되지 않도록 주의한다. 나. 시공시 규격에 맞는 내화채움재를 확인하고 내화채움재가 벽과 밀착되도록 시공하 여야 한다. 다. 개구부 내부 공간으로 관통재 외 다른 자재 및 구조물을 통과시키지 않도록 한다."
+    },
+    "FS-NP24-0617-8": {
+      "pdf": "assets/downloads/firestop-certificates/nonmetal-pipes/FS-NP24-0617-8.pdf",
+      "jacketDetailPage": 17,
+      "bracketsDetailPage": 18,
+      "productDetailPage": 26,
+      "bracketProductPage": 27,
+      "jacketSummaryPage": 8,
+      "bracketsSummaryPage": 9,
+      "wingBoltsExplicitInJacketDetailText": false,
+      "scope": "별도의 자켓 체결 확대도와 브라켓 체결 확대도",
+      "jacketTextExtract": "FS-NP24-06##1-8 2024년06월##일 - 15 - 마. 내화채움재(내화자켓) 설치1 - 관통재 규격에 맞는 내화자켓을 브라켓 체결 부위가 벽체 방향으로 향하게 하여 자켓 양 끝을 겹치게 하여 배관에 감싸고 구멍에 고리를 걸어 체결한다.",
+      "bracketsTextExtract": "FS-NP24-06##1-8 2024년06월##일 - 16 - 바. 내화채움재(내화자켓) 설치2 - 브라켓(두께 1.5㎜ 이상, 너비 29.8㎜ 이상, 길이 40㎜ 이상, 높이 21㎜ 이상)은 4개를 내 화자켓의 홈에 맞게 고정시킨 후 내화자켓은 지지구조에 밀착시킨다. - 이후 브라켓의 구멍에 고정못[직결 나사 {#8(4.2㎜) X 64㎜ 이상} 또는 타정기 못 (17㎜ 이상)]을 이용하여 내화보드, 지지구조에 고정한다. - 반대편도 동일하게 시공한다. 2.2.5 시공 시 주의사항 가. 관통재 삽입시 관통재에 의해 개구부가 파손되지 않도록 주의한다. 나. 시공시 규격에 맞는 내화채움재를 확인하고 내화채움재가 벽과 밀착되도록 시공하 여야 한다. 다. 개구부 내부 공간으로 관통재 외 다른 자재 및 구조물을 통과시키지 않도록 한다."
+    },
+    "FS-NP24-0617-9": {
+      "pdf": "assets/downloads/firestop-certificates/nonmetal-pipes/FS-NP24-0617-9.pdf",
+      "jacketDetailPage": 17,
+      "bracketsDetailPage": 18,
+      "productDetailPage": 26,
+      "bracketProductPage": 27,
+      "jacketSummaryPage": 8,
+      "bracketsSummaryPage": 9,
+      "wingBoltsExplicitInJacketDetailText": false,
+      "scope": "별도의 자켓 체결 확대도와 브라켓 체결 확대도",
+      "jacketTextExtract": "FS-NP24-0617-9 2024년06월17일 - 15 - 마. 내화채움재(내화자켓) 설치1 - 관통재 규격에 맞는 내화자켓을 브라켓 체결 부위가 벽체 방향으로 향하게 하여 자켓 양 끝을 겹치게 하여 배관에 감싸고 구멍에 고리를 걸어 체결한다.",
+      "bracketsTextExtract": "FS-NP24-0617-9 2024년06월17일 - 16 - 바. 내화채움재(내화자켓) 설치2 - 브라켓(두께 2.0㎜ 이상, 너비 29.8㎜ 이상, 길이 60㎜ 이상, 높이 29.5㎜ 이상) 12개를 내화자켓의 홈에 맞게 고정시킨 후 내화자켓은 지지구조에 밀착시킨다. - 이후 브라켓의 구멍에 고정못[직결 나사 {#8(4.2㎜) X 64㎜ 이상} 또는 타정기 못 (17㎜ 이상)]을 이용하여 내화보드, 지지구조에 고정한다. - 반대편도 동일하게 시공한다. 2.2.5 시공 시 주의사항 가. 관통재 삽입시 관통재에 의해 개구부가 파손되지 않도록 주의한다. 나. 시공시 규격에 맞는 내화채움재를 확인하고 내화채움재가 벽과 밀착되도록 시공하 여야 한다. 다. 개구부 내부 공간으로 관통재 외 다른 자재 및 구조물을 통과시키지 않도록 한다."
+    },
+    "FS-NP24-0617-10": {
+      "pdf": "assets/downloads/firestop-certificates/nonmetal-pipes/FS-NP24-0617-10.pdf",
+      "jacketDetailPage": 17,
+      "bracketsDetailPage": 18,
+      "productDetailPage": 26,
+      "bracketProductPage": 27,
+      "jacketSummaryPage": 8,
+      "bracketsSummaryPage": 9,
+      "wingBoltsExplicitInJacketDetailText": false,
+      "scope": "별도의 자켓 체결 확대도와 브라켓 체결 확대도",
+      "jacketTextExtract": "FS-NP24-0617-10 2024년06월17일 - 15 - 마. 내화채움재(내화자켓) 설치1 - 관통재 규격에 맞는 내화자켓을 브라켓 체결 부위가 벽체 방향으로 향하게 하여 자켓 양 끝을 겹치게 하여 배관에 감싸고 구멍에 고리를 걸어 체결한다.",
+      "bracketsTextExtract": "FS-NP24-0617-10 2024년06월17일 - 16 - 바. 내화채움재(내화자켓) 설치2 - 브라켓(두께 2.0㎜ 이상, 너비 29.8㎜ 이상, 길이 60㎜ 이상, 높이 29.5㎜ 이상) 12개를 내화자켓의 홈에 맞게 고정시킨 후 내화자켓은 지지구조에 밀착시킨다. - 이후 브라켓의 구멍에 고정못[직결 나사 {#8(4.2㎜) X 64㎜ 이상} 또는 타정기 못 (17㎜ 이상)]을 이용하여 내화보드, 지지구조에 고정한다. - 반대편도 동일하게 시공한다. 2.2.5 시공 시 주의사항 가. 관통재 삽입시 관통재에 의해 개구부가 파손되지 않도록 주의한다. 나. 시공시 규격에 맞는 내화채움재를 확인하고 내화채움재가 벽과 밀착되도록 시공하 여야 한다. 다. 개구부 내부 공간으로 관통재 외 다른 자재 및 구조물을 통과시키지 않도록 한다."
+    },
+    "FS-NP24-0617-11": {
+      "pdf": "assets/downloads/firestop-certificates/nonmetal-pipes/FS-NP24-0617-11.pdf",
+      "jacketDetailPage": 11,
+      "bracketsDetailPage": 12,
+      "productDetailPage": 17,
+      "bracketProductPage": 18,
+      "jacketSummaryPage": 7,
+      "bracketsSummaryPage": 8,
+      "wingBoltsExplicitInJacketDetailText": false,
+      "scope": "별도의 자켓 체결 확대도와 브라켓 체결 확대도",
+      "jacketTextExtract": "FS-NP24-0617-11 2024년06월17일 - 9 - 다. 내화채움재(내화자켓) 설치1 - 관통재 규격에 맞는 내화자켓을 브라켓 체결 부위가 벽체 방향으로 향하게 하여 자켓 양 끝을 겹치게 하여 배관에 감싸고 구멍에 고리를 걸어 체결한다.",
+      "bracketsTextExtract": "FS-NP24-0617-11 2024년06월17일 - 10 - 라. 내화채움재(내화자켓) 설치2 - 브라켓(두께 1.5㎜ 이상, 너비 29.8㎜ 이상, 길이 40㎜ 이상, 높이 21㎜ 이상)은 4개를 내 화자켓의 홈에 맞게 고정시킨 후 내화자켓은 지지구조에 밀착시킨다. - 이후 브라켓의 구멍에 고정못[직결 나사 {#8(4.2㎜) X 64㎜ 이상} 또는 타정기 못 (17㎜ 이상)]을 이용하여 지지구조에 고정한다. - 반대편도 동일하게 시공한다. 2.2.5 시공 시 주의사항 가. 관통재 삽입시 관통재에 의해 개구부가 파손되지 않도록 주의한다. 나. 시공시 규격에 맞는 내화채움재를 확인하고 내화채움재가 벽과 밀착되도록 시공하 여야 한다. 다. 개구부 내부 공간으로 관통재 외 다른 자재 및 구조물을 통과시키지 않도록 한다."
+    },
+    "FS-NP24-0617-12": {
+      "pdf": "assets/downloads/firestop-certificates/nonmetal-pipes/FS-NP24-0617-12.pdf",
+      "jacketDetailPage": 11,
+      "bracketsDetailPage": 12,
+      "productDetailPage": 17,
+      "bracketProductPage": 18,
+      "jacketSummaryPage": 7,
+      "bracketsSummaryPage": 8,
+      "wingBoltsExplicitInJacketDetailText": false,
+      "scope": "별도의 자켓 체결 확대도와 브라켓 체결 확대도",
+      "jacketTextExtract": "FS-NP24-0617-12 2024년06월17일 - 9 - 다. 내화채움재(내화자켓) 설치1 - 관통재 규격에 맞는 내화자켓을 브라켓 체결 부위가 벽체 방향으로 향하게 하여 자켓 양 끝을 겹치게 하여 배관에 감싸고 구멍에 고리를 걸어 체결한다.",
+      "bracketsTextExtract": "FS-NP24-0617-12 2024년06월17일 - 10 - 라. 내화채움재(내화자켓) 설치2 - 브라켓(두께 1.5㎜ 이상, 너비 29.8㎜ 이상, 길이 40㎜ 이상, 높이 21㎜ 이상)은 4개를 내 화자켓의 홈에 맞게 고정시킨 후 내화자켓은 지지구조에 밀착시킨다. - 이후 브라켓의 구멍에 고정못[직결 나사 {#8(4.2㎜) X 64㎜ 이상} 또는 타정기 못 (17㎜ 이상)]을 이용하여 지지구조에 고정한다. - 반대편도 동일하게 시공한다. 2.2.5 시공 시 주의사항 가. 관통재 삽입시 관통재에 의해 개구부가 파손되지 않도록 주의한다. 나. 시공시 규격에 맞는 내화채움재를 확인하고 내화채움재가 벽과 밀착되도록 시공하 여야 한다. 다. 개구부 내부 공간으로 관통재 외 다른 자재 및 구조물을 통과시키지 않도록 한다."
+    },
+    "FS-NP24-0617-13": {
+      "pdf": "assets/downloads/firestop-certificates/nonmetal-pipes/FS-NP24-0617-13.pdf",
+      "jacketDetailPage": 11,
+      "bracketsDetailPage": 12,
+      "productDetailPage": 17,
+      "bracketProductPage": 18,
+      "jacketSummaryPage": 7,
+      "bracketsSummaryPage": 8,
+      "wingBoltsExplicitInJacketDetailText": false,
+      "scope": "별도의 자켓 체결 확대도와 브라켓 체결 확대도",
+      "jacketTextExtract": "FS-NP24-0617-13 2024년06월17일 - 9 - 다. 내화채움재(내화자켓) 설치1 - 관통재 규격에 맞는 내화자켓을 브라켓 체결 부위가 벽체 방향으로 향하게 하여 자켓 양 끝을 겹치게 하여 배관에 감싸고 구멍에 고리를 걸어 체결한다.",
+      "bracketsTextExtract": "FS-NP24-0617-13 2024년06월17일 - 10 - 라. 내화채움재(내화자켓) 설치2 - 브라켓(두께 2.0㎜ 이상, 너비 29.8㎜ 이상, 길이 60㎜ 이상, 높이 29.5㎜ 이상)은 12개를 내화자켓의 홈에 맞게 고정시킨 후 내화자켓은 지지구조에 밀착시킨다. - 이후 브라켓의 구멍에 고정못[직결 나사 {#8(4.2㎜) X 64㎜ 이상} 또는 타정기 못 (17㎜ 이상)]을 이용하여 지지구조에 고정한다. - 반대편도 동일하게 시공한다. 2.2.5 시공 시 주의사항 가. 관통재 삽입시 관통재에 의해 개구부가 파손되지 않도록 주의한다. 나. 시공시 규격에 맞는 내화채움재를 확인하고 내화채움재가 벽과 밀착되도록 시공하 여야 한다. 다. 개구부 내부 공간으로 관통재 외 다른 자재 및 구조물을 통과시키지 않도록 한다."
+    },
+    "FS-NP24-0617-14": {
+      "pdf": "assets/downloads/firestop-certificates/nonmetal-pipes/FS-NP24-0617-14.pdf",
+      "jacketDetailPage": 11,
+      "bracketsDetailPage": 12,
+      "productDetailPage": 17,
+      "bracketProductPage": 18,
+      "jacketSummaryPage": 7,
+      "bracketsSummaryPage": 8,
+      "wingBoltsExplicitInJacketDetailText": true,
+      "scope": "별도의 자켓 체결 확대도와 브라켓 체결 확대도",
+      "jacketTextExtract": "FS-NP24-0617-14 2024년06월17일 - 9 - 다. 내화채움재(내화자켓) 설치1 - 관통재 규격에 맞는 내화자켓을 브라켓 체결 부위가 벽체 방향으로 향하게 하여 자켓 양 끝을 겹치게 하여 배관에 감싸고 구멍에 고리를 걸어 체결 후 나비볼트를 조여 고정 한다.",
+      "bracketsTextExtract": "FS-NP24-0617-14 2024년06월17일 - 10 - 라. 내화채움재(내화자켓) 설치2 - 브라켓(두께 2.0㎜ 이상, 너비 29.8㎜ 이상, 길이 60㎜ 이상, 높이 29.5㎜ 이상) 12개를 내화자켓의 홈에 맞게 고정시킨 후 내화자켓은 지지구조에 밀착시킨다. - 이후 브라켓의 구멍에 고정못[직결 나사 {#8(4.2㎜) X 64㎜ 이상} 또는 타정기 못 (17㎜ 이상)]을 이용하여 지지구조에 고정한다. 2.2.5 시공 시 주의사항 가. 관통재 삽입시 관통재에 의해 개구부가 파손되지 않도록 주의한다. 나. 시공시 규격에 맞는 내화채움재를 확인하고 내화채움재가 벽과 밀착되도록 시공하 여야 한다. 다. 개구부 내부 공간으로 관통재 외 다른 자재 및 구조물을 통과시키지 않도록 한다."
+    },
+    "FS-NP25-0224-05": {
+      "pdf": "assets/downloads/firestop-certificates/nonmetal-pipes/FS-NP25-0224-05.pdf",
+      "jacketDetailPage": 13,
+      "bracketsDetailPage": 14,
+      "productDetailPage": 22,
+      "bracketProductPage": 26,
+      "jacketSummaryPage": 8,
+      "bracketsSummaryPage": 8,
+      "wingBoltsExplicitInJacketDetailText": true,
+      "scope": "슬라브 하부 자켓 체결 및 브라켓 확대도",
+      "jacketTextExtract": "FS-NP25-0224-05 2025년02월24일 - 11 - 다) 내화채움재1(내화자켓) 설치1 - 관통재 규격에 맞는 내화채움재1[내화자켓(SFBA-200, 250A)]을 브라켓 체결 부위 가 지지구조 방향으로 향하게 하여 자켓 양 끝을 겹치게 하여 배관에 감싸고 구 멍에 고리를 걸어 체결 후 나비볼트를 조여 고정한다.",
+      "bracketsTextExtract": "FS-NP25-0224-05 2025년02월24일 - 12 - 라) 내화채움재1 (내화자켓) 설치2 - 브라켓 (두께 2.0 ㎜ 이상) 12개를 내화자켓의 홈에 맞게 고정시킨 후 내화자켓은 지지구조에 밀착시킨다. - 이후 브라켓의 구멍에 고정못 [직결 나사 {#8(4.2 ㎜) X 64 ㎜} 또는 타정기 못 (17 ㎜)]을 이용하여 지지구조에 고정한다."
+    },
+    "FS-NP25-0625-05": {
+      "pdf": "assets/downloads/firestop-certificates/bundled-pipes/FS-NP25-0625-05.pdf",
+      "jacketDetailPage": 10,
+      "bracketsDetailPage": 16,
+      "productDetailPage": 24,
+      "bracketProductPage": 26,
+      "jacketSummaryPage": 10,
+      "bracketsSummaryPage": null,
+      "wingBoltsExplicitInJacketDetailText": false,
+      "scope": "감싸기/고리 체결은 요약시방만 존재. 브라켓 상세시방과 제품사진·규격별도면을 함께 참고.",
+      "jacketTextExtract": "FS-NP25-0625-05 2025년06월25일 - 8 - NO. 설치조감도 내용 6 <내화채움재2(내화자켓) 설치> - 관통재 크기에 맞는 내화채움재2 【내화자켓 [SFBA-20 0 {자켓 + 내화밴드 (밀도 1.3 g/㎤ 이상)}】의 방향이 브라켓 체결 부위가 지지구조에 가깝도록 위치시키고 배관을 감싸 구멍에 고리를 걸어 체결. - 설치한 내화자켓의 규격에 맞는 브라켓을 해당 자켓의 홈에 맞추어 체결 후 고정못 [직결 나사 {#8(4.2 ㎜) × 64 ㎜} 또는 타정기 못]을 이용하여 지지구조에 고정. - 반대편도 동일하게 시공. ※ 내화채움재2(내화자켓) 규격 ◎ 100A 【내화자켓 [SFBA-200, 100A {자켓 (두께 0.6 ㎜ 이상, 너비 42 ㎜ 이상) + 내화밴드 (밀도 1.3 g/㎤ 이상, 두께 10.0 ㎜ 이상, 너비 40 ㎜ 이상, 길이 405 ㎜ 이상)}]】 + 【브라켓 (두께 1.5 ㎜, 4개)】 ◎ 50A 【내화자켓 [SFBA-200, 50A {자켓 (두께 0.6 ㎜ 이상, 너비 32 ㎜ 이상) + 내화밴드 (밀도 1.3 g/㎤ 이상, 두께 8.0 ㎜ 이상, 너비 30 ㎜ 이상, 길이 230 ㎜ 이상)}]】 + 【브라켓 (두께 1.5 ㎜, 2개)】",
+      "bracketsTextExtract": "FS-NP25-0625-05 2025년06월25일 - 14 - 바) 내화채움재2(내화자켓) 설치-2 - 설치한 내화채움재2【내화자켓 [SFBA-200 {자켓 + 내화밴드 (밀도 1.3 g/㎤ 이상)}】의 규격 에 맞는 브라켓을 해당 자켓의 홈에 맞추어 체결 후 고정못 [직결 나사 {#8(4.2 ㎜) × 64 ㎜} 또는 타정기 못]을 이용하여 지지구조에 고정시킨다. - 반대편도 동일하게 시공한다. ※ 내화채움재2(내화자켓) 규격 ◎100A 【내화자켓 [SFBA-200, 100A {자켓 (두께 0.6 ㎜ 이상, 너비 42 ㎜ 이상) + 내화밴드 (밀도 1.3 g/㎤ 이상, 두께 10.0 ㎜ 이상, 너비 40 ㎜ 이상, 길이 405 ㎜ 이상)}]】 + 【브라 켓 (두께 1.5 ㎜, 4개)】 ◎ 50A 【내화자켓 [SFBA-200, 50A {자켓 (두께 0.6 ㎜ 이상, 너비 32 ㎜ 이상) + 내화밴드 (밀도 1.3 g/㎤ 이상, 두께 8.0 ㎜ 이상, 너비 30 ㎜ 이상, 길이 230 ㎜ 이상)}]】 + 【브라켓 (두께 1.5 ㎜, 2개)】 설치 위치 및 도면 2.2.5 시공시 주의사항 가. 관통재 삽입시 관통재에 의해 관통부가 파손되지 않도록 주의한다. 나. 내화채움재 시공시 규격에 맞는 내화채움재를 확인하고 벽과 밀착되도록 시공하여야 한 다."
+    },
+    "FS-NP25-0625-04": {
+      "pdf": "assets/downloads/firestop-certificates/bundled-pipes/FS-NP25-0625-04.pdf",
+      "jacketDetailPage": 11,
+      "bracketsDetailPage": 17,
+      "productDetailPage": 28,
+      "bracketProductPage": 30,
+      "jacketSummaryPage": 11,
+      "bracketsSummaryPage": null,
+      "wingBoltsExplicitInJacketDetailText": false,
+      "scope": "감싸기/고리 체결은 요약시방만 존재. 브라켓 상세시방과 제품사진·규격별도면을 함께 참고.",
+      "jacketTextExtract": "FS-NP25-0625-04 2025년06월25일 - 9 - NO. 설치조감도 내용 6 <내화채움재2(내화자켓) 설치> - 관통재 크기에 맞는 내화채움재2 【내화자켓 [SFBA-20 0 {자켓 + 내화밴드 (밀도 1.3 g/㎤ 이상)}】의 방향이 브라켓 체결 부위가 지지구조에 가깝도록 위치시키고 배관을 감싸 구멍에 고리를 걸어 체결. - 설치한 내화자켓의 규격에 맞는 브라켓을 해당 자켓의 홈에 맞추어 체결 후 고정못 [직결 나사 {#8(4.2 ㎜) × 64 ㎜} 또는 타정기 못]을 이용하여 지지구조에 고정. - 반대편도 동일하게 시공. ※ 내화채움재2(내화자켓) 규격 ◎ 250A 【내화자켓 [SFBA-200, 250A {자켓 (두께 1.0 ㎜ 이상, 너비 132 ㎜ 이상) + 내화밴드 (밀도 1.3 g/㎤ 이상, 두께 12.0 ㎜ 이상, 너비 130 ㎜ 이상, 길이 425 ㎜ 이상) + 내화밴드 (밀도 1.3 g/㎤ 이상, 두께 12.0 ㎜ 이상, 너비 130 ㎜ 이상, 길이 460 ㎜ 이상) + 내화밴드 (밀도 1.3 g/㎤ 이상, 두께 12.0 ㎜ 이상, 너비 130 ㎜ 이상, 길이 465 ㎜ 이상) + 내화밴드 (밀도 1.3 g/㎤ 이상, 두께 12.0 ㎜ 이상, 너비 130 ㎜ 이상, 길이 505 ㎜ 이상)}]】 + 【브라켓 (두께 2.0 ㎜, 12개)】 ◎ 150A 【내화자켓 [SFBA-200, 150A {자켓 (두께 0.6 ㎜ 이상, 너비 62 ㎜ 이상) + 내화밴드 (밀도 1.3 g/㎤ 이상, 두께 8.0 ㎜ 이상, 너비 60 ㎜ 이상, 길이 570 ㎜ 이상) + 내화밴드 (밀도 1.3 g/㎤ 이상, 두께 8.0 ㎜ 이상, 너비 60 ㎜ 이상, 길이 620 ㎜ 이상)}]】 + 【브라켓 (두께 1.5 ㎜, 4개)】 ◎ 100A 【내화자켓 [SFBA-200, 100A {자켓 (두께 0.6 ㎜ 이상, 너비 42 ㎜ 이상) + 내화밴드 (밀도 1.3 g/㎤ 이상, 두께 10.0 ㎜ 이상, 너비 40 ㎜ 이상, 길이 405 ㎜ 이상)}]】 + 【브라켓 (두께 1.5 ㎜, 4개)】 ◎ 50A 【내화자켓 [SFBA-200, 50A {자켓 (두께 0.6 ㎜ 이상, 너비 32 ㎜ 이상) + 내화밴드 (밀도 1.3 g/㎤ 이상, 두께 8.0 ㎜ 이상, 너비 30 ㎜ 이상, 길이 230 ㎜ 이상)}]】 + 【브라켓 (두께 1.5 ㎜, 2개)】",
+      "bracketsTextExtract": "FS-NP25-0625-04 2025년06월25일 - 15 - 바) 내화채움재2(내화자켓) 설치-2 - 설치한 내화채움재2【내화자켓 [SFBA-200 {자켓 + 내화밴드 (밀도 1.3 g/㎤ 이상)}】의 규격 에 맞는 브라켓을 해당 자켓의 홈에 맞추어 체결 후 고정못 [직결 나사 {#8(4.2 ㎜) × 64 ㎜} 또는 타정기 못]을 이용하여 지지구조에 고정시킨다. - 반대편도 동일하게 시공한다. ※ 내화채움재2(내화자켓) 규격 ◎ 250A 【내화자켓 [SFBA-200, 250A {자켓 (두께 1.0 ㎜ 이상, 너비 132 ㎜ 이상) + 내화밴 드 (밀도 1.3 g/㎤ 이상, 두께 12.0 ㎜ 이상, 너비 130 ㎜ 이상, 길이 425 ㎜ 이상) + 내화밴 드 (밀도 1.3 g/㎤ 이상, 두께 12.0 ㎜ 이상, 너비 130 ㎜ 이상, 길이 460 ㎜ 이상) + 내화밴 드 (밀도 1.3 g/㎤ 이상, 두께 12.0 ㎜ 이상, 너비 130 ㎜ 이상, 길이 465 ㎜ 이상) + 내화밴 드 (밀도 1.3 g/㎤ 이상, 두께 12.0 ㎜ 이상, 너비 130 ㎜ 이상, 길이 505 ㎜ 이상)}]】 + 【브라켓 (두께 2.0 ㎜, 12개)】 ◎150A 【내화자켓 [SFBA-200, 150A {자켓 (두께 0.6 ㎜ 이상, 너비 62 ㎜ 이상) + 내화밴드 (밀도 1.3 g/㎤ 이상, 두께 8.0 ㎜ 이상, 너비 60 ㎜ 이상, 길이 570 ㎜ 이상) + 내화밴드 (밀도 1.3 g/㎤ 이상, 두께 8.0 ㎜ 이상, 너비 60 ㎜ 이상, 길이 620 ㎜ 이상)}]】 + 【브라켓 (두께 1.5 ㎜, 4개)】 ◎100A 【내화자켓 [SFBA-200, 100A {자켓 (두께 0.6 ㎜ 이상, 너비 42 ㎜ 이상) + 내화밴드 (밀도 1.3 g/㎤ 이상, 두께 10.0 ㎜ 이상, 너비 40 ㎜ 이상, 길이 405 ㎜ 이상)}]】 + 【브라 켓 (두께 1.5 ㎜, 4개)】 ◎ 50A 【내화자켓 [SFBA-200, 50A {자켓 (두께 0.6 ㎜ 이상, 너비 32 ㎜ 이상) + 내화밴드 (밀도 1.3 g/㎤ 이상, 두께 8.0 ㎜ 이상, 너비 30 ㎜ 이상, 길이 230 ㎜ 이상)}]】 + 【브라켓 (두께 1.5 ㎜, 2개)】"
+    }
+  },
+  "implementationReview": {
+    "date": "2026-11-09",
+    "files": [
+      "assets/js/installation-jacket.js",
+      "assets/js/assemblies.js"
+    ],
+    "matched": [
+      "5규격 외피 두께·폭",
+      "내피 두께·층수 및200/250A밴드 분할",
+      "규격별 브라켓수",
+      "규격별 고리수 및나비볼트수",
+      "대형 브라켓장공2개/소형1개",
+      "고리 체결→나비볼트조임→브라켓끼움→밀착→나사순서"
+    ],
+    "remainingDifference": "브라켓의 짧은 다리 현재 rounded oval hole + 작은solid box. 실제 PDF의 U자 타공 갈고리/혀 구조와 다름. 구현자가 보완할 수 있도록 보고함.",
+    "scope": "정적 소스와 자료 비교만. 브라우저 재생 검증은 담당하지 않음."
+  }
+}

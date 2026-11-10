@@ -1,0 +1,19 @@
+{
+  "checkedAt": "2026-11-09T02:38:48.191433+00:00",
+  "passed": true,
+  "originalArchiveItemsUnchanged": 69,
+  "newShutterCertificates": 5,
+  "originalPdfsPreserved": true,
+  "downloadHashesMatch": true,
+  "retainedReviewedModules": [
+    "company-site/assets/js/assemblies.js",
+    "company-site/assets/js/hero3d.js",
+    "company-site/assets/js/installation-jacket.js",
+    "company-site/assets/js/installation-motion.js",
+    "company-site/assets/js/installation-view.js",
+    "company-site/assets/js/systems.js",
+    "company-site/assets/js/product-data.js"
+  ],
+  "sourceElementRemoved": true,
+  "imagePixelsUnchanged": true
+}

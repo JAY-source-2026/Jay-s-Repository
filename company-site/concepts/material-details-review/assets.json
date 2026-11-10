@@ -1,0 +1,67 @@
+{
+  "board": {
+    "path": "company-site/assets/media/hero/doenc-board-isolated-v1.webp",
+    "size": [
+      1510,
+      1041
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "193b89604d12ee970e2505b6242d6854d3fb13aece2e080abeb1b00308930bf8",
+    "reusedMainAsset": true
+  },
+  "jacket": {
+    "path": "company-site/assets/media/hero/doenc-jacket-isolated-v1.webp",
+    "size": [
+      1312,
+      1199
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "17115f7a3ffd5eaa13a8aceebd31af015295dfb668785efbc5ad60ef73a5308d",
+    "reusedMainAsset": true
+  },
+  "sealant": {
+    "path": "company-site/assets/media/hero/doenc-sealant-isolated-v1.webp",
+    "size": [
+      783,
+      2009
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "3b5623fb666228fe37a5100deed2996e8942b53cf08442dc5994f8dfc8637bb0",
+    "reusedMainAsset": true
+  },
+  "blanket": {
+    "path": "company-site/assets/media/hero/doenc-blanket-isolated-v1.webp",
+    "size": [
+      1276,
+      1233
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "0a46a4f629be31964afcfc8b931abb68cbbdcb6da728bc29e189d50b791dcf9e",
+    "reusedMainAsset": true
+  },
+  "band": {
+    "path": "company-site/assets/media/hero/doenc-band-isolated-v1.webp",
+    "size": [
+      1828,
+      860
+    ],
+    "alphaRange": [
+      0,
+      255
+    ],
+    "sha256": "40a28754c65150773432b4bfb7a22c0b18e321e41d552a86901bfc8558c0e6f0",
+    "reusedMainAsset": true
+  }
+}

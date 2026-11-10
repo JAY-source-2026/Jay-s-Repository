@@ -1,0 +1,151 @@
+{
+  "passed": true,
+  "products": [
+    {
+      "key": "board",
+      "sourceRemoved": true,
+      "specsPreserved": true
+    },
+    {
+      "key": "jacket",
+      "sourceRemoved": true,
+      "specsPreserved": true
+    },
+    {
+      "key": "sealant",
+      "sourceRemoved": true,
+      "specsPreserved": true
+    },
+    {
+      "key": "blanket",
+      "sourceRemoved": true,
+      "specsPreserved": true
+    },
+    {
+      "key": "band",
+      "sourceRemoved": true,
+      "specsPreserved": true
+    }
+  ],
+  "certificates": [
+    {
+      "certificate": "FDS-OTS24-0807-1",
+      "pdfHashMatches": true,
+      "previewPages": [
+        1,
+        3
+      ],
+      "lightboxWorks": true
+    },
+    {
+      "certificate": "FDS-OTS25-0721-1",
+      "pdfHashMatches": true,
+      "previewPages": [
+        1,
+        3
+      ],
+      "lightboxWorks": true
+    },
+    {
+      "certificate": "FDS-OTS26-0630-2",
+      "pdfHashMatches": true,
+      "previewPages": [
+        1,
+        3
+      ],
+      "lightboxWorks": true
+    },
+    {
+      "certificate": "FDS-NVS24-0611-1",
+      "pdfHashMatches": true,
+      "previewPages": [
+        1,
+        3
+      ],
+      "lightboxWorks": true
+    },
+    {
+      "certificate": "FDS-NVS26-0309-1",
+      "pdfHashMatches": true,
+      "previewPages": [
+        1,
+        3
+      ],
+      "lightboxWorks": true
+    }
+  ],
+  "layouts": [
+    {
+      "label": "blanket-dialog",
+      "width": 1366,
+      "height": 650,
+      "overflow": false
+    },
+    {
+      "label": "material-cards",
+      "width": 1366,
+      "height": 650,
+      "overflow": false
+    },
+    {
+      "label": "blanket-dialog",
+      "width": 390,
+      "height": 844,
+      "overflow": false
+    },
+    {
+      "label": "material-cards",
+      "width": 390,
+      "height": 844,
+      "overflow": false
+    },
+    {
+      "label": "blanket-dialog",
+      "width": 320,
+      "height": 640,
+      "overflow": false
+    },
+    {
+      "label": "material-cards",
+      "width": 320,
+      "height": 640,
+      "overflow": false
+    },
+    {
+      "label": "shutter-list",
+      "width": 390,
+      "height": 844,
+      "overflow": false
+    },
+    {
+      "label": "shutter-detail",
+      "width": 390,
+      "height": 844,
+      "overflow": false
+    },
+    {
+      "label": "shutter-list",
+      "width": 320,
+      "height": 640,
+      "overflow": false
+    },
+    {
+      "label": "shutter-detail",
+      "width": 320,
+      "height": 640,
+      "overflow": false
+    }
+  ],
+  "counts": {
+    "firestop": 60,
+    "fireproof": 1,
+    "shutter": 5
+  },
+  "searches": [
+    "exact code",
+    "spaced code",
+    "Korean title"
+  ],
+  "errors": [],
+  "bad": []
+}

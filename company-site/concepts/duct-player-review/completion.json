@@ -1,0 +1,79 @@
+{
+  "completedAt": "2026-11-09T05:55:32.799374+00:00",
+  "state": "local-preview-only",
+  "publicDeploymentUnchanged": true,
+  "preview": "https://redesigned-fishstick-77vprgr9qxvwcrj59-8000.app.github.dev/?v=20261109r6#technology",
+  "backup": "/workspaces/Jay-s-Repository/.local-backups/doenc-duct-player-20261109T053336Z",
+  "afterBackup": "/workspaces/Jay-s-Repository/.local-backups/doenc-duct-player-20261109T053336Z/after",
+  "files": [
+    {
+      "path": "index.html",
+      "sha256": "be62aeba92ecb8e280f577b82e8b0beb0baf5cef5929c86553368af1f7e6d62d"
+    },
+    {
+      "path": "assets/css/home.css",
+      "sha256": "a7cf5955cc71444b8611bcd541a0f97ec6692c57888179e4fee0dc30bae3d495"
+    },
+    {
+      "path": "assets/js/explorer.js",
+      "sha256": "49a47d24e404877fb40f07e6a064ce3c6eac27d33a71abecad2e73b08e595743"
+    },
+    {
+      "path": "assets/js/hero3d.js",
+      "sha256": "e3a6df263aedb3e9be5cf423789e02b908f4cf4455b3936c929792c39d764dfa"
+    },
+    {
+      "path": "assets/js/assemblies.js",
+      "sha256": "aa205d843d9b65e140d321caf0b1a2fd17e4f549c968894e90ebecadce2ed22b"
+    },
+    {
+      "path": "assets/js/installation-view.js",
+      "sha256": "ef8324b132a5db53268b58df3725627b7a326c7c967e7a0b6ece1eee6b6bdd5f"
+    },
+    {
+      "path": "assets/js/installation-blanket.js",
+      "sha256": "7713177eaf2e134fcfad2156fada5426b886b654c7275381dce9a995e3992784"
+    },
+    {
+      "path": "PLAN.md",
+      "sha256": "d72b47e13fb9e04db2a9acffaa67b8aea46fe4159361e165392b3717216eb7df"
+    },
+    {
+      "path": "SYSTEM-SOURCES.md",
+      "sha256": "c904f6002923ce019cfd2b5e659c5dbbd9c5e5e6036171eb16b4ebbbb0123e57"
+    },
+    {
+      "path": "assets/js/installation-duct-blanket.js",
+      "sha256": "cdd15596c37aab93f8312595775ff7a84e1ab1cb384ea620710e7b0261fe3a37"
+    }
+  ],
+  "preserved": {
+    "about.html": "abaa593517ddf1c7765288faa74e1e7c2de47f381b28fdbfa57e19b8d59a57a5",
+    "assets/css/about.css": "2d74fff0d86c11bae0ebaac7c6412d5e0cf796d823b64a0805a2d047bbd32896",
+    "assets/css/signature.css": "66b68fce39302010f7f14ca27af7b89e571e5ea48eff23230cc7b6e9239e72c9",
+    "assets/js/signature.js": "51d2d1f93609b66dcd5af251dc3ec6bacc102a19e3a016f1d3762d6f2f98b34d",
+    "assets/js/installation-jacket.js": "f43d0c692782e776d41e719df109393762e0bba05c0efd195ecbbd2dedd657c3",
+    "assets/js/installation-motion.js": "f9aeaf409323377aedc378e91fe9086ce1c57f4d862b55c87a89b2ea05f95882",
+    "assets/js/installation-services.js": "a85d746a2d25f3136ec26eca9f1f5809476ddb7daa910a486dea28849348e58e",
+    "assets/js/systems.js": "6f114099a5fc6f9b541716c0d551c9d4b13f77ff6ada241dfa902dcd96200dc5",
+    "assets/data/installation-certificates.json": "12a8f77c8261f8f8b868d46e945723fa1f8bd696a50a405c98ff9497a1224d22",
+    "assets/data/archive.json": "1b967db826ce28216d3d244b9dfe52b78d3a589ba0e7029ce41c67faa636959a"
+  },
+  "validation": {
+    "geometry": "geometry-checks.json",
+    "browser": "checks.json",
+    "syntaxAndDiffCheck": true,
+    "visualReview": [
+      "wrap-0.png",
+      "wrap-38.png",
+      "wrap-72.png",
+      "wrap-100.png",
+      "duct-complete.png",
+      "FS-MP26-0507-14.png",
+      "FS-MP26-0507-15.png",
+      "fullscreen.png",
+      "player-1366-650.png",
+      "player-390-844.png"
+    ]
+  }
+}

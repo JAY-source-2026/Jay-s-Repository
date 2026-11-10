@@ -1,0 +1,46 @@
+{
+  "before": ".local-backups/doenc-material-shutter-20261109T012650Z/before",
+  "created": "20261109T012650Z",
+  "files": [
+    {
+      "path": "company-site/index.html",
+      "sha256": "c9fa7cf48102f128d195c1496db1af466958ff14c17b372eecf2a9860914bf76"
+    },
+    {
+      "path": "company-site/archive.html",
+      "sha256": "b00cf09d03dd5e754187aef49e35c3c01ada2a1c5ab507cc62fcb1aa9d3932d6"
+    },
+    {
+      "path": "company-site/assets/js/materials.js",
+      "sha256": "19a19a7d2b015b20ab04b5e89c1412e65b3bfb573575bb3b4f8fe22e38062f46"
+    },
+    {
+      "path": "company-site/assets/css/material-details.css",
+      "sha256": "03a8df57d3af2b13fd021ff39ad235fb2d7b87f672a0615c84b78752bd6a9442"
+    },
+    {
+      "path": "company-site/assets/css/home.css",
+      "sha256": "c1bec90dc451b2c5782fa5bb2a98e56ed16eed32fa162f59c27f8c6dc3aa813a"
+    },
+    {
+      "path": "company-site/assets/data/archive.json",
+      "sha256": "adb77d300eaebc8b531a1a81bb9e475521a47e6cd74c90d8481dd2a2dcd5340d"
+    },
+    {
+      "path": "company-site/assets/js/pages.js",
+      "sha256": "648995618ba82101727a57853db8964d911cafda7d5166ba7bbfb70ea369adc1"
+    },
+    {
+      "path": "company-site/PLAN.md",
+      "sha256": "3fb2035ddfbdea8d2de4800e10cd160ad88636508188a0a66a162c2984933970"
+    },
+    {
+      "path": "company-site/SYSTEM-SOURCES.md",
+      "sha256": "ccc0b3c3e90f0f40cc2014db4630a50a9062af25240260c3d3eb226cc100c1b0"
+    }
+  ],
+  "gitCommit": "615d9b3733b0b73d5eba6dbe46b050c887e2d270",
+  "published": false,
+  "after": ".local-backups/doenc-material-shutter-20261109T012650Z/after",
+  "snapshotScope": "All modified and untracked company-site files relative to the recorded Git commit; original source folders and company-promo remain untouched."
+}

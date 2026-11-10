@@ -1,0 +1,21 @@
+{
+  "completed": "2026-11-09T02:40:07.514019+00:00",
+  "status": "saved-local-preview",
+  "committed": false,
+  "published": false,
+  "preview": "https://redesigned-fishstick-77vprgr9qxvwcrj59-8000.app.github.dev/?v=20261109r3#firestop",
+  "shutterArchive": "https://redesigned-fishstick-77vprgr9qxvwcrj59-8000.app.github.dev/archive.html?v=20261109r3#shutter/recognition",
+  "allRequests": [
+    "actual-photo-and-spec-jacket-rebuild",
+    "transparent-material-images-and-spec-dialog",
+    "remove-visible-product-source",
+    "center-blanket-image",
+    "add-5-shutter-certificates"
+  ],
+  "backup": ".local-backups/doenc-material-shutter-20261109T012650Z/after",
+  "checks": "checks.json",
+  "staticChecks": "static-checks.json",
+  "priorJacketValidation": "../jacket-rebuild-review/completion.json",
+  "priorMaterialValidation": "../material-details-review/completion.json",
+  "browserRerun": "Initial browser session closed during archive review. Retained-session rerun passed all checks."
+}

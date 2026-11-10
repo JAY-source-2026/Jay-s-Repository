@@ -1,0 +1,29 @@
+{
+  "path": "/workspaces/Jay-s-Repository/.local-backups/doenc-home-about-20261109T045417Z",
+  "files": [
+    {
+      "path": "company-site/index.html",
+      "sha256": "5c3fdd0f5d9477b607c97cb392b238bce5fa22eb379f0fefea132f62817251e1"
+    },
+    {
+      "path": "company-site/about.html",
+      "sha256": "8029155a7e9eeb5234f26160739522ce6cfd2c83e21f303379bbeeae5238bb06"
+    },
+    {
+      "path": "company-site/assets/css/signature.css",
+      "sha256": "b37ddf71d448b7506715c083af455a94e31feb21ed48697f6699aa85b56f6c8f"
+    },
+    {
+      "path": "company-site/assets/css/about.css",
+      "sha256": "f8604f6f3b2333d6c85c74b088bd02dcfc0056977ffe6abb034eb3de27d51409"
+    },
+    {
+      "path": "company-site/PLAN.md",
+      "sha256": "cdc1bf3c6cef172ea7f2bf5a495cfee73ad13477692302cc7f68543c5b1239aa"
+    },
+    {
+      "path": "company-site/SYSTEM-SOURCES.md",
+      "sha256": "90e9975c2298ede7c63bee9223e0192b9c251b7048207eb65c966fa8119db6c1"
+    }
+  ]
+}

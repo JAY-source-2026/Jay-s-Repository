@@ -198,7 +198,7 @@
     panel.setAttribute("aria-busy", "true");
     panel.innerHTML = '<p class="empty">자료를 불러오는 중입니다…</p>';
 
-    getJSON("assets/data/archive.json?v=20261104r5").then(function (data) {
+    getJSON("assets/data/archive.json?v=20261109r3").then(function (data) {
       var previous = null;
       var pageSize = 10;
       function boardName(cat, board) { return cat.label + " " + board.name; }
@@ -217,7 +217,7 @@
       }
       function matchesSearch(item, query) {
         var code = normalized(query);
-        if (/^(?:fs|fr)[a-z]+\d+$/.test(code)) return normalized(item.certificate).includes(code);
+        if (/^(?:fs|fr|fds)[a-z]+\d+$/.test(code)) return normalized(item.certificate).includes(code);
         var text = normalized([item.title, item.certificate, item.tag, item.file && item.file.name, item.body].join(" "));
         return query.trim().split(/\s+/).every(function (word) { return text.includes(normalized(word)); });
       }

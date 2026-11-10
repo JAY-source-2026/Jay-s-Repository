@@ -1,6 +1,13 @@
 // One foil-covered sheet: the attached length bends around the service while
 // the remaining material stays flat and tangent to the moving contact point.
-export function wrappingBlanket({T,parent,inner,thickness,length,width,height,x=0,z,start,end,material,owned,startAngle=Math.PI/2}) {
+import { wrappingDuctBlanket } from './installation-duct-blanket.js?v=20261109r7';
+// Some source PDFs say “install on the service inside the support” rather
+// than “pass through”; both require insulation across the support's depth.
+export function blanketPassesThrough(step) {
+  return step.kind==='blanket' && (step.through || /지지구조내부관통재도설치/.test(step.text.replace(/\s/g,'')));
+}
+export function wrappingBlanket({T,parent,inner,thickness,length,width,height,profile,x=0,z,start,end,material,owned,startAngle=Math.PI/2}) {
+  if(width&&height)return wrappingDuctBlanket({T,parent,thickness,length,width,height,profile,x,z,start,end,material,owned});
   const root=new T.Group();parent.add(root);root.position.set(x,0,z);
   root.userData.component='blanket-wrap';
   const home=root.position.clone(),radius=inner+thickness/2;

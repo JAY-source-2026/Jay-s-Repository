@@ -1,0 +1,405 @@
+{
+  "passed": true,
+  "results": [
+    {
+      "id": "FS-MP25-0224-06",
+      "progress": 0.32,
+      "bands": [
+        {
+          "shape": "strip",
+          "side": "bottom",
+          "layer": 0,
+          "wrapper": "blue-printed-film",
+          "visible": true,
+          "offset": [
+            -0.043469803178305955,
+            -0.06520470476745888,
+            0.17387921271322365
+          ]
+        },
+        {
+          "shape": "strip",
+          "side": "bottom",
+          "layer": 0,
+          "wrapper": "blue-printed-film",
+          "visible": true,
+          "offset": [
+            0,
+            -0.06850080769791522,
+            0.18266882052777392
+          ]
+        },
+        {
+          "shape": "strip",
+          "side": "bottom",
+          "layer": 0,
+          "wrapper": "blue-printed-film",
+          "visible": true,
+          "offset": [
+            0.047849176264761706,
+            -0.0717737643971425,
+            0.19139670505904677
+          ]
+        },
+        {
+          "shape": "strip",
+          "side": "left",
+          "layer": 0,
+          "wrapper": "blue-printed-film",
+          "visible": true,
+          "offset": [
+            -0.050009715701997415,
+            0,
+            0.20003886280798974
+          ]
+        },
+        {
+          "shape": "strip",
+          "side": "bottom",
+          "layer": 1,
+          "wrapper": "blue-printed-film",
+          "visible": true,
+          "offset": [
+            -0.05214282256888769,
+            -0.07821423385333148,
+            0.2085712902755506
+          ]
+        },
+        {
+          "shape": "strip",
+          "side": "bottom",
+          "layer": 1,
+          "wrapper": "blue-printed-film",
+          "visible": true,
+          "offset": [
+            0,
+            -0.08136374398600393,
+            0.21696998396267708
+          ]
+        },
+        {
+          "shape": "strip",
+          "side": "bottom",
+          "layer": 1,
+          "wrapper": "blue-printed-film",
+          "visible": true,
+          "offset": [
+            0.056302735092579215,
+            -0.08445410263886877,
+            0.2252109403703167
+          ]
+        },
+        {
+          "shape": "strip",
+          "side": "left",
+          "layer": 1,
+          "wrapper": "blue-printed-film",
+          "visible": true,
+          "offset": [
+            -0.05831753899985426,
+            0,
+            0.23327015599941678
+          ]
+        },
+        {
+          "shape": "strip",
+          "side": "top",
+          "layer": 0,
+          "wrapper": "blue-printed-film",
+          "visible": true,
+          "offset": [
+            -0.06028090683773146,
+            0.09042136025659714,
+            0.24112362735092574
+          ]
+        },
+        {
+          "shape": "strip",
+          "side": "top",
+          "layer": 0,
+          "wrapper": "blue-printed-film",
+          "visible": true,
+          "offset": [
+            0,
+            0.0932802565971716,
+            0.24874735092579095
+          ]
+        },
+        {
+          "shape": "strip",
+          "side": "top",
+          "layer": 0,
+          "wrapper": "blue-printed-film",
+          "visible": true,
+          "offset": [
+            0.06402933080623996,
+            0.09604399620936,
+            0.25611732322495995
+          ]
+        },
+        {
+          "shape": "strip",
+          "side": "right",
+          "layer": 0,
+          "wrapper": "blue-printed-film",
+          "visible": true,
+          "offset": [
+            0.06580238518734505,
+            0,
+            0.26320954074938047
+          ]
+        },
+        {
+          "shape": "strip",
+          "side": "top",
+          "layer": 1,
+          "wrapper": "blue-printed-film",
+          "visible": true,
+          "offset": [
+            -0.0675,
+            0.10125,
+            0.2700000000000001
+          ]
+        },
+        {
+          "shape": "strip",
+          "side": "top",
+          "layer": 1,
+          "wrapper": "blue-printed-film",
+          "visible": true,
+          "offset": [
+            0,
+            0.10367426155416243,
+            0.2764646974777666
+          ]
+        },
+        {
+          "shape": "strip",
+          "side": "top",
+          "layer": 1,
+          "wrapper": "blue-printed-film",
+          "visible": true,
+          "offset": [
+            0.0706449074209069,
+            0.1059673611313603,
+            0.2825796296836275
+          ]
+        },
+        {
+          "shape": "strip",
+          "side": "right",
+          "layer": 1,
+          "wrapper": "blue-printed-film",
+          "visible": true,
+          "offset": [
+            0.07208019827963263,
+            0,
+            0.28832079311853054
+          ]
+        }
+      ],
+      "caption": "\n                            시공 06 / 11FS-MP25-0224-06 · 시방 9쪽 ↗\n                            내화채움재2 (내화밴드) 설치\n                            흰색 DOENC 인쇄가 있는 파란 포장 상태의 내화밴드를 관통재와 개구부 사이에 밀착하여 설치합니다. 밴드의 겹수·두께·너비와 배관별 적용 조건은 연결된 시방을 따릅니다.\n                        "
+    },
+    {
+      "id": "FS-MP25-0224-06",
+      "progress": 1,
+      "bands": [
+        {
+          "shape": "strip",
+          "side": "bottom",
+          "layer": 0,
+          "wrapper": "blue-printed-film",
+          "visible": true,
+          "offset": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "shape": "strip",
+          "side": "bottom",
+          "layer": 0,
+          "wrapper": "blue-printed-film",
+          "visible": true,
+          "offset": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "shape": "strip",
+          "side": "bottom",
+          "layer": 0,
+          "wrapper": "blue-printed-film",
+          "visible": true,
+          "offset": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "shape": "strip",
+          "side": "left",
+          "layer": 0,
+          "wrapper": "blue-printed-film",
+          "visible": true,
+          "offset": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "shape": "strip",
+          "side": "bottom",
+          "layer": 1,
+          "wrapper": "blue-printed-film",
+          "visible": true,
+          "offset": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "shape": "strip",
+          "side": "bottom",
+          "layer": 1,
+          "wrapper": "blue-printed-film",
+          "visible": true,
+          "offset": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "shape": "strip",
+          "side": "bottom",
+          "layer": 1,
+          "wrapper": "blue-printed-film",
+          "visible": true,
+          "offset": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "shape": "strip",
+          "side": "left",
+          "layer": 1,
+          "wrapper": "blue-printed-film",
+          "visible": true,
+          "offset": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "shape": "strip",
+          "side": "top",
+          "layer": 0,
+          "wrapper": "blue-printed-film",
+          "visible": true,
+          "offset": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "shape": "strip",
+          "side": "top",
+          "layer": 0,
+          "wrapper": "blue-printed-film",
+          "visible": true,
+          "offset": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "shape": "strip",
+          "side": "top",
+          "layer": 0,
+          "wrapper": "blue-printed-film",
+          "visible": true,
+          "offset": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "shape": "strip",
+          "side": "right",
+          "layer": 0,
+          "wrapper": "blue-printed-film",
+          "visible": true,
+          "offset": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "shape": "strip",
+          "side": "top",
+          "layer": 1,
+          "wrapper": "blue-printed-film",
+          "visible": true,
+          "offset": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "shape": "strip",
+          "side": "top",
+          "layer": 1,
+          "wrapper": "blue-printed-film",
+          "visible": true,
+          "offset": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "shape": "strip",
+          "side": "top",
+          "layer": 1,
+          "wrapper": "blue-printed-film",
+          "visible": true,
+          "offset": [
+            0,
+            0,
+            0
+          ]
+        },
+        {
+          "shape": "strip",
+          "side": "right",
+          "layer": 1,
+          "wrapper": "blue-printed-film",
+          "visible": true,
+          "offset": [
+            0,
+            0,
+            0
+          ]
+        }
+      ],
+      "caption": "\n                            시공 06 / 11FS-MP25-0224-06 · 시방 9쪽 ↗\n                            내화채움재2 (내화밴드) 설치\n                            흰색 DOENC 인쇄가 있는 파란 포장 상태의 내화밴드를 관통재와 개구부 사이에 밀착하여 설치합니다. 밴드의 겹수·두께·너비와 배관별 적용 조건은 연결된 시방을 따릅니다.\n                        "
+    }
+  ],
+  "errors": [],
+  "bad": []
+}

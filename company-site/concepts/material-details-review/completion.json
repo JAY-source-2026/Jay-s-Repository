@@ -1,0 +1,102 @@
+{
+  "completed": "2026-11-09T01:21:33.587160+00:00",
+  "status": "local-preview-only",
+  "preview": "https://redesigned-fishstick-77vprgr9qxvwcrj59-8000.app.github.dev/?v=20261109r2#firestop",
+  "committed": false,
+  "published": false,
+  "backup": "/workspaces/Jay-s-Repository/.local-backups/doenc-material-details-20261109T010922Z",
+  "prior_jacket_changes_preserved": true,
+  "reused_images": [
+    "board",
+    "jacket",
+    "sealant",
+    "blanket",
+    "band"
+  ],
+  "validation": {
+    "passed": true,
+    "products": [
+      {
+        "key": "board",
+        "code": "SFB-100F",
+        "focusRestored": true,
+        "scrollRestored": true,
+        "noNavigation": true
+      },
+      {
+        "key": "jacket",
+        "code": "SFBA-200",
+        "focusRestored": true,
+        "scrollRestored": true,
+        "noNavigation": true
+      },
+      {
+        "key": "sealant",
+        "code": "SFS-100",
+        "focusRestored": true,
+        "scrollRestored": true,
+        "noNavigation": true
+      },
+      {
+        "key": "blanket",
+        "code": "SFI-100",
+        "focusRestored": true,
+        "scrollRestored": true,
+        "noNavigation": true
+      },
+      {
+        "key": "band",
+        "code": "SFBA-120",
+        "focusRestored": true,
+        "scrollRestored": true,
+        "noNavigation": true
+      }
+    ],
+    "layouts": [
+      {
+        "width": 1366,
+        "height": 650,
+        "overflow": false,
+        "dialogOverflow": false,
+        "inViewport": true,
+        "closeVisible": true,
+        "canScroll": true
+      },
+      {
+        "width": 390,
+        "height": 844,
+        "overflow": false,
+        "dialogOverflow": false,
+        "inViewport": true,
+        "closeVisible": true,
+        "canScroll": true
+      },
+      {
+        "width": 320,
+        "height": 640,
+        "overflow": false,
+        "dialogOverflow": false,
+        "inViewport": true,
+        "closeVisible": true,
+        "canScroll": true
+      }
+    ],
+    "keyboard": true,
+    "backdrop": true,
+    "miniMaterialDialog": true,
+    "jacketPreserved": true,
+    "errors": [],
+    "bad": [],
+    "navigations": []
+  },
+  "files": {
+    "index.html": "c9fa7cf48102f128d195c1496db1af466958ff14c17b372eecf2a9860914bf76",
+    "assets/css/home.css": "c1bec90dc451b2c5782fa5bb2a98e56ed16eed32fa162f59c27f8c6dc3aa813a",
+    "assets/css/material-details.css": "03a8df57d3af2b13fd021ff39ad235fb2d7b87f672a0615c84b78752bd6a9442",
+    "assets/js/materials.js": "19a19a7d2b015b20ab04b5e89c1412e65b3bfb573575bb3b4f8fe22e38062f46",
+    "assets/js/product-data.js": "bd87cbf162e3b4499b4a50a0ea8f913c59922f1b57f00ad1b90f52916c9e7a71",
+    "assets/js/explorer.js": "a025f4d86a50d913a0c0131cd8a1600fcf6b0ac1b9a116bec9359f5a16d6c067",
+    "PLAN.md": "3fb2035ddfbdea8d2de4800e10cd160ad88636508188a0a66a162c2984933970",
+    "SYSTEM-SOURCES.md": "ccc0b3c3e90f0f40cc2014db4630a50a9062af25240260c3d3eb226cc100c1b0"
+  }
+}

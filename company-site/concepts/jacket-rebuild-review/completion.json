@@ -1,0 +1,60 @@
+{
+  "completed": "2026-11-09T00:32:44.202982+00:00",
+  "status": "local-preview-only",
+  "cache": "20261109r1",
+  "preview": "https://redesigned-fishstick-77vprgr9qxvwcrj59-8000.app.github.dev/?v=20261109r1#technology",
+  "committed": false,
+  "published": false,
+  "backup": "/workspaces/Jay-s-Repository/.local-backups/doenc-jacket-rebuild-20261109T000436Z",
+  "geometry": {
+    "passed": true,
+    "certificates": 60,
+    "jackets": 37
+  },
+  "browser": {
+    "passed": true,
+    "livePlayback": true,
+    "certificates": [
+      "FS-NP24-0617-5",
+      "FS-NP24-0617-1",
+      "FS-NP24-0617-10",
+      "FS-NP24-0617-11",
+      "FS-NP25-0224-05",
+      "FS-NP25-0625-04"
+    ],
+    "layouts": [
+      {
+        "width": 1366,
+        "height": 650,
+        "overflow": false,
+        "overlap": false
+      },
+      {
+        "width": 390,
+        "height": 844,
+        "overflow": false,
+        "overlap": false
+      },
+      {
+        "width": 320,
+        "height": 640,
+        "overflow": false,
+        "overlap": false
+      }
+    ],
+    "errors": [],
+    "httpErrors": []
+  },
+  "files": {
+    "company-site/PLAN.md": "808cc0c5cfd1192b0a9c4c0d5b5800312d06747159d1628293fc3fd060f07dbe",
+    "company-site/SYSTEM-SOURCES.md": "e2b1e4958ff82a7f375134af6e58726531cb48a133b52a4ac99802447b0efab9",
+    "company-site/assets/js/assemblies.js": "b669549d6dc89aa1c05353d86c99da3f8eded137c37c82561820ffb034a05ca7",
+    "company-site/assets/js/explorer.js": "f7a107581945488fedfb1f691b9386673177ed15a363143239dd5030394f1bbd",
+    "company-site/assets/js/hero3d.js": "be59162b9b8a27157ddedd5579476607f057ef3e523532971f9b2d209aaa0d29",
+    "company-site/assets/js/installation-jacket.js": "f43d0c692782e776d41e719df109393762e0bba05c0efd195ecbbd2dedd657c3",
+    "company-site/assets/js/installation-motion.js": "f9aeaf409323377aedc378e91fe9086ce1c57f4d862b55c87a89b2ea05f95882",
+    "company-site/assets/js/installation-view.js": "e33efec782d185c8c94f1794768517ebc87c2e82a4914b8ef6430d09652bba70",
+    "company-site/assets/js/systems.js": "6f114099a5fc6f9b541716c0d551c9d4b13f77ff6ada241dfa902dcd96200dc5",
+    "company-site/index.html": "96e23c904770133e15e981004ab5a06c2260ef09f3f756ad009d8996edfd8568"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "backup": ".local-backups/doenc-through-blanket-20261109T235329Z",
+  "files": {
+    "index.html": "225f25d015a400661a29d04bb6359899b685732878cc9fb84299c3aabd3b7c15",
+    "assets/js/assemblies.js": "7e54700b65bfe44649eae25db7bd3a1fbc458d2968f17ecb2bd1f26072410ee5",
+    "assets/js/explorer.js": "46560eadba07d3a581ff33cc9c22013fe45828083383560860e3a827a5cf958c",
+    "assets/js/hero3d.js": "31b63b2d14a13c3c437d8c00ed239c41e06384a294139e7ff2c63c1feededd38",
+    "PLAN.md": "21595c1fb5ad87dc2638febc8ff19f83284f2a6a28fbd421cb49d03cc2fb483d",
+    "SYSTEM-SOURCES.md": "077db06f971537a6d12a7b5e15489443f48beda3a6d3c90abaeb400eb292aaf8",
+    "assets/js/installation-blanket.js": "43b9d2a4db82df4e093a509530dba3c0044aa1dd3fe37833999a07fcc4b7cd62"
+  }
+}

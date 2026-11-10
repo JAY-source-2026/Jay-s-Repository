@@ -1,0 +1,9 @@
+{
+  "passed": true,
+  "band_geometry": "../band-wrapper-review/geometry-checks.json",
+  "checked_certificates": 60,
+  "band_certificates": 25,
+  "preserved_other_geometry": true,
+  "source_photo_unchanged": true,
+  "original_files_excluded_from_publication": true
+}

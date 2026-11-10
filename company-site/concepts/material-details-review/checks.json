@@ -1,0 +1,76 @@
+{
+  "passed": true,
+  "products": [
+    {
+      "key": "board",
+      "code": "SFB-100F",
+      "focusRestored": true,
+      "scrollRestored": true,
+      "noNavigation": true
+    },
+    {
+      "key": "jacket",
+      "code": "SFBA-200",
+      "focusRestored": true,
+      "scrollRestored": true,
+      "noNavigation": true
+    },
+    {
+      "key": "sealant",
+      "code": "SFS-100",
+      "focusRestored": true,
+      "scrollRestored": true,
+      "noNavigation": true
+    },
+    {
+      "key": "blanket",
+      "code": "SFI-100",
+      "focusRestored": true,
+      "scrollRestored": true,
+      "noNavigation": true
+    },
+    {
+      "key": "band",
+      "code": "SFBA-120",
+      "focusRestored": true,
+      "scrollRestored": true,
+      "noNavigation": true
+    }
+  ],
+  "layouts": [
+    {
+      "width": 1366,
+      "height": 650,
+      "overflow": false,
+      "dialogOverflow": false,
+      "inViewport": true,
+      "closeVisible": true,
+      "canScroll": true
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "overflow": false,
+      "dialogOverflow": false,
+      "inViewport": true,
+      "closeVisible": true,
+      "canScroll": true
+    },
+    {
+      "width": 320,
+      "height": 640,
+      "overflow": false,
+      "dialogOverflow": false,
+      "inViewport": true,
+      "closeVisible": true,
+      "canScroll": true
+    }
+  ],
+  "keyboard": true,
+  "backdrop": true,
+  "miniMaterialDialog": true,
+  "jacketPreserved": true,
+  "errors": [],
+  "bad": [],
+  "navigations": []
+}

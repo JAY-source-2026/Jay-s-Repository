@@ -1,0 +1,251 @@
+--- saved/company-site/about.html
+
++++ company-site/about.html
+
+@@ -39,8 +39,8 @@
+
+     <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css"></noscript>
+     <link rel="stylesheet" href="assets/css/style.css?v=20261023d">
+-    <link rel="stylesheet" href="assets/css/about.css?v=20261104r7">
++    <link rel="stylesheet" href="assets/css/about.css?v=20261109r4">
+     <noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
+ </head>
+-<body id="top">
++<body id="top" class="about-page">
+     <a href="#main" class="skip-link">본문 바로가기</a>
+ 
+@@ -137,14 +137,5 @@
+
+ 
+     <main id="main">
+-        <div class="page-head">
+-            <div class="wrap">
+-                <p class="crumb"><a href="index.html#home">HOME</a><span>/</span><strong>회사소개</strong></p>
+-                <h1 class="page-title">화재로부터 보다 안전한<br>공간을 만듭니다</h1>
+-                <p class="page-lead">
+-                    ㈜디오이엔씨는 1999년 설립 이후 내화채움구조·내화구조·방화셔터·설계소프트웨어를
+-                    자체기술로 국산화해 온 화재차단 전문기업입니다.
+-                </p>
+-            </div>
+-        </div>
++        <h1 class="sr-only">회사소개</h1>
+ 
+         <!-- ===== CEO 인사말 ===== -->
+@@ -194,7 +185,53 @@
+
+                 <ul class="tl">
+                     <li class="tl-year reveal">
++                        <h3>2026</h3>
++                        <ul class="tl-list">
++                            <li><span>내화채움구조 품질인정서 취득(2개 구조), 추가 10여 개 구조 진행 중</span></li>
++                            <li><span>내화구조 품질인정서 취득(2개 구조)</span></li>
++                            <li><span>용인 SK하이닉스 반도체 현장 시공 참여</span></li>
++                        </ul>
++                    </li>
++                    <li class="tl-year reveal">
++                        <h3>2025</h3>
++                        <ul class="tl-list">
++                            <li><span>내화채움구조 품질인정서 취득(25개 구조)</span></li>
++                            <li><span>원철희 대표이사, 내화채움구조협회 제2대 협회장 취임</span></li>
++                            <li><span>청주 SK하이닉스 반도체 현장 시공 참여</span></li>
++                        </ul>
++                    </li>
++                    <li class="tl-year reveal">
++                        <h3>2024</h3>
++                        <ul class="tl-list">
++                            <li><span>내화채움구조 품질인정서 취득(30개 구조)</span></li>
++                            <li><span>강소기업 선정</span></li>
++                        </ul>
++                    </li>
++                    <li class="tl-year reveal">
++                        <h3>2023</h3>
++                        <ul class="tl-list">
++                            <li><span>내화채움구조 품질인정서 취득(3개 구조)</span></li>
++                            <li><span>ISO 9001 · ISO 14001 인증 갱신심사 통과</span></li>
++                            <li><span>덕절리 제3공장 매입</span></li>
++                        </ul>
++                    </li>
++                    <li class="tl-year reveal">
++                        <h3>2022</h3>
++                        <ul class="tl-list">
++                            <li><span>수면리 제2공장 사용승인</span></li>
++                            <li><span>ISO 45001 인증 획득</span></li>
++                            <li><span>기술혁신형 중소기업 재선정</span></li>
++                        </ul>
++                    </li>
++                    <li class="tl-year reveal">
++                        <h3>2021</h3>
++                        <ul class="tl-list">
++                            <li><span>내화설계프로그램 DESKey 상표출원 및 출원공고</span></li>
++                            <li><span>강소기업 재선정</span></li>
++                        </ul>
++                    </li>
++                    <li class="tl-year reveal">
+                         <h3>2020</h3>
+                         <ul class="tl-list">
+-                            <li><em>06월</em><span>ISO 9001 · ISO 14001 재인증 획득</span></li>
++                            <li><span>ISO 9001 · ISO 14001 재인증 획득</span></li>
+                         </ul>
+                     </li>
+@@ -202,8 +239,7 @@
+
+                         <h3>2019</h3>
+                         <ul class="tl-list">
+-                            <li><em>12월</em><span>청년친화형 강소기업 선정</span></li>
+-                            <li><em>04월</em><span>강소기업 재선정</span></li>
+-                            <li><em>04월</em><span>하이서울브랜드기업 재지정</span></li>
+-                            <li><em>03월</em><span>INNO-BIZ 기업인증</span></li>
++                            <li><span>INNO-BIZ 기업인증</span></li>
++                            <li><span>하이서울브랜드기업 재지정</span></li>
++                            <li><span>강소기업 재선정</span></li>
+                         </ul>
+                     </li>
+@@ -211,7 +247,7 @@
+
+                         <h3>2018</h3>
+                         <ul class="tl-list">
+-                            <li><em>09월</em><span>내화충전구조 디자인등록 (배관)</span></li>
+-                            <li><em>07월</em><span>내화충전구조 디자인등록 (케이블, 덕트)</span></li>
+-                            <li><em>05월</em><span>서울특별시장 표창 수상 (일자리 창출·고속성장·사회공헌 부문)</span></li>
++                            <li><span>평택 삼성전자 반도체 현장 시공 참여</span></li>
++                            <li><span>서울특별시장 표창 수상</span></li>
++                            <li><span>내화충전구조 디자인 등록</span></li>
+                         </ul>
+                     </li>
+@@ -219,6 +255,6 @@
+
+                         <h3>2017</h3>
+                         <ul class="tl-list">
+-                            <li><em>06월</em><span>ISO 9001 · ISO 14001 인증 획득</span></li>
+-                            <li><em>04월</em><span>강소기업 선정</span></li>
++                            <li><span>잠실 롯데월드타워 시공 참여</span></li>
++                            <li><span>ISO 9001 · ISO 14001 인증 획득</span></li>
+                         </ul>
+                     </li>
+@@ -226,5 +262,5 @@
+
+                         <h3>2016</h3>
+                         <ul class="tl-list">
+-                            <li><em>06월</em><span>일학습병행제(공동훈련센터) 참여기업 선정</span></li>
++                            <li><span>일학습병행제 참여기업 선정</span></li>
+                         </ul>
+                     </li>
+@@ -232,9 +268,9 @@
+
+                         <h3>2015</h3>
+                         <ul class="tl-list">
+-                            <li><em>12월</em><span>병역특례 업체 지정</span></li>
+-                            <li><em>10월</em><span>중소기업청 혁신형 연구개발과제 선정</span></li>
+-                            <li><em>07월</em><span>본사 및 공장 화성으로 신축 이전</span></li>
+-                            <li><em>04월</em><span>기업부설연구소 설립인가</span></li>
+-                            <li><em>01월</em><span>하이서울브랜드 기업 선정</span></li>
++                            <li><span>화성 반도체 현장 시공 참여</span></li>
++                            <li><span>병역특례업체 지정</span></li>
++                            <li><span>혁신형 연구개발과제 선정</span></li>
++                            <li><span>본사 및 공장 화성 신축 이전</span></li>
++                            <li><span>기업부설연구소 설립</span></li>
+                         </ul>
+                     </li>
+@@ -242,8 +278,7 @@
+
+                         <h3>2014</h3>
+                         <ul class="tl-list">
+-                            <li><em>12월</em><span>전문건설업(금속구조물·창호공사업) 면허취득</span></li>
+-                            <li><em>10월</em><span>층간방화구획 성능인증 취득 (IS보드 TYPE)</span></li>
+-                            <li><em>10월</em><span>무기둥 각형 방화스크린셔터 인증취득</span></li>
+-                            <li><em>02월</em><span>전문건설업(미장·방수·조적) 면허취득</span></li>
++                            <li><span>전문건설업 면허 취득</span></li>
++                            <li><span>방화구획 성능인증 취득</span></li>
++                            <li><span>무기둥 각형 스크린 방화셔터 인증</span></li>
+                         </ul>
+                     </li>
+@@ -251,5 +286,5 @@
+
+                         <h3>2013</h3>
+                         <ul class="tl-list">
+-                            <li><em>04월</em><span>무기둥 라운드셔터 특허등록</span></li>
++                            <li><span>무기둥 라운드셔터 특허 등록</span></li>
+                         </ul>
+                     </li>
+@@ -257,7 +292,6 @@
+
+                         <h3>2010</h3>
+                         <ul class="tl-list">
+-                            <li><em>07월</em><span>무기둥 곡면 방화스크린셔터 인증취득</span></li>
+-                            <li><em>04월</em><span>내화충전구조(내화보드시스템) 성능확인</span></li>
+-                            <li><em>02월</em><span>방화스크린셔터(기본형) 성능확인</span></li>
++                            <li><span>스크린 방화셔터 인증</span></li>
++                            <li><span>내화충전구조 성능확인</span></li>
+                         </ul>
+                     </li>
+@@ -265,6 +299,7 @@
+
+                         <h3>2009</h3>
+                         <ul class="tl-list">
+-                            <li><em>10월</em><span>건설교통부장관 표창 (기술개발부문)</span></li>
+-                            <li><em>10월</em><span>방화스크린셔터(일체형) 성능확인</span></li>
++                            <li><span>KT 통신구 방화벽 시공 참여</span></li>
++                            <li><span>스크린 방화셔터 성능확인</span></li>
++                            <li><span>건설교통부장관 표창</span></li>
+                         </ul>
+                     </li>
+@@ -272,9 +307,8 @@
+
+                         <h3>2007</h3>
+                         <ul class="tl-list">
+-                            <li><em>12월</em><span>내화충전구조 FILK 인증</span></li>
+-                            <li><em>06월</em><span>벤처기업 인증</span></li>
+-                            <li><em>05월</em><span>기술혁신형 중소기업 (INNO-BIZ)</span></li>
+-                            <li><em>04월</em><span>방화스크린셔터의 구동장치 특허등록</span></li>
+-                            <li><em>02월</em><span>전문소방시설공사업 등록</span></li>
++                            <li><span>전력구 방화벽 시공 참여</span></li>
++                            <li><span>내화충전구조 FILK 인증</span></li>
++                            <li><span>기술혁신형 중소기업(INNO-BIZ) 선정</span></li>
++                            <li><span>전문소방시설공사업 등록</span></li>
+                         </ul>
+                     </li>
+@@ -282,5 +316,5 @@
+
+                         <h3>2006</h3>
+                         <ul class="tl-list">
+-                            <li><em>03월</em><span>방화스크린셔터 특허등록</span></li>
++                            <li><span>스크린 방화셔터 특허 등록</span></li>
+                         </ul>
+                     </li>
+@@ -288,5 +322,5 @@
+
+                         <h3>2005</h3>
+                         <ul class="tl-list">
+-                            <li><em>08월</em><span>제연덕트 구조체 및 이의 시공 방법 특허등록</span></li>
++                            <li><span>제연덕트 구조체 및 이의 시공방법 특허 등록</span></li>
+                         </ul>
+                     </li>
+@@ -294,5 +328,11 @@
+
+                         <h3>2004</h3>
+                         <ul class="tl-list">
+-                            <li><em>08월</em><span>지하공동구 방화구획 내화장치 특허등록</span></li>
++                            <li><span>지하공동구 방화구획 내화장치 특허 등록</span></li>
++                        </ul>
++                    </li>
++                    <li class="tl-year reveal">
++                        <h3>2002</h3>
++                        <ul class="tl-list">
++                            <li><span>지하공동구 방화벽 시공 참여</span></li>
+                         </ul>
+                     </li>
+@@ -300,5 +340,5 @@
+
+                         <h3>1999</h3>
+                         <ul class="tl-list">
+-                            <li><em>05월</em><span>㈜디오이엔씨 법인설립</span></li>
++                            <li><span>㈜디오이엔씨 법인 설립</span></li>
+                         </ul>
+                     </li>
+@@ -467,5 +507,4 @@
+
+                         </div>
+                     </div>
+-                    <p class="org-note">※ 화면이 좁으면 가로로 스크롤됩니다.</p>
+                 </div>
+             </div>

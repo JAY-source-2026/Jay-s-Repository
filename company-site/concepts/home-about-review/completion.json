@@ -1,0 +1,43 @@
+{
+  "completedAt": "2026-11-09T05:00:18.216137+00:00",
+  "status": "local-preview-only",
+  "committed": false,
+  "published": false,
+  "backup": "/workspaces/Jay-s-Repository/.local-backups/doenc-home-about-20261109T045417Z",
+  "files": [
+    {
+      "path": "company-site/index.html",
+      "sha256": "b1dcccd7067b3903bcd8afeff969009aad947ba7501ebb4db2d960b2235fedb9"
+    },
+    {
+      "path": "company-site/about.html",
+      "sha256": "abaa593517ddf1c7765288faa74e1e7c2de47f381b28fdbfa57e19b8d59a57a5"
+    },
+    {
+      "path": "company-site/assets/css/signature.css",
+      "sha256": "66b68fce39302010f7f14ca27af7b89e571e5ea48eff23230cc7b6e9239e72c9"
+    },
+    {
+      "path": "company-site/assets/css/about.css",
+      "sha256": "2d74fff0d86c11bae0ebaac7c6412d5e0cf796d823b64a0805a2d047bbd32896"
+    },
+    {
+      "path": "company-site/PLAN.md",
+      "sha256": "468457431114c9c782b74ddeb0149ab4b4d4f44e2a709335ec6749b373b03132"
+    },
+    {
+      "path": "company-site/SYSTEM-SOURCES.md",
+      "sha256": "bdf520dda6e7b5f464db06438dd4cdf1968d4adf2efafdcc47ac9763f18a5b18"
+    }
+  ],
+  "validation": "checks.json",
+  "source": "sources/history.json",
+  "visualReview": [
+    "home-1366.png",
+    "home-390.png",
+    "about-history-1366.png",
+    "about-ceo-390.png",
+    "about-org-1366.png",
+    "about-location-1366.png"
+  ]
+}

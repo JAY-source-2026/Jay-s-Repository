@@ -1,0 +1,38 @@
+{
+  "completedAt": "2026-11-09T05:24:51.744124+00:00",
+  "status": "local-preview-only",
+  "committed": false,
+  "published": false,
+  "backup": "/workspaces/Jay-s-Repository/.local-backups/doenc-explorer-details-20261109T051201Z",
+  "files": [
+    {
+      "path": "company-site/index.html",
+      "sha256": "e5178ccb45fe01e3b8c461a09e4cef51b350eaa900c4e6794df10e9271f17fd5"
+    },
+    {
+      "path": "company-site/assets/css/home.css",
+      "sha256": "048a676fc455b3b19640a068bc41b493fcc19b35cb9c7c774c6a71e7324a8125"
+    },
+    {
+      "path": "company-site/assets/js/explorer.js",
+      "sha256": "42214b80d9262b4e4e229e8fb532fee445ff068306e0699109058299a1e5ca41"
+    },
+    {
+      "path": "company-site/PLAN.md",
+      "sha256": "82c108bc4b5cda7fe0c69aee44123073f6f8643fbe14746ada41525ca1429505"
+    },
+    {
+      "path": "company-site/SYSTEM-SOURCES.md",
+      "sha256": "e49a097f966892bec63810854a560a2f301d9de109a5b29d5c69d3a94ae4ca0e"
+    }
+  ],
+  "preservedHashesMatch": true,
+  "checks": "checks.json",
+  "sources": "sources.json",
+  "visualReview": [
+    "details-1920-1080.png",
+    "details-1366-650.png",
+    "details-900-700.png",
+    "details-390-844.png"
+  ]
+}

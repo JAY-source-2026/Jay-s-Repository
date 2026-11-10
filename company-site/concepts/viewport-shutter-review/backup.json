@@ -1,0 +1,35 @@
+{
+  "backup": ".local-backups/doenc-viewport-shutter-20261109T080431Z",
+  "files": [
+    "index.html",
+    "assets/css/home.css",
+    "assets/css/signature.css",
+    "assets/js/explorer.js",
+    "assets/js/hero3d.js",
+    "assets/js/installation-view.js",
+    "assets/js/assemblies.js",
+    "PLAN.md",
+    "SYSTEM-SOURCES.md"
+  ],
+  "before": {
+    "index.html": "aa793d1a265d9b188c57f825bb9b5e18cf6cee409c034f1fb4b4141baba9f689",
+    "assets/css/home.css": "a7cf5955cc71444b8611bcd541a0f97ec6692c57888179e4fee0dc30bae3d495",
+    "assets/css/signature.css": "66b68fce39302010f7f14ca27af7b89e571e5ea48eff23230cc7b6e9239e72c9",
+    "assets/js/explorer.js": "7a99611c44f73d69c517d9177e08747693378f56ab4c8ec0e929fb306cf20547",
+    "assets/js/hero3d.js": "0f7e6bc2b054022dcbd5519ee910e0d99a70ff45cdec619fe789d8229ef91520",
+    "assets/js/installation-view.js": "0291f1ed9dc227f99d844a86ebc26f401b731b4ae0c5c5153d824720597f5a1e",
+    "assets/js/assemblies.js": "624bd65ad90759c2ce2edff01c808102d0baffa6f99b98a9e21cedc9d4f130fd",
+    "PLAN.md": "0207c1d84f2a9eec07e185bb2b752a61f37e351f4576f830579895f0b4e2c403",
+    "SYSTEM-SOURCES.md": "ebc498a3677566355fe4173d9632a71863012e4a96f3ca9d53f77360990f425c"
+  },
+  "preserved": {
+    "assets/js/installation-duct-blanket.js": "e8e0059273ab8e936d49bfc151643f96917fe5017d9e062fbcc8b5c5135cdf5b",
+    "assets/js/installation-duct-channels.js": "9debbcba195edc619cecca5eb2ec6dd7186ff1cf8c292503ce3d2eb71f5e14af",
+    "assets/js/installation-blanket.js": "43b9d2a4db82df4e093a509530dba3c0044aa1dd3fe37833999a07fcc4b7cd62",
+    "assets/js/installation-motion.js": "1c2870a73728d8677238f7dd06527ee7806d85199ff525e807de6a2171fb8327",
+    "assets/js/systems.js": "9e78fabb1864018d3d3bfacb61971d7040870e603f4f159b83b902a5a5f61a95",
+    "assets/data/archive.json": "1b967db826ce28216d3d244b9dfe52b78d3a589ba0e7029ce41c67faa636959a",
+    "about.html": "abaa593517ddf1c7765288faa74e1e7c2de47f381b28fdbfa57e19b8d59a57a5",
+    "assets/css/about.css": "2d74fff0d86c11bae0ebaac7c6412d5e0cf796d823b64a0805a2d047bbd32896"
+  }
+}
