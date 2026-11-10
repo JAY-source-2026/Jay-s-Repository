@@ -1,8 +1,9 @@
-import { SYSTEMS } from './systems.js?v=20261106r2';
-import { buildAssembly } from './assemblies.js?v=20261106r2';
+import { SYSTEMS } from './systems.js?v=20261109r7';
+import { buildAssembly } from './assemblies.js?v=20261110r1';
+import { openingBandMaterials } from './installation-band.js?v=20261110r1';
 import { buildSiteContext } from './site-context.js?v=20261106r2';
 import { FACTORY, buildFactory } from './factory.js?v=20261106r2';
-import { fitInstallation, applyAssemblyTime } from './installation-view.js?v=20261106r2';
+import { fitInstallation, applyAssemblyTime } from './installation-view.js?v=20261109r9';
 import { connectServices } from './installation-services.js?v=20261106r2';
 // Product-scale fire protection demonstrator. No people or full-screen film.
 // All dimensions and timing are illustrative; this is not a fire-rating simulation.
@@ -25,10 +26,11 @@ export async function initHero3D(canvas, host, { onUpdate = () => {} } = {}) {
   const camera = new T.PerspectiveCamera(34, 1, .1, 200);
   const target = new T.Vector3(0, 1.2, 0);
   const clock = { selected: null, mode: 'overview', elapsed: 0, duration: 18, phase: -1, running: false };
-  let previewReturn = null;
+  let previewReturn = null, userPaused = false, explicitMotion = false;
   let raf = 0, last = null, visible = true, disposed = false;
   let transition = 1, transitionSeconds = 2.4, fromPosition = new T.Vector3(), fromTarget = new T.Vector3();
   let toPosition = new T.Vector3(), toTarget = new T.Vector3();
+  let fromFov=34,toFov=34;
   const ids = ['metal', 'polymer', 'duct', 'bundle', 'firewall'];
   const models = {};
   const smooth = x => { x = Math.max(0, Math.min(1, x)); return x * x * (3 - 2 * x); };
@@ -93,6 +95,8 @@ export async function initHero3D(canvas, host, { onUpdate = () => {} } = {}) {
   const ceiling = mat('#deddd6', .88);
   const steel = mat('#d6e0e4', .23, .95);
   const zinc = mat('#9cabb2', .38, .8);
+  const channelSilver = mat('#e2e4e6', .32, .82);
+  channelSilver.envMapIntensity=1.4;
   const edgeMetal = mat('#65767d', .28, .88);
   const mineral = mat('#e9edef', .64);
   const pvc = mat('#eeeeea', .5, 0);
@@ -138,7 +142,7 @@ export async function initHero3D(canvas, host, { onUpdate = () => {} } = {}) {
   const LEVEL = 3.3, WALL_Z = -.55, WALL_T = .15, CY = 1.65;
   const blue = mat('#435e77', .42, .3), white = mat('#a7b3bf', .72);
   const dark = mat('#344555', .38, .72), whiteSeal = mat('#f3f2ed', .85);
-  const bandBlue = mat('#2d5682', .56, .1), bandCore = mat('#222529', .96);
+  const bandCore = mat('#222529', .96);
   const glass = new T.MeshPhysicalMaterial({ color: '#9caeb4', metalness: .25, roughness: .09, clearcoat: 1, clearcoatRoughness: .08, envMapIntensity: 1.3, transparent: true, opacity: .48, side: T.DoubleSide, depthWrite: false });
   const floors = [];
   const textures = [concreteTex, fabricTex, tileTex];
@@ -193,8 +197,9 @@ export async function initHero3D(canvas, host, { onUpdate = () => {} } = {}) {
     s.holes.push(h);
     return mesh(new T.ExtrudeGeometry(s, { depth: WALL_T, bevelEnabled: false, curveSegments: 48 }), concrete.clone(), parent, 0, 0, WALL_Z - WALL_T / 2);
   }
-  const assemblyMaterials = { concrete, steel, zinc, pvc, foil, blanketFoil, wool, mineral, bandCore, ...applicationMaterials,
-    copper: mat('#a86f48', .3, .85), glasswool: mat('#d8c88e', .96) };
+  const bandMaterials=await openingBandMaterials(T,renderer,textures);
+  const assemblyMaterials = { concrete, steel, zinc, channelSilver, pvc, foil, blanketFoil, wool, mineral, bandCore, ...bandMaterials, ...applicationMaterials,
+    jacketZinc: mat('#c7d8db', .34, .72), jacketFastener: mat('#bda45a', .3, .78), copper: mat('#a86f48', .3, .85), glasswool: mat('#d8c88e', .96) };
   function setAssembly(m, record) {
     if (m.assembly?.record.id === record.id) return;
     m.upper?.traverse(o=>{if(o.isInstancedMesh)o.dispose();});
@@ -271,7 +276,6 @@ export async function initHero3D(canvas, host, { onUpdate = () => {} } = {}) {
   const fill = new T.DirectionalLight('#e8f0ff', .9); fill.position.set(6, 9, 12); scene.add(fill);
 
   function modelState(m, t, active) {
-    // Keep the building and neighbours present while the camera approaches.
     m.root.visible = true; m.alpha = 1;
     const installing = active && clock.mode === 'install';
     if (m.contextSlabs) m.contextSlabs.visible = false; // factory already supplies these slabs
@@ -289,8 +293,10 @@ export async function initHero3D(canvas, host, { onUpdate = () => {} } = {}) {
     if (m.id === 'firewall') m.rear.visible = !installing || t >= SYSTEMS.firewall.duration;
   }
   function frameScene() {
+    if(transition>=1&&camera.fov!==toFov){camera.fov=toFov;camera.updateProjectionMatrix();}
     for (const id of ids) modelState(models[id],clock.elapsed,id===clock.selected);
     architecture.visible = true;
+    floor.visible = true;
     const selectedAssembly=models[clock.selected]?.assembly,cutBays=new Set();
     if(selectedAssembly){
       selectedAssembly.root.updateWorldMatrix(true,false);
@@ -306,11 +312,13 @@ export async function initHero3D(canvas, host, { onUpdate = () => {} } = {}) {
     renderer.render(scene,camera);
   }
   function destination() {
+    toFov=34;
     if (clock.selected) {
       const model = models[clock.selected], base = model.root.position.y;
       const baseX = model.root.position.x;
       if (model.assembly) {
-        const fit=fitInstallation(T,model.assembly,camera);
+        const fittingCamera=camera.clone();fittingCamera.fov=toFov;
+        const fit=fitInstallation(T,model.assembly,fittingCamera);
         toTarget.copy(fit.target);toPosition.copy(fit.position);
         return;
       }
@@ -348,7 +356,7 @@ export async function initHero3D(canvas, host, { onUpdate = () => {} } = {}) {
     scene.traverse(o=>{if(o.material?.isShaderMaterial&&o.material.uniforms?.uStrength)fireObjects++;if(o.userData.component?.startsWith('damper-'))damperObjects++;});
     scene.traverse(o => { const key = o.userData.component; if (key) components[key] = (components[key] || 0) + 1; });
     return {
-      ...clock, drawCalls: renderer.info.render.calls, visible, transition, transitionSeconds, camera: camera.position.toArray(), target: target.toArray(), reduced: reduce.matches,
+      ...clock, paused:userPaused, explicitMotion, drawCalls: renderer.info.render.calls, visible, transition, transitionSeconds, camera: camera.position.toArray(), target: target.toArray(), reduced: reduce.matches,
       components, factory: { storeys: 2, width: FACTORY.width, level: LEVEL, routes: Object.fromEntries(ids.filter(id => models[id].route).map(id => [id, models[id].route])) },
       routeVisibility: Object.fromEntries(ids.filter(id => models[id].routeGroup).map(id => [id, models[id].root.visible && models[id].routeGroup.visible])),
       visibleFloors: ids.filter(id => models[id].root.visible),
@@ -357,11 +365,12 @@ export async function initHero3D(canvas, host, { onUpdate = () => {} } = {}) {
       certificates: Object.fromEntries(ids.filter(id=>models[id].record).map(id=>[id,models[id].record.id])),
       assemblies: Object.fromEntries(ids.filter(id=>models[id].assembly).map(id=>[id,{orientation:models[id].assembly.isFloor?'floor':'wall',pipes:models[id].pipes.length,pipeVisible:models[id].pipes.every(p=>p.visible),layers:models[id].assembly.blanketLayer,existingInsulation:models[id].assembly.existingInsulation,serviceEnds:models[id].assembly.serviceEnds,sectionSlabVisible:Boolean(models[id].assembly.sectionSlab?.visible),workBounds:Object.fromEntries(Object.entries(models[id].assembly.workBounds).map(([side,box])=>[side,{min:box.min.toArray(),max:box.max.toArray()}]))}])),
       architectureVisible:architecture.visible, terrainVisible:siteContext.terrain.visible,
+      openingBands: {photoLoaded:Boolean(bandMaterials.bandFilm.map?.image),assemblies:Object.fromEntries(ids.map(id=>[id,models[id].parts.filter(p=>p.object.userData.component==='wrapped-opening-band').map(p=>({shape:p.object.userData.shape,side:p.object.userData.side,layer:p.object.userData.layer,wrapper:p.object.userData.wrapper,visible:p.object.visible,offset:p.object.position.clone().sub(p.home).toArray()}))]))},
       cutawayBay:models[clock.selected]?.assembly?.isFloor?clock.selected:null,
       polymer: {pipeVisible:models.polymer.pipes.every(p=>p.visible)},
       fireObjects, damperObjects,
       wallsOpaque: ids.filter(id => models[id].wall).every(id => models[id].wall.material.opacity === 1 && !models[id].wall.material.transparent),
-      construction: Object.fromEntries(ids.map(id=>[id,models[id].parts.filter(p=>['board-half','board-piece','jacket-clamp','sealant-pass','winding-wire','blanket-wrap'].includes(p.object.userData.component)).map(p=>({component:p.object.userData.component,half:p.object.userData.half,face:p.object.userData.workFace,visible:p.object.visible,offset:p.object.position.clone().sub(p.home).toArray(),progress:p.object.userData.progress,openAngle:p.object.userData.openAngle,latched:p.object.userData.latched,toolVisible:p.object.userData.toolVisible,nozzle:p.object.userData.nozzle,wrapped:p.object.userData.wrapped,twisted:p.object.userData.twisted,distance:p.object.userData.distance,coverage:p.object.userData.coverage,freeEnd:p.object.userData.freeEnd,flatLength:p.object.userData.flatLength,sheetWidth:p.object.userData.sheetWidth}))])),
+      construction: Object.fromEntries(ids.map(id=>[id,models[id].parts.filter(p=>['board-half','board-piece','jacket-clamp','sealant-pass','winding-wire','blanket-wrap'].includes(p.object.userData.component)).map(p=>({component:p.object.userData.component,half:p.object.userData.half,face:p.object.userData.workFace,visible:p.object.visible,offset:p.object.position.clone().sub(p.home).toArray(),progress:p.object.userData.progress,openAngle:p.object.userData.openAngle,latched:p.object.userData.latched,tightened:p.object.userData.tightened,bracketsEngaged:p.object.userData.bracketsEngaged,seated:p.object.userData.seated,screwsFixed:p.object.userData.screwsFixed,stage:p.object.userData.stage,nominal:p.object.userData.nominal,bracketCount:p.object.userData.bracketCount,hookCount:p.object.userData.hookCount,wingBoltCount:p.object.userData.wingBoltCount,toolVisible:p.object.userData.toolVisible,nozzle:p.object.userData.nozzle,wrapped:p.object.userData.wrapped,twisted:p.object.userData.twisted,distance:p.object.userData.distance,coverage:p.object.userData.coverage,throughSupport:p.object.userData.throughSupport,freeEnd:p.object.userData.freeEnd,flatLength:p.object.userData.flatLength,sheetWidth:p.object.userData.sheetWidth}))])),
       firewall: { boardSize: siteContext.boardSize, thickness: siteContext.wallThickness, studXs: siteContext.studXs, rearVisible: models.firewall.rear.visible, installedFrontBoards: models.firewall.frontBoards.filter(o => o.visible).length },
     };
   }
@@ -370,7 +379,7 @@ export async function initHero3D(canvas, host, { onUpdate = () => {} } = {}) {
     let phase = 0;
     steps.forEach(([at], i) => { if (clock.elapsed >= at) phase = i; });
     clock.phase = phase;
-    onUpdate({ selected: clock.selected, mode: clock.mode, progress: clock.elapsed / clock.duration, phase, complete: clock.elapsed >= clock.duration, reduced: reduce.matches });
+    onUpdate({ selected: clock.selected, mode: clock.mode, progress: clock.elapsed / clock.duration, elapsed:clock.elapsed, duration:clock.duration, running:clock.running, paused:userPaused, phase, complete: clock.elapsed >= clock.duration, reduced: reduce.matches&&!explicitMotion });
   }
   function advance(now) {
     raf = 0;
@@ -379,43 +388,52 @@ export async function initHero3D(canvas, host, { onUpdate = () => {} } = {}) {
     transition = Math.min(1, transition + dt / transitionSeconds);
     const e = smooth(transition);
     camera.position.lerpVectors(fromPosition, toPosition, e); target.lerpVectors(fromTarget, toTarget, e);
+    camera.fov=T.MathUtils.lerp(fromFov,toFov,e);camera.updateProjectionMatrix();
     if (clock.mode === 'install' && transition >= 1) clock.elapsed = Math.min(clock.duration, clock.elapsed + dt);
+    clock.running=(clock.mode === 'install' && clock.elapsed < clock.duration) || transition < 1;
     frameScene(); emit();
-    if ((clock.mode === 'install' && clock.elapsed < clock.duration) || transition < 1) raf = requestAnimationFrame(advance);
-    else clock.running = false;
+    if (clock.running) raf = requestAnimationFrame(advance);
   }
   function resume() {
-    if (disposed || !visible || document.hidden || raf || reduce.matches) return;
+    if (disposed || !visible || document.hidden || raf || userPaused || (reduce.matches&&!explicitMotion)) return;
     if (clock.mode !== 'install' && transition >= 1) return;
     if (clock.mode === 'install' && clock.elapsed >= clock.duration && transition >= 1) return;
     clock.running = true; last = null; raf = requestAnimationFrame(advance);
   }
   function stop() { cancelAnimationFrame(raf); raf = 0; last = null; clock.running = false; }
-  function moveTo(id, mode, elapsed = 0) {
+  function moveTo(id, mode, elapsed = 0, playback = {}) {
     if (id !== null && !ids.includes(id)) return;
     stop();
+    userPaused=playback.paused||false;explicitMotion=playback.explicit||false;
     clock.selected = id; clock.mode = id ? mode : 'overview'; clock.duration = id ? SYSTEMS[id].duration : 18;
-    clock.elapsed = mode === 'install' && reduce.matches && id!=='duct' ? clock.duration : elapsed;
-    fromPosition.copy(camera.position); fromTarget.copy(target); destination(); transition = 0; transitionSeconds = mode === 'preview' || !id ? 1.2 : 2.2;
-    if (reduce.matches) { camera.position.copy(toPosition); target.copy(toTarget); transition = 1; }
-    frameScene(); emit(); resume();
+    clock.elapsed = mode === 'install' && reduce.matches && !explicitMotion && !userPaused && elapsed===0 && id!=='duct' ? clock.duration : elapsed;
+    fromPosition.copy(camera.position); fromTarget.copy(target);fromFov=camera.fov; destination(); transition = 0; transitionSeconds = mode === 'preview' || !id ? 1.2 : 2.2;
+    if (reduce.matches || playback.instantCamera) { camera.position.copy(toPosition); target.copy(toTarget); transition = 1; }
+    frameScene(); resume(); emit();
   }
   function select(id) { previewReturn = null; if(id && SYSTEMS[id]?.record) { setAssembly(models[id],SYSTEMS[id].record); batchStatic(models[id].root); } moveTo(id, id ? 'install' : 'overview'); }
   function preview(id) {
     if (!ids.includes(id) || (clock.selected === id && clock.mode === 'preview')) return;
-    if (clock.mode !== 'preview') previewReturn = { selected: clock.selected, mode: clock.mode, elapsed: clock.elapsed };
+    if (clock.mode !== 'preview') previewReturn = { selected: clock.selected, mode: clock.mode, elapsed: clock.elapsed, paused:userPaused, explicit:explicitMotion };
     moveTo(id, 'preview');
   }
   function clearPreview() {
     if (clock.mode !== 'preview') return;
     const saved = previewReturn || { selected: null, mode: 'overview', elapsed: 0 }; previewReturn = null;
-    moveTo(saved.selected, saved.mode, saved.elapsed);
+    moveTo(saved.selected, saved.mode, saved.elapsed, saved);
   }
   function seek(seconds) {
-    stop(); clock.elapsed = Math.min(clock.duration, Math.max(0, seconds));
+    stop();userPaused=true;clock.elapsed = Math.min(clock.duration, Math.max(0, seconds));
     destination();
     camera.position.copy(toPosition); target.copy(toTarget); transition = 1; frameScene(); emit();
   }
+  function pause(){userPaused=true;stop();emit();}
+  function play(){
+    if(!clock.selected||clock.mode!=='install')return;
+    if(clock.elapsed>=clock.duration){restart();return;}
+    userPaused=false;explicitMotion=true;resume();emit();
+  }
+  function restart(){if(clock.selected)moveTo(clock.selected,'install',0,{explicit:true,instantCamera:true});}
   function resize() {
     const { width, height } = host.getBoundingClientRect();
     if (!width || !height || disposed) return;
@@ -423,7 +441,7 @@ export async function initHero3D(canvas, host, { onUpdate = () => {} } = {}) {
     destination();
     if (transition < 1 && !reduce.matches) {
       // The caption changes the canvas height; keep the ongoing zoom smooth.
-      fromPosition.copy(camera.position); fromTarget.copy(target); transition = 0;
+      fromPosition.copy(camera.position); fromTarget.copy(target);fromFov=camera.fov; transition = 0;
     } else {
       camera.position.copy(toPosition); target.copy(toTarget);
       fromPosition.copy(camera.position); fromTarget.copy(target); transition = 1;
@@ -440,10 +458,10 @@ export async function initHero3D(canvas, host, { onUpdate = () => {} } = {}) {
     disposed = true; stop(); ro.disconnect(); io.disconnect();
     document.removeEventListener('visibilitychange', visibility); reduce.removeEventListener('change', reducedChange);
     const geometries = new Set(), materials = new Set();
-    scene.traverse(o => { if (o.geometry) geometries.add(o.geometry); if (o.material) materials.add(o.material); });
+    scene.traverse(o => { if (o.geometry) geometries.add(o.geometry); if (o.material) for(const material of Array.isArray(o.material)?o.material:[o.material])materials.add(material); });
     geometries.forEach(g => g.dispose()); materials.forEach(m => { if (m.map && m.map !== concreteTex && m.map !== fabricTex) m.map.dispose(); m.dispose(); });
     textures.forEach(texture => texture.dispose()); env.dispose(); renderer.dispose();
   }
-  return { select, preview, clearPreview, overview: () => select(null), replay: () => select(clock.selected), seek, stop, resume, dispose,
+  return { select, preview, clearPreview, overview: () => select(null), replay: restart, seek, stop:pause, resume:play, play, pause, dispose,
     getState: inspect };
 }

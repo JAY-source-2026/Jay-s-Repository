@@ -1,5 +1,5 @@
 // Certificate records and installation sequences come from the supplied PDFs.
-import { installationTimeline } from './installation-motion.js?v=20261106r2';
+import { installationTimeline } from './installation-motion.js?v=20261109r7';
 export const SOURCES = {
   catalog: new URL('../docs/doenc-catalog-2025-web.pdf', import.meta.url).href,
   firewall: new URL('../downloads/fireproof-certificates/FR-WS26-0102-1.pdf', import.meta.url).href,

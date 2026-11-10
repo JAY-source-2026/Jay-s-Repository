@@ -1,11 +1,13 @@
 // Parametric installation diagrams. Geometry follows the selected PDF's sequence;
 // representative pipe layouts are identified as diagrams in the interface.
-import { installationTimeline } from './installation-motion.js?v=20261106r2';
+import { installationTimeline } from './installation-motion.js?v=20261109r7';
 import { caulkingPass } from './installation-tools.js?v=20261106r2';
-import { openingJacket } from './installation-jacket.js?v=20261106r2';
-import { measureWork } from './installation-view.js?v=20261106r2';
+import { openingJacket, jacketProfile } from './installation-jacket.js?v=20261109r1';
+import { measureWork } from './installation-view.js?v=20261109r9';
 import { windingWire, wirePositions } from './installation-wire.js?v=20261106r2';
-import { wrappingBlanket } from './installation-blanket.js?v=20261106r2';
+import { wrappingBlanket, blanketPassesThrough } from './installation-blanket.js?v=20261109r10';
+import { ductChannelClamps } from './installation-duct-channels.js?v=20261109r7';
+import { wrappedBandRing, wrappedDuctBands } from './installation-band.js?v=20261110r1';
 export function buildAssembly({ T, parent, record, bayWidth, materials, CY, WALL_Z, level=3.3 }) {
   const { concrete, steel, zinc, pvc, foil, wool, mineral, bandCore, whiteSeal } = materials;
   const config = record.geometry, isFloor = config.orientation === 'floor', isDuct = record.category === 'duct', bundle = record.category === 'bundle';
@@ -38,7 +40,8 @@ export function buildAssembly({ T, parent, record, bayWidth, materials, CY, WALL
   function animate(object,index,offset=[0,.2,.2],delay=0,duration=1.8) {
     object.userData.step=index;
     const start=timing.steps[index].start+delay;
-    parts.push({object,home:object.position.clone(),offset:new T.Vector3(...offset),start,end:start+duration,face:1});
+    const part={object,home:object.position.clone(),offset:new T.Vector3(...offset),start,end:start+duration,face:1};
+    parts.push(part);return part;
   }
   const diameters=config.diametersMm.length ? config.diametersMm : [isDuct ? 2600 : 114.3];
   const radii=(bundle?diameters:diameters.slice(0,1)).map(d=>d/2000);
@@ -83,6 +86,8 @@ export function buildAssembly({ T, parent, record, bayWidth, materials, CY, WALL
     pipe.userData.component=bundle?'bundle-pipe':'service-pipe';pipe.userData.ends=serviceEnds;pipes.push(pipe);pipeLayout.push({x:pipeXs[i],radius:r,material});
   });
   let outerRadii=[...radii],ductThickness=0,blanketLayer=0,ductBlanketSegments=[];
+  const ductLayers=[];
+  const ductLayerAt=z=>ductLayers.reduce((sum,l)=>sum+(z>=l.from-.012&&z<=l.to+.012?l.thickness:0),0);
   const blanketSegments=radii.map(()=>[]);
   const existingInsulation = record.steps.find(step=>step.kind==='glasswool');
   if(existingInsulation&&!isDuct){
@@ -158,38 +163,55 @@ export function buildAssembly({ T, parent, record, bayWidth, materials, CY, WALL
           animate(fixings,index,[0,0,face*.06],2.35,.65);
         });
       }
-    }else if(step.kind==='jacket'||step.kind==='brackets'){
-      const counts=record.steps.find(s=>s.kind==='brackets')?.fasteners;
-      const separateFixing=record.steps.some(s=>s.kind==='brackets');
-      const fasteners=step.kind==='jacket'&&!separateFixing?group(g):g;
-      if(fasteners!==g)animate(fasteners,index,[0,0,.04],3.15,.45);
+    }else if(step.kind==='jacket'){
+      const fixingIndex=record.steps.findIndex(s=>s.kind==='brackets'),slot=timing.steps[index];
+      const fixSlot=fixingIndex>=0?timing.steps[fixingIndex]:{start:slot.start+slot.duration*.56,end:slot.end};
       for(const face of faces)radii.forEach((r,i)=>{
-        const n=counts||([.031,.058,.083,.109,.134].findIndex(a=>r<=a)*2+2);
-        const depth=Math.max(.032,Math.min(.132,r));
-        if(step.kind==='jacket')parts.push(openingJacket({T,parent:g,radius:r,depth,face,x:pipeXs[i],start:timing.steps[index].start,end:timing.steps[index].end-.1,materials,owned}));
-        if(step.kind==='brackets'||!separateFixing)for(let j=0;j<n;j++){
-          const a=j*Math.PI*2/n,R=r+.05;const b=box(.025,.05,.003,zinc,fasteners,pipeXs[i]+Math.cos(a)*R,Math.sin(a)*R,face*.082);b.rotation.z=a-Math.PI/2;
-          const screw=mesh(new T.CylinderGeometry(.006,.006,.008,6),steel,fasteners,pipeXs[i]+Math.cos(a)*(R+.012),Math.sin(a)*(R+.012),face*.09);screw.rotation.x=Math.PI/2;
-        }
+        const profile=jacketProfile(diameters[i]);
+        if(fixingIndex>=0)profile.brackets=record.steps[fixingIndex].fasteners||profile.brackets;
+        // Board-backed structures seat on the board, never through it.
+        const surface=.075+(config.boardMm?.thickness||0)/1000+.0005;
+        parts.push(openingJacket({T,parent:g,radius:r,profile,face,x:pipeXs[i],surface,
+          start:slot.start,end:fixingIndex>=0?slot.end-.1:fixSlot.start-.1,
+          fixStart:fixSlot.start,fixEnd:fixSlot.end-.1,materials,owned}));
       });
+    }else if(step.kind==='brackets'){
+      // Each jacket owns its hooked L brackets so they move with it when
+      // seated, then the screws advance into the support on this step's clock.
     }else if(['blanket','glasswool','rubber','packing','band','insulation-band'].includes(step.kind)){
       const isWrap=['blanket','glasswool','rubber'].includes(step.kind),inside=!isWrap;
+      const through=blanketPassesThrough(step);
       const mat=step.kind==='rubber'||step.kind==='band'?bandCore:step.kind==='packing'?wool:step.kind==='glasswool'?materials.glasswool:foil;
       const len=inside?.14:Math.max(.1,(step.lengthMm||700)/1000);
       if(isDuct){
         const t=step.kind==='band'?.024:step.kind==='insulation-band'?.06:thickness;
         if(step.kind==='blanket')ductBlanketSegments=[];
-        const starts=inside?[[-.07,.14]]:step.through?[[-len-.075,len*2+.15]]:faces.map(face=>[face>0?.085:-.085-len,len]);
+        const continuousFloor=isFloor&&step.kind==='blanket'&&step.text.includes('연속시공');
+        const starts=inside?[[-.07,.14]]:continuousFloor?[[serviceEnds.back,length]]:through?[[-len-.075,len*2+.15]]:faces.map(face=>[face>0?.085:-.085-len,len]);
         for(const [z,l]of starts){
           const w=2.602+ductThickness*2,h=.652+ductThickness*2;
           if(step.kind==='blanket'){
-            parts.push(wrappingBlanket({T,parent:g,inner:0,thickness:t,length:l,width:w,height:h,z,start:timing.steps[index].start,end:timing.steps[index].end-.1,material:materials.blanketFoil,owned}));
+            const stations=new Set([0,l/4,l/2,l*3/4,l]);
+            for(const layer of ductLayers)for(const edge of [layer.from-z,layer.to-z])if(edge>.025&&edge<l-.025)for(const delta of [-.02,.02])stations.add(edge+delta);
+            const profile=[...stations].sort((a,b)=>a-b).map(d=>{const depth=ductLayerAt(z+d);return {v:d/l,width:2.602+depth*2,height:.652+depth*2};});
+            const blanket=wrappingBlanket({T,parent:g,inner:0,thickness:t,length:l,width:w,height:h,profile,z,start:timing.steps[index].start,end:timing.steps[index].end-.1,material:materials.blanketFoil,owned});
+            Object.assign(blanket.object.userData,{coverage:continuousFloor?[serviceEnds.back,serviceEnds.front]:[z,z+l],throughSupport:through});
+            parts.push(blanket);
             for(const face of [-1,1]){
               const from=Math.max(.085,Math.min(face*z,face*(z+l))),to=Math.max(face*z,face*(z+l));
-              if(to>from)ductBlanketSegments.push({face,from,to,radius:ductThickness+t,width:w+t*2,height:h+t*2});
+              if(to>from)ductBlanketSegments.push({face,from,to,radius:(profile[0].width-2.602)/2+t,width:profile[0].width+t*2,height:profile[0].height+t*2});
             }
+          }else if(['band','insulation-band'].includes(step.kind)){
+            const strips=wrappedDuctBands({T,parent:g,w,h,width:l,thickness:t,z,composite:step.kind==='insulation-band',isFloor,materials,owned});
+            strips.forEach((piece,i)=>{
+              const part=animate(piece,index,[Math.sign(piece.position.x)*.08,Math.sign(piece.position.y)*.12,.32],i*.035,1.9);
+              const home=piece.quaternion.clone(),side=['left','right'].includes(piece.userData.side);
+              const axis=new T.Vector3(side?0:1,side?1:0,0),tilt=.7*(side?-Math.sign(piece.position.x):Math.sign(piece.position.y)),rotation=new T.Quaternion();
+              part.update=time=>{const p=Math.max(0,Math.min(1,(time-part.start)/(part.end-part.start))),ease=p*p*(3-2*p);piece.quaternion.copy(home).premultiply(rotation.setFromAxisAngle(axis,tilt*(1-ease)));};
+            });
           }else shell(w,h,l,t,mat,g,z);
         }
+        for(const [z,l]of starts)ductLayers.push({from:z,to:z+l,thickness:t});
         ductThickness+=t;
       }else radii.forEach((r,i)=>{
         const t=inside?(step.kind==='band'?Math.min(.012,(ow/2-r)/3):Math.min(.05,Math.max(.012,(ow/2-r)/2))):Math.min(thickness,.076);
@@ -201,16 +223,21 @@ export function buildAssembly({ T, parent, record, bayWidth, materials, CY, WALL
         if(step.layer&&!layerBases.has(step.layer))layerBases.set(step.layer,[...outerRadii]);
         const base=step.layer?layerBases.get(step.layer)[i]:outerRadii[i];
         const inner=inside?(step.kind==='band'?Math.max(r+.004,ow/2-t):r):base;
-        const starts=inside?[[-.07,.14]]:step.through?[[-actualLen-.075,actualLen*2+.15]]:faces.map(face=>[face>0?.085+offset:-.085-offset-actualLen,actualLen]);
+        const starts=inside?[[-.07,.14]]:through?[[-actualLen-.075,actualLen*2+.15]]:faces.map(face=>[face>0?.085+offset:-.085-offset-actualLen,actualLen]);
         for(const [z,l]of starts){
           if(step.kind==='blanket'){
-            parts.push(wrappingBlanket({T,parent:g,inner,thickness:t,length:l,x:pipeXs[i],z,start:timing.steps[index].start,end:timing.steps[index].end-.1,material:materials.blanketFoil,owned,startAngle:isFloor?-Math.PI/2:Math.PI/2}));
+            const blanket=wrappingBlanket({T,parent:g,inner,thickness:t,length:l,x:pipeXs[i],z,start:timing.steps[index].start,end:timing.steps[index].end-.1,material:materials.blanketFoil,owned,startAngle:isFloor?-Math.PI/2:Math.PI/2});
+            Object.assign(blanket.object.userData,{coverage:[z,z+l],throughSupport:through});
+            parts.push(blanket);
             for(const face of [-1,1]){
               const from=Math.max(.085,Math.min(face*z,face*(z+l))),to=Math.max(face*z,face*(z+l));
               if(to>from)blanketSegments[i].push({face,from,to,radius:inner+t});
             }
           }
-          else ring(inner+t,inner,l,mat,g,pipeXs[i],0,z);
+          else if(step.kind==='band'){
+            const wrapped=wrappedBandRing({T,parent:g,inner,thickness:t,width:l,x:pipeXs[i],z,materials,owned});
+            animate(wrapped,index,[0,0,.24],i*.06,1.9);
+          }else ring(inner+t,inner,l,mat,g,pipeXs[i],0,z);
         }
         if(!inside)outerRadii[i]=Math.max(outerRadii[i],inner+t);
       });
@@ -238,7 +265,10 @@ export function buildAssembly({ T, parent, record, bayWidth, materials, CY, WALL
     }else if(step.kind==='plate'){
       for(const face of faces)for(const sign of [-1,1]){box(ow+.27,.135,.001,zinc,g,0,sign*(oh/2+.06),face*.085);box(.135,oh,.001,zinc,g,sign*(ow/2+.06),0,face*.085);}
     }else if(step.kind==='fixing'){
-      if(isDuct&&!/철선|철사/.test(step.text.replace(/\s/g,''))){/* Channels/rods remain in the linked specification. */}
+      if(isDuct&&step.text.includes('시스템')){
+        const from=Math.min(...ductBlanketSegments.map(s=>s.from)),to=Math.max(...ductBlanketSegments.map(s=>s.to));
+        parts.push(...ductChannelClamps({T,parent:g,faces,from,to,maxSpacing:record.id==='FS-MP25-0224-06'?.5:.45,depthAt:ductLayerAt,slot:timing.steps[index],material:materials.channelSilver||zinc,owned}));
+      }
       else {
         const text=step.text.replace(/\s/g,''),slot=timing.steps[index];
         for(const face of faces)radii.forEach((r,i)=>{
@@ -261,10 +291,10 @@ export function buildAssembly({ T, parent, record, bayWidth, materials, CY, WALL
         });
       }
     }
-    animate(g,index,['board','sealant','jacket','fixing','blanket'].includes(step.kind)?[0,0,0]:[0,.12,.18]);
+    animate(g,index,['board','sealant','jacket','fixing','blanket','band','insulation-band'].includes(step.kind)?[0,0,0]:[0,.12,.18]);
   });
   root.userData.certificate=record.id;
   const viewSpan=isDuct?3.5:Math.max(.8,ow+.35,(config.boardMm?.width||0)/1000*1.6);
-  const workBounds=measureWork(T,root,work,parts,timing);
-  return {root,room,service,work,wall,sectionSlab,parts,pipes,pipeLayout,serviceEnds,viewSpan,workBounds,workLength,maxDiameter:Math.max(...diameters)/1000,existingInsulation:Boolean(existingInsulation),isFloor,record,owned,blanketLayer,dispose(){root.removeFromParent();root.traverse(o=>{if(o.isInstancedMesh)o.dispose();});owned.forEach(geo=>geo.dispose());}};
+  const viewPoints=isDuct?[]:null,workBounds=measureWork(T,root,work,parts,timing,viewPoints);
+  return {root,room,service,work,wall,sectionSlab,parts,pipes,pipeLayout,serviceEnds,viewSpan,viewPoints,workBounds,workLength,maxDiameter:Math.max(...diameters)/1000,existingInsulation:Boolean(existingInsulation),isFloor,record,owned,blanketLayer,dispose(){root.removeFromParent();root.traverse(o=>{if(o.isInstancedMesh)o.dispose();});owned.forEach(geo=>geo.dispose());}};
 }

@@ -10,28 +10,16 @@ const productTargets = [...document.querySelectorAll('[data-product-hover]')];
 const shutterScene = document.getElementById('signatureShutterScene');
 const shutterButtons = [...document.querySelectorAll('[data-shutter-select]')];
 const shutterTargets = [...document.querySelectorAll('[data-shutter-photo]')];
-const shutterVideo = document.getElementById('signatureShutterVideo');
-const shutterWatch = document.getElementById('signatureShutterWatch');
-const shutterBack = document.getElementById('signatureShutterBack');
-const video = document.getElementById('signatureVideo');
-const videoPlay = document.getElementById('signatureVideoPlay');
-const videoError = document.getElementById('signatureVideoError');
 const announcement = document.getElementById('signatureAnnouncement');
 const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
 const names = Object.fromEntries(productButtons.map(button => [button.dataset.productSelect, button.textContent.trim()]));
 const keys = productTargets.map(target => target.dataset.productHover);
 const shutterNames = Object.fromEntries(shutterButtons.map(button => [button.dataset.shutterSelect, button.textContent.trim()]));
-const footage = {
-  standard: { src: 'assets/media/hero/shutter-operation.mp4', poster: 'assets/media/hero/shutter-operation-poster.jpg', title: '일반 방화셔터' },
-  wire: { src: 'assets/media/hero/wire-shutter-operation.mp4', poster: 'assets/media/hero/wire-shutter-poster.jpg', title: '와이어 권취형 방화셔터' }
-};
 const rad = Math.PI / 180;
 const normalize = angle => ((angle + 180) % 360 + 360) % 360 - 180;
 const clamp = value => Math.max(0, Math.min(1, value));
 let selectedProduct = null;
 let selectedShutter = null;
-let selectedVideo = null;
-let playRequest = 0;
 hero.dataset.scene = 'products';
 
 // Share the product carousel motion with the shutter photographs.
@@ -124,7 +112,7 @@ function syncSelection() {
 function showScene(name) {
   hero.dataset.scene = name;
   const isProducts = name === 'products';
-  for (const [panel, active] of [[products, isProducts], [shutter, name === 'shutter'], [shutterVideo, name === 'video']]) {
+  for (const [panel, active] of [[products, isProducts], [shutter, name === 'shutter']]) {
     panel.classList.toggle('is-active', active);
     panel.setAttribute('aria-hidden', String(!active));
     panel.inert = !active;
@@ -134,11 +122,6 @@ function showScene(name) {
     group.dataset.current = String(active);
     group.querySelector('.signature-category-trigger').setAttribute('aria-pressed', String(active));
   });
-  if (name !== 'video') {
-    playRequest++;
-    video.pause();
-    delete hero.dataset.video;
-  }
   if (!isProducts) productOrbit.finish();
   if (name !== 'shutter') shutterOrbit.finish();
   syncSelection();
@@ -167,40 +150,8 @@ function selectShutter(key) {
   clearProductFocus();
   showScene('shutter');
   shutterOrbit.rotateTo(key);
-  shutterWatch.hidden = !Object.hasOwn(footage, key);
-  shutterWatch.setAttribute('aria-label', `${shutterNames[key]} 작동 영상 보기`);
   document.getElementById('signatureShutterCaption').textContent = shutterNames[key];
   announcement.textContent = `${shutterNames[key]} 현장 사진 보기`;
-}
-function playSelected() {
-  const request = ++playRequest;
-  videoPlay.hidden = true;
-  video.play().catch(error => {
-    if (request !== playRequest || error.name === 'AbortError' || hero.dataset.scene !== 'video') return;
-    if (!video.error) videoPlay.hidden = false;
-  });
-}
-function selectVideo(key) {
-  const clip = footage[key];
-  if (!clip) return;
-  playRequest++;
-  video.pause();
-  clearProductFocus();
-  showScene('video');
-  hero.dataset.video = key;
-  videoError.hidden = true;
-  videoPlay.hidden = true;
-  if (selectedVideo !== key || video.error) {
-    video.poster = clip.poster;
-    video.src = clip.src;
-    video.load();
-  } else if (video.ended) video.currentTime = 0;
-  selectedVideo = key;
-  video.setAttribute('aria-label', `${clip.title} 실제 작동 영상`);
-  document.getElementById('signatureVideoCaption').textContent = clip.title;
-  document.getElementById('signatureVideoLink').href = clip.src;
-  announcement.textContent = `${clip.title} 실제 작동 영상`;
-  playSelected();
 }
 categories.forEach(group => {
   const trigger = group.querySelector('.signature-category-trigger');
@@ -246,25 +197,15 @@ productTargets.forEach(target => {
 });
 shutterButtons.forEach(button => button.addEventListener('click', () => selectShutter(button.dataset.shutterSelect)));
 shutterTargets.forEach(target => target.addEventListener('click', () => selectShutter(target.dataset.shutterPhoto)));
-shutterWatch.addEventListener('click', () => { selectVideo(selectedShutter); shutterBack.focus({ preventScroll: true }); });
-shutterBack.addEventListener('click', () => { selectShutter(selectedShutter); shutterWatch.focus({ preventScroll: true }); });
-videoPlay.addEventListener('click', playSelected);
-video.addEventListener('playing', () => { videoPlay.hidden = true; videoError.hidden = true; });
-video.addEventListener('error', () => {
-  if (!selectedVideo) return;
-  videoPlay.hidden = true;
-  videoError.hidden = false;
-});
 document.addEventListener('pointerdown', event => {
   if (!event.target.closest('.signature-showcase')) clearProductFocus();
 });
-function pauseOffscreen() { playRequest++; video.pause(); }
-document.addEventListener('visibilitychange', () => { if (document.hidden) { pauseOffscreen(); finishOrbits(); } });
-window.addEventListener('pagehide', pauseOffscreen);
+document.addEventListener('visibilitychange', () => { if (document.hidden) finishOrbits(); });
+window.addEventListener('pagehide', finishOrbits);
 reducedMotion.addEventListener('change', () => { if (reducedMotion.matches) finishOrbits(); });
 if ('IntersectionObserver' in window) {
   new IntersectionObserver(entries => {
-    if (!entries[0].isIntersecting) { pauseOffscreen(); finishOrbits(); }
+    if (!entries[0].isIntersecting) finishOrbits();
   }, { threshold: 0 }).observe(showcase);
 }
 syncSelection();
