@@ -1,0 +1,124 @@
+{
+  "passed": true,
+  "clips": [
+    {
+      "key": "standard",
+      "src": "http://127.0.0.1:8000/assets/media/archive/shutter/screen-shutter.mp4",
+      "duration": 47.291667,
+      "width": 848,
+      "height": 480,
+      "fit": "contain"
+    },
+    {
+      "key": "wire",
+      "src": "http://127.0.0.1:8000/assets/media/hero/wire-shutter-operation.mp4",
+      "duration": 140.033333,
+      "width": 720,
+      "height": 1280,
+      "fit": "contain"
+    }
+  ],
+  "layouts": [
+    {
+      "width": 1366,
+      "height": 768,
+      "scrollWidth": 1366,
+      "player": {
+        "x": 542.03125,
+        "right": 1304.53125,
+        "bottom": 744.390625,
+        "width": 762.5
+      },
+      "menu": {
+        "x": 61.46875,
+        "right": 472.03125,
+        "bottom": 658.71875
+      }
+    },
+    {
+      "width": 1366,
+      "height": 650,
+      "scrollWidth": 1366,
+      "player": {
+        "x": 542.03125,
+        "right": 1304.53125,
+        "bottom": 626.390625,
+        "width": 762.5
+      },
+      "menu": {
+        "x": 61.46875,
+        "right": 472.03125,
+        "bottom": 585.046875
+      }
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "scrollWidth": 390,
+      "player": {
+        "x": 22,
+        "right": 368,
+        "bottom": 844.203125,
+        "width": 346
+      },
+      "menu": {
+        "x": 22,
+        "right": 368,
+        "bottom": 133.921875
+      }
+    },
+    {
+      "width": 320,
+      "height": 640,
+      "scrollWidth": 320,
+      "player": {
+        "x": 22,
+        "right": 298,
+        "bottom": 701.1875,
+        "width": 276
+      },
+      "menu": {
+        "x": 22,
+        "right": 298,
+        "bottom": 133.703125
+      }
+    }
+  ],
+  "certificates": [
+    {
+      "href": "http://127.0.0.1:8000/assets/downloads/shutter-certificates/FDS-OTS24-0807-1.pdf#page=1",
+      "target": "_blank"
+    },
+    {
+      "href": "http://127.0.0.1:8000/assets/downloads/shutter-certificates/FDS-OTS25-0721-1.pdf#page=1",
+      "target": "_blank"
+    },
+    {
+      "href": "http://127.0.0.1:8000/assets/downloads/shutter-certificates/FDS-OTS26-0630-2.pdf#page=1",
+      "target": "_blank"
+    },
+    {
+      "href": "http://127.0.0.1:8000/assets/downloads/shutter-certificates/FDS-NVS24-0611-1.pdf#page=1",
+      "target": "_blank"
+    },
+    {
+      "href": "http://127.0.0.1:8000/assets/downloads/shutter-certificates/FDS-NVS26-0309-1.pdf#page=1",
+      "target": "_blank"
+    }
+  ],
+  "unavailable": [
+    "large",
+    "steel",
+    "vision"
+  ],
+  "keyboard": true,
+  "rapidSwitch": true,
+  "networkRecovery": true,
+  "preserved": {
+    "productMenus": 5,
+    "shutterPhotos": 4,
+    "installationCertificates": 60
+  },
+  "errors": [],
+  "bad": []
+}

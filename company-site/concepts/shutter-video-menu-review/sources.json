@@ -1,0 +1,38 @@
+{
+  "general": {
+    "certificate": "FDS-OTS24-0807-1",
+    "video": "assets/media/archive/shutter/screen-shutter.mp4",
+    "source": "assets/자료/방화셔터 자료/셔터 영상.mp4",
+    "scope": "Full existing general-shutter footage; previously displayed as screen shutter."
+  },
+  "wire": {
+    "certificate": "FDS-OTS26-0630-2",
+    "video": "assets/media/hero/wire-shutter-operation.mp4",
+    "source": "assets/자료/방화셔터 자료/권취형 셔터.mp4",
+    "scope": "Existing full web conversion; documented in SYSTEM-SOURCES.md and hero-categories-review/media-provenance.json."
+  },
+  "unavailable": [
+    "FDS-OTS25-0721-1",
+    "FDS-NVS24-0611-1",
+    "FDS-NVS26-0309-1"
+  ],
+  "files": {
+    "assets/media/archive/shutter/screen-shutter.mp4": {
+      "bytes": 1598145,
+      "sha256": "c414ce6635634d8f5b5f841754fb370320eaa4a267024ea6ad17fd0b0cf3de7a"
+    },
+    "assets/media/archive/shutter/screen-shutter-poster.jpg": {
+      "bytes": 37029,
+      "sha256": "46e47acfacc4171e44bc3a929dc40918d7585b8f7a241925d7ab3b57580fd8e6"
+    },
+    "assets/media/hero/wire-shutter-operation.mp4": {
+      "bytes": 22199779,
+      "sha256": "1da8be288a136c026a45eed30d947a9d382083e0f63321f5fdd4d1dc0afb437a"
+    },
+    "assets/media/hero/wire-shutter-poster.jpg": {
+      "bytes": 152662,
+      "sha256": "295523b0cc628a73a4bd618cc2615f74b814e1dcb4d0e7ac6514cc69e671505e"
+    }
+  },
+  "media_changed": false
+}
