@@ -1,0 +1,41 @@
+{
+  "passed": true,
+  "source_commit": "a0577bfcc04f163b839a5cd212a902f0eafc55e0",
+  "files": [
+    {
+      "path": "company-site/support.html",
+      "status": 200,
+      "sha256": "41a8b3aee2bfa4125587ebe025e96d18fd36cc8993e276834088cb3862fed3d8"
+    },
+    {
+      "path": "company-site/archive.html",
+      "status": 200,
+      "sha256": "b54a00c09ef594b1790862d00b9e834ca48b55370494b0d1aa7c80bbf734cc7c"
+    },
+    {
+      "path": "company-site/index.html",
+      "status": 200,
+      "sha256": "5834758f6f682ac1511302a434c58addda0f8b262d9095447efbdf76b3dd0905"
+    },
+    {
+      "path": "company-site/about.html",
+      "status": 200,
+      "sha256": "43c4552c912704bd36f5bfd22eba4b544db3e058544855c0f3a9d7c39581feee"
+    },
+    {
+      "path": "company-site/release.json",
+      "status": 200,
+      "sha256": "f48232f3f6edb04a20ca8d9abf2fc5f5c6e05184163f2de8f922c4e25e6b17c9"
+    },
+    {
+      "path": "company-site/assets/css/home.css",
+      "status": 200,
+      "sha256": "a5b92056357f51df66a51ab931ccbb8dee767ac845fb3eb453e10b62c5d1e2cb"
+    },
+    {
+      "path": "company-site/assets/js/shutter-videos.js",
+      "status": 200,
+      "sha256": "4c3e80f4a44ff86f9ceb341ece43d91adec662343b1960d7e2b676ec1c5b0691"
+    }
+  ]
+}

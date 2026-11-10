@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "base": "https://jay-source-2026.github.io/Jay-s-Repository/company-site/",
+  "playback": [
+    "standard",
+    "wire"
+  ],
+  "pendingSelection": "steel",
+  "deletedSection": true,
+  "mobileOverflow": false,
+  "errors": []
+}
