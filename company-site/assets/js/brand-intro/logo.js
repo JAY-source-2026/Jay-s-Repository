@@ -1,5 +1,5 @@
 import * as T from '../vendor/three.module.min.js';
-import {GROUND,phase,mix,mesh} from './common.js?v=20261111s4';
+import {GROUND,phase,mix,mesh} from './common.js?v=20261111s5';
 
 function smoothBevelNormals(geo){
   geo.computeVertexNormals();
@@ -31,14 +31,12 @@ export async function createLogo(scene,blue,edge){
     for(const c of source.curves){const a=point(c[0],c[1]),b=point(c[2],c[3]),end=point(c[4],c[5]);p.bezierCurveTo(a.x,a.y,b.x,b.y,end.x,end.y);}p.closePath();return p;
   };
   const shape=(name,holes=[])=>{const s=path(name);for(const [key,scale=1]of holes)s.holes.push(path(key,T.Path,scale));return s;};
-  const extrude=s=>{const g=new T.ExtrudeGeometry(s,{depth:.14,bevelEnabled:true,bevelThickness:.008,bevelSize:.006,bevelSegments:3,curveSegments:16});g.translate(0,0,-.07);smoothBevelNormals(g);return g;};
+  const extrude=s=>{const g=new T.ExtrudeGeometry(s,{depth:.14,bevelEnabled:true,bevelThickness:.008,bevelSize:.006,bevelSegments:4,curveSegments:24});g.translate(0,0,-.07);smoothBevelNormals(g);return g;};
   const root=new T.Group();scene.add(root);
   const solid=mesh(extrude(shape('outer')),[blue,edge],root);
   const hollow=mesh(extrude(shape('outer',[['hole']])),[blue,edge],root);
   const plug=mesh(extrude(shape('hole')),[blue,edge],root);
   const dotSolid=mesh(extrude(shape('dot')),[blue,edge],root);
-  const cutScale=.60,innerDot=dot.map(p=>dotCenter.clone().add(p.clone().sub(dotCenter).multiplyScalar(cutScale)));
-  const dotRing=mesh(extrude(shape('dot',[['dot',cutScale]])),[blue,edge],root);
   root.traverse(o=>{if(o.isMesh)o.receiveShadow=false;});
   const source=plug.geometry.attributes.position.array.slice(),target=source.slice();
   const b=data.bounds,holeRX=(b.hole.right-b.hole.left)*data.scale/2,holeRY=(b.hole.bottom-b.hole.top)*data.scale/2;
@@ -51,12 +49,13 @@ export async function createLogo(scene,blue,edge){
   const pressed=outer.map(p=>rotate(p,pressAngle)),minY=Math.min(...pressed.map(p=>p.y));
   const foot=pressed.filter(p=>p.y<minY+.045),footLeft=Math.min(...foot.map(p=>p.x)),footRight=Math.max(...foot.map(p=>p.x));
   const fireX=-.7,pressX=fireX-(footLeft+footRight)/2;
-  let previous=-1;
+  let previous=-1,lastTime=0;
   function floorCenter(angle,scale=1){return GROUND-Math.min(...outer.map(p=>rotate(p,angle).y))*scale+.014;}
   function update(t,spit){
+    lastTime=t;
     solid.visible=t<10.15;hollow.visible=t>=10.15;
     plug.visible=t>=10.15&&spit<1;
-    dotSolid.visible=spit===1&&t<14.85;dotRing.visible=t>=14.85;
+    dotSolid.visible=spit===1;
     if(spit!==previous){
       const pos=plug.geometry.attributes.position;
       for(let i=0;i<source.length;i+=3){pos.array[i]=mix(source[i],target[i],spit);pos.array[i+1]=mix(source[i+1],target[i+1],spit)+Math.sin(spit*Math.PI)*.55;pos.array[i+2]=source[i+2]+Math.sin(spit*Math.PI)*.85;}
@@ -65,14 +64,14 @@ export async function createLogo(scene,blue,edge){
   }
   const ray=new T.Raycaster();
   function filledAt(local,objects){root.updateMatrixWorld(true);const p=root.localToWorld(new T.Vector3(local.x,local.y,4));const q=root.getWorldQuaternion(new T.Quaternion());ray.set(p,new T.Vector3(0,0,-1).applyQuaternion(q));return objects.filter(o=>o.visible).some(o=>ray.intersectObject(o).length>0);}
-  function probe(){return{dCenterFilled:filledAt(holeCenter,[solid,hollow,plug]),oCenterFilled:filledAt(dotCenter,[dotSolid,dotRing]),solidD:solid.visible,solidO:dotSolid.visible,dotRing:dotRing.visible};}
-  const seedContour=dot.map(p=>new T.Vector2((p.x-dotCenter.x)/dotRX,(p.y-dotCenter.y)/dotRY));
-  return{root,solid,hollow,plug,dotSolid,dotRing,dotCenter,dotRX,dotRY,cutScale,pressAngle,pressX,footLeft,footRight,floorCenter,update,probe,seedContour,sourceSize:[data.width,data.height]};
+  function probe(){return{dCenterFilled:filledAt(holeCenter,[solid,hollow,plug]),oCenterFilled:filledAt(dotCenter,[dotSolid]),solidD:solid.visible,solidO:dotSolid.visible&&lastTime<14.85,remainingOInLogo:dotSolid.visible&&lastTime<14.85,dotRing:false};}
+  const seedContour=path('dot').getPoints(32).map(p=>new T.Vector2((p.x-dotCenter.x)/dotRX,(p.y-dotCenter.y)/dotRY));
+  return{root,solid,hollow,plug,dotSolid,dotCenter,dotRX,dotRY,pressAngle,pressX,footLeft,footRight,floorCenter,update,probe,seedContour,sourceSize:[data.width,data.height]};
 }
 
-// One opaque extracted piece: solid at first, then its middle opens before it
-// becomes the toroidal precursor used by the sourced jacket mesh.
-export function createSeed(material,contour){
+// The actual logo O keeps its mesh identity as its entire silhouette opens
+// and rounds into the jacket. There is no second circle or leftover O ring.
+export function createSeed(material,contour,existingMesh){
   const geo=new T.TorusGeometry(1.13,.245,48,192),target=geo.attributes.position.array.slice();
   const radii=new Map();
   function contourRadius(a){
@@ -87,7 +86,9 @@ export function createSeed(material,contour){
     radii.set(id,radius);return radius;
   }
   const factors=Array.from({length:target.length/3},(_,i)=>contourRadius(Math.atan2(target[i*3+1],target[i*3])));
-  const seed=new T.Mesh(geo,material);seed.castShadow=true;let previous=-1;
+  const seed=existingMesh||new T.Mesh(geo,material);
+  if(existingMesh){seed.geometry.dispose();seed.geometry=geo;seed.material=material;}
+  seed.name='logo-o-to-jacket';seed.castShadow=true;seed.receiveShadow=false;let previous=-1;
   function update(open){
     if(open===previous)return;previous=open;
     const pos=geo.attributes.position;
