@@ -13,4 +13,3 @@ export function texture(size, draw, repeat=1) {
 export function random(seed=19){return()=>{seed=(seed*1664525+1013904223)>>>0;return seed/4294967296;};}
 export function material(color,roughness=.5,metalness=0){return new T.MeshStandardMaterial({color,roughness,metalness});}
 export function mesh(geometry,mat,parent){const m=new T.Mesh(geometry,mat);m.castShadow=true;m.receiveShadow=true;parent.add(m);return m;}
-
