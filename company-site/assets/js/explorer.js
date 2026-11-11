@@ -245,6 +245,12 @@ $('hero3d').addEventListener('webglcontextlost',event=>{event.preventDefault();f
 details(null);
 function startExplorer(){
  if(loading)return loading;
+ // Give the opening film its own renderer; initialize the technical model
+ // when the homepage becomes interactive again.
+ if(window.doencIntroBoot?.active){
+  document.addEventListener('doenc:intro-finished',()=>void startExplorer(),{once:true});
+  return;
+ }
  loading=(async()=>{
   try{
    const [records,{initHero3D}]=await Promise.all([loadCertificates(),import('./hero3d.js?v=20261110r1')]);populate(records);

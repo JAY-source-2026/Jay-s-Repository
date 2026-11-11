@@ -1,0 +1,24 @@
+/* The intro reveals the existing homepage; its final hero stays unchanged. */
+html.intro-active,html.intro-active body { overflow: hidden; }
+html.intro-active body,html.intro-active #siteHeader { width: calc(100% - var(--intro-scrollbar-gap,0px)); }
+.brand-intro[hidden] { display: none !important; }
+.brand-intro { position: fixed; inset: 0; z-index: 2000; isolation: isolate; color: #e9f1f8; font-family: "Pretendard Variable", sans-serif; }
+.intro-backdrop { position: absolute; inset: 0; background: #071321; }
+.intro-stage { position: absolute; inset: 0; pointer-events: none; }
+.intro-stage canvas { display: block; width: 100%; height: 100%; }
+.intro-products { position: absolute; inset: 0; pointer-events: none; }
+.intro-product { position: absolute; left: 0; top: 0; display: block; max-width: none; height: auto; opacity: 0; transform-origin: 50% 50%; will-change: transform; }
+.intro-product-shadow { position: absolute; background: radial-gradient(ellipse, #0008, transparent 68%); transform: translate(-50%,-50%); pointer-events: none; }
+.intro-skip { position: absolute; right: max(28px,env(safe-area-inset-right)); top: max(24px,env(safe-area-inset-top)); z-index: 5; min-height: 44px; padding: 11px 17px; display: flex; align-items: center; gap: 22px; color: #edf4fa; background: #071321bb; border: 1px solid #91a9be73; border-radius: 3px; font: inherit; font-size: 12px; letter-spacing: .04em; cursor: pointer; backdrop-filter: blur(8px); }
+.intro-skip:hover { background: #203c55; border-color: #c7def0; }
+.intro-skip:focus-visible,.intro-pause:focus-visible { outline: 2px solid #c3e1ff; outline-offset: 5px; }
+.intro-controls { position: absolute; left: max(28px,env(safe-area-inset-left)); bottom: max(20px,env(safe-area-inset-bottom)); display: flex; align-items: center; gap: 18px; }
+.intro-pause { border: 0; color: #9eb3c6; background: none; min-width: 44px; min-height: 44px; font: inherit; font-size: 11px; cursor: pointer; }
+.intro-track { width: 120px; height: 1px; background: #ffffff21; }
+.intro-progress { width: 100%; height: 1px; background: #bbd9ef; transform: scaleX(0); transform-origin: left; }
+.intro-active #siteHeader,.intro-active .signature-copy,.intro-active .signature-categories,.intro-active .signature-footer { opacity: var(--intro-reveal,0); }
+.intro-active #signatureProducts .signature-product { visibility: hidden; }
+.intro-active #signatureProducts .signature-product-target::after { opacity: 0; }
+.intro-active .signature-products::before { opacity: var(--intro-reveal,0); }
+@media(max-width:760px){.intro-skip { right: max(18px,env(safe-area-inset-right)); top: max(18px,env(safe-area-inset-top)); gap: 16px; font-size: 11px; padding-inline: 14px; }.intro-controls { left: 18px; bottom: max(12px,env(safe-area-inset-bottom)); }.intro-track { width: 90px; }}
+@media(prefers-reduced-motion:reduce){.brand-intro { display: none !important; }}

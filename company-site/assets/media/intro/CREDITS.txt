@@ -1,0 +1,10 @@
+Studio Small 09 HDRI
+Author: Sergej Majboroda
+Source: https://polyhaven.com/a/studio_small_09
+License: CC0
+Downloaded 1K (previous revision) and 2K (current revision) HDR; used for studio illumination and reflections only.
+
+HDRLoader.js
+Three.js r185, MIT license (THREE-LICENSE.txt).
+Source: https://github.com/mrdoob/three.js/blob/r185/examples/jsm/loaders/HDRLoader.js
+Only the import path is changed to the existing local Three.js r185.

@@ -65,9 +65,18 @@
     <link rel="stylesheet" href="assets/css/contact.css?v=20261111r1">
     <link rel="stylesheet" href="assets/css/material-details.css?v=20261109r3">
     <link rel="stylesheet" href="assets/css/signature.css?v=20261110r1">
+    <link rel="stylesheet" href="assets/css/brand-intro.css?v=20261111s4">
+    <script src="assets/js/intro-boot.js?v=20261111s4"></script>
     <noscript><style>.reveal{opacity:1!important;transform:none!important}</style></noscript>
 </head>
 <body id="top" class="home-page">
+    <section id="brandIntro" class="brand-intro" role="region" aria-label="디오이엔씨 브랜드 인트로" hidden>
+        <div class="intro-backdrop" id="introBackdrop"></div>
+        <div class="intro-stage" id="introStage" aria-hidden="true"></div>
+        <div class="intro-products" id="introProducts" aria-hidden="true"></div>
+        <button class="intro-skip" id="introSkip" type="button" aria-label="영상 건너뛰고 홈페이지 보기">영상 SKIP <span aria-hidden="true">↗</span></button>
+        <div class="intro-controls"><button class="intro-pause" id="introPause" type="button" aria-label="인트로 일시정지">일시정지</button><div class="intro-track" aria-hidden="true"><div class="intro-progress" id="introProgress"></div></div></div>
+    </section>
     <a href="#main" class="skip-link">본문 바로가기</a>
 
     <!-- ===== Header (공유) ===== -->
@@ -508,8 +517,9 @@
 
     <script src="assets/js/main.js?v=20261111r1"></script>
     <script type="module" src="assets/js/signature.js?v=20261110r1"></script>
+    <script type="module" src="assets/js/brand-intro/player.js?v=20261111s4"></script>
     <script type="module" src="assets/js/materials.js?v=20261111r1"></script>
     <script type="module" src="assets/js/shutter-videos.js?v=20261110r2"></script>
-    <script type="module" src="assets/js/explorer.js?v=20261111r1"></script>
+    <script type="module" src="assets/js/explorer.js?v=20261111s4"></script>
 </body>
 </html>
