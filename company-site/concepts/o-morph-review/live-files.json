@@ -1,0 +1,47 @@
+{
+  "passed": true,
+  "files": [
+    {
+      "path": "company-site/release.json",
+      "status": 200,
+      "expected": "300b104aa6500157f098ad9f7c4346506ccf7423176fb86b64577c2a757d6f65",
+      "sha256": "300b104aa6500157f098ad9f7c4346506ccf7423176fb86b64577c2a757d6f65",
+      "matches": true
+    },
+    {
+      "path": "company-site/index.html",
+      "status": 200,
+      "expected": "9119fca48990e325badc70d95d24e9200d6e20d034ae7c32ae6e035242869a3a",
+      "sha256": "9119fca48990e325badc70d95d24e9200d6e20d034ae7c32ae6e035242869a3a",
+      "matches": true
+    },
+    {
+      "path": "company-site/assets/js/brand-intro/fire.js",
+      "status": 200,
+      "expected": "06c270ff5d8ce5d2c8b6c4330d89700bb8cc938c24c930392de9d1ab78ea55f8",
+      "sha256": "06c270ff5d8ce5d2c8b6c4330d89700bb8cc938c24c930392de9d1ab78ea55f8",
+      "matches": true
+    },
+    {
+      "path": "company-site/assets/js/brand-intro/player.js",
+      "status": 200,
+      "expected": "0f07ef361a15bf0ea941a6ace81373deff273a386a5b7722305154d1e02d3651",
+      "sha256": "0f07ef361a15bf0ea941a6ace81373deff273a386a5b7722305154d1e02d3651",
+      "matches": true
+    },
+    {
+      "path": "company-site/assets/js/brand-intro/logo.js",
+      "status": 200,
+      "expected": "85db0ca7d15a5c9885b4275b0d9afea71bb1ebbd27753aa71a58aa79b33fb6e2",
+      "sha256": "85db0ca7d15a5c9885b4275b0d9afea71bb1ebbd27753aa71a58aa79b33fb6e2",
+      "matches": true
+    },
+    {
+      "path": "company-site/assets/js/brand-intro/scene.js",
+      "status": 200,
+      "expected": "ca603dcedbfd750ecdaf7bf2991aff7cc5503e4f21b2c5741313d2b4fb49ed46",
+      "sha256": "ca603dcedbfd750ecdaf7bf2991aff7cc5503e4f21b2c5741313d2b4fb49ed46",
+      "matches": true
+    }
+  ]
+}
