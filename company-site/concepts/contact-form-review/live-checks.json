@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "base": "https://jay-source-2026.github.io/Jay-s-Repository/company-site/",
+  "desktop": true,
+  "mobile": true,
+  "copy": true,
+  "departmentRouting": true,
+  "errors": [],
+  "bad": []
+}

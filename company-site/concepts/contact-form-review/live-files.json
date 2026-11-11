@@ -1,0 +1,45 @@
+{
+  "passed": true,
+  "files": [
+    {
+      "path": "company-site/release.json",
+      "status": 200,
+      "sha256": "f59bafc7e62330d4bcca4409607c69bb2abe2e640b84e3c2ea422418c9a9aacc"
+    },
+    {
+      "path": "company-site/index.html",
+      "status": 200,
+      "sha256": "53c3fe273e00701261de4c3f7b8ff55e7dafd5b2ea626126c9f3e6701bb42378"
+    },
+    {
+      "path": "company-site/assets/css/contact.css",
+      "status": 200,
+      "sha256": "3c0e1866a81196169d90e08e1ae3f9d51a8cae26aea39a982168a06975807619"
+    },
+    {
+      "path": "company-site/assets/css/home.css",
+      "status": 200,
+      "sha256": "74effed9fca551fa54e196cc0a46c00f18dee56c9fb498f6d9f75d3d6ebf6aad"
+    },
+    {
+      "path": "company-site/assets/js/explorer.js",
+      "status": 200,
+      "sha256": "4294943331346651bc65753077361f7f65b9dd1525ab012a0fd2c2461122a13c"
+    },
+    {
+      "path": "company-site/assets/js/product-data.js",
+      "status": 200,
+      "sha256": "7426a1c91abfc92e20e991dec7111f8f4a2a5226b212ace55e4742a8aa2639e2"
+    },
+    {
+      "path": "company-site/assets/js/main.js",
+      "status": 200,
+      "sha256": "8e8ed69ea40c7d1b931f46f57c81adda71ae8c702281528b402ca20feea87342"
+    },
+    {
+      "path": "company-site/assets/js/materials.js",
+      "status": 200,
+      "sha256": "e7ecfbb8a828abf77c7291d25b5f0d3488b0216e69c09415911f569e61abe9be"
+    }
+  ]
+}
