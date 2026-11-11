@@ -1,0 +1,52 @@
+{
+  "revision": "20261111s4",
+  "request": "Connect the logo story to the currently published homepage; keep the published hero, high-resolution products and copy; add initial top-right SKIP; improve and shrink/flatten D; add a subtle landing impact.",
+  "previousPublicHtmlSHA256": "53c3fe273e00701261de4c3f7b8ff55e7dafd5b2ea626126c9f3e6701bb42378",
+  "homepage": "Existing signature hero HTML, signature.css and signature.js retained. Intro overlay is removed after the moving jacket reaches the actual image rectangle; no navigation/reload or duplicate final hero.",
+  "products": {
+    "board": "assets/media/hero/doenc-board-isolated-v1.webp",
+    "boardPixels": [
+      1510,
+      1041
+    ],
+    "jacket": "assets/media/hero/doenc-jacket-isolated-v1.webp",
+    "jacketPixels": [
+      1312,
+      1199
+    ],
+    "method": "Reuse the exact published image files for the moving product and final board. The closed blue center opens in 3D, then transitions to the published jacket image; its image plane rotates while traveling to the measured homepage position. This is a hybrid 3D/image animation, not a new scanned product mesh."
+  },
+  "logo": {
+    "source": "assets/images/doenc_mark.png",
+    "paths": "assets/media/intro/logo-vector.json",
+    "method": "Cubic vector fit with contour smoothing at 2 original pixels and fitting error 0.7 original pixels; silhouette comparison in outline-check.json; original overall proportion, position and holes retained. Satin finish; initial scale 0.78; extrusion depth reduced from 0.38 to 0.14 scene units. Self-shadow reception removed from logo faces to prevent triangle artifacts."
+  },
+  "impact": "Contact at 5.35s; brief decaying camera displacement and radial ground ripple. Flame and embers remain clipped under the actual D edge and do not reignite.",
+  "behavior": "First home visit within a tab plays intro. Return visits, direct section hashes and reduced-motion preferences show homepage. ?intro=replay forces an eligible home visit to replay; ?intro=off opens homepage directly. SKIP works before scene is loaded. Errors restore homepage. GPU resources are released on finish/skip and the technical 3D initializes afterward.",
+  "durationSeconds": 28,
+  "externalAssets": [
+    {
+      "file": "assets/media/intro/studio_small_09_2k.hdr",
+      "source": "https://polyhaven.com/a/studio_small_09",
+      "author": "Sergej Majboroda",
+      "license": "CC0",
+      "sha256": "36724313c0fc66dab126ff90f081b85a0b1ef47be65eda1417bd20b033f0573f"
+    },
+    {
+      "file": "assets/js/brand-intro/HDRLoader.js",
+      "source": "https://github.com/mrdoob/three.js/blob/r185/examples/jsm/loaders/HDRLoader.js",
+      "license": "MIT",
+      "change": "local Three.js import path"
+    }
+  ],
+  "preservedInputs": {
+    "assets/css/signature.css": "451bb2902901b0fe940fb3a80bb8c96fecce80b0deef3d31d0ddc4355ae844fa",
+    "assets/js/signature.js": "cba0ea51009ea7d02d6c9d90c73429c7a8bc8dbeb92e35dd37ab518d4d13fa5c",
+    "assets/js/main.js": "8e8ed69ea40c7d1b931f46f57c81adda71ae8c702281528b402ca20feea87342",
+    "assets/js/installation-jacket.js": "f43d0c692782e776d41e719df109393762e0bba05c0efd195ecbbd2dedd657c3",
+    "assets/media/hero/doenc-board-isolated-v1.webp": "193b89604d12ee970e2505b6242d6854d3fb13aece2e080abeb1b00308930bf8",
+    "assets/media/hero/doenc-jacket-isolated-v1.webp": "17115f7a3ffd5eaa13a8aceebd31af015295dfb668785efbc5ad60ef73a5308d",
+    "assets/images/doenc_mark.png": "c759b0d5a428f2186393fe774a8aaa2e29ce76140d08f7aadb7f1885e6c1ce15"
+  },
+  "backupBefore": ".local-backups/doenc-home-intro-s4-before"
+}

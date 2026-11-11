@@ -1,0 +1,14 @@
+{
+  "passed": true,
+  "source": "assets/images/doenc_mark.png",
+  "width": 384,
+  "height": 220,
+  "vector": {
+    "intersection": 30151,
+    "union": 30548,
+    "mismatch": 397,
+    "interiorMismatch": 0,
+    "iou": 0.987004059185544
+  },
+  "method": "Cubic Bezier fit to original logo contours; additional 2-source-pixel contour smoothing removes compression waviness; max fitting distance 0.7 source pixels. Original proportions, holes and placement are preserved."
+}
