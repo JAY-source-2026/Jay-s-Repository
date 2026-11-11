@@ -42,7 +42,7 @@ if(boot.active){
   if(boot.active){
    for(const [src,key]of [[sourceBoard,'board'],[sourceJacket,'jacket']]){const img=new Image();img.src=src.currentSrc;img.alt='';img.className=`intro-product intro-${key}`;img.draggable=false;products.append(img);if(key==='board')board=img;else jacket=img;}
    shadow=document.createElement('div');shadow.className='intro-product-shadow';products.prepend(shadow);
-   const {createScene}=await import('./scene.js?v=20261111s4');
+   const {createScene}=await import('./scene.js?v=20261111s5');
    if(boot.active){studio=await createScene(stage,()=>boot.finish('webgl-lost'));if(boot.active){ready=true;boot.markReady();studio.resize(overlay.clientWidth,overlay.clientHeight);paint();resizeObserver=new ResizeObserver(resize);resizeObserver.observe(overlay);schedule();}else{studio.dispose();studio=null;}}
   }
  }catch(e){errors.push(e.message);boot.finish('unavailable');}

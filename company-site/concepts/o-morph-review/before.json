@@ -1,0 +1,18 @@
+{
+  "revision": "20261111s5",
+  "backup": ".local-backups/doenc-home-intro-s5-before",
+  "inputs": {
+    "index.html": "119d38d9604d6ca92c60efec702c6d363666f118ef1905921a31b08ec358a96f",
+    "PLAN.md": "1d64b11f24b7eb582d6e7632289225fa1c58faf94a20b4b3dc6ad14b5a6cb82b",
+    "SYSTEM-SOURCES.md": "af281c522aef020a6c1282bbff6d09cbfa8930795840d36b0a2e0794973da641",
+    "assets/js/intro-boot.js": "35503ed60ada62b37f0b19ae9bf7fc0c015c5abc2f85e4617976b7e5ee682548",
+    "assets/css/brand-intro.css": "0a78668dc5614925f63a04f03a30dfcc6a48a60e2901de5ecef7a4d76bb92864",
+    "assets/js/explorer.js": "9e52a8189a503bc525069015e87dc2f66ce393fc1132d9ea15a42554b8311c04",
+    "assets/css/signature.css": "451bb2902901b0fe940fb3a80bb8c96fecce80b0deef3d31d0ddc4355ae844fa",
+    "assets/js/signature.js": "cba0ea51009ea7d02d6c9d90c73429c7a8bc8dbeb92e35dd37ab518d4d13fa5c",
+    "assets/images/doenc_mark.png": "c759b0d5a428f2186393fe774a8aaa2e29ce76140d08f7aadb7f1885e6c1ce15",
+    "assets/media/hero/doenc-board-isolated-v1.webp": "193b89604d12ee970e2505b6242d6854d3fb13aece2e080abeb1b00308930bf8",
+    "assets/media/hero/doenc-jacket-isolated-v1.webp": "17115f7a3ffd5eaa13a8aceebd31af015295dfb668785efbc5ad60ef73a5308d",
+    "assets/media/intro/logo-vector.json": "378b1046813b56af7e6ed6a7dc258adcb2c64793de39a7c484d4ba8ee4e94fee"
+  }
+}

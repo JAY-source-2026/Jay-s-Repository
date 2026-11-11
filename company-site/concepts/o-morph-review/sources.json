@@ -1,0 +1,21 @@
+{
+  "revision": "20261111s5",
+  "request": "Slightly smaller and sharper logo; the logo O itself becomes the jacket, without a second circle emerging from its center. Commit and deploy.",
+  "logoSize": "Initial D scale 0.78 -> 0.70; formed mark and DOENC wordmark scaled by 0.90; original outline and proportions retained.",
+  "quality": "Vector curve segments 16 -> 24, bevel segments 3 -> 4; wordmark canvas 1536x420 -> 2048x560; supersampling target 2x (up to 2.25x on high-DPI devices), capped at 6 million rendered pixels.",
+  "oMorph": "createSeed reuses the actual logo.dotSolid mesh; there is one O object from logo formation through transformation. Full original O extent is retained at departure. The separate dotRing and 60% internal extracted piece are removed. The whole solid oval moves, grows and opens into a ring, then transitions to the same published high-resolution jacket image.",
+  "timing": "Original D -> O separation is retained. Whole O leaves from 14.85s, its geometry opens from 15.3s to 18.3s, then becomes the jacket; existing rolling handoff ends at 28s.",
+  "preserved": "Current homepage hero, board/jacket images, SKIP, fire pressure and impact, technical 3D, session/reduced-motion behavior, original logo file and vector contours.",
+  "preservedInputs": {
+    "assets/js/intro-boot.js": "35503ed60ada62b37f0b19ae9bf7fc0c015c5abc2f85e4617976b7e5ee682548",
+    "assets/css/brand-intro.css": "0a78668dc5614925f63a04f03a30dfcc6a48a60e2901de5ecef7a4d76bb92864",
+    "assets/js/explorer.js": "9e52a8189a503bc525069015e87dc2f66ce393fc1132d9ea15a42554b8311c04",
+    "assets/css/signature.css": "451bb2902901b0fe940fb3a80bb8c96fecce80b0deef3d31d0ddc4355ae844fa",
+    "assets/js/signature.js": "cba0ea51009ea7d02d6c9d90c73429c7a8bc8dbeb92e35dd37ab518d4d13fa5c",
+    "assets/images/doenc_mark.png": "c759b0d5a428f2186393fe774a8aaa2e29ce76140d08f7aadb7f1885e6c1ce15",
+    "assets/media/hero/doenc-board-isolated-v1.webp": "193b89604d12ee970e2505b6242d6854d3fb13aece2e080abeb1b00308930bf8",
+    "assets/media/hero/doenc-jacket-isolated-v1.webp": "17115f7a3ffd5eaa13a8aceebd31af015295dfb668785efbc5ad60ef73a5308d",
+    "assets/media/intro/logo-vector.json": "378b1046813b56af7e6ed6a7dc258adcb2c64793de39a7c484d4ba8ee4e94fee"
+  },
+  "backupBefore": ".local-backups/doenc-home-intro-s5-before"
+}

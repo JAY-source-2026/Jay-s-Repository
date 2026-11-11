@@ -1,0 +1,2555 @@
+{
+  "passed": true,
+  "revision": "20261111s5",
+  "states": [
+    {
+      "active": true,
+      "reason": null,
+      "ready": true,
+      "elapsed": 2,
+      "paused": true,
+      "duration": 28,
+      "errors": [],
+      "frame": {
+        "time": 2,
+        "mobile": false,
+        "press": 0,
+        "stand": 0,
+        "spit": 0,
+        "opening": 0,
+        "oTravel": 0,
+        "oTransform": {
+          "sameLogoObject": true,
+          "objectId": "0856787e-78b3-412f-837c-eeab40213b38",
+          "visible": false,
+          "remainingO": false,
+          "sourceScale": 0.453508578026252,
+          "scale": 0.453508578026252
+        },
+        "logoScale": 0.7,
+        "logoDepth": 0.14,
+        "fire": 1,
+        "fireCompression": {
+          "pressing": false,
+          "extinct": false,
+          "height": 4.4,
+          "compression": 0,
+          "underSide": 2.5163982396675326,
+          "ceiling": 100,
+          "flameTop": 2.612,
+          "emberTop": 3.232787715911865,
+          "power": 1
+        },
+        "impact": {
+          "active": false,
+          "age": -3.3499999999999996,
+          "shakeX": 0,
+          "shakeY": 0
+        },
+        "seedScreen": {
+          "x": 336.37851800529546,
+          "y": 76.5965184650624,
+          "height": 50.42117339513561
+        },
+        "quality": {
+          "pixelRatio": 2,
+          "width": 2732,
+          "height": 1536,
+          "shadow": 2048,
+          "hdr": "2k",
+          "wordmarkWidth": 2048,
+          "curveSegments": 24,
+          "pixelBudget": 6000000
+        },
+        "travel": 0,
+        "reveal": 0,
+        "jacket": {
+          "x": 306.0332980537276,
+          "y": 48.864873097737814,
+          "width": 60.69043990313572,
+          "height": 55.46329073464918,
+          "angle": -507.40996925546364,
+          "opacity": 0
+        },
+        "targetJacket": {
+          "x": 974.3883056640625,
+          "y": 143.90625,
+          "width": 338.234375,
+          "height": 309.09375
+        },
+        "board": {
+          "x": 558.7908325195312,
+          "y": 193.984375,
+          "width": 355.109375,
+          "height": 244.8125,
+          "opacity": 0
+        },
+        "imageSources": [
+          "assets/media/hero/doenc-board-isolated-v1.webp",
+          "assets/media/hero/doenc-jacket-isolated-v1.webp"
+        ]
+      },
+      "scene": {
+        "time": 2,
+        "mobile": false,
+        "press": 0,
+        "stand": 0,
+        "spit": 0,
+        "opening": 0,
+        "oTravel": 0,
+        "oTransform": {
+          "sameLogoObject": true,
+          "objectId": "0856787e-78b3-412f-837c-eeab40213b38",
+          "visible": false,
+          "remainingO": false,
+          "sourceScale": 0.453508578026252,
+          "scale": 0.453508578026252
+        },
+        "logoScale": 0.7,
+        "logoDepth": 0.14,
+        "fire": 1,
+        "fireCompression": {
+          "pressing": false,
+          "extinct": false,
+          "height": 4.4,
+          "compression": 0,
+          "underSide": 2.5163982396675326,
+          "ceiling": 100,
+          "flameTop": 2.612,
+          "emberTop": 3.232787715911865,
+          "power": 1
+        },
+        "impact": {
+          "active": false,
+          "age": -3.3499999999999996,
+          "shakeX": 0,
+          "shakeY": 0
+        },
+        "seedScreen": {
+          "x": 336.37851800529546,
+          "y": 76.5965184650624,
+          "height": 50.42117339513561
+        },
+        "quality": {
+          "pixelRatio": 2,
+          "width": 2732,
+          "height": 1536,
+          "shadow": 2048,
+          "hdr": "2k",
+          "wordmarkWidth": 2048,
+          "curveSegments": 24,
+          "pixelBudget": 6000000
+        },
+        "logoCut": {
+          "dCenterFilled": true,
+          "oCenterFilled": false,
+          "solidD": true,
+          "solidO": false,
+          "remainingOInLogo": false,
+          "dotRing": false
+        },
+        "seedCenterFilled": true
+      }
+    },
+    {
+      "active": true,
+      "reason": null,
+      "ready": true,
+      "elapsed": 4.9,
+      "paused": true,
+      "duration": 28,
+      "errors": [],
+      "frame": {
+        "time": 4.9,
+        "mobile": false,
+        "press": 0.5931268750000013,
+        "stand": 0,
+        "spit": 0,
+        "opening": 0,
+        "oTravel": 0,
+        "oTransform": {
+          "sameLogoObject": true,
+          "objectId": "0856787e-78b3-412f-837c-eeab40213b38",
+          "visible": false,
+          "remainingO": false,
+          "sourceScale": 0.453508578026252,
+          "scale": 0.453508578026252
+        },
+        "logoScale": 0.7,
+        "logoDepth": 0.14,
+        "fire": 1,
+        "fireCompression": {
+          "pressing": true,
+          "extinct": false,
+          "height": 1.7212264405180222,
+          "compression": 0.6088121726095405,
+          "underSide": -0.04377355948197792,
+          "ceiling": -0.06177355948197792,
+          "flameTop": -0.06677355948197783,
+          "emberTop": -0.11730719852447513,
+          "power": 1
+        },
+        "impact": {
+          "active": false,
+          "age": -0.4499999999999993,
+          "shakeX": 0,
+          "shakeY": 0
+        },
+        "seedScreen": {
+          "x": 833.0401422146342,
+          "y": 272.79176090670467,
+          "height": 51.57871263303065
+        },
+        "quality": {
+          "pixelRatio": 2,
+          "width": 2732,
+          "height": 1536,
+          "shadow": 2048,
+          "hdr": "2k",
+          "wordmarkWidth": 2048,
+          "curveSegments": 24,
+          "pixelBudget": 6000000
+        },
+        "travel": 0,
+        "reveal": 0,
+        "jacket": {
+          "x": 801.9982747951221,
+          "y": 244.4234689585378,
+          "width": 62.08373483902405,
+          "height": 56.73658389633372,
+          "angle": -194.49840700734123,
+          "opacity": 0
+        },
+        "targetJacket": {
+          "x": 974.3883056640625,
+          "y": 143.90625,
+          "width": 338.234375,
+          "height": 309.09375
+        },
+        "board": {
+          "x": 558.7908325195312,
+          "y": 193.984375,
+          "width": 355.109375,
+          "height": 244.8125,
+          "opacity": 0
+        },
+        "imageSources": [
+          "assets/media/hero/doenc-board-isolated-v1.webp",
+          "assets/media/hero/doenc-jacket-isolated-v1.webp"
+        ]
+      },
+      "scene": {
+        "time": 4.9,
+        "mobile": false,
+        "press": 0.5931268750000013,
+        "stand": 0,
+        "spit": 0,
+        "opening": 0,
+        "oTravel": 0,
+        "oTransform": {
+          "sameLogoObject": true,
+          "objectId": "0856787e-78b3-412f-837c-eeab40213b38",
+          "visible": false,
+          "remainingO": false,
+          "sourceScale": 0.453508578026252,
+          "scale": 0.453508578026252
+        },
+        "logoScale": 0.7,
+        "logoDepth": 0.14,
+        "fire": 1,
+        "fireCompression": {
+          "pressing": true,
+          "extinct": false,
+          "height": 1.7212264405180222,
+          "compression": 0.6088121726095405,
+          "underSide": -0.04377355948197792,
+          "ceiling": -0.06177355948197792,
+          "flameTop": -0.06677355948197783,
+          "emberTop": -0.11730719852447513,
+          "power": 1
+        },
+        "impact": {
+          "active": false,
+          "age": -0.4499999999999993,
+          "shakeX": 0,
+          "shakeY": 0
+        },
+        "seedScreen": {
+          "x": 833.0401422146342,
+          "y": 272.79176090670467,
+          "height": 51.57871263303065
+        },
+        "quality": {
+          "pixelRatio": 2,
+          "width": 2732,
+          "height": 1536,
+          "shadow": 2048,
+          "hdr": "2k",
+          "wordmarkWidth": 2048,
+          "curveSegments": 24,
+          "pixelBudget": 6000000
+        },
+        "logoCut": {
+          "dCenterFilled": true,
+          "oCenterFilled": false,
+          "solidD": true,
+          "solidO": false,
+          "remainingOInLogo": false,
+          "dotRing": false
+        },
+        "seedCenterFilled": true
+      }
+    },
+    {
+      "active": true,
+      "reason": null,
+      "ready": true,
+      "elapsed": 5.35,
+      "paused": true,
+      "duration": 28,
+      "errors": [],
+      "frame": {
+        "time": 5.35,
+        "mobile": false,
+        "press": 1,
+        "stand": 0,
+        "spit": 0,
+        "opening": 0,
+        "oTravel": 0,
+        "oTransform": {
+          "sameLogoObject": true,
+          "objectId": "0856787e-78b3-412f-837c-eeab40213b38",
+          "visible": false,
+          "remainingO": false,
+          "sourceScale": 0.453508578026252,
+          "scale": 0.453508578026252
+        },
+        "logoScale": 0.7,
+        "logoDepth": 0.14,
+        "fire": 0,
+        "fireCompression": {
+          "pressing": true,
+          "extinct": true,
+          "height": 0,
+          "compression": 1,
+          "underSide": -1.8,
+          "ceiling": -1.818,
+          "flameTop": -1.788,
+          "emberTop": -1.788,
+          "power": 0
+        },
+        "impact": {
+          "active": true,
+          "age": 0,
+          "shakeX": 0,
+          "shakeY": 0
+        },
+        "seedScreen": {
+          "x": 830.811550596922,
+          "y": 408.458383400576,
+          "height": 50.057851750902444
+        },
+        "quality": {
+          "pixelRatio": 2,
+          "width": 2732,
+          "height": 1536,
+          "shadow": 2048,
+          "hdr": "2k",
+          "wordmarkWidth": 2048,
+          "curveSegments": 24,
+          "pixelBudget": 6000000
+        },
+        "travel": 0,
+        "reveal": 0,
+        "jacket": {
+          "x": 800.6849902771128,
+          "y": 380.92656493757966,
+          "width": 60.25312063961836,
+          "height": 55.06363692599269,
+          "angle": -196.7945051412001,
+          "opacity": 0
+        },
+        "targetJacket": {
+          "x": 974.3883056640625,
+          "y": 143.90625,
+          "width": 338.234375,
+          "height": 309.09375
+        },
+        "board": {
+          "x": 558.7908325195312,
+          "y": 193.984375,
+          "width": 355.109375,
+          "height": 244.8125,
+          "opacity": 0
+        },
+        "imageSources": [
+          "assets/media/hero/doenc-board-isolated-v1.webp",
+          "assets/media/hero/doenc-jacket-isolated-v1.webp"
+        ]
+      },
+      "scene": {
+        "time": 5.35,
+        "mobile": false,
+        "press": 1,
+        "stand": 0,
+        "spit": 0,
+        "opening": 0,
+        "oTravel": 0,
+        "oTransform": {
+          "sameLogoObject": true,
+          "objectId": "0856787e-78b3-412f-837c-eeab40213b38",
+          "visible": false,
+          "remainingO": false,
+          "sourceScale": 0.453508578026252,
+          "scale": 0.453508578026252
+        },
+        "logoScale": 0.7,
+        "logoDepth": 0.14,
+        "fire": 0,
+        "fireCompression": {
+          "pressing": true,
+          "extinct": true,
+          "height": 0,
+          "compression": 1,
+          "underSide": -1.8,
+          "ceiling": -1.818,
+          "flameTop": -1.788,
+          "emberTop": -1.788,
+          "power": 0
+        },
+        "impact": {
+          "active": true,
+          "age": 0,
+          "shakeX": 0,
+          "shakeY": 0
+        },
+        "seedScreen": {
+          "x": 830.811550596922,
+          "y": 408.458383400576,
+          "height": 50.057851750902444
+        },
+        "quality": {
+          "pixelRatio": 2,
+          "width": 2732,
+          "height": 1536,
+          "shadow": 2048,
+          "hdr": "2k",
+          "wordmarkWidth": 2048,
+          "curveSegments": 24,
+          "pixelBudget": 6000000
+        },
+        "logoCut": {
+          "dCenterFilled": true,
+          "oCenterFilled": false,
+          "solidD": true,
+          "solidO": false,
+          "remainingOInLogo": false,
+          "dotRing": false
+        },
+        "seedCenterFilled": true
+      }
+    },
+    {
+      "active": true,
+      "reason": null,
+      "ready": true,
+      "elapsed": 5.48,
+      "paused": true,
+      "duration": 28,
+      "errors": [],
+      "frame": {
+        "time": 5.48,
+        "mobile": false,
+        "press": 1,
+        "stand": 0,
+        "spit": 0,
+        "opening": 0,
+        "oTravel": 0,
+        "oTransform": {
+          "sameLogoObject": true,
+          "objectId": "0856787e-78b3-412f-837c-eeab40213b38",
+          "visible": false,
+          "remainingO": false,
+          "sourceScale": 0.453508578026252,
+          "scale": 0.453508578026252
+        },
+        "logoScale": 0.7,
+        "logoDepth": 0.14,
+        "fire": 0,
+        "fireCompression": {
+          "pressing": true,
+          "extinct": true,
+          "height": 0,
+          "compression": 1,
+          "underSide": -1.8,
+          "ceiling": -1.818,
+          "flameTop": -1.788,
+          "emberTop": -1.788,
+          "power": 0
+        },
+        "impact": {
+          "active": true,
+          "age": 0.13000000000000078,
+          "shakeX": -0.009803560495479093,
+          "shakeY": 0.0018148591683782127
+        },
+        "seedScreen": {
+          "x": 830.8320879142989,
+          "y": 408.45024760613836,
+          "height": 50.05749473393473
+        },
+        "quality": {
+          "pixelRatio": 2,
+          "width": 2732,
+          "height": 1536,
+          "shadow": 2048,
+          "hdr": "2k",
+          "wordmarkWidth": 2048,
+          "curveSegments": 24,
+          "pixelBudget": 6000000
+        },
+        "travel": 0,
+        "reveal": 0,
+        "jacket": {
+          "x": 800.7057424597473,
+          "y": 380.91862550247424,
+          "width": 60.2526909091031,
+          "height": 55.06324420732821,
+          "angle": -196.781792158527,
+          "opacity": 0
+        },
+        "targetJacket": {
+          "x": 974.3883056640625,
+          "y": 143.90625,
+          "width": 338.234375,
+          "height": 309.09375
+        },
+        "board": {
+          "x": 558.7908325195312,
+          "y": 193.984375,
+          "width": 355.109375,
+          "height": 244.8125,
+          "opacity": 0
+        },
+        "imageSources": [
+          "assets/media/hero/doenc-board-isolated-v1.webp",
+          "assets/media/hero/doenc-jacket-isolated-v1.webp"
+        ]
+      },
+      "scene": {
+        "time": 5.48,
+        "mobile": false,
+        "press": 1,
+        "stand": 0,
+        "spit": 0,
+        "opening": 0,
+        "oTravel": 0,
+        "oTransform": {
+          "sameLogoObject": true,
+          "objectId": "0856787e-78b3-412f-837c-eeab40213b38",
+          "visible": false,
+          "remainingO": false,
+          "sourceScale": 0.453508578026252,
+          "scale": 0.453508578026252
+        },
+        "logoScale": 0.7,
+        "logoDepth": 0.14,
+        "fire": 0,
+        "fireCompression": {
+          "pressing": true,
+          "extinct": true,
+          "height": 0,
+          "compression": 1,
+          "underSide": -1.8,
+          "ceiling": -1.818,
+          "flameTop": -1.788,
+          "emberTop": -1.788,
+          "power": 0
+        },
+        "impact": {
+          "active": true,
+          "age": 0.13000000000000078,
+          "shakeX": -0.009803560495479093,
+          "shakeY": 0.0018148591683782127
+        },
+        "seedScreen": {
+          "x": 830.8320879142989,
+          "y": 408.45024760613836,
+          "height": 50.05749473393473
+        },
+        "quality": {
+          "pixelRatio": 2,
+          "width": 2732,
+          "height": 1536,
+          "shadow": 2048,
+          "hdr": "2k",
+          "wordmarkWidth": 2048,
+          "curveSegments": 24,
+          "pixelBudget": 6000000
+        },
+        "logoCut": {
+          "dCenterFilled": true,
+          "oCenterFilled": false,
+          "solidD": true,
+          "solidO": false,
+          "remainingOInLogo": false,
+          "dotRing": false
+        },
+        "seedCenterFilled": true
+      }
+    },
+    {
+      "active": true,
+      "reason": null,
+      "ready": true,
+      "elapsed": 6.5,
+      "paused": true,
+      "duration": 28,
+      "errors": [],
+      "frame": {
+        "time": 6.5,
+        "mobile": false,
+        "press": 1,
+        "stand": 0.00029104948043822906,
+        "spit": 0,
+        "opening": 0,
+        "oTravel": 0,
+        "oTransform": {
+          "sameLogoObject": true,
+          "objectId": "0856787e-78b3-412f-837c-eeab40213b38",
+          "visible": false,
+          "remainingO": false,
+          "sourceScale": 0.453508578026252,
+          "scale": 0.453508578026252
+        },
+        "logoScale": 0.7,
+        "logoDepth": 0.14,
+        "fire": 0,
+        "fireCompression": {
+          "pressing": true,
+          "extinct": true,
+          "height": 0,
+          "compression": 1,
+          "underSide": -1.8,
+          "ceiling": -1.818,
+          "flameTop": -1.788,
+          "emberTop": -1.788,
+          "power": 0
+        },
+        "impact": {
+          "active": false,
+          "age": 1.1500000000000004,
+          "shakeX": 0,
+          "shakeY": 0
+        },
+        "seedScreen": {
+          "x": 830.8115730929543,
+          "y": 408.4570139434298,
+          "height": 50.05786698803166
+        },
+        "quality": {
+          "pixelRatio": 2,
+          "width": 2732,
+          "height": 1536,
+          "shadow": 2048,
+          "hdr": "2k",
+          "wordmarkWidth": 2048,
+          "curveSegments": 24,
+          "pixelBudget": 6000000
+        },
+        "travel": 0,
+        "reveal": 0,
+        "jacket": {
+          "x": 800.6850036029095,
+          "y": 380.92518710001235,
+          "width": 60.253138980089496,
+          "height": 55.06365368683483,
+          "angle": -196.79448192554557,
+          "opacity": 0
+        },
+        "targetJacket": {
+          "x": 974.3883056640625,
+          "y": 143.90625,
+          "width": 338.234375,
+          "height": 309.09375
+        },
+        "board": {
+          "x": 558.7908325195312,
+          "y": 193.984375,
+          "width": 355.109375,
+          "height": 244.8125,
+          "opacity": 0
+        },
+        "imageSources": [
+          "assets/media/hero/doenc-board-isolated-v1.webp",
+          "assets/media/hero/doenc-jacket-isolated-v1.webp"
+        ]
+      },
+      "scene": {
+        "time": 6.5,
+        "mobile": false,
+        "press": 1,
+        "stand": 0.00029104948043822906,
+        "spit": 0,
+        "opening": 0,
+        "oTravel": 0,
+        "oTransform": {
+          "sameLogoObject": true,
+          "objectId": "0856787e-78b3-412f-837c-eeab40213b38",
+          "visible": false,
+          "remainingO": false,
+          "sourceScale": 0.453508578026252,
+          "scale": 0.453508578026252
+        },
+        "logoScale": 0.7,
+        "logoDepth": 0.14,
+        "fire": 0,
+        "fireCompression": {
+          "pressing": true,
+          "extinct": true,
+          "height": 0,
+          "compression": 1,
+          "underSide": -1.8,
+          "ceiling": -1.818,
+          "flameTop": -1.788,
+          "emberTop": -1.788,
+          "power": 0
+        },
+        "impact": {
+          "active": false,
+          "age": 1.1500000000000004,
+          "shakeX": 0,
+          "shakeY": 0
+        },
+        "seedScreen": {
+          "x": 830.8115730929543,
+          "y": 408.4570139434298,
+          "height": 50.05786698803166
+        },
+        "quality": {
+          "pixelRatio": 2,
+          "width": 2732,
+          "height": 1536,
+          "shadow": 2048,
+          "hdr": "2k",
+          "wordmarkWidth": 2048,
+          "curveSegments": 24,
+          "pixelBudget": 6000000
+        },
+        "logoCut": {
+          "dCenterFilled": true,
+          "oCenterFilled": false,
+          "solidD": true,
+          "solidO": false,
+          "remainingOInLogo": false,
+          "dotRing": false
+        },
+        "seedCenterFilled": true
+      }
+    },
+    {
+      "active": true,
+      "reason": null,
+      "ready": true,
+      "elapsed": 9,
+      "paused": true,
+      "duration": 28,
+      "errors": [],
+      "frame": {
+        "time": 9,
+        "mobile": false,
+        "press": 1,
+        "stand": 1,
+        "spit": 0,
+        "opening": 0,
+        "oTravel": 0,
+        "oTransform": {
+          "sameLogoObject": true,
+          "objectId": "0856787e-78b3-412f-837c-eeab40213b38",
+          "visible": false,
+          "remainingO": false,
+          "sourceScale": 0.453508578026252,
+          "scale": 0.453508578026252
+        },
+        "logoScale": 0.7,
+        "logoDepth": 0.14,
+        "fire": 0,
+        "fireCompression": {
+          "pressing": true,
+          "extinct": true,
+          "height": 0,
+          "compression": 1,
+          "underSide": -1.7999999999999998,
+          "ceiling": -1.8179999999999998,
+          "flameTop": -1.788,
+          "emberTop": -1.788,
+          "power": 0
+        },
+        "impact": {
+          "active": false,
+          "age": 3.6500000000000004,
+          "shakeX": 0,
+          "shakeY": 0
+        },
+        "seedScreen": {
+          "x": 831.410556724147,
+          "y": 371.9935876578944,
+          "height": 50.46439577476309
+        },
+        "quality": {
+          "pixelRatio": 2,
+          "width": 2732,
+          "height": 1536,
+          "shadow": 2048,
+          "hdr": "2k",
+          "wordmarkWidth": 2048,
+          "curveSegments": 24,
+          "pixelBudget": 6000000
+        },
+        "travel": 0,
+        "reveal": 0,
+        "jacket": {
+          "x": 801.0393240376841,
+          "y": 344.2381699817747,
+          "width": 60.74246537292586,
+          "height": 55.510835352239404,
+          "angle": -196.17660757760967,
+          "opacity": 0
+        },
+        "targetJacket": {
+          "x": 974.3883056640625,
+          "y": 143.90625,
+          "width": 338.234375,
+          "height": 309.09375
+        },
+        "board": {
+          "x": 558.7908325195312,
+          "y": 193.984375,
+          "width": 355.109375,
+          "height": 244.8125,
+          "opacity": 0
+        },
+        "imageSources": [
+          "assets/media/hero/doenc-board-isolated-v1.webp",
+          "assets/media/hero/doenc-jacket-isolated-v1.webp"
+        ]
+      },
+      "scene": {
+        "time": 9,
+        "mobile": false,
+        "press": 1,
+        "stand": 1,
+        "spit": 0,
+        "opening": 0,
+        "oTravel": 0,
+        "oTransform": {
+          "sameLogoObject": true,
+          "objectId": "0856787e-78b3-412f-837c-eeab40213b38",
+          "visible": false,
+          "remainingO": false,
+          "sourceScale": 0.453508578026252,
+          "scale": 0.453508578026252
+        },
+        "logoScale": 0.7,
+        "logoDepth": 0.14,
+        "fire": 0,
+        "fireCompression": {
+          "pressing": true,
+          "extinct": true,
+          "height": 0,
+          "compression": 1,
+          "underSide": -1.7999999999999998,
+          "ceiling": -1.8179999999999998,
+          "flameTop": -1.788,
+          "emberTop": -1.788,
+          "power": 0
+        },
+        "impact": {
+          "active": false,
+          "age": 3.6500000000000004,
+          "shakeX": 0,
+          "shakeY": 0
+        },
+        "seedScreen": {
+          "x": 831.410556724147,
+          "y": 371.9935876578944,
+          "height": 50.46439577476309
+        },
+        "quality": {
+          "pixelRatio": 2,
+          "width": 2732,
+          "height": 1536,
+          "shadow": 2048,
+          "hdr": "2k",
+          "wordmarkWidth": 2048,
+          "curveSegments": 24,
+          "pixelBudget": 6000000
+        },
+        "logoCut": {
+          "dCenterFilled": true,
+          "oCenterFilled": false,
+          "solidD": true,
+          "solidO": false,
+          "remainingOInLogo": false,
+          "dotRing": false
+        },
+        "seedCenterFilled": true
+      }
+    },
+    {
+      "active": true,
+      "reason": null,
+      "ready": true,
+      "elapsed": 10.7,
+      "paused": true,
+      "duration": 28,
+      "errors": [],
+      "frame": {
+        "time": 10.7,
+        "mobile": false,
+        "press": 1,
+        "stand": 1,
+        "spit": 0.305172207822632,
+        "opening": 0,
+        "oTravel": 0,
+        "oTransform": {
+          "sameLogoObject": true,
+          "objectId": "0856787e-78b3-412f-837c-eeab40213b38",
+          "visible": false,
+          "remainingO": false,
+          "sourceScale": 0.453508578026252,
+          "scale": 0.453508578026252
+        },
+        "logoScale": 0.7,
+        "logoDepth": 0.14,
+        "fire": 0,
+        "fireCompression": {
+          "pressing": true,
+          "extinct": true,
+          "height": 0,
+          "compression": 1,
+          "underSide": -1.8,
+          "ceiling": -1.818,
+          "flameTop": -1.788,
+          "emberTop": -1.788,
+          "power": 0
+        },
+        "impact": {
+          "active": false,
+          "age": 5.35,
+          "shakeX": 0,
+          "shakeY": 0
+        },
+        "seedScreen": {
+          "x": 831.1496065854668,
+          "y": 374.83415087296385,
+          "height": 50.450163391748106
+        },
+        "quality": {
+          "pixelRatio": 2,
+          "width": 2732,
+          "height": 1536,
+          "shadow": 2048,
+          "hdr": "2k",
+          "wordmarkWidth": 2048,
+          "curveSegments": 24,
+          "pixelBudget": 6000000
+        },
+        "travel": 0,
+        "reveal": 0,
+        "jacket": {
+          "x": 800.7869394432771,
+          "y": 347.0865610075024,
+          "width": 60.72533428437938,
+          "height": 55.49517973092292,
+          "angle": -196.3490665526112,
+          "opacity": 0
+        },
+        "targetJacket": {
+          "x": 974.3883056640625,
+          "y": 143.90625,
+          "width": 338.234375,
+          "height": 309.09375
+        },
+        "board": {
+          "x": 558.7908325195312,
+          "y": 193.984375,
+          "width": 355.109375,
+          "height": 244.8125,
+          "opacity": 0
+        },
+        "imageSources": [
+          "assets/media/hero/doenc-board-isolated-v1.webp",
+          "assets/media/hero/doenc-jacket-isolated-v1.webp"
+        ]
+      },
+      "scene": {
+        "time": 10.7,
+        "mobile": false,
+        "press": 1,
+        "stand": 1,
+        "spit": 0.305172207822632,
+        "opening": 0,
+        "oTravel": 0,
+        "oTransform": {
+          "sameLogoObject": true,
+          "objectId": "0856787e-78b3-412f-837c-eeab40213b38",
+          "visible": false,
+          "remainingO": false,
+          "sourceScale": 0.453508578026252,
+          "scale": 0.453508578026252
+        },
+        "logoScale": 0.7,
+        "logoDepth": 0.14,
+        "fire": 0,
+        "fireCompression": {
+          "pressing": true,
+          "extinct": true,
+          "height": 0,
+          "compression": 1,
+          "underSide": -1.8,
+          "ceiling": -1.818,
+          "flameTop": -1.788,
+          "emberTop": -1.788,
+          "power": 0
+        },
+        "impact": {
+          "active": false,
+          "age": 5.35,
+          "shakeX": 0,
+          "shakeY": 0
+        },
+        "seedScreen": {
+          "x": 831.1496065854668,
+          "y": 374.83415087296385,
+          "height": 50.450163391748106
+        },
+        "quality": {
+          "pixelRatio": 2,
+          "width": 2732,
+          "height": 1536,
+          "shadow": 2048,
+          "hdr": "2k",
+          "wordmarkWidth": 2048,
+          "curveSegments": 24,
+          "pixelBudget": 6000000
+        },
+        "logoCut": {
+          "dCenterFilled": false,
+          "oCenterFilled": false,
+          "solidD": false,
+          "solidO": false,
+          "remainingOInLogo": false,
+          "dotRing": false
+        },
+        "seedCenterFilled": true
+      }
+    },
+    {
+      "active": true,
+      "reason": null,
+      "ready": true,
+      "elapsed": 13.7,
+      "paused": true,
+      "duration": 28,
+      "errors": [],
+      "frame": {
+        "time": 13.7,
+        "mobile": false,
+        "press": 1,
+        "stand": 1,
+        "spit": 1,
+        "opening": 0,
+        "oTravel": 0,
+        "oTransform": {
+          "sameLogoObject": true,
+          "objectId": "0856787e-78b3-412f-837c-eeab40213b38",
+          "visible": true,
+          "remainingO": false,
+          "sourceScale": 0.4081577202236268,
+          "scale": 0.4081577202236268
+        },
+        "logoScale": 0.63,
+        "logoDepth": 0.14,
+        "fire": 0,
+        "fireCompression": {
+          "pressing": true,
+          "extinct": true,
+          "height": 0,
+          "compression": 1,
+          "underSide": -1.014513636363636,
+          "ceiling": -1.032513636363636,
+          "flameTop": -1.788,
+          "emberTop": -1.788,
+          "power": 0
+        },
+        "impact": {
+          "active": false,
+          "age": 8.35,
+          "shakeX": 0,
+          "shakeY": 0
+        },
+        "seedScreen": {
+          "x": 623.2213035437553,
+          "y": 318.49052514153107,
+          "height": 44.79216573724972
+        },
+        "quality": {
+          "pixelRatio": 2,
+          "width": 2732,
+          "height": 1536,
+          "shadow": 2048,
+          "hdr": "2k",
+          "wordmarkWidth": 2048,
+          "curveSegments": 24,
+          "pixelBudget": 6000000
+        },
+        "travel": 0,
+        "reveal": 0,
+        "jacket": {
+          "x": 596.2638166413371,
+          "y": 293.85483398604373,
+          "width": 53.914973804836364,
+          "height": 49.271382310974694,
+          "angle": -332.7342481160791,
+          "opacity": 0
+        },
+        "targetJacket": {
+          "x": 974.3883056640625,
+          "y": 143.90625,
+          "width": 338.234375,
+          "height": 309.09375
+        },
+        "board": {
+          "x": 558.7908325195312,
+          "y": 193.984375,
+          "width": 355.109375,
+          "height": 244.8125,
+          "opacity": 0
+        },
+        "imageSources": [
+          "assets/media/hero/doenc-board-isolated-v1.webp",
+          "assets/media/hero/doenc-jacket-isolated-v1.webp"
+        ]
+      },
+      "scene": {
+        "time": 13.7,
+        "mobile": false,
+        "press": 1,
+        "stand": 1,
+        "spit": 1,
+        "opening": 0,
+        "oTravel": 0,
+        "oTransform": {
+          "sameLogoObject": true,
+          "objectId": "0856787e-78b3-412f-837c-eeab40213b38",
+          "visible": true,
+          "remainingO": false,
+          "sourceScale": 0.4081577202236268,
+          "scale": 0.4081577202236268
+        },
+        "logoScale": 0.63,
+        "logoDepth": 0.14,
+        "fire": 0,
+        "fireCompression": {
+          "pressing": true,
+          "extinct": true,
+          "height": 0,
+          "compression": 1,
+          "underSide": -1.014513636363636,
+          "ceiling": -1.032513636363636,
+          "flameTop": -1.788,
+          "emberTop": -1.788,
+          "power": 0
+        },
+        "impact": {
+          "active": false,
+          "age": 8.35,
+          "shakeX": 0,
+          "shakeY": 0
+        },
+        "seedScreen": {
+          "x": 623.2213035437553,
+          "y": 318.49052514153107,
+          "height": 44.79216573724972
+        },
+        "quality": {
+          "pixelRatio": 2,
+          "width": 2732,
+          "height": 1536,
+          "shadow": 2048,
+          "hdr": "2k",
+          "wordmarkWidth": 2048,
+          "curveSegments": 24,
+          "pixelBudget": 6000000
+        },
+        "logoCut": {
+          "dCenterFilled": false,
+          "oCenterFilled": true,
+          "solidD": false,
+          "solidO": true,
+          "remainingOInLogo": true,
+          "dotRing": false
+        },
+        "seedCenterFilled": true
+      }
+    },
+    {
+      "active": true,
+      "reason": null,
+      "ready": true,
+      "elapsed": 14.8,
+      "paused": true,
+      "duration": 28,
+      "errors": [],
+      "frame": {
+        "time": 14.8,
+        "mobile": false,
+        "press": 1,
+        "stand": 1,
+        "spit": 1,
+        "opening": 0,
+        "oTravel": 0,
+        "oTransform": {
+          "sameLogoObject": true,
+          "objectId": "0856787e-78b3-412f-837c-eeab40213b38",
+          "visible": true,
+          "remainingO": false,
+          "sourceScale": 0.4081577202236268,
+          "scale": 0.4081577202236268
+        },
+        "logoScale": 0.63,
+        "logoDepth": 0.14,
+        "fire": 0,
+        "fireCompression": {
+          "pressing": true,
+          "extinct": true,
+          "height": 0,
+          "compression": 1,
+          "underSide": -1.014513636363636,
+          "ceiling": -1.032513636363636,
+          "flameTop": -1.788,
+          "emberTop": -1.788,
+          "power": 0
+        },
+        "impact": {
+          "active": false,
+          "age": 9.450000000000001,
+          "shakeX": 0,
+          "shakeY": 0
+        },
+        "seedScreen": {
+          "x": 623.2213035437553,
+          "y": 318.49052514153107,
+          "height": 44.79216573724972
+        },
+        "quality": {
+          "pixelRatio": 2,
+          "width": 2732,
+          "height": 1536,
+          "shadow": 2048,
+          "hdr": "2k",
+          "wordmarkWidth": 2048,
+          "curveSegments": 24,
+          "pixelBudget": 6000000
+        },
+        "travel": 0,
+        "reveal": 0,
+        "jacket": {
+          "x": 596.2638166413371,
+          "y": 293.85483398604373,
+          "width": 53.914973804836364,
+          "height": 49.271382310974694,
+          "angle": -332.7342481160791,
+          "opacity": 0
+        },
+        "targetJacket": {
+          "x": 974.3883056640625,
+          "y": 143.90625,
+          "width": 338.234375,
+          "height": 309.09375
+        },
+        "board": {
+          "x": 558.7908325195312,
+          "y": 193.984375,
+          "width": 355.109375,
+          "height": 244.8125,
+          "opacity": 0
+        },
+        "imageSources": [
+          "assets/media/hero/doenc-board-isolated-v1.webp",
+          "assets/media/hero/doenc-jacket-isolated-v1.webp"
+        ]
+      },
+      "scene": {
+        "time": 14.8,
+        "mobile": false,
+        "press": 1,
+        "stand": 1,
+        "spit": 1,
+        "opening": 0,
+        "oTravel": 0,
+        "oTransform": {
+          "sameLogoObject": true,
+          "objectId": "0856787e-78b3-412f-837c-eeab40213b38",
+          "visible": true,
+          "remainingO": false,
+          "sourceScale": 0.4081577202236268,
+          "scale": 0.4081577202236268
+        },
+        "logoScale": 0.63,
+        "logoDepth": 0.14,
+        "fire": 0,
+        "fireCompression": {
+          "pressing": true,
+          "extinct": true,
+          "height": 0,
+          "compression": 1,
+          "underSide": -1.014513636363636,
+          "ceiling": -1.032513636363636,
+          "flameTop": -1.788,
+          "emberTop": -1.788,
+          "power": 0
+        },
+        "impact": {
+          "active": false,
+          "age": 9.450000000000001,
+          "shakeX": 0,
+          "shakeY": 0
+        },
+        "seedScreen": {
+          "x": 623.2213035437553,
+          "y": 318.49052514153107,
+          "height": 44.79216573724972
+        },
+        "quality": {
+          "pixelRatio": 2,
+          "width": 2732,
+          "height": 1536,
+          "shadow": 2048,
+          "hdr": "2k",
+          "wordmarkWidth": 2048,
+          "curveSegments": 24,
+          "pixelBudget": 6000000
+        },
+        "logoCut": {
+          "dCenterFilled": false,
+          "oCenterFilled": true,
+          "solidD": false,
+          "solidO": true,
+          "remainingOInLogo": true,
+          "dotRing": false
+        },
+        "seedCenterFilled": true
+      }
+    },
+    {
+      "active": true,
+      "reason": null,
+      "ready": true,
+      "elapsed": 14.85,
+      "paused": true,
+      "duration": 28,
+      "errors": [],
+      "frame": {
+        "time": 14.85,
+        "mobile": false,
+        "press": 1,
+        "stand": 1,
+        "spit": 1,
+        "opening": 0,
+        "oTravel": 0,
+        "oTransform": {
+          "sameLogoObject": true,
+          "objectId": "0856787e-78b3-412f-837c-eeab40213b38",
+          "visible": true,
+          "remainingO": false,
+          "sourceScale": 0.4081577202236268,
+          "scale": 0.4081577202236268
+        },
+        "logoScale": 0.63,
+        "logoDepth": 0.14,
+        "fire": 0,
+        "fireCompression": {
+          "pressing": true,
+          "extinct": true,
+          "height": 0,
+          "compression": 1,
+          "underSide": -1.014513636363636,
+          "ceiling": -1.032513636363636,
+          "flameTop": -1.788,
+          "emberTop": -1.788,
+          "power": 0
+        },
+        "impact": {
+          "active": false,
+          "age": 9.5,
+          "shakeX": 0,
+          "shakeY": 0
+        },
+        "seedScreen": {
+          "x": 623.2213035437553,
+          "y": 318.49052514153107,
+          "height": 44.79216573724972
+        },
+        "quality": {
+          "pixelRatio": 2,
+          "width": 2732,
+          "height": 1536,
+          "shadow": 2048,
+          "hdr": "2k",
+          "wordmarkWidth": 2048,
+          "curveSegments": 24,
+          "pixelBudget": 6000000
+        },
+        "travel": 0,
+        "reveal": 0,
+        "jacket": {
+          "x": 596.2638166413371,
+          "y": 293.85483398604373,
+          "width": 53.914973804836364,
+          "height": 49.271382310974694,
+          "angle": -332.7342481160791,
+          "opacity": 0
+        },
+        "targetJacket": {
+          "x": 974.3883056640625,
+          "y": 143.90625,
+          "width": 338.234375,
+          "height": 309.09375
+        },
+        "board": {
+          "x": 558.7908325195312,
+          "y": 193.984375,
+          "width": 355.109375,
+          "height": 244.8125,
+          "opacity": 0
+        },
+        "imageSources": [
+          "assets/media/hero/doenc-board-isolated-v1.webp",
+          "assets/media/hero/doenc-jacket-isolated-v1.webp"
+        ]
+      },
+      "scene": {
+        "time": 14.85,
+        "mobile": false,
+        "press": 1,
+        "stand": 1,
+        "spit": 1,
+        "opening": 0,
+        "oTravel": 0,
+        "oTransform": {
+          "sameLogoObject": true,
+          "objectId": "0856787e-78b3-412f-837c-eeab40213b38",
+          "visible": true,
+          "remainingO": false,
+          "sourceScale": 0.4081577202236268,
+          "scale": 0.4081577202236268
+        },
+        "logoScale": 0.63,
+        "logoDepth": 0.14,
+        "fire": 0,
+        "fireCompression": {
+          "pressing": true,
+          "extinct": true,
+          "height": 0,
+          "compression": 1,
+          "underSide": -1.014513636363636,
+          "ceiling": -1.032513636363636,
+          "flameTop": -1.788,
+          "emberTop": -1.788,
+          "power": 0
+        },
+        "impact": {
+          "active": false,
+          "age": 9.5,
+          "shakeX": 0,
+          "shakeY": 0
+        },
+        "seedScreen": {
+          "x": 623.2213035437553,
+          "y": 318.49052514153107,
+          "height": 44.79216573724972
+        },
+        "quality": {
+          "pixelRatio": 2,
+          "width": 2732,
+          "height": 1536,
+          "shadow": 2048,
+          "hdr": "2k",
+          "wordmarkWidth": 2048,
+          "curveSegments": 24,
+          "pixelBudget": 6000000
+        },
+        "logoCut": {
+          "dCenterFilled": false,
+          "oCenterFilled": true,
+          "solidD": false,
+          "solidO": false,
+          "remainingOInLogo": false,
+          "dotRing": false
+        },
+        "seedCenterFilled": true
+      }
+    },
+    {
+      "active": true,
+      "reason": null,
+      "ready": true,
+      "elapsed": 16,
+      "paused": true,
+      "duration": 28,
+      "errors": [],
+      "frame": {
+        "time": 16,
+        "mobile": false,
+        "press": 1,
+        "stand": 1,
+        "spit": 1,
+        "opening": 0.08672395061728372,
+        "oTravel": 0.5425549762769246,
+        "oTransform": {
+          "sameLogoObject": true,
+          "objectId": "0856787e-78b3-412f-837c-eeab40213b38",
+          "visible": true,
+          "remainingO": false,
+          "sourceScale": 0.4081577202236268,
+          "scale": 0.5122427037766081
+        },
+        "logoScale": 0.63,
+        "logoDepth": 0.14,
+        "fire": 0,
+        "fireCompression": {
+          "pressing": true,
+          "extinct": true,
+          "height": 0,
+          "compression": 1,
+          "underSide": -1.014513636363636,
+          "ceiling": -1.032513636363636,
+          "flameTop": -1.788,
+          "emberTop": -1.788,
+          "power": 0
+        },
+        "impact": {
+          "active": false,
+          "age": 10.65,
+          "shakeX": 0,
+          "shakeY": 0
+        },
+        "seedScreen": {
+          "x": 578.9621120527358,
+          "y": 353.119495921439,
+          "height": 68.01756161468103
+        },
+        "quality": {
+          "pixelRatio": 2,
+          "width": 2732,
+          "height": 1536,
+          "shadow": 2048,
+          "hdr": "2k",
+          "wordmarkWidth": 2048,
+          "curveSegments": 24,
+          "pixelBudget": 6000000
+        },
+        "travel": 0,
+        "reveal": 0,
+        "jacket": {
+          "x": 538.0267722185791,
+          "y": 315.70983703336447,
+          "width": 81.87067966831331,
+          "height": 74.81931777614913,
+          "angle": -337.01330644555975,
+          "opacity": 0
+        },
+        "targetJacket": {
+          "x": 974.3883056640625,
+          "y": 143.90625,
+          "width": 338.234375,
+          "height": 309.09375
+        },
+        "board": {
+          "x": 558.7908325195312,
+          "y": 193.984375,
+          "width": 355.109375,
+          "height": 244.8125,
+          "opacity": 0
+        },
+        "imageSources": [
+          "assets/media/hero/doenc-board-isolated-v1.webp",
+          "assets/media/hero/doenc-jacket-isolated-v1.webp"
+        ]
+      },
+      "scene": {
+        "time": 16,
+        "mobile": false,
+        "press": 1,
+        "stand": 1,
+        "spit": 1,
+        "opening": 0.08672395061728372,
+        "oTravel": 0.5425549762769246,
+        "oTransform": {
+          "sameLogoObject": true,
+          "objectId": "0856787e-78b3-412f-837c-eeab40213b38",
+          "visible": true,
+          "remainingO": false,
+          "sourceScale": 0.4081577202236268,
+          "scale": 0.5122427037766081
+        },
+        "logoScale": 0.63,
+        "logoDepth": 0.14,
+        "fire": 0,
+        "fireCompression": {
+          "pressing": true,
+          "extinct": true,
+          "height": 0,
+          "compression": 1,
+          "underSide": -1.014513636363636,
+          "ceiling": -1.032513636363636,
+          "flameTop": -1.788,
+          "emberTop": -1.788,
+          "power": 0
+        },
+        "impact": {
+          "active": false,
+          "age": 10.65,
+          "shakeX": 0,
+          "shakeY": 0
+        },
+        "seedScreen": {
+          "x": 578.9621120527358,
+          "y": 353.119495921439,
+          "height": 68.01756161468103
+        },
+        "quality": {
+          "pixelRatio": 2,
+          "width": 2732,
+          "height": 1536,
+          "shadow": 2048,
+          "hdr": "2k",
+          "wordmarkWidth": 2048,
+          "curveSegments": 24,
+          "pixelBudget": 6000000
+        },
+        "logoCut": {
+          "dCenterFilled": false,
+          "oCenterFilled": false,
+          "solidD": false,
+          "solidO": false,
+          "remainingOInLogo": false,
+          "dotRing": false
+        },
+        "seedCenterFilled": false
+      }
+    },
+    {
+      "active": true,
+      "reason": null,
+      "ready": true,
+      "elapsed": 17.8,
+      "paused": true,
+      "duration": 28,
+      "errors": [],
+      "frame": {
+        "time": 17.8,
+        "mobile": false,
+        "press": 1,
+        "stand": 1,
+        "spit": 1,
+        "opening": 0.964506172839506,
+        "oTravel": 1,
+        "oTransform": {
+          "sameLogoObject": true,
+          "objectId": "0856787e-78b3-412f-837c-eeab40213b38",
+          "visible": true,
+          "remainingO": false,
+          "sourceScale": 0.4081577202236268,
+          "scale": 0.6492953215759244
+        },
+        "logoScale": 0.63,
+        "logoDepth": 0.14,
+        "fire": 0,
+        "fireCompression": {
+          "pressing": true,
+          "extinct": true,
+          "height": 0,
+          "compression": 1,
+          "underSide": -1.014513636363636,
+          "ceiling": -1.032513636363636,
+          "flameTop": -1.788,
+          "emberTop": -1.788,
+          "power": 0
+        },
+        "impact": {
+          "active": false,
+          "age": 12.450000000000001,
+          "shakeX": 0,
+          "shakeY": 0
+        },
+        "seedScreen": {
+          "x": 542.8878347457314,
+          "y": 475.0417581255419,
+          "height": 146.05402296777942
+        },
+        "quality": {
+          "pixelRatio": 2,
+          "width": 2732,
+          "height": 1536,
+          "shadow": 2048,
+          "hdr": "2k",
+          "wordmarkWidth": 2048,
+          "curveSegments": 24,
+          "pixelBudget": 6000000
+        },
+        "travel": 0,
+        "reveal": 0,
+        "jacket": {
+          "x": 454.9874319320954,
+          "y": 394.7120454932632,
+          "width": 175.80080562727213,
+          "height": 160.65942526455737,
+          "angle": -293.0292650732566,
+          "opacity": 0
+        },
+        "targetJacket": {
+          "x": 974.3883056640625,
+          "y": 143.90625,
+          "width": 338.234375,
+          "height": 309.09375
+        },
+        "board": {
+          "x": 558.7908325195312,
+          "y": 193.984375,
+          "width": 355.109375,
+          "height": 244.8125,
+          "opacity": 0
+        },
+        "imageSources": [
+          "assets/media/hero/doenc-board-isolated-v1.webp",
+          "assets/media/hero/doenc-jacket-isolated-v1.webp"
+        ]
+      },
+      "scene": {
+        "time": 17.8,
+        "mobile": false,
+        "press": 1,
+        "stand": 1,
+        "spit": 1,
+        "opening": 0.964506172839506,
+        "oTravel": 1,
+        "oTransform": {
+          "sameLogoObject": true,
+          "objectId": "0856787e-78b3-412f-837c-eeab40213b38",
+          "visible": true,
+          "remainingO": false,
+          "sourceScale": 0.4081577202236268,
+          "scale": 0.6492953215759244
+        },
+        "logoScale": 0.63,
+        "logoDepth": 0.14,
+        "fire": 0,
+        "fireCompression": {
+          "pressing": true,
+          "extinct": true,
+          "height": 0,
+          "compression": 1,
+          "underSide": -1.014513636363636,
+          "ceiling": -1.032513636363636,
+          "flameTop": -1.788,
+          "emberTop": -1.788,
+          "power": 0
+        },
+        "impact": {
+          "active": false,
+          "age": 12.450000000000001,
+          "shakeX": 0,
+          "shakeY": 0
+        },
+        "seedScreen": {
+          "x": 542.8878347457314,
+          "y": 475.0417581255419,
+          "height": 146.05402296777942
+        },
+        "quality": {
+          "pixelRatio": 2,
+          "width": 2732,
+          "height": 1536,
+          "shadow": 2048,
+          "hdr": "2k",
+          "wordmarkWidth": 2048,
+          "curveSegments": 24,
+          "pixelBudget": 6000000
+        },
+        "logoCut": {
+          "dCenterFilled": false,
+          "oCenterFilled": false,
+          "solidD": false,
+          "solidO": false,
+          "remainingOInLogo": false,
+          "dotRing": false
+        },
+        "seedCenterFilled": false
+      }
+    },
+    {
+      "active": true,
+      "reason": null,
+      "ready": true,
+      "elapsed": 19.8,
+      "paused": true,
+      "duration": 28,
+      "errors": [],
+      "frame": {
+        "time": 19.8,
+        "mobile": false,
+        "press": 1,
+        "stand": 1,
+        "spit": 1,
+        "opening": 1,
+        "oTravel": 1,
+        "oTransform": {
+          "sameLogoObject": true,
+          "objectId": "0856787e-78b3-412f-837c-eeab40213b38",
+          "visible": false,
+          "remainingO": false,
+          "sourceScale": 0.4081577202236268,
+          "scale": 0.9999778287715873
+        },
+        "logoScale": 0.63,
+        "logoDepth": 0.14,
+        "fire": 0,
+        "fireCompression": {
+          "pressing": true,
+          "extinct": true,
+          "height": 0,
+          "compression": 1,
+          "underSide": -1.014513636363636,
+          "ceiling": -1.032513636363636,
+          "flameTop": -1.788,
+          "emberTop": -1.788,
+          "power": 0
+        },
+        "impact": {
+          "active": false,
+          "age": 14.450000000000001,
+          "shakeX": 0,
+          "shakeY": 0
+        },
+        "seedScreen": {
+          "x": 505.746441756805,
+          "y": 441.8489603992543,
+          "height": 245.62938926693312
+        },
+        "quality": {
+          "pixelRatio": 2,
+          "width": 2732,
+          "height": 1536,
+          "shadow": 2048,
+          "hdr": "2k",
+          "wordmarkWidth": 2048,
+          "curveSegments": 24,
+          "pixelBudget": 6000000
+        },
+        "travel": 0,
+        "reveal": 0,
+        "jacket": {
+          "x": 357.9181120695498,
+          "y": 306.7527963024411,
+          "width": 295.65665937451035,
+          "height": 270.19232819362645,
+          "angle": -252.31679729536987,
+          "opacity": 1
+        },
+        "targetJacket": {
+          "x": 974.3883056640625,
+          "y": 143.90625,
+          "width": 338.234375,
+          "height": 309.09375
+        },
+        "board": {
+          "x": 558.7908325195312,
+          "y": 193.984375,
+          "width": 355.109375,
+          "height": 244.8125,
+          "opacity": 0
+        },
+        "imageSources": [
+          "assets/media/hero/doenc-board-isolated-v1.webp",
+          "assets/media/hero/doenc-jacket-isolated-v1.webp"
+        ]
+      },
+      "scene": {
+        "time": 19.8,
+        "mobile": false,
+        "press": 1,
+        "stand": 1,
+        "spit": 1,
+        "opening": 1,
+        "oTravel": 1,
+        "oTransform": {
+          "sameLogoObject": true,
+          "objectId": "0856787e-78b3-412f-837c-eeab40213b38",
+          "visible": false,
+          "remainingO": false,
+          "sourceScale": 0.4081577202236268,
+          "scale": 0.9999778287715873
+        },
+        "logoScale": 0.63,
+        "logoDepth": 0.14,
+        "fire": 0,
+        "fireCompression": {
+          "pressing": true,
+          "extinct": true,
+          "height": 0,
+          "compression": 1,
+          "underSide": -1.014513636363636,
+          "ceiling": -1.032513636363636,
+          "flameTop": -1.788,
+          "emberTop": -1.788,
+          "power": 0
+        },
+        "impact": {
+          "active": false,
+          "age": 14.450000000000001,
+          "shakeX": 0,
+          "shakeY": 0
+        },
+        "seedScreen": {
+          "x": 505.746441756805,
+          "y": 441.8489603992543,
+          "height": 245.62938926693312
+        },
+        "quality": {
+          "pixelRatio": 2,
+          "width": 2732,
+          "height": 1536,
+          "shadow": 2048,
+          "hdr": "2k",
+          "wordmarkWidth": 2048,
+          "curveSegments": 24,
+          "pixelBudget": 6000000
+        },
+        "logoCut": {
+          "dCenterFilled": false,
+          "oCenterFilled": false,
+          "solidD": false,
+          "solidO": false,
+          "remainingOInLogo": false,
+          "dotRing": false
+        },
+        "seedCenterFilled": false
+      }
+    },
+    {
+      "active": true,
+      "reason": null,
+      "ready": true,
+      "elapsed": 22.4,
+      "paused": true,
+      "duration": 28,
+      "errors": [],
+      "frame": {
+        "time": 22.4,
+        "mobile": false,
+        "press": 1,
+        "stand": 1,
+        "spit": 1,
+        "opening": 1,
+        "oTravel": 1,
+        "oTransform": {
+          "sameLogoObject": true,
+          "objectId": "0856787e-78b3-412f-837c-eeab40213b38",
+          "visible": false,
+          "remainingO": false,
+          "sourceScale": 0.4081577202236268,
+          "scale": 1
+        },
+        "logoScale": 0.63,
+        "logoDepth": 0.14,
+        "fire": 0,
+        "fireCompression": {
+          "pressing": true,
+          "extinct": true,
+          "height": 0,
+          "compression": 1,
+          "underSide": -1.014513636363636,
+          "ceiling": -1.032513636363636,
+          "flameTop": -1.788,
+          "emberTop": -1.788,
+          "power": 0
+        },
+        "impact": {
+          "active": false,
+          "age": 14.750000000000002,
+          "shakeX": 0,
+          "shakeY": 0
+        },
+        "seedScreen": {
+          "x": 505.7185361873992,
+          "y": 441.8512252059058,
+          "height": 245.65062127467877
+        },
+        "quality": {
+          "pixelRatio": 2,
+          "width": 2732,
+          "height": 1536,
+          "shadow": 2048,
+          "hdr": "2k",
+          "wordmarkWidth": 2048,
+          "curveSegments": 24,
+          "pixelBudget": 6000000
+        },
+        "travel": 0.20987654320987603,
+        "reveal": 0,
+        "jacket": {
+          "x": 487.26860012223244,
+          "y": 272.5676888186331,
+          "width": 304.6129157995495,
+          "height": 278.37527762638746,
+          "angle": -199.3621055487811,
+          "opacity": 1
+        },
+        "targetJacket": {
+          "x": 974.3883056640625,
+          "y": 143.90625,
+          "width": 338.234375,
+          "height": 309.09375
+        },
+        "board": {
+          "x": 558.7908325195312,
+          "y": 193.984375,
+          "width": 355.109375,
+          "height": 244.8125,
+          "opacity": 0.008559999999999915
+        },
+        "imageSources": [
+          "assets/media/hero/doenc-board-isolated-v1.webp",
+          "assets/media/hero/doenc-jacket-isolated-v1.webp"
+        ]
+      },
+      "scene": {
+        "time": 20.1,
+        "mobile": false,
+        "press": 1,
+        "stand": 1,
+        "spit": 1,
+        "opening": 1,
+        "oTravel": 1,
+        "oTransform": {
+          "sameLogoObject": true,
+          "objectId": "0856787e-78b3-412f-837c-eeab40213b38",
+          "visible": false,
+          "remainingO": false,
+          "sourceScale": 0.4081577202236268,
+          "scale": 1
+        },
+        "logoScale": 0.63,
+        "logoDepth": 0.14,
+        "fire": 0,
+        "fireCompression": {
+          "pressing": true,
+          "extinct": true,
+          "height": 0,
+          "compression": 1,
+          "underSide": -1.014513636363636,
+          "ceiling": -1.032513636363636,
+          "flameTop": -1.788,
+          "emberTop": -1.788,
+          "power": 0
+        },
+        "impact": {
+          "active": false,
+          "age": 14.750000000000002,
+          "shakeX": 0,
+          "shakeY": 0
+        },
+        "seedScreen": {
+          "x": 505.7185361873992,
+          "y": 441.8512252059058,
+          "height": 245.65062127467877
+        },
+        "quality": {
+          "pixelRatio": 2,
+          "width": 2732,
+          "height": 1536,
+          "shadow": 2048,
+          "hdr": "2k",
+          "wordmarkWidth": 2048,
+          "curveSegments": 24,
+          "pixelBudget": 6000000
+        },
+        "logoCut": {
+          "dCenterFilled": false,
+          "oCenterFilled": false,
+          "solidD": false,
+          "solidO": false,
+          "remainingOInLogo": false,
+          "dotRing": false
+        },
+        "seedCenterFilled": false
+      }
+    },
+    {
+      "active": true,
+      "reason": null,
+      "ready": true,
+      "elapsed": 25.8,
+      "paused": true,
+      "duration": 28,
+      "errors": [],
+      "frame": {
+        "time": 25.8,
+        "mobile": false,
+        "press": 1,
+        "stand": 1,
+        "spit": 1,
+        "opening": 1,
+        "oTravel": 1,
+        "oTransform": {
+          "sameLogoObject": true,
+          "objectId": "0856787e-78b3-412f-837c-eeab40213b38",
+          "visible": false,
+          "remainingO": false,
+          "sourceScale": 0.4081577202236268,
+          "scale": 1
+        },
+        "logoScale": 0.63,
+        "logoDepth": 0.14,
+        "fire": 0,
+        "fireCompression": {
+          "pressing": true,
+          "extinct": true,
+          "height": 0,
+          "compression": 1,
+          "underSide": -1.014513636363636,
+          "ceiling": -1.032513636363636,
+          "flameTop": -1.788,
+          "emberTop": -1.788,
+          "power": 0
+        },
+        "impact": {
+          "active": false,
+          "age": 14.750000000000002,
+          "shakeX": 0,
+          "shakeY": 0
+        },
+        "seedScreen": {
+          "x": 505.7185361873992,
+          "y": 441.8512252059058,
+          "height": 245.65062127467877
+        },
+        "quality": {
+          "pixelRatio": 2,
+          "width": 2732,
+          "height": 1536,
+          "shadow": 2048,
+          "hdr": "2k",
+          "wordmarkWidth": 2048,
+          "curveSegments": 24,
+          "pixelBudget": 6000000
+        },
+        "travel": 0.983225962287042,
+        "reveal": 0.5492510598324216,
+        "jacket": {
+          "x": 964.0469289573409,
+          "y": 146.63768621848007,
+          "width": 337.52060347512446,
+          "height": 308.44160784468073,
+          "angle": -4.23238602559075,
+          "opacity": 1
+        },
+        "targetJacket": {
+          "x": 974.3883056640625,
+          "y": 143.90625,
+          "width": 338.234375,
+          "height": 309.09375
+        },
+        "board": {
+          "x": 558.7908325195312,
+          "y": 193.984375,
+          "width": 355.109375,
+          "height": 244.8125,
+          "opacity": 1
+        },
+        "imageSources": [
+          "assets/media/hero/doenc-board-isolated-v1.webp",
+          "assets/media/hero/doenc-jacket-isolated-v1.webp"
+        ]
+      },
+      "scene": {
+        "time": 20.1,
+        "mobile": false,
+        "press": 1,
+        "stand": 1,
+        "spit": 1,
+        "opening": 1,
+        "oTravel": 1,
+        "oTransform": {
+          "sameLogoObject": true,
+          "objectId": "0856787e-78b3-412f-837c-eeab40213b38",
+          "visible": false,
+          "remainingO": false,
+          "sourceScale": 0.4081577202236268,
+          "scale": 1
+        },
+        "logoScale": 0.63,
+        "logoDepth": 0.14,
+        "fire": 0,
+        "fireCompression": {
+          "pressing": true,
+          "extinct": true,
+          "height": 0,
+          "compression": 1,
+          "underSide": -1.014513636363636,
+          "ceiling": -1.032513636363636,
+          "flameTop": -1.788,
+          "emberTop": -1.788,
+          "power": 0
+        },
+        "impact": {
+          "active": false,
+          "age": 14.750000000000002,
+          "shakeX": 0,
+          "shakeY": 0
+        },
+        "seedScreen": {
+          "x": 505.7185361873992,
+          "y": 441.8512252059058,
+          "height": 245.65062127467877
+        },
+        "quality": {
+          "pixelRatio": 2,
+          "width": 2732,
+          "height": 1536,
+          "shadow": 2048,
+          "hdr": "2k",
+          "wordmarkWidth": 2048,
+          "curveSegments": 24,
+          "pixelBudget": 6000000
+        },
+        "logoCut": {
+          "dCenterFilled": false,
+          "oCenterFilled": false,
+          "solidD": false,
+          "solidO": false,
+          "remainingOInLogo": false,
+          "dotRing": false
+        },
+        "seedCenterFilled": false
+      }
+    },
+    {
+      "active": true,
+      "reason": null,
+      "ready": true,
+      "elapsed": 27.8,
+      "paused": true,
+      "duration": 28,
+      "errors": [],
+      "frame": {
+        "time": 27.8,
+        "mobile": false,
+        "press": 1,
+        "stand": 1,
+        "spit": 1,
+        "opening": 1,
+        "oTravel": 1,
+        "oTransform": {
+          "sameLogoObject": true,
+          "objectId": "0856787e-78b3-412f-837c-eeab40213b38",
+          "visible": false,
+          "remainingO": false,
+          "sourceScale": 0.4081577202236268,
+          "scale": 1
+        },
+        "logoScale": 0.63,
+        "logoDepth": 0.14,
+        "fire": 0,
+        "fireCompression": {
+          "pressing": true,
+          "extinct": true,
+          "height": 0,
+          "compression": 1,
+          "underSide": -1.014513636363636,
+          "ceiling": -1.032513636363636,
+          "flameTop": -1.788,
+          "emberTop": -1.788,
+          "power": 0
+        },
+        "impact": {
+          "active": false,
+          "age": 14.750000000000002,
+          "shakeX": 0,
+          "shakeY": 0
+        },
+        "seedScreen": {
+          "x": 505.7185361873992,
+          "y": 441.8512252059058,
+          "height": 245.65062127467877
+        },
+        "quality": {
+          "pixelRatio": 2,
+          "width": 2732,
+          "height": 1536,
+          "shadow": 2048,
+          "hdr": "2k",
+          "wordmarkWidth": 2048,
+          "curveSegments": 24,
+          "pixelBudget": 6000000
+        },
+        "travel": 1,
+        "reveal": 1,
+        "jacket": {
+          "x": 974.3883056640625,
+          "y": 143.90625,
+          "width": 338.234375,
+          "height": 309.09375,
+          "angle": 0,
+          "opacity": 1
+        },
+        "targetJacket": {
+          "x": 974.3883056640625,
+          "y": 143.90625,
+          "width": 338.234375,
+          "height": 309.09375
+        },
+        "board": {
+          "x": 558.7908325195312,
+          "y": 193.984375,
+          "width": 355.109375,
+          "height": 244.8125,
+          "opacity": 1
+        },
+        "imageSources": [
+          "assets/media/hero/doenc-board-isolated-v1.webp",
+          "assets/media/hero/doenc-jacket-isolated-v1.webp"
+        ]
+      },
+      "scene": {
+        "time": 20.1,
+        "mobile": false,
+        "press": 1,
+        "stand": 1,
+        "spit": 1,
+        "opening": 1,
+        "oTravel": 1,
+        "oTransform": {
+          "sameLogoObject": true,
+          "objectId": "0856787e-78b3-412f-837c-eeab40213b38",
+          "visible": false,
+          "remainingO": false,
+          "sourceScale": 0.4081577202236268,
+          "scale": 1
+        },
+        "logoScale": 0.63,
+        "logoDepth": 0.14,
+        "fire": 0,
+        "fireCompression": {
+          "pressing": true,
+          "extinct": true,
+          "height": 0,
+          "compression": 1,
+          "underSide": -1.014513636363636,
+          "ceiling": -1.032513636363636,
+          "flameTop": -1.788,
+          "emberTop": -1.788,
+          "power": 0
+        },
+        "impact": {
+          "active": false,
+          "age": 14.750000000000002,
+          "shakeX": 0,
+          "shakeY": 0
+        },
+        "seedScreen": {
+          "x": 505.7185361873992,
+          "y": 441.8512252059058,
+          "height": 245.65062127467877
+        },
+        "quality": {
+          "pixelRatio": 2,
+          "width": 2732,
+          "height": 1536,
+          "shadow": 2048,
+          "hdr": "2k",
+          "wordmarkWidth": 2048,
+          "curveSegments": 24,
+          "pixelBudget": 6000000
+        },
+        "logoCut": {
+          "dCenterFilled": false,
+          "oCenterFilled": false,
+          "solidD": false,
+          "solidO": false,
+          "remainingOInLogo": false,
+          "dotRing": false
+        },
+        "seedCenterFilled": false
+      }
+    }
+  ],
+  "layouts": [
+    {
+      "width": 1920,
+      "height": 1080,
+      "overflow": 0,
+      "skip": {
+        "x": 1772.140625,
+        "y": 24,
+        "width": 119.859375,
+        "height": 44,
+        "top": 24,
+        "right": 1892,
+        "bottom": 68,
+        "left": 1772.140625
+      },
+      "jacket": {
+        "x": 1298.019775390625,
+        "y": 305.109375,
+        "width": 389.984375,
+        "height": 356.390625,
+        "top": 305.109375,
+        "right": 1688.004150390625,
+        "bottom": 661.5,
+        "left": 1298.019775390625
+      },
+      "board": {
+        "x": 819.0254516601562,
+        "y": 362.859375,
+        "width": 409.45306396484375,
+        "height": 282.265625,
+        "top": 362.859375,
+        "right": 1228.478515625,
+        "bottom": 645.125,
+        "left": 819.0254516601562
+      }
+    },
+    {
+      "width": 1366,
+      "height": 650,
+      "overflow": 0,
+      "skip": {
+        "x": 1218.140625,
+        "y": 24,
+        "width": 119.859375,
+        "height": 44,
+        "top": 24,
+        "right": 1338,
+        "bottom": 68,
+        "left": 1218.140625
+      },
+      "jacket": {
+        "x": 974.3883056640625,
+        "y": 132,
+        "width": 338.234375,
+        "height": 203,
+        "top": 132,
+        "right": 1312.6226806640625,
+        "bottom": 335,
+        "left": 974.3883056640625
+      },
+      "board": {
+        "x": 558.7908325195312,
+        "y": 117.796875,
+        "width": 355.109375,
+        "height": 203,
+        "top": 117.796875,
+        "right": 913.9002075195312,
+        "bottom": 320.796875,
+        "left": 558.7908325195312
+      }
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "overflow": 0,
+      "skip": {
+        "x": 267.453125,
+        "y": 18,
+        "width": 104.546875,
+        "height": 44,
+        "top": 18,
+        "right": 372,
+        "bottom": 62,
+        "left": 267.453125
+      },
+      "jacket": {
+        "x": 212.71697998046875,
+        "y": 426.25,
+        "width": 155.28125,
+        "height": 141.90625,
+        "top": 426.25,
+        "right": 367.99822998046875,
+        "bottom": 568.15625,
+        "left": 212.71697998046875
+      },
+      "board": {
+        "x": 22.001983642578125,
+        "y": 449.25,
+        "width": 163.03125,
+        "height": 112.390625,
+        "top": 449.25,
+        "right": 185.03323364257812,
+        "bottom": 561.640625,
+        "left": 22.001983642578125
+      }
+    },
+    {
+      "width": 320,
+      "height": 640,
+      "overflow": 0,
+      "skip": {
+        "x": 197.453125,
+        "y": 18,
+        "width": 104.546875,
+        "height": 44,
+        "top": 18,
+        "right": 302,
+        "bottom": 62,
+        "left": 197.453125
+      },
+      "jacket": {
+        "x": 174.1359100341797,
+        "y": 426.875,
+        "width": 123.85939025878906,
+        "height": 113.1875,
+        "top": 426.875,
+        "right": 297.99530029296875,
+        "bottom": 540.0625,
+        "left": 174.1359100341797
+      },
+      "board": {
+        "x": 22.002166748046875,
+        "y": 445.234375,
+        "width": 130.046875,
+        "height": 89.640625,
+        "top": 445.234375,
+        "right": 152.04904174804688,
+        "bottom": 534.875,
+        "left": 22.002166748046875
+      }
+    }
+  ],
+  "errors": [],
+  "bad": [],
+  "behavior": {
+    "contactFire": true,
+    "solidDandO": true,
+    "singleWholeOMorph": true,
+    "continuousSameOObject": true,
+    "smallerLogo": true,
+    "sharperRendering": true,
+    "subtleImpact": true,
+    "exactPublishedProductAssets": true,
+    "matchedLanding": true,
+    "naturalHandoff": true,
+    "skipDuringLoading": true,
+    "sessionReturn": true,
+    "reducedMotion": true,
+    "deepLinks": true,
+    "webglFallback": true,
+    "pauseResume": true,
+    "canvasDisposed": true,
+    "homepageMenus": true,
+    "technical3D": true
+  }
+}
