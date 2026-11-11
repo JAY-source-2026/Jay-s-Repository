@@ -46,6 +46,7 @@
 .system-categories { display: grid; gap: 24px; }
 .system-category { min-width: 0; }
 .system-category h3 { font-size: 19px; color: var(--accent); font-weight: 650; line-height: 1.4; margin: 0 0 12px; letter-spacing: -.025em; }
+.system-category h3 span { display: block; margin-top: 3px; font-size: 13px; font-weight: 500; letter-spacing: 0; }
 .system-category-options { display: flex; flex-direction: column; }
 .system-option { display: flex; align-items: center; gap: 17px; position: relative; width: 100%; min-width: 0; padding: 15px 0; border: 0; border-bottom: 1px solid var(--line); background: transparent; color: var(--text); font: inherit; text-align: left; cursor: pointer; transition: background .2s, color .2s; }
 .system-option:first-of-type { border-top: 1px solid var(--line); }

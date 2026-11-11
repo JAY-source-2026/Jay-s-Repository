@@ -1,4 +1,4 @@
-import {PRODUCTS} from './product-data.js?v=20261109r2';
+import {PRODUCTS} from './product-data.js?v=20261111r1';
 const dialog=document.getElementById('materialDialog');
 if(dialog){
   const $=id=>document.getElementById(id),close=dialog.querySelector('.material-dialog-close');
