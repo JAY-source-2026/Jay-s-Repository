@@ -17,7 +17,12 @@ for p in files:
   for value in values:
    u=urlsplit(value)
    if u.scheme or u.netloc or not u.path or u.path.startswith('/') or '$' in u.path:continue
-   assert (p.parent/unquote(u.path)).exists(),f'{name}: missing {value}'
+   target=(p.parent/unquote(u.path)).resolve()
+   privateRoots=[(package/'company-site/assets'/n).resolve() for n in ['docs','자료']]
+   if any(target.is_relative_to(private) for private in privateRoots):
+    assert 'Original PDFs/PPTs are intentionally not part of the public package.' in (package/'company-site/assets/js/explorer.js').read_text()
+    continue
+   assert target.exists(),f'{name}: missing {value}'
    references+=1
  if before.get(name)!=sha(p):changed.append(name)
 allowed={'company-site/index.html','company-site/assets/js/explorer.js','company-site/assets/js/intro-boot.js','company-site/assets/css/brand-intro.css','company-site/release.json'}

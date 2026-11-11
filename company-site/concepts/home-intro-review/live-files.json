@@ -1,0 +1,110 @@
+{
+  "passed": true,
+  "files": [
+    {
+      "path": "company-site/release.json",
+      "status": 200,
+      "expected": "a618313a610950bdf0b1c7b7e50681b24e4fa5af3bd979ca58d0b4a238cd5777",
+      "sha256": "a618313a610950bdf0b1c7b7e50681b24e4fa5af3bd979ca58d0b4a238cd5777",
+      "matches": true
+    },
+    {
+      "path": "company-site/index.html",
+      "status": 200,
+      "expected": "119d38d9604d6ca92c60efec702c6d363666f118ef1905921a31b08ec358a96f",
+      "sha256": "119d38d9604d6ca92c60efec702c6d363666f118ef1905921a31b08ec358a96f",
+      "matches": true
+    },
+    {
+      "path": "company-site/assets/js/explorer.js",
+      "status": 200,
+      "expected": "b653e82168bcb402b50fec55ed5e2c811ade37a4349afcfdc49d34c98e402f19",
+      "sha256": "b653e82168bcb402b50fec55ed5e2c811ade37a4349afcfdc49d34c98e402f19",
+      "matches": true
+    },
+    {
+      "path": "company-site/assets/js/intro-boot.js",
+      "status": 200,
+      "expected": "35503ed60ada62b37f0b19ae9bf7fc0c015c5abc2f85e4617976b7e5ee682548",
+      "sha256": "35503ed60ada62b37f0b19ae9bf7fc0c015c5abc2f85e4617976b7e5ee682548",
+      "matches": true
+    },
+    {
+      "path": "company-site/assets/css/brand-intro.css",
+      "status": 200,
+      "expected": "0a78668dc5614925f63a04f03a30dfcc6a48a60e2901de5ecef7a4d76bb92864",
+      "sha256": "0a78668dc5614925f63a04f03a30dfcc6a48a60e2901de5ecef7a4d76bb92864",
+      "matches": true
+    },
+    {
+      "path": "company-site/assets/media/intro/THREE-LICENSE.txt",
+      "status": 200,
+      "expected": "8b378ebe60e2fe500158cb0ac71cb5e8b7d92953c2abcc63a0eb90499653b5bc",
+      "sha256": "8b378ebe60e2fe500158cb0ac71cb5e8b7d92953c2abcc63a0eb90499653b5bc",
+      "matches": true
+    },
+    {
+      "path": "company-site/assets/media/intro/CREDITS.txt",
+      "status": 200,
+      "expected": "1bdaf58ec459ec4f00408fe24f7e589e35fac62f10ae8c25cef4b50927ede08f",
+      "sha256": "1bdaf58ec459ec4f00408fe24f7e589e35fac62f10ae8c25cef4b50927ede08f",
+      "matches": true
+    },
+    {
+      "path": "company-site/assets/media/intro/logo-vector.json",
+      "status": 200,
+      "expected": "378b1046813b56af7e6ed6a7dc258adcb2c64793de39a7c484d4ba8ee4e94fee",
+      "sha256": "378b1046813b56af7e6ed6a7dc258adcb2c64793de39a7c484d4ba8ee4e94fee",
+      "matches": true
+    },
+    {
+      "path": "company-site/assets/media/intro/studio_small_09_2k.hdr",
+      "status": 200,
+      "expected": "36724313c0fc66dab126ff90f081b85a0b1ef47be65eda1417bd20b033f0573f",
+      "sha256": "36724313c0fc66dab126ff90f081b85a0b1ef47be65eda1417bd20b033f0573f",
+      "matches": true
+    },
+    {
+      "path": "company-site/assets/js/brand-intro/common.js",
+      "status": 200,
+      "expected": "e5d7918f8ab4f7fbe7d28c62d0f0802a6a665ec4507ae5042df6b607d11c230a",
+      "sha256": "e5d7918f8ab4f7fbe7d28c62d0f0802a6a665ec4507ae5042df6b607d11c230a",
+      "matches": true
+    },
+    {
+      "path": "company-site/assets/js/brand-intro/fire.js",
+      "status": 200,
+      "expected": "540181b1702a736321da93f4e2ffff53dd815a42eeffe5ec4e7915fa39514a9f",
+      "sha256": "540181b1702a736321da93f4e2ffff53dd815a42eeffe5ec4e7915fa39514a9f",
+      "matches": true
+    },
+    {
+      "path": "company-site/assets/js/brand-intro/player.js",
+      "status": 200,
+      "expected": "0d428ea69ca06847bf32dd4c1952a6612bfabad083741d1416129a45dbecc267",
+      "sha256": "0d428ea69ca06847bf32dd4c1952a6612bfabad083741d1416129a45dbecc267",
+      "matches": true
+    },
+    {
+      "path": "company-site/assets/js/brand-intro/HDRLoader.js",
+      "status": 200,
+      "expected": "9e73971bde06e2e159084a86653f017bdb278b505a67272581689c41cc347041",
+      "sha256": "9e73971bde06e2e159084a86653f017bdb278b505a67272581689c41cc347041",
+      "matches": true
+    },
+    {
+      "path": "company-site/assets/js/brand-intro/logo.js",
+      "status": 200,
+      "expected": "b656ac7d4c9c5180e276c6ae43353fecdfae1a9b3dd91a1769eddf97152d616d",
+      "sha256": "b656ac7d4c9c5180e276c6ae43353fecdfae1a9b3dd91a1769eddf97152d616d",
+      "matches": true
+    },
+    {
+      "path": "company-site/assets/js/brand-intro/scene.js",
+      "status": 200,
+      "expected": "ee97f3603d7882308f6e1435ad9bc97f9ba750d79343cee6d74f344a1e3f7709",
+      "sha256": "ee97f3603d7882308f6e1435ad9bc97f9ba750d79343cee6d74f344a1e3f7709",
+      "matches": true
+    }
+  ]
+}
