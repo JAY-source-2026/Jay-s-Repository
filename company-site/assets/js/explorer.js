@@ -1,5 +1,5 @@
 import { SYSTEMS, MATERIALS, SOURCES, CATEGORIES, loadCertificates, applyCertificate } from './systems.js?v=20261109r7';
-import { PRODUCTS } from './product-data.js?v=20261109r2';
+import { PRODUCTS } from './product-data.js?v=20261111r1';
 import { blanketPassesThrough } from './installation-blanket.js?v=20261109r10';
 const $=id=>document.getElementById(id);
 const buttons=[...document.querySelectorAll('[data-system]')];

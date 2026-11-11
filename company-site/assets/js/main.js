@@ -314,7 +314,7 @@
     };
     var updateHint = function () {
       if (!productSel.value) {
-        hint.textContent = "";
+        hint.textContent = "문의 분야를 선택하면 담당 사업부가 표시됩니다.";
         return;
       }
       var team = teamOf();
@@ -326,35 +326,62 @@
     // 사업영역 카드·상세 CTA에서 넘어오면 해당 분야를 미리 선택
     document.querySelectorAll("[data-product]").forEach(function (el) {
       el.addEventListener("click", function () {
-        productSel.value = el.getAttribute("data-product");
+        var value = el.getAttribute("data-product");
+        if (!Array.from(productSel.options).some(function (option) { return option.value === value; })) return;
+        productSel.value = value;
         updateHint();
+      });
+    });
+
+    var fields = Array.from(form.querySelectorAll("input[required], select[required], textarea[required]"));
+    var validateField = function (field) {
+      field.setCustomValidity(field.value.trim() ? "" : "이 항목을 입력해 주세요.");
+      field.setAttribute("aria-invalid", String(!field.validity.valid));
+    };
+    fields.forEach(function (field) {
+      field.addEventListener("input", function () {
+        if (!field.hasAttribute("aria-invalid")) return;
+        validateField(field);
+        if (fields.every(function (item) { return item.validity.valid; })) {
+          note.textContent = "";
+          note.classList.remove("is-error");
+        }
       });
     });
 
     form.addEventListener("submit", function (e) {
       e.preventDefault();
+      fields.forEach(validateField);
       if (!form.checkValidity()) {
-        note.textContent = "필수 항목을 모두 입력해 주세요.";
+        note.textContent = "필수 항목과 이메일 형식을 확인해 주세요.";
+        note.classList.add("is-error");
         form.reportValidity();
         return;
       }
+      note.classList.remove("is-error");
       var product = productSel.value;
       var team = teamOf();
       var name = form.elements.name.value.trim();
+      var company = form.elements.company.value.trim();
       var contact = form.elements.contact.value.trim();
+      var email = form.elements.email.value.trim();
+      var inquiryType = form.elements.inquiryType.value;
       var message = form.elements.message.value.trim();
 
-      var subject = "[홈페이지 문의/" + product + "] " + name;
+      var subject = "[" + inquiryType + "/" + product + "] " + name + (company ? " · " + company : "");
       var body = [
         "■ 문의 분야: " + product,
-        "■ 이름 / 회사: " + name,
+        "■ 문의 유형: " + inquiryType,
+        "■ 성함: " + name,
+        "■ 회사명: " + (company || "미입력"),
         "■ 연락처: " + contact,
+        "■ 이메일: " + email,
         "",
         "■ 문의 내용",
         message,
         "",
         "---",
-        "디오이엔씨 홈페이지 문의폼에서 전송되었습니다.",
+        "디오이엔씨 홈페이지에서 작성한 문의입니다.",
       ].join("\n");
 
       var mailto =
