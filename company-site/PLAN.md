@@ -1,3 +1,13 @@
+# 2026-11-12 — s9 인트로 커밋·공개 배포 완료
+
+**현재 공개 홈페이지는 s9다.** 사용자 요청으로 아래 s7·s8·s9 인트로 변경을 `main`에 커밋·push하고 기존 `gh-pages`로 공개 배포했다. 아래 기록의 ‘커밋·공개 배포 전’, ‘공개 홈페이지는 s5’는 당시의 과거 상태다.
+
+- **링크**: [공개 홈페이지](https://jay-source-2026.github.io/Jay-s-Repository/company-site/), [인트로 다시 보기](https://jay-source-2026.github.io/Jay-s-Repository/company-site/?intro=replay&v=20261112s9), [편집용 미리보기](https://redesigned-fishstick-77vprgr9qxvwcrj59-8000.app.github.dev/?intro=replay&v=20261112s9).
+- **커밋·배포**: 소스 `d99ad27be0655f621935cedaf9d99053129325ba`, 배포 `ba9161b`. 패키지 331개 파일, 인정서 60·1·5건 유지. gh-pages 변경은 인트로 파일 7개와 `release.json`뿐이다.
+- **공개 확인**: 공개 `release.json`이 소스 커밋을 가리키고, 변경 파일 7개가 패키지와 SHA-256으로 일치한다. 공개 주소에서 PC 자연 종료(`complete`)·모바일 SKIP, 가로 넘침 없음, JS·HTTP 오류 없음을 확인했다. 제품 메뉴·셔터·3D 기술 소개는 이번에 다시 검수하지 않았다(해당 파일 변경 없음).
+
+---
+
 # 2026-11-12 — O→자켓 전환을 겹침 없는 회전 전환으로 교체 (s9)
 
 **최신 편집 상태는 이 s9 샘플이다. 커밋·공개 배포 전이며 공개 홈페이지는 s5다.** s8의 다른 수정(로고 크기·불 타이밍 등)은 사용자가 좋다고 했고, 자켓 전환의 흰 바탕만 다시 지적해 방식을 바꿨다.
