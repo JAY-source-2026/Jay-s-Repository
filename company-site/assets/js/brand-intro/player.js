@@ -21,9 +21,10 @@ function paint(){
  const w=mix(startWidth,end.width,travel),h=mix(startHeight,end.height,travel),x=mix(start.x,end.x+end.width/2,travel),y=mix(start.y,end.y+end.height/2,travel);
  const distance=end.x+end.width/2-start.x,averageRadius=(startHeight+end.height)/4;
  const angle=-(1-travel)*distance/Math.max(1,averageRadius)*180/Math.PI;
- jacket.style.width=`${w}px`;jacket.style.height=`${h}px`;jacket.style.transform=`translate(${x-w/2}px,${y-h/2}px) rotate(${angle}deg)`;jacket.style.opacity=phase(t,18.6,19.5);
+ jacket.style.width=`${w}px`;jacket.style.height=`${h}px`;const unfold=clamp((t-18.95)/.6),spread=mix(.27,1,1-(1-unfold)**3);
+ jacket.style.transform=`translate(${x-w/2}px,${y-h/2}px) scaleX(${spread}) rotate(${angle}deg)`;jacket.style.opacity=t>=18.95?1:0;
  const boardOpacity=phase(t,22.2,24.2);board.style.width=`${b.width}px`;board.style.height=`${b.height}px`;board.style.transform=`translate(${b.x}px,${b.y+(1-boardOpacity)*12}px)`;board.style.opacity=boardOpacity;
- shadow.style.left=`${x}px`;shadow.style.top=`${y+h*.47}px`;shadow.style.width=`${w*1.08}px`;shadow.style.height=`${h*.18}px`;shadow.style.opacity=phase(t,18.8,19.6)*(1-phase(t,26.5,27.8));
+ shadow.style.left=`${x}px`;shadow.style.top=`${y+h*.47}px`;shadow.style.width=`${w*1.08}px`;shadow.style.height=`${h*.18}px`;shadow.style.opacity=phase(t,18.95,19.6)*(1-phase(t,26.5,27.8));
  const reveal=phase(t,23.8,27.6);document.documentElement.style.setProperty('--intro-reveal',reveal);
  backdrop.style.opacity=1-phase(t,22,27.6);stage.style.opacity=1-phase(t,19.6,21.4);
  progress.style.transform=`scaleX(${t/duration})`;
@@ -42,7 +43,7 @@ if(boot.active){
   if(boot.active){
    for(const [src,key]of [[sourceBoard,'board'],[sourceJacket,'jacket']]){const img=new Image();img.src=src.currentSrc;img.alt='';img.className=`intro-product intro-${key}`;img.draggable=false;products.append(img);if(key==='board')board=img;else jacket=img;}
    shadow=document.createElement('div');shadow.className='intro-product-shadow';products.prepend(shadow);
-   const {createScene}=await import('./scene.js?v=20261111s5');
+   const {createScene}=await import('./scene.js?v=20261112s9');
    if(boot.active){studio=await createScene(stage,()=>boot.finish('webgl-lost'));if(boot.active){ready=true;boot.markReady();studio.resize(overlay.clientWidth,overlay.clientHeight);paint();resizeObserver=new ResizeObserver(resize);resizeObserver.observe(overlay);schedule();}else{studio.dispose();studio=null;}}
   }
  }catch(e){errors.push(e.message);boot.finish('unavailable');}
