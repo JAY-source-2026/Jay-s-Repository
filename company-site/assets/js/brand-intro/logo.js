@@ -1,5 +1,5 @@
 import * as T from '../vendor/three.module.min.js';
-import {GROUND,phase,mix,mesh} from './common.js?v=20261112s9';
+import {GROUND,phase,mix,mesh} from './common.js?v=20261112s11';
 
 function smoothBevelNormals(geo){
   geo.computeVertexNormals();
@@ -20,7 +20,7 @@ function smoothBevelNormals(geo){
 }
 
 export async function createLogo(scene,blue,edge){
-  const data=await fetch(new URL('../../media/intro/logo-vector.json?v=20261112s9',import.meta.url)).then(r=>{if(!r.ok)throw new Error('Logo contour unavailable');return r.json();});
+  const data=await fetch(new URL('../../media/intro/logo-vector.json?v=20261112s11',import.meta.url)).then(r=>{if(!r.ok)throw new Error('Logo contour unavailable');return r.json();});
   const cv=p=>new T.Vector2((p[0]-data.origin[0])*data.scale,(data.origin[1]-p[1])*data.scale);
   const contours=data.smooth||data;
   const outer=contours.outer.map(cv),hole=contours.hole.map(cv),dot=contours.dot.map(cv),holeCenter=cv(data.holeCenter),dotCenter=cv(data.dotCenter);
