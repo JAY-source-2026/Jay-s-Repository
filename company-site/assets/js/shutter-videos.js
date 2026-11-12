@@ -1,9 +1,9 @@
 // Existing operation footage is mapped only to its documented shutter type.
 const clips = {
   standard: {
-    title: '일반셔터', certificate: 'FDS-OTS24-0807-1', duration: '00:47',
-    src: 'assets/media/archive/shutter/screen-shutter.mp4',
-    poster: 'assets/media/archive/shutter/screen-shutter-poster.jpg',
+    title: '일반셔터', certificate: 'FDS-OTS24-0807-1', duration: '00:29',
+    src: 'assets/media/archive/shutter/standard-shutter.mp4',
+    poster: 'assets/media/archive/shutter/standard-shutter-poster.jpg',
   },
   large: { title: '대형셔터', certificate: 'FDS-OTS25-0721-1' },
   wire: {

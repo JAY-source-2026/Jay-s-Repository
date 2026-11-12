@@ -1,3 +1,15 @@
+# 2026-11-12 — 일반셔터 사진·영상 교체 (미리보기)
+
+**최신 편집 상태다. 커밋·공개 배포 전이며 공개 홈페이지는 s11(이전 일반셔터 사진·47초 영상)이다.** 사용자가 `assets/자료/방화셔터 자료/`에 넣은 `일반셔터 사진.png`(1672×941)와 `일반셔터 영상.mp4`(29.07초, 768×432, H.264/AAC)로 교체했다.
+
+- **미리보기**: <https://redesigned-fishstick-77vprgr9qxvwcrj59-8000.app.github.dev/?intro=off&v=20261112r1>, [영상 영역](https://redesigned-fishstick-77vprgr9qxvwcrj59-8000.app.github.dev/?intro=off&v=20261112r1#shutter).
+- **사진**: 메인 ‘일반 방화셔터’ 사진을 새 `assets/media/hero/shutter-standard-photo-v2.jpg`로 교체(PNG를 같은 해상도의 고화질 JPEG으로 변환, 236KB). 대체 문구·크기 속성 갱신. 이전 `shutter-standard-photo.jpg`는 파일만 남아 있고 더는 쓰지 않는다.
+- **영상**: 방화셔터 영역 ‘일반셔터’ 영상을 새 `assets/media/archive/shutter/standard-shutter.mp4`로 교체(재인코딩 없이 스트리밍용 재배치만), 포스터 `standard-shutter-poster.jpg`(15초 장면), 길이 표시 00:47→00:29. 이전 `screen-shutter.mp4`는 파일만 남아 있다.
+- **파일**: `index.html`, `assets/js/shutter-videos.js`(캐시 `20261112r1`), 새 미디어 3개. ffmpeg은 `pip install imageio-ffmpeg`의 내장 바이너리를 사용했다.
+- **검수**: PC 1366·모바일 390에서 사진 전체 표시, 영상 메타데이터(29.07초) 로드·포스터 200, 가로 넘침·오류 없음. 실제 재생 화면은 헤드리스에서 확인하지 않았다.
+
+---
+
 # 2026-11-12 — s11 인트로 커밋·공개 배포 완료
 
 **현재 공개 홈페이지는 s11이다.** 사용자 요청으로 아래 s10·s11 변경(시작부터 타는 불, 금속 D → 원래 로고색, O 뱉기 동작)을 `main`에 커밋·push하고 기존 `gh-pages`로 공개 배포했다. 아래 기록의 ‘커밋·공개 배포 전’, ‘공개 홈페이지는 s9’는 당시의 과거 상태다.
