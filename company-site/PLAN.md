@@ -1,3 +1,13 @@
+# 2026-11-12 — s11 인트로 커밋·공개 배포 완료
+
+**현재 공개 홈페이지는 s11이다.** 사용자 요청으로 아래 s10·s11 변경(시작부터 타는 불, 금속 D → 원래 로고색, O 뱉기 동작)을 `main`에 커밋·push하고 기존 `gh-pages`로 공개 배포했다. 아래 기록의 ‘커밋·공개 배포 전’, ‘공개 홈페이지는 s9’는 당시의 과거 상태다.
+
+- **링크**: [공개 홈페이지](https://jay-source-2026.github.io/Jay-s-Repository/company-site/), [인트로 다시 보기](https://jay-source-2026.github.io/Jay-s-Repository/company-site/?intro=replay&v=20261112s11), [편집용 미리보기](https://redesigned-fishstick-77vprgr9qxvwcrj59-8000.app.github.dev/?intro=replay&v=20261112s11).
+- **커밋·배포**: 소스 `862e0f33581a53a581184b14af3e8675a9f66e01`, 배포 `22fe3575b26b1b3e1b3d6e7fcbb247dc2fa73c49`. 패키지 331개 파일. gh-pages 변경은 인트로 파일 6개와 `release.json`뿐이다.
+- **공개 확인**: 공개 `release.json`이 소스 커밋을 가리키고 변경 파일 6개가 패키지와 SHA-256으로 일치한다. 공개 주소에서 PC 자연 종료·모바일 SKIP, 가로 넘침 없음, JS·HTTP 오류 없음. 제품 메뉴·셔터·3D 기술 소개는 다시 검수하지 않았다(해당 파일 변경 없음).
+
+---
+
 # 2026-11-12 — D가 O를 뱉어내는 동작 강화 샘플 (s11)
 
 **최신 편집 상태는 이 s11 샘플이다(s10 포함). 커밋·공개 배포 전이며 공개 홈페이지는 s9다.**
