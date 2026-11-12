@@ -1,5 +1,5 @@
 import * as T from '../vendor/three.module.min.js';
-import {GROUND,phase,mix,mesh} from './common.js?v=20261111s5';
+import {GROUND,phase,mix,mesh} from './common.js?v=20261112s9';
 
 function smoothBevelNormals(geo){
   geo.computeVertexNormals();
@@ -20,7 +20,7 @@ function smoothBevelNormals(geo){
 }
 
 export async function createLogo(scene,blue,edge){
-  const data=await fetch(new URL('../../media/intro/logo-vector.json',import.meta.url)).then(r=>{if(!r.ok)throw new Error('Logo contour unavailable');return r.json();});
+  const data=await fetch(new URL('../../media/intro/logo-vector.json?v=20261112s9',import.meta.url)).then(r=>{if(!r.ok)throw new Error('Logo contour unavailable');return r.json();});
   const cv=p=>new T.Vector2((p[0]-data.origin[0])*data.scale,(data.origin[1]-p[1])*data.scale);
   const contours=data.smooth||data;
   const outer=contours.outer.map(cv),hole=contours.hole.map(cv),dot=contours.dot.map(cv),holeCenter=cv(data.holeCenter),dotCenter=cv(data.dotCenter);
@@ -31,7 +31,7 @@ export async function createLogo(scene,blue,edge){
     for(const c of source.curves){const a=point(c[0],c[1]),b=point(c[2],c[3]),end=point(c[4],c[5]);p.bezierCurveTo(a.x,a.y,b.x,b.y,end.x,end.y);}p.closePath();return p;
   };
   const shape=(name,holes=[])=>{const s=path(name);for(const [key,scale=1]of holes)s.holes.push(path(key,T.Path,scale));return s;};
-  const extrude=s=>{const g=new T.ExtrudeGeometry(s,{depth:.14,bevelEnabled:true,bevelThickness:.008,bevelSize:.006,bevelSegments:4,curveSegments:24});g.translate(0,0,-.07);smoothBevelNormals(g);return g;};
+  const extrude=s=>{const g=new T.ExtrudeGeometry(s,{depth:.14,bevelEnabled:true,bevelThickness:.013,bevelSize:.009,bevelSegments:6,curveSegments:72});g.translate(0,0,-.07);smoothBevelNormals(g);return g;};
   const root=new T.Group();scene.add(root);
   const solid=mesh(extrude(shape('outer')),[blue,edge],root);
   const hollow=mesh(extrude(shape('outer',[['hole']])),[blue,edge],root);
@@ -72,7 +72,7 @@ export async function createLogo(scene,blue,edge){
 // The actual logo O keeps its mesh identity as its entire silhouette opens
 // and rounds into the jacket. There is no second circle or leftover O ring.
 export function createSeed(material,contour,existingMesh){
-  const geo=new T.TorusGeometry(1.13,.245,48,192),target=geo.attributes.position.array.slice();
+  const geo=new T.TorusGeometry(1.13,.245,64,256),target=geo.attributes.position.array.slice();
   const radii=new Map();
   function contourRadius(a){
     const id=Math.round(a*1e5);if(radii.has(id))return radii.get(id);
@@ -89,14 +89,14 @@ export function createSeed(material,contour,existingMesh){
   const seed=existingMesh||new T.Mesh(geo,material);
   if(existingMesh){seed.geometry.dispose();seed.geometry=geo;seed.material=material;}
   seed.name='logo-o-to-jacket';seed.castShadow=true;seed.receiveShadow=false;let previous=-1;
-  function update(open){
-    if(open===previous)return;previous=open;
+  function update(open,thin=0){
+    const key=open+thin*10;if(key===previous)return;previous=key;
     const pos=geo.attributes.position;
-    const inner=.885*open,outer=1.375,center=(outer+inner)/2,tube=(outer-inner)/2;
+    const inner=mix(.885,1.09,thin)*open,outer=1.375,center=(outer+inner)/2,tube=(outer-inner)/2;
     for(let i=0;i<pos.count;i++){
       const x=target[i*3],y=target[i*3+1],z=target[i*3+2],a=Math.atan2(y,x),r=Math.hypot(x,y);
       const phi=Math.atan2(z,r-1.13),rad=(center+tube*Math.cos(phi))*mix(factors[i],1,open);
-      const flatZ=.20*Math.max(-1,Math.min(1,Math.sin(phi)/.18)),roundZ=.245*Math.sin(phi);
+      const lip=Math.cos(phi)<0?mix(.002,.18,open):.18,flatZ=.20*Math.max(-1,Math.min(1,Math.sin(phi)/lip)),roundZ=.245*Math.sin(phi);
       pos.setXYZ(i,Math.cos(a)*rad,Math.sin(a)*rad,mix(flatZ,roundZ,open));
     }
     pos.needsUpdate=true;geo.computeVertexNormals();geo.computeBoundingSphere();
