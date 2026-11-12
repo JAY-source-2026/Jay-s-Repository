@@ -1,5 +1,5 @@
 import * as T from '../vendor/three.module.min.js';
-import {GROUND,random,texture} from './common.js?v=20261112s9';
+import {GROUND,random,texture} from './common.js?v=20261112s11';
 
 // Landing effects for the moment D slams the fire out: dust rolling away
 // along the floor and sparks squeezed out from under the straight edge.

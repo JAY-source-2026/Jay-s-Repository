@@ -1,5 +1,5 @@
 import * as T from '../vendor/three.module.min.js';
-import {GROUND,phase,random} from './common.js?v=20261112s9';
+import {GROUND,phase,random} from './common.js?v=20261112s11';
 
 const noise=`
 float hash(vec2 p){vec3 q=fract(vec3(p.xyx)*.1031);q+=dot(q,q.yzx+33.33);return fract((q.x+q.y)*q.z);}
@@ -69,7 +69,7 @@ export function createFire(scene){
   });
   const flame=layers[1];
   // Soft bloom around the flame body.
-  const haloMat=new T.ShaderMaterial({uniforms:{...shared,glow:uniforms.glow,haloFade:uniforms.haloFade},transparent:true,depthWrite:false,blending:T.AdditiveBlending,side:T.DoubleSide,vertexShader:clipVertex,
+  const haloMat=new T.ShaderMaterial({uniforms:{...shared,glow:uniforms.glow,haloFade:uniforms.haloFade},transparent:true,depthWrite:false,depthTest:false,blending:T.AdditiveBlending,side:T.DoubleSide,vertexShader:clipVertex,
     fragmentShader:`varying vec2 vUv;varying vec3 worldPoint;${clipUniforms}uniform float glow;uniform float haloFade;void main(){vec2 p=(vUv-vec2(.5,.36))*vec2(2.,1.7);float d=dot(p,p);float a=exp(-d*5.5)*.34+exp(-d*22.)*.3;gl_FragColor=vec4(vec3(1.,.36,.07)*a*glow*haloFade,1.);}`});
   const halo=new T.Mesh(new T.PlaneGeometry(9,7),haloMat);halo.position.set(0,2.4,-.47);halo.renderOrder=2;group.add(halo);
   // Warm light pooled on the floor under and around the fire.
@@ -77,7 +77,7 @@ export function createFire(scene){
     vertexShader:'varying vec2 vUv;void main(){vUv=uv;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}',
     fragmentShader:`varying vec2 vUv;uniform float glow;uniform float time;${noise}void main(){vec2 p=(vUv-.5)*2.;float d=length(p*vec2(1.,1.35));float flick=.9+.1*noise(vec2(time*7.,3.));float a=(exp(-d*d*9.)*.55+exp(-d*d*60.)*.75)*flick;gl_FragColor=vec4(vec3(1.,.33,.05)*a*glow,1.);}`});
   const pool=new T.Mesh(new T.PlaneGeometry(11,11),poolMat);pool.rotation.x=-Math.PI/2;pool.position.set(0,.004,0);pool.renderOrder=1;group.add(pool);
-  const smokeMat=new T.ShaderMaterial({uniforms,transparent:true,depthWrite:false,side:T.DoubleSide,
+  const smokeMat=new T.ShaderMaterial({uniforms,transparent:true,depthWrite:false,depthTest:false,side:T.DoubleSide,
     vertexShader:'varying vec2 vUv;void main(){vUv=uv;gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.);}',
     fragmentShader:`varying vec2 vUv;uniform float time;uniform float smoke;${noise}
     void main(){vec2 p=vUv;float w=fbm(vec2(p.x*3.2,p.y*2.6-time*.3));float n=fbm(vec2(p.x*5.5+(w-.5)*2.4,p.y*4.6-time*.5)+w*1.7);
@@ -99,7 +99,7 @@ export function createFire(scene){
     const pressing=contact.pressing,extinct=t>=5.35;
     const gap=pressing?Math.max(0,contact.underSide-(GROUND+.035)):4.4;
     const height=extinct?0:Math.min(4.4,gap),compression=1-height/4.4;
-    const power=phase(t,0,.8)*Math.min(1,height/.38);
+    const power=Math.min(1,height/.38);
     // The visible tongues reach about 3 units, so the flame only starts to
     // squash at the moment the falling edge meets its tips.
     const sheetHeight=extinct?0:4.4*Math.min(1,gap/3),squeeze=1-sheetHeight/4.4;
@@ -116,7 +116,7 @@ export function createFire(scene){
     halo.scale.set(1,Math.max(.001,sheetHeight/4.4),1);halo.position.y=sheetHeight*.55;halo.rotation.set(0,yaw,0);halo.visible=height>.001;
     pool.visible=uniforms.glow.value>.001;embers.visible=height>.001;
     smoke.quaternion.copy(camera.quaternion);smoke.position.y=2.8+phase(t,5.35,8.9)*1.1;
-    light.position.y=GROUND+Math.min(1.2,height*.5);light.intensity=power*Math.min(1,height/1.2)*18*flicker;
+    light.position.y=GROUND+Math.min(1.2,height*.5);light.intensity=power*Math.min(1,height/1.2)*34*flicker;
     let emberTop=GROUND;
     for(let i=0;i<count;i++){const s=seeds[i],age=(t*s.speed+s.y)%1;
       const x=s.x*(1-age*.45)+Math.sin(age*s.curl+s.x*5)*age*.34+s.drift*age*age;
