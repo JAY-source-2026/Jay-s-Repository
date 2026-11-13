@@ -1,3 +1,25 @@
+# 2026-11-13 — 15.4초 인트로(s13) 커밋·공개 배포 완료
+
+**현재 공개 홈페이지는 이 상태다(15.4초 인트로 s13 + 새 일반셔터 사진·29초 영상).** 사용자가 아래 s12 샘플 중 B안(약 14초)을 고르고 로고·사명이 나온 순간을 1초 더 멈추도록 요청해, 그 길이(15.4초)를 기본값으로 정리하고 `main`에 커밋·push, 기존 `gh-pages`로 공개 배포했다. 아래 기록의 ‘샘플’, ‘커밋·공개 배포 전’은 당시의 과거 상태다.
+
+- **링크**: [공개 홈페이지](https://jay-source-2026.github.io/Jay-s-Repository/company-site/), [인트로 다시 보기](https://jay-source-2026.github.io/Jay-s-Repository/company-site/?intro=replay&v=20261112s13), [편집용 미리보기](https://redesigned-fishstick-77vprgr9qxvwcrj59-8000.app.github.dev/?intro=replay&v=20261112s13).
+- **내용**: 장면·3D·효과는 그대로이고 `player.js`의 `cut` 표가 재생 시간을 28초 이야기 시간으로 변환한다. 불만 타는 도입 2초 삭제, D 낙하·충돌은 원래 속도, 로고·사명 완성 후 약 1.6초 정지(재생 8.15–9.75초), 나머지 구간은 최대 약 2.8배. 샘플용 `cut=a`·`cut=b` 선택과 28초 재생은 없앴다. 길이를 다시 조정하려면 `cut` 표의 재생 시각만 바꾸면 된다.
+- **커밋·배포**: 소스 `28ba5b376d2cb4a1ebc3fa8e00de3dd358bf7122`, 배포 `ed07b57efabf10aade8d7b39ad42cc24ccf55016`. 패키지 334개 파일. gh-pages 변경은 `index.html`(player.js 캐시 `20261112s13`), `player.js`, `release.json`뿐이다.
+- **공개 확인**: 공개 `release.json`이 소스 커밋을 가리키고 변경 파일 3개가 패키지와 SHA-256으로 일치한다. 공개 주소에서 PC 1366 자연 종료(`complete`), 모바일 390 SKIP, 가로 넘침 없음, 사이트 오류 없음(검수에서 차단한 분석 스크립트 2건만 기록). 기록은 `concepts/intro-short-review/`(`checks.json` 로컬, `live-checks.json` 공개, 캡처). 시점별 정지 화면만 확인했고 실제 속도감은 헤드리스에서 확인하지 않았다. 제품 메뉴·셔터·3D 기술 소개는 다시 검수하지 않았다(해당 파일 변경 없음).
+
+---
+
+# 2026-11-12 — 인트로 길이 단축 샘플 2종 (s12, 미리보기)
+
+**과거 기록이다(위 s13 기록이 최신). 당시에는 커밋·공개 배포 전이었고 `cut=a`·`cut=b` 선택 기능은 s13에서 제거했다.** 인트로가 길다는 지적에 따라 같은 장면 구성을 빠르게 재생하는 단축 샘플 두 가지를 만들었다. 주소에 `cut=`이 없으면 기존 28초가 그대로 재생된다(기본값 변경 없음). 사용자가 고르면 그 길이를 기본값으로 바꾸는 작업이 남아 있다.
+
+- **미리보기**: [A안 약 19초](https://redesigned-fishstick-77vprgr9qxvwcrj59-8000.app.github.dev/?intro=replay&cut=a&v=20261112s12), [B안 약 14초](https://redesigned-fishstick-77vprgr9qxvwcrj59-8000.app.github.dev/?intro=replay&cut=b&v=20261112s12), [기존 28초](https://redesigned-fishstick-77vprgr9qxvwcrj59-8000.app.github.dev/?intro=replay&v=20261112s12).
+- **방식**: 장면·3D·효과 파일은 그대로 두고 `player.js`에서 재생 시간만 28초 이야기 시간으로 변환한다(`cuts` 표, 구간 사이 속도는 부드럽게 이어짐). 불만 타는 도입부를 잘라내고(A 1.2초, B 2초), D 낙하·충돌은 원래 속도 그대로, 일어서기·흔들림·로고 정리·로고 정지·O 이동·자켓이 제자리로 굴러가는 구간을 빠르게 했다(A 최대 약 2.3배, B 최대 약 2.8배).
+- **파일**: `assets/js/brand-intro/player.js`, `index.html`(player.js 캐시 `20261112s12`만 변경). 다른 인트로 모듈 캐시는 s11 유지.
+- **검수**: `concepts/intro-short-review/`(check.mjs, checks.json, 캡처). 기존·A·B 각각 PC 1366 자연 종료(`complete`), 모바일 390 SKIP, 가로 넘침 없음, 사이트 오류 없음(차단한 분석 스크립트 2건만 기록). 시점별 정지 화면만 확인했고 실제 속도감은 헤드리스에서 확인하지 않았다.
+
+---
+
 # 2026-11-12 — 일반셔터 사진·영상 교체 커밋·공개 배포 완료
 
 **현재 공개 홈페이지는 이 상태다(인트로 s11 + 새 일반셔터 사진·29초 영상).** 사용자 요청으로 아래 일반셔터 사진·영상 교체를 `main`에 커밋·push하고 기존 `gh-pages`로 공개 배포했다. 아래 기록의 ‘미리보기’, ‘커밋·공개 배포 전’은 당시의 과거 상태다.

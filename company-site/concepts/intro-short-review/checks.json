@@ -1,0 +1,82 @@
+{
+ "final-pc": {
+  "duration": 15.4,
+  "reasonAtStart": null,
+  "frames": [
+   [
+    0,
+    2
+   ],
+   [
+    3.08,
+    5.48
+   ],
+   [
+    4.62,
+    7.49
+   ],
+   [
+    6.93,
+    11.28
+   ],
+   [
+    8.16,
+    13.31
+   ],
+   [
+    9.24,
+    14.31
+   ],
+   [
+    9.7,
+    14.79
+   ],
+   [
+    11.09,
+    17.38
+   ],
+   [
+    12.01,
+    19.4
+   ],
+   [
+    13.86,
+    23.98
+   ],
+   [
+    14.94,
+    26.81
+   ]
+  ],
+  "end": {
+   "reason": "complete",
+   "hidden": true,
+   "inert": false,
+   "introActive": false
+  },
+  "overflow": false,
+  "errors": [
+   "Failed to load resource: net::ERR_FAILED",
+   "Failed to load resource: net::ERR_FAILED"
+  ]
+ },
+ "final-mobile": {
+  "duration": 15.4,
+  "reasonAtStart": null,
+  "played": {
+   "elapsed": 0.32,
+   "story": 2.31
+  },
+  "end": {
+   "reason": "skip",
+   "hidden": true,
+   "inert": false,
+   "introActive": false
+  },
+  "overflow": false,
+  "errors": [
+   "Failed to load resource: net::ERR_FAILED",
+   "Failed to load resource: net::ERR_FAILED"
+  ]
+ }
+}
