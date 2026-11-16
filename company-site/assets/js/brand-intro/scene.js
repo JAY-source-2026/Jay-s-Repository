@@ -26,7 +26,9 @@ export async function createScene(stage,onLost){
  const rim=new T.DirectionalLight(0x84baff,1.5);rim.position.set(6,4,-4);scene.add(rim);
  const floor=mesh(new T.PlaneGeometry(120,120),new T.MeshStandardMaterial({color:'#091523',roughness:.5,metalness:.07,envMap:env?.texture,envMapIntensity:.02,dithering:true}),scene);floor.rotation.x=-Math.PI/2;floor.position.y=GROUND;floor.castShadow=false;
  // Shallow satin-blue extrusion keeps the original mark clean at its display size.
- const steel=new T.Color('#b9c3ce'),steelEdge=new T.Color('#c9d2db'),brand=new T.Color('#2d5682'),brandEdge=new T.Color('#27507a'),jacketSilver=new T.Color('#a9b8c7');
+ // The falling D is a vivid polished blue with light-blue edges and a faint glow (look C, chosen 2026-11-16).
+ const dLook={face:'#1f7dff',edge:'#6fd0ff',glow:'#0a3cff',glowPower:.28,rough:.2,env:2.8};
+ const steel=new T.Color(dLook.face),steelEdge=new T.Color(dLook.edge),dGlow=new T.Color(dLook.glow),brand=new T.Color('#2d5682'),brandEdge=new T.Color('#27507a'),jacketSilver=new T.Color('#a9b8c7');
  const blue=new T.MeshPhysicalMaterial({color:'#2f5f93',metalness:.22,roughness:.36,clearcoat:.55,clearcoatRoughness:.16,envMapIntensity:.85,dithering:true});
  const edge=new T.MeshPhysicalMaterial({color:'#27527f',metalness:.3,roughness:.3,clearcoat:.6,clearcoatRoughness:.14,envMapIntensity:1,dithering:true});
  const logo=await createLogo(scene,blue,edge),dRoot=logo.root,words=wordmark(renderer.capabilities.getMaxAnisotropy());scene.add(words);
@@ -53,7 +55,7 @@ export async function createScene(stage,onLost){
   // The falling D is a thick polished-metal block; it thins and takes the
   // original logo blue while it settles into the brand lockup.
   const depthScale=mix(2.9,1,settle),tilt=mix(-.36,0,settle);
-  for(const [m,from,to]of [[blue,steel,brand],[edge,steelEdge,brandEdge]]){m.color.lerpColors(from,to,settle);m.metalness=mix(.9,.12,settle);m.roughness=mix(.44,.4,settle);m.envMapIntensity=mix(2,.75,settle);m.clearcoat=mix(0,.4,settle);}
+  for(const [m,from,to]of [[blue,steel,brand],[edge,steelEdge,brandEdge]]){m.color.lerpColors(from,to,settle);m.metalness=mix(.9,.12,settle);m.roughness=mix(dLook.rough,.4,settle);m.envMapIntensity=mix(dLook.env,.75,settle);m.emissive.copy(dGlow);m.emissiveIntensity=dLook.glowPower*(1-settle);m.clearcoat=mix(0,.4,settle);}
   dRoot.rotation.set(0,tilt,angle);dRoot.scale.set(dScale,dScale*(1-.035*Math.sin(t*25)*shake),depthScale);
   if(thud){const c=Math.cos(angle),s=Math.sin(angle),sx=1+squash*s*s-squash*.5*c*c,sy=1+squash*c*c-squash*.5*s*s;dRoot.scale.set(dScale*sx,dScale*sy,depthScale);}
   const spitTravel=clamp(spitAge/.72),spit=1-(1-spitTravel)**3;logo.update(t,spit);
@@ -71,7 +73,7 @@ export async function createScene(stage,onLost){
   // (no cross-fade, so nothing shows through behind the jacket).
   const turn=clamp((t-18.4)/.55),flip=turn*turn;
   seed.rotation.set(0,tilt+mix(-.26*phase(t,15.8,17.8),-Math.PI/2,flip),angle*(1-settle)+.12*phase(t,15.8,17.8)*(1-flip),'YXZ');seed.scale.set(childScale*(1+jiggle),childScale*ovalRatio*(1-jiggle),childScale*depthScale*mix(.14/(.4*seedStart),1,phase(t,15.8,18.3)));
-  const silver=phase(t,17.6,18.4);seed.material.color.copy(blue.color).lerp(jacketSilver,silver);seed.material.metalness=mix(blue.metalness,.7,silver);seed.material.roughness=mix(blue.roughness,.3,silver);seed.material.envMapIntensity=mix(blue.envMapIntensity,.9,silver);seed.material.clearcoat=mix(blue.clearcoat,0,silver);seed.material.opacity=1;seed.material.transparent=false;seed.visible=spit===1&&t<18.95;
+  const silver=phase(t,17.6,18.4);seed.material.color.copy(blue.color).lerp(jacketSilver,silver);seed.material.metalness=mix(blue.metalness,.7,silver);seed.material.roughness=mix(blue.roughness,.3,silver);seed.material.envMapIntensity=mix(blue.envMapIntensity,.9,silver);seed.material.clearcoat=mix(blue.clearcoat,0,silver);seed.material.emissive.copy(blue.emissive);seed.material.emissiveIntensity=blue.emissiveIntensity*(1-silver);seed.material.opacity=1;seed.material.transparent=false;seed.visible=spit===1&&t<18.95;
   const brandCamera=phase(t,10.3,13.2),productCamera=phase(t,17.5,19.9);
   camera.position.set(mix(mobile?1.6:2.5,0,brandCamera),mix(2.5,mobile?.3:.2,brandCamera),mix(mobile?18.8:16.3,mobile?20.8:16.7,brandCamera));
   camera.position.lerp(new T.Vector3(0,.4,mobile?17.6:15.4),productCamera);
