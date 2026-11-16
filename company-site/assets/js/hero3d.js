@@ -1,5 +1,5 @@
 import { SYSTEMS } from './systems.js?v=20261109r7';
-import { buildAssembly } from './assemblies.js?v=20261110r1';
+import { buildAssembly } from './assemblies.js?v=20261116f4';
 import { openingBandMaterials } from './installation-band.js?v=20261110r1';
 import { buildSiteContext } from './site-context.js?v=20261106r2';
 import { FACTORY, buildFactory } from './factory.js?v=20261106r2';

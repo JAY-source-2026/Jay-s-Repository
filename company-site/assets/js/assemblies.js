@@ -273,13 +273,7 @@ export function buildAssembly({ T, parent, record, bayWidth, materials, CY, WALL
         const text=step.text.replace(/\s/g,''),slot=timing.steps[index];
         for(const face of faces)radii.forEach((r,i)=>{
           const segments=(isDuct?ductBlanketSegments:blanketSegments[i]).filter(s=>s.face===face);
-          if(text.includes('테이프'))for(const segment of segments){
-            const width=Math.min(.035,(segment.to-segment.from)/4);
-            for(const d of [segment.from,segment.to-width]){
-              const tape=ring(segment.radius+.0015,segment.radius+.0008,width,foil,g,pipeXs[i],0,face>0?d:-d-width);
-              tape.userData.component='aluminium-fixing-tape';
-            }
-          }
+          // Aluminium tape has the same foil finish as the blanket, so no separate band is drawn.
           if(!/철선|철사/.test(text))return;
           const positions=wirePositions(segments,text);
           positions.forEach((position,j)=>{
