@@ -1084,3 +1084,24 @@ body.lb-lock { overflow: hidden; }
 .ft-info, .ft-copy, .ft-nav { color: #c1d1e2; }
 .ft .to-top { color: #fff; border-color: #6d8cae; }
 .ft .ft-nav a:hover { color: #fff; }
+
+/* Footer: a compact band with a slightly larger logo and readable links. */
+.ft { padding: 38px 0 26px; }
+.ft-inner { gap: 16px 48px; align-items: center; }
+.ft-brand { gap: 12px; font-size: 22px; }
+.ft-brand .brand-mark { width: 46px; }
+.ft .ft-nav { gap: 26px; }
+.ft .ft-nav a { color: #dde8f3; font-weight: 500; }
+.ft-info { padding-top: 16px; line-height: 1.75; border-top-color: rgba(255, 255, 255, .16); }
+.ft-copy { margin-top: -6px; font-size: 12px; color: #a9bdd2; }
+.to-top { bottom: 24px; width: 40px; height: 40px; }
+@media (max-width: 760px) {
+    .ft { padding: 28px 0 22px; }
+    .ft-inner { gap: 12px; }
+    .ft-brand { font-size: 20px; }
+    .ft-brand .brand-mark { width: 42px; }
+    .ft .ft-nav { gap: 6px 16px; font-size: 13.5px; }
+    .ft-info { padding-top: 14px; font-size: 12.5px; }
+    .ft-copy { margin-top: 0; }
+    .ft .to-top { position: absolute; top: 24px; right: var(--pad); bottom: auto; margin: 0; }
+}

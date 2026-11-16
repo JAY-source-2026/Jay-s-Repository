@@ -147,3 +147,22 @@
     .about-page .hist-years em { font-size: 12px; }
     .about-page .hist-years ul span { font-size: 15px; font-weight: 600; }
 }
+
+/* Head office and plants: pick a site and the map follows. */
+.about-page .ceo-image img { object-position: 50% 30%; }
+.about-page .loc-map { border-radius: 18px; overflow: hidden; border: 1px solid #d5dde4; box-shadow: 0 18px 40px -28px rgba(20, 40, 60, .45); }
+.about-page .loc-sites { display: grid; gap: 10px; }
+.about-page .loc-site { display: grid; gap: 5px; padding: 16px 18px; border: 1px solid #d5dde4; border-radius: 12px; background: #fff; color: var(--text); font: inherit; text-align: left; cursor: pointer; transition: border-color .2s, background .2s, box-shadow .2s; }
+.about-page .loc-site strong { display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 700; }
+.about-page .loc-site strong::before { content: ''; width: 9px; height: 9px; border-radius: 50%; border: 2px solid #9fb0c0; transition: background .2s, border-color .2s; }
+.about-page .loc-site span { color: var(--muted); font-size: 15px; line-height: 1.5; word-break: keep-all; }
+.about-page .loc-site:hover { border-color: #8ea6bd; }
+.about-page .loc-site[aria-pressed=true] { border-color: var(--accent); background: #edf3f9; box-shadow: inset 3px 0 0 var(--accent); }
+.about-page .loc-site[aria-pressed=true] strong { color: var(--accent); }
+.about-page .loc-site[aria-pressed=true] strong::before { border-color: var(--accent); background: var(--accent); }
+.about-page .loc-hint { margin: 10px 0 22px; color: #7b8997; font-size: 12.5px; }
+@media (max-width: 760px) {
+    .about-page .ceo-image img { object-position: 50% 22%; }
+    .about-page .loc-site { padding: 14px 15px; }
+}
+@media (min-width: 1001px) { .about-page .loc-map { aspect-ratio: auto; height: 640px; } }
