@@ -1,3 +1,41 @@
+# 2026-11-16 — 회사소개·사업영역·고객지원 정리(g1·g2) 커밋·공개 배포 완료
+
+**현재 공개 홈페이지는 이 상태다.** 아래 g2·g1 기록의 변경 전체를 사용자 지시로 `main`에 커밋·push, 기존 `gh-pages`로 공개 배포했다. 아래 두 기록의 ‘미리보기’, ‘커밋·공개 배포 전’은 당시의 과거 상태다.
+
+- **링크**: [공개 홈페이지](https://jay-source-2026.github.io/Jay-s-Repository/company-site/), [회사소개](https://jay-source-2026.github.io/Jay-s-Repository/company-site/about.html), [본사 및 공장](https://jay-source-2026.github.io/Jay-s-Repository/company-site/about.html#location), [내화채움구조](https://jay-source-2026.github.io/Jay-s-Repository/company-site/business-firestop.html), [내화구조](https://jay-source-2026.github.io/Jay-s-Repository/company-site/business-fireproof.html), [방화셔터](https://jay-source-2026.github.io/Jay-s-Repository/company-site/business-shutter.html), [고객지원](https://jay-source-2026.github.io/Jay-s-Repository/company-site/support.html).
+- **커밋·배포**: 소스 `6357554c0fb0c7bd3bcaa3ee96b85502c601cce1`, 배포 `69909957c6c97c155b62d3836cb6ddf0ae7e2f1b`. 패키지 356개 파일(새 사진 2장: `assets/media/about/hq-building.jpg`, `assets/media/business/telecom-site.jpg`). gh-pages는 2개 추가, HTML 9개·`about.css`·`style.css`·`support.json`·`player.js`·`scene.js`·`pages.js`·`release.json` 변경.
+- **공개 확인**: 공개 `release.json`이 소스 커밋을 가리킨다. 공개 주소 PC 1366·모바일 390에서 조직도·메뉴 링크 없음, 사업장 버튼으로 지도 전환, 사업영역 세 페이지 첫 제목·문구, 내화구조 숫자 없음, 고객지원 두 게시판 빈 상태, 깨진 이미지·가로 넘침·오류 없음. 새 사진 2장 응답 200, 공개 `scene.js`에 모바일 로고 색, 공개 `style.css`에 꼬리말 정리 포함. 꼬리말과 모바일 인트로 로고의 공개 주소 캡처, 실제 기기는 다시 보지 않았다.
+- **남은 것**: 본사·공장 주소의 ‘효행구 정남면’ 표기는 사용자 확인 대기(틀리면 수정). 최신 ISO 인증서 파일을 받으면 자료실에 올린다. 고객지원 게시판은 비어 있다.
+
+---
+
+# 2026-11-16 — 하단 정리·고객지원 글 삭제·사업영역 문구 (g2, 미리보기)
+
+**최신 편집 상태다. 커밋·공개 배포 전이며 공개 홈페이지는 아직 아래 f4 상태다.** 아래 g1 변경 위에 사용자가 네 가지를 더 요청했다. g1과 g2 모두 사용자 확인 또는 커밋·배포 지시를 기다리는 상태다.
+
+- **미리보기**: [회사소개 맨 아래](https://redesigned-fishstick-77vprgr9qxvwcrj59-8000.app.github.dev/about.html?v=20261116g2#location), [고객지원](https://redesigned-fishstick-77vprgr9qxvwcrj59-8000.app.github.dev/support.html?v=20261116g2#notice), [내화채움구조](https://redesigned-fishstick-77vprgr9qxvwcrj59-8000.app.github.dev/business-firestop.html?v=20261116g2), [내화구조](https://redesigned-fishstick-77vprgr9qxvwcrj59-8000.app.github.dev/business-fireproof.html?v=20261116g2).
+- **1. 맨 아래(꼬리말)**: 모든 페이지 공통. 높이를 줄이고(PC 323→231px, 모바일 440→242px) 로고를 키웠다(마크 36→46px, 글자 18→22px). 파란 바탕에서 거의 안 보이던 메뉴 글자를 밝게, 맨 위로 버튼은 작게 하고 모바일에서는 로고 오른쪽에 둔다(`style.css` 끝, 캐시 `20261116g2`).
+- **2. 고객지원**: `support.json`의 공지사항 2건·홍보자료 4건(2020~2022년)을 모두 삭제. 두 게시판은 ‘등록된 글이 없습니다.’로 보인다. 첨부 파일과 사진은 지우지 않았다. `pages.js`의 support.json 참조에 캐시 값을 붙였다.
+- **3. 내화채움구조 ‘인정서 60건’**: 금속배관 ‘전규격’ + ‘벽체와 바닥 - 보온과 비보온 모두 적용 가능’, 비금속배관 ‘전규격’ + 기존 설명(내화자켓, 보드+자켓, 바닥 상부 시공), 금속덕트 ‘전규격’. 다발배관은 그대로.
+- **4. 내화구조**: 맨 위의 숫자 3개(2002년, 30곳 이상, 3시간)를 삭제. 제목·설명 문장과 사진은 그대로.
+- **검수**: 미리보기 PC 1366·모바일 390에서 꼬리말 캡처(회사소개·홈), 고객지원 두 게시판 빈 상태, 내화채움구조 문구, 내화구조 숫자 없음, 가로 넘침·오류 없음. 실제 기기는 확인하지 않았다.
+
+---
+
+# 2026-11-16 — 회사소개·사업영역 정리 5건 (g1, 미리보기)
+
+**최신 편집 상태다. 커밋·공개 배포 전이며 공개 홈페이지는 아직 아래 f4 상태다.** 사용자 확인 또는 커밋·배포 지시를 기다리는 상태다.
+
+- **미리보기**: [회사소개](https://redesigned-fishstick-77vprgr9qxvwcrj59-8000.app.github.dev/about.html?v=20261116g1), [본사 및 공장](https://redesigned-fishstick-77vprgr9qxvwcrj59-8000.app.github.dev/about.html?v=20261116g1#location), [내화채움구조](https://redesigned-fishstick-77vprgr9qxvwcrj59-8000.app.github.dev/business-firestop.html?v=20261116g1), [내화구조](https://redesigned-fishstick-77vprgr9qxvwcrj59-8000.app.github.dev/business-fireproof.html?v=20261116g1), [방화셔터](https://redesigned-fishstick-77vprgr9qxvwcrj59-8000.app.github.dev/business-shutter.html?v=20261116g1), [인트로 다시 보기](https://redesigned-fishstick-77vprgr9qxvwcrj59-8000.app.github.dev/?intro=replay&v=20261116s17).
+- **1. 연혁 성장기 사진**: 얼룩이 보이던 `shutter-kt.jpg` 대신 `assets/media/hero/shutter-standard-photo-v2.jpg`(일반셔터 사진, 이미 홈에 쓰는 공개 사진).
+- **2. 조직도·CEO 사진**: `about.html`의 조직도 구간과 모든 페이지 메뉴(PC·모바일)의 ‘조직도’ 링크 삭제. CEO 인사말의 건물 사진을 카탈로그 v31 표지의 본사 사진(`assets/media/about/hq-building.jpg`, 1086×1448, 표지에서 추출)으로 교체.
+- **3. 본사 및 공장**: 사업장 3곳을 주소 버튼으로 넣고 누르면 지도와 ‘네이버 지도로 보기’ 링크가 바뀐다(`about.html` 끝 스크립트). 지도는 OpenStreetMap에서 구글 지도 임베드로 바꿨다(열쇠 없이 주소로 건물 위치를 찾아 줌 — 세 주소 모두 핀 확인). 표시 주소는 화성시 일반구 신설을 반영한 `경기도 화성시 효행구 정남면 안념길 121-12`(본사·제1공장), `… 안념길112번길 39`(제2공장), `… 덕절제기길 6`(제3공장)이다. 사용자가 준 문구는 2공장에 ‘효행구’가, 3공장에 ‘정남면’이 빠져 있어 같은 형식으로 맞췄다(정남면이 효행구 소속임은 지도 검색 결과로 확인). 지도 검색어는 구 이름 없이 넣는다. 모든 페이지 꼬리말·홈 문의 구간·구조화 데이터의 본사 주소도 ‘효행구 정남면 안념길 121-12’로 바꾸고 ‘(내리)’를 뺐다. 카카오·네이버 지도는 회사 계정으로 발급한 열쇠가 있어야 넣을 수 있다.
+- **4. 모바일 로고**: 상단 메뉴 로고는 흰색으로 잘 보였고, 어둡게 보인 것은 인트로 끝의 로고 마크(짙은 파랑 `#2d5682`가 어두운 배경 위)였다. 폭 760px 이하에서는 마크를 밝은 파랑(`#5aa2f2`/`#4a8fe0`)으로 정리한다(`scene.js`의 `resize`). PC 색은 그대로. 캐시 `scene.js`·`player.js` `20261116s17`. 사용자가 말한 로고가 다른 곳이면 다시 확인한다.
+- **5. 사업영역**: 내화채움구조·방화셔터 페이지 맨 위 소개 구간(‘인정서 60건으로…’, ‘상업시설부터…’와 숫자 3개·사진)을 삭제해 ‘주요 시공 현장’부터 나온다. 내화구조 페이지의 KT 통신구 칸 사진을 목업에서 현장 사진 `assets/media/business/telecom-site.jpg`(공동구 PPTX 14쪽 ‘서울 사당 통신구’)로 교체. 세 페이지는 HTML을 직접 고쳤으므로 `build_business.py`를 다시 돌리면 되돌아간다.
+- **검수**: 미리보기 PC 1366·모바일 390에서 조직도·메뉴 링크 없음, 사업장 버튼으로 지도·링크 전환, 세 사업영역 페이지 첫 제목, 깨진 이미지·가로 넘침·오류 없음, 모바일 인트로 로고 캡처 확인. 실제 기기는 확인하지 않았다.
+
+---
+
 # 2026-11-16 — 3D 시뮬레이션의 하얀 테이프 삭제 (f4) 커밋·공개 배포 완료
 
 **현재 공개 홈페이지는 이 상태다(아래 ‘최종 정리’ + 테이프 삭제).** 사용자가 세라믹섬유블랭킷 시공 뒤에 붙는 하얀 테이프를 없애 달라고 했고(실제 테이프도 은박색이라는 이유), 미리보기 확인 뒤 배포를 지시했다.
