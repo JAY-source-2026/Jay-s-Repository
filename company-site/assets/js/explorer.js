@@ -1,5 +1,5 @@
 import { SYSTEMS, MATERIALS, SOURCES, CATEGORIES, loadCertificates, applyCertificate } from './systems.js?v=20261109r7';
-import { PRODUCTS } from './product-data.js?v=20261111r1';
+import { PRODUCTS } from './product-data.js?v=20261116f1';
 import { blanketPassesThrough } from './installation-blanket.js?v=20261109r10';
 const $=id=>document.getElementById(id);
 const buttons=[...document.querySelectorAll('[data-system]')];
@@ -51,7 +51,7 @@ document.addEventListener('keydown',event=>{
  if(event.shiftKey&&document.activeElement===first){event.preventDefault();last?.focus();}
  else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first?.focus();}
 });
-const overviewHint=()=> '메뉴를 누르면 시공 순서를, 오른쪽 화살표를 누르면 인정서 목록을 확인할 수 있습니다.';
+const overviewHint=()=> '메뉴나 오른쪽 화살표를 눌러 인정서를 선택하면 시공 순서를 보여드립니다.';
 function explainStep(data,index){
  const step=data.record?.steps[index];
  if(!step)return data.instructions[index]||'선택한 인정서의 시공 순서와 마감 상태를 확인합니다.';
@@ -165,7 +165,7 @@ function details(id,mode=id?'install':'overview'){
   button.addEventListener('click',()=>{const span=(data.steps[i+1]?.[0]??data.duration)-time;api?.seek(time+span*.52);});return button;
  }));
  if(failed){$('explorerHint').textContent='3D를 사용할 수 없어 아래 인정서 시방과 제품 사진으로 안내합니다.';}
- else if(mode==='preview')$('explorerHint').textContent=data.name+' · 클릭하면 시공 순서를 재생합니다.';
+ else if(mode==='preview')$('explorerHint').textContent=data.name+' · 인정서를 선택하면 시공 순서를 재생합니다.';
  else update({phase:0,progress:0,complete:false});
 }
 function update(state){
@@ -192,7 +192,8 @@ function choose(id,certificateId){
 function preview(id){if(id===committed&&displayMode==='install')return;details(id,'preview');api?.preview(id);}
 function clearPreview(){clearTimeout(hoverTimer);if(displayMode!=='preview')return;details(committed);api?.clearPreview();}
 buttons.forEach((button,index)=>{
- button.addEventListener('click',()=>choose(button.dataset.system));
+ // The menu only opens its certificate list; choosing a certificate starts the simulation.
+ button.addEventListener('click',()=>document.querySelector(`[data-cert-toggle="${button.dataset.system}"]`)?.click());
  button.addEventListener('pointerenter',event=>{if(event.pointerType!=='mouse'||!hoverCapable.matches||button.disabled)return;const entered=performance.now();clearTimeout(hoverTimer);hoverTimer=setTimeout(()=>{const now=performance.now();if(now>=hoverBlockedUntil&&now-lastScroll>180&&lastPointerMove>=entered-40&&lastPointerMove>=lastScroll)preview(button.dataset.system);},220);});
  button.addEventListener('pointerleave',()=>clearTimeout(hoverTimer));
  button.addEventListener('focus',()=>{if(button.matches(':focus-visible')&&!button.disabled){clearTimeout(hoverTimer);preview(button.dataset.system);}});
@@ -232,7 +233,16 @@ function populate(records){
    });list.append(button);
   });
  }
- $('certificateStatus').textContent='화살표를 눌러 인정서를 선택하세요.';toggles.forEach(button=>button.disabled=false);
+ // The fire-rated wall has one approved structure; list it like the others.
+ {
+  const wall=SYSTEMS.firewall,list=$('certificates-firewall'),count=document.createElement('p'),button=document.createElement('button');
+  count.className='certificate-count';count.textContent='1건';
+  button.type='button';button.className='certificate-choice';button.dataset.certificate=wall.certificate;button.dataset.category='firewall';button.setAttribute('aria-pressed','false');
+  button.textContent=wall.certificate+' 내화벽체 · 비내력벽 1시간';button.addEventListener('click',()=>choose('firewall'));
+  button.addEventListener('keydown',event=>{if(event.key==='Escape'){event.preventDefault();const toggle=document.querySelector('[data-cert-toggle="firewall"]');toggle.click();toggle.focus();}});
+  list.replaceChildren(count,button);
+ }
+ $('certificateStatus').textContent='';toggles.forEach(button=>button.disabled=false);
 }
 function fallback(){
  clearTimeout(hoverTimer);failed=true;api?.dispose();api=null;window.systemExplorer=null;
