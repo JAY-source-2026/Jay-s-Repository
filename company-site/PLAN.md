@@ -1,3 +1,25 @@
+# 2026-11-16 — 사업영역 페이지·품질인정제도·파란 D 인트로(s15) 커밋·공개 배포 완료
+
+**현재 공개 홈페이지는 이 상태다.** 사용자가 D 색상 예시 중 C안(선명한 파랑)을 골라 기본값으로 정리했고(`dcolor` 선택 기능 삭제), 사업영역 4개 페이지·품질인정제도 페이지·메뉴 변경과 함께 `main`에 커밋·push, 기존 `gh-pages`로 공개 배포했다. 아래 기록의 ‘미리보기’, ‘커밋·공개 배포 전’, ‘예시 3종’은 당시의 과거 상태다.
+
+- **링크**: [공개 홈페이지](https://jay-source-2026.github.io/Jay-s-Repository/company-site/), [인트로 다시 보기](https://jay-source-2026.github.io/Jay-s-Repository/company-site/?intro=replay&v=20261116s15), [내화채움구조](https://jay-source-2026.github.io/Jay-s-Repository/company-site/business-firestop.html), [내화구조](https://jay-source-2026.github.io/Jay-s-Repository/company-site/business-fireproof.html), [방화셔터](https://jay-source-2026.github.io/Jay-s-Repository/company-site/business-shutter.html), [설계소프트웨어](https://jay-source-2026.github.io/Jay-s-Repository/company-site/business-software.html), [품질인정제도](https://jay-source-2026.github.io/Jay-s-Repository/company-site/regulation.html), [편집용 미리보기](https://redesigned-fishstick-77vprgr9qxvwcrj59-8000.app.github.dev/?intro=replay&v=20261116s15).
+- **인트로**: `scene.js`의 `dLook`(면 `#1f7dff`, 모서리 `#6fd0ff`, 약한 발광)이 떨어지는 D의 색이다. 로고로 정리되며 원래 로고 파랑으로 바뀌는 과정은 그대로다. D가 뱉는 O에도 같은 발광을 넣어 색을 맞췄다. 캐시는 scene.js·player.js 모두 `20261116s15`.
+- **커밋·배포**: 소스 `8b7baf3`(사업영역·품질인정제도)와 `4c0a7802288f2454bae8753f848fe35efe296c56`(인트로), 배포 `8c782513bdb766d3f7c71b309fe85a5a080d4079`. 패키지 354개 파일. gh-pages는 20개 추가(새 페이지 5개, CSS 2개, 사진·그림 13개), 7개 변경(`index.html`·`about.html`·`archive.html`·`support.html`·`player.js`·`scene.js`·`release.json`).
+- **공개 확인**: 공개 `release.json`이 소스 커밋을 가리키고 대표 파일 7개가 패키지와 SHA-256으로 일치한다. 공개 주소에서 PC 1366 자연 종료(`complete`), 모바일 390 SKIP, 가로 넘침·오류 없음, 새 페이지 5개 응답 200·깨진 이미지 없음(PC 1366). 기록은 `concepts/intro-dcolor-review/`(`live-checks.json`, `final-local.png`, `live.png`). 정지 화면만 확인했고 실제 재생 속도감, 새 페이지의 공개 주소 모바일 화면, 제품 메뉴·셔터·3D 기술 소개는 다시 검수하지 않았다.
+- **남은 것**: 내화구조 페이지의 현장명 아래 작은 설명 3개는 그대로다(사용자 요청은 내화채움구조 페이지였다). `company-promo/`와 예전 검토용 미추적 파일은 커밋하지 않았다.
+
+---
+
+# 2026-11-16 — 인트로 D 색상 예시 3종 (s14, 미리보기)
+
+**최신 편집 상태다. 커밋·공개 배포 전이며 기본 인트로 모습은 바뀌지 않았다.** 사용자가 처음 떨어지는 D의 색이 밋밋하다며 더 역동적인 색상 예시 3가지를 요청했다. 주소에 `dcolor=`가 없으면 기존 강철색 그대로다. 사용자가 고르면 그 색을 기본값으로 정리하고 `dcolor` 선택 기능을 없애는 작업이 남아 있다.
+
+- **미리보기**: [A 달궈진 주황](https://redesigned-fishstick-77vprgr9qxvwcrj59-8000.app.github.dev/?intro=replay&dcolor=a&v=20261116s14), [B 골드](https://redesigned-fishstick-77vprgr9qxvwcrj59-8000.app.github.dev/?intro=replay&dcolor=b&v=20261116s14), [C 선명한 파랑](https://redesigned-fishstick-77vprgr9qxvwcrj59-8000.app.github.dev/?intro=replay&dcolor=c&v=20261116s14), [현재(강철색)](https://redesigned-fishstick-77vprgr9qxvwcrj59-8000.app.github.dev/?intro=replay&v=20261116s14).
+- **방식**: `assets/js/brand-intro/scene.js`의 `dLooks` 표(면·모서리 색, 발광, 거칠기, 반사 세기). 떨어질 때의 색만 바꾸고, 로고로 정리되며 원래 로고 파랑으로 바뀌는 과정은 그대로다. A안은 D가 뱉는 O가 D보다 어두운 붉은색으로 보인다(O에는 발광을 넣지 않음) — 선택되면 맞춘다. `player.js`의 scene.js 캐시와 `index.html`의 player.js 캐시를 `20261116s14`로 올렸다.
+- **검수**: `concepts/intro-dcolor-review/`(check.mjs, 비교 캡처 3장: 왼쪽 위 현재, 오른쪽 위 A, 왼쪽 아래 B, 오른쪽 아래 C). PC 1366에서 네 경우 모두 오류 없이 정지 화면 5개 시점 확인. 모바일과 실제 재생 속도감은 확인하지 않았다. 사본은 `.local-backups/doenc-intro-dcolor-20261116s14/`.
+
+---
+
 # 2026-11-16 — 사업영역 4개 페이지 신설 (main 커밋, 공개 배포 전)
 
 **2026-11-16 사용자 요청으로 사업영역 4개 페이지·품질인정제도 페이지·메뉴 변경을 `main`에 커밋했다(push·gh-pages 공개 배포는 하지 않았다). 공개 홈페이지에는 아직 이 페이지들과 바뀐 메뉴 링크가 없다.** 같은 날 내화채움구조 ‘주요 시공 현장’ 세 칸의 현장명 아래 작은 설명(2015년 기흥·화성 시공 등)은 사용자 요청으로 삭제했다. 아래 ‘커밋·공개 배포 전’ 표현은 커밋 이전의 과거 상태다. 사용자가 사업영역 메뉴의 내화채움구조·내화구조·방화셔터·설계소프트웨어를 각각 별도 페이지로 열리게 하고, 주요 현장·숫자·사진 중심으로 가장 간단하게 표현하도록 요청했다. 아래 2026-11-13 품질인정제도 페이지도 여전히 미커밋 상태다.

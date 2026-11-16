@@ -1,0 +1,52 @@
+{
+ "pc": {
+  "duration": 15.4,
+  "errors": [],
+  "end": {
+   "reason": "complete",
+   "hidden": true,
+   "overflow": false
+  }
+ },
+ "mobile": {
+  "duration": 15.4,
+  "errors": [],
+  "end": {
+   "reason": "skip",
+   "hidden": true,
+   "overflow": false
+  }
+ },
+ "pages": {
+  "business-firestop": {
+   "status": 200,
+   "broken": [],
+   "notes": 0,
+   "errors": []
+  },
+  "business-fireproof": {
+   "status": 200,
+   "broken": [],
+   "notes": 3,
+   "errors": []
+  },
+  "business-shutter": {
+   "status": 200,
+   "broken": [],
+   "notes": 0,
+   "errors": []
+  },
+  "business-software": {
+   "status": 200,
+   "broken": [],
+   "notes": 0,
+   "errors": []
+  },
+  "regulation": {
+   "status": 200,
+   "broken": [],
+   "notes": 0,
+   "errors": []
+  }
+ }
+}
