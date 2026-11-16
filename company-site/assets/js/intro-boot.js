@@ -1,8 +1,8 @@
 (() => {
- const root=document.documentElement,query=new URLSearchParams(location.search),reduced=matchMedia('(prefers-reduced-motion: reduce)');
+ const root=document.documentElement,query=new URLSearchParams(location.search);
  const forced=query.get('intro')==='replay',section=!location.hash||['#home','#top'].includes(location.hash);
  let seen=false;try{seen=sessionStorage.getItem('doenc-intro-s4')==='seen';}catch{}
- const boot=window.doencIntroBoot={active:section&&query.get('intro')!=='off'&&!reduced.matches&&(!seen||forced),reason:null,ready:false};
+ const boot=window.doencIntroBoot={active:section&&query.get('intro')!=='off'&&(!seen||forced),reason:null,ready:false};
  if(boot.active){root.style.setProperty('--intro-scrollbar-gap',`${Math.max(0,innerWidth-root.clientWidth)}px`);root.classList.add('intro-active');}
  let watchdog,overlay,saved=[];
  function finish(reason='skip'){
@@ -25,7 +25,6 @@
   watchdog=setTimeout(()=>finish('loading-timeout'),60000);
  }
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',setup,{once:true});else setup();
- reduced.addEventListener('change',e=>{if(e.matches)finish('reduced-motion');});
  window.addEventListener('hashchange',()=>{if(location.hash&&!['#home','#top'].includes(location.hash))finish('section-link');});
  window.addEventListener('pagehide',()=>finish('pagehide'));
  window.addEventListener('pageshow',e=>{if(e.persisted)finish('history');});
