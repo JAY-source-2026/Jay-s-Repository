@@ -263,7 +263,7 @@ function startExplorer(){
  }
  loading=(async()=>{
   try{
-   const [records,{initHero3D}]=await Promise.all([loadCertificates(),import('./hero3d.js?v=20261110r1')]);populate(records);
+   const [records,{initHero3D}]=await Promise.all([loadCertificates(),import('./hero3d.js?v=20261116f4')]);populate(records);
    $('explorerLoadStatus').textContent='시공 모형을 준비하고 있습니다.';
    api=await initHero3D($('hero3d'),$('explorerRender'),{onUpdate:update});
    window.systemExplorer=api;
