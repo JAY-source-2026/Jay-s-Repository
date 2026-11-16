@@ -40,7 +40,9 @@ export async function createScene(stage,onLost){
  const dShadow=new T.Mesh(new T.PlaneGeometry(5,2.2),new T.MeshBasicMaterial({map:shadowTex,transparent:true,depthWrite:false}));dShadow.rotation.x=-Math.PI/2;dShadow.position.set(-.7,GROUND+.012,.1);scene.add(dShadow);
  let mobile=false,width=1,height=1,lastState={};
  const project=v=>{v.project(camera);return{x:(v.x+1)*width/2,y:(1-v.y)*height/2};};
- function resize(w,h){width=w;height=h;mobile=w<=760;renderer.setPixelRatio(Math.min(3,Math.max(2,devicePixelRatio),Math.sqrt(9000000/(w*h))));renderer.setSize(w,h);camera.aspect=w/h;camera.fov=mobile?38:34;camera.updateProjectionMatrix();}
+ function resize(w,h){width=w;height=h;mobile=w<=760;
+  // The settled mark is small on a phone; a lighter blue keeps it clear against the dark backdrop.
+  brand.set(mobile?'#5aa2f2':'#2d5682');brandEdge.set(mobile?'#4a8fe0':'#27507a');renderer.setPixelRatio(Math.min(3,Math.max(2,devicePixelRatio),Math.sqrt(9000000/(w*h))));renderer.setSize(w,h);camera.aspect=w/h;camera.fov=mobile?38:34;camera.updateProjectionMatrix();}
  function render(t){
   const fall=clamp(t-4.35),age=t-5.35,enter=phase(t,2.4,4.35),press=fall*fall*(.3+.7*fall),stand=phase(t,6.45,8.05),shake=phase(t,8.05,8.3)*(1-phase(t,9.45,9.75));
   // Spit: D leans back and swells (wind-up), then snaps forward and

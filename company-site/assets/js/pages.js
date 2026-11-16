@@ -496,7 +496,7 @@
     if (!panel) return;
     panel.innerHTML = '<p class="empty">게시글을 불러오는 중입니다…</p>';
 
-    getJSON("assets/data/support.json").then(function (data) {
+    getJSON("assets/data/support.json?v=20261116g2").then(function (data) {
       var counts = {};
       data.posts.forEach(function (p) { counts[p.cat] = (counts[p.cat] || 0) + 1; });
 
