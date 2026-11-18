@@ -194,9 +194,7 @@ function clearPreview(){clearTimeout(hoverTimer);if(displayMode!=='preview')retu
 buttons.forEach((button,index)=>{
  // The menu only opens its certificate list; choosing a certificate starts the simulation.
  button.addEventListener('click',()=>document.querySelector(`[data-cert-toggle="${button.dataset.system}"]`)?.click());
- button.addEventListener('pointerenter',event=>{if(event.pointerType!=='mouse'||!hoverCapable.matches||button.disabled)return;const entered=performance.now();clearTimeout(hoverTimer);hoverTimer=setTimeout(()=>{const now=performance.now();if(now>=hoverBlockedUntil&&now-lastScroll>180&&lastPointerMove>=entered-40&&lastPointerMove>=lastScroll)preview(button.dataset.system);},220);});
- button.addEventListener('pointerleave',()=>clearTimeout(hoverTimer));
- button.addEventListener('focus',()=>{if(button.matches(':focus-visible')&&!button.disabled){clearTimeout(hoverTimer);preview(button.dataset.system);}});
+ // Neither mouse hover nor keyboard focus previews (zooms) the 3D scene; only choosing a certificate changes it.
  button.addEventListener('keydown',event=>{
   let next;
   if(event.key==='ArrowDown')next=(index+1)%buttons.length;
@@ -209,7 +207,11 @@ buttons.forEach((button,index)=>{
 });
 toggles.forEach(toggle=>toggle.addEventListener('click',()=>{
  clearPreview();const expanded=toggle.getAttribute('aria-expanded')!=='true';
- toggle.setAttribute('aria-expanded',String(expanded));$(toggle.getAttribute('aria-controls')).hidden=!expanded;
+ const list=$(toggle.getAttribute('aria-controls'));
+ toggle.setAttribute('aria-expanded',String(expanded));list.hidden=!expanded;
+ // Bring the opened certificate list into view inside the menu's own scroll area.
+ if(expanded){const box=$('systemOptions'),row=toggle.closest('.system-option-row')||toggle,b=box.getBoundingClientRect(),r=row.getBoundingClientRect(),l=list.getBoundingClientRect();
+  if(l.bottom>b.bottom){const delta=Math.min(l.bottom-b.bottom+8,r.top-b.top);if(delta>0)box.scrollBy({top:delta,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});}}
 }));
 $('systemOptions').addEventListener('pointerleave',clearPreview);
 $('systemOptions').addEventListener('focusout',event=>{if(!$('systemOptions').contains(event.relatedTarget))clearPreview();});
@@ -238,7 +240,7 @@ function populate(records){
   const wall=SYSTEMS.firewall,list=$('certificates-firewall'),count=document.createElement('p'),button=document.createElement('button');
   count.className='certificate-count';count.textContent='1건';
   button.type='button';button.className='certificate-choice';button.dataset.certificate=wall.certificate;button.dataset.category='firewall';button.setAttribute('aria-pressed','false');
-  button.textContent=wall.certificate+' 내화벽체 · 비내력벽 1시간';button.addEventListener('click',()=>choose('firewall'));
+  button.textContent=wall.certificate+' 내화벽체';button.addEventListener('click',()=>choose('firewall'));
   button.addEventListener('keydown',event=>{if(event.key==='Escape'){event.preventDefault();const toggle=document.querySelector('[data-cert-toggle="firewall"]');toggle.click();toggle.focus();}});
   list.replaceChildren(count,button);
  }
