@@ -1,0 +1,49 @@
+{
+  "passed": true,
+  "base": "https://jay-source-2026.github.io/Jay-s-Repository/company-site/",
+  "results": [
+    {
+      "width": 1366,
+      "certificates": 6,
+      "sideBySide": true,
+      "zoom": true,
+      "videoSwitch": true,
+      "keyboard": true,
+      "archiveCounts": [
+        6,
+        0,
+        2
+      ],
+      "errors": []
+    },
+    {
+      "width": 390,
+      "certificates": 6,
+      "sideBySide": true,
+      "zoom": true,
+      "videoSwitch": true,
+      "keyboard": true,
+      "archiveCounts": [
+        6,
+        0,
+        2
+      ],
+      "errors": []
+    },
+    {
+      "width": 320,
+      "certificates": 6,
+      "sideBySide": true,
+      "zoom": true,
+      "videoSwitch": true,
+      "keyboard": true,
+      "archiveCounts": [
+        6,
+        0,
+        2
+      ],
+      "errors": []
+    }
+  ],
+  "racePassed": true
+}

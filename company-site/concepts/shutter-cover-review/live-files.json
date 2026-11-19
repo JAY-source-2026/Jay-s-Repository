@@ -1,0 +1,237 @@
+{
+  "passed": true,
+  "source_commit": "def06e3b83ca035a0176866045a411f60f8716de",
+  "published": [
+    {
+      "path": "company-site/archive.html",
+      "status": 200,
+      "sha256_match": true
+    },
+    {
+      "path": "company-site/release.json",
+      "status": 200,
+      "sha256_match": true
+    },
+    {
+      "path": "company-site/support.html",
+      "status": 200,
+      "sha256_match": true
+    },
+    {
+      "path": "company-site/index.html",
+      "status": 200,
+      "sha256_match": true
+    },
+    {
+      "path": "company-site/about.html",
+      "status": 200,
+      "sha256_match": true
+    },
+    {
+      "path": "company-site/assets/js/pages.js",
+      "status": 200,
+      "sha256_match": true
+    },
+    {
+      "path": "company-site/assets/js/shutter-videos.js",
+      "status": 200,
+      "sha256_match": true
+    },
+    {
+      "path": "company-site/assets/css/home.css",
+      "status": 200,
+      "sha256_match": true
+    },
+    {
+      "path": "company-site/assets/data/archive.json",
+      "status": 200,
+      "sha256_match": true
+    },
+    {
+      "path": "company-site/assets/downloads/shutter-certificates/FDS-OTS24-0807-1-cover.pdf",
+      "status": 200,
+      "sha256_match": true
+    },
+    {
+      "path": "company-site/assets/downloads/shutter-certificates/FDS-NVS24-0611-1-cover.pdf",
+      "status": 200,
+      "sha256_match": true
+    },
+    {
+      "path": "company-site/assets/downloads/shutter-certificates/FDS-OTS26-0714-3-cover.pdf",
+      "status": 200,
+      "sha256_match": true
+    },
+    {
+      "path": "company-site/assets/downloads/shutter-certificates/FDS-OTS26-0630-2-cover.pdf",
+      "status": 200,
+      "sha256_match": true
+    },
+    {
+      "path": "company-site/assets/downloads/shutter-certificates/FDS-OTS25-0721-1-cover.pdf",
+      "status": 200,
+      "sha256_match": true
+    },
+    {
+      "path": "company-site/assets/downloads/shutter-certificates/FDS-NVS26-0309-1-cover.pdf",
+      "status": 200,
+      "sha256_match": true
+    },
+    {
+      "path": "company-site/assets/downloads/shutter-manuals/maintenance-2026-daehan-motor.pdf",
+      "status": 200,
+      "sha256_match": true
+    },
+    {
+      "path": "company-site/assets/downloads/shutter-manuals/maintenance-2026-insung-kst.pdf",
+      "status": 200,
+      "sha256_match": true
+    },
+    {
+      "path": "company-site/assets/images/certificates/shutter/FDS-NVS24-0611-1-cover-page-1.webp",
+      "status": 200,
+      "sha256_match": true
+    },
+    {
+      "path": "company-site/assets/images/certificates/shutter/FDS-OTS26-0714-3-cover-page-2.webp",
+      "status": 200,
+      "sha256_match": true
+    },
+    {
+      "path": "company-site/assets/images/certificates/shutter/FDS-OTS26-0630-2-cover-page-1.webp",
+      "status": 200,
+      "sha256_match": true
+    },
+    {
+      "path": "company-site/assets/images/certificates/shutter/FDS-OTS25-0721-1-cover-page-1.webp",
+      "status": 200,
+      "sha256_match": true
+    },
+    {
+      "path": "company-site/assets/images/certificates/shutter/FDS-OTS25-0721-1-cover-page-2.webp",
+      "status": 200,
+      "sha256_match": true
+    },
+    {
+      "path": "company-site/assets/images/certificates/shutter/FDS-NVS24-0611-1-cover-page-2.webp",
+      "status": 200,
+      "sha256_match": true
+    },
+    {
+      "path": "company-site/assets/images/certificates/shutter/FDS-OTS26-0714-3-cover-page-1.webp",
+      "status": 200,
+      "sha256_match": true
+    },
+    {
+      "path": "company-site/assets/images/certificates/shutter/FDS-OTS24-0807-1-cover-page-1.webp",
+      "status": 200,
+      "sha256_match": true
+    },
+    {
+      "path": "company-site/assets/images/certificates/shutter/FDS-OTS24-0807-1-cover-page-2.webp",
+      "status": 200,
+      "sha256_match": true
+    },
+    {
+      "path": "company-site/assets/images/certificates/shutter/FDS-NVS26-0309-1-cover-page-2.webp",
+      "status": 200,
+      "sha256_match": true
+    },
+    {
+      "path": "company-site/assets/images/certificates/shutter/FDS-OTS26-0630-2-cover-page-2.webp",
+      "status": 200,
+      "sha256_match": true
+    },
+    {
+      "path": "company-site/assets/images/certificates/shutter/FDS-NVS26-0309-1-cover-page-1.webp",
+      "status": 200,
+      "sha256_match": true
+    }
+  ],
+  "removed": [
+    {
+      "path": "company-site/assets/media/archive/shutter/screen-shutter-poster.jpg",
+      "status": 404
+    },
+    {
+      "path": "company-site/assets/media/archive/shutter/types.jpg",
+      "status": 404
+    },
+    {
+      "path": "company-site/assets/media/archive/shutter/site.jpg",
+      "status": 404
+    },
+    {
+      "path": "company-site/assets/media/archive/shutter/square.jpg",
+      "status": 404
+    },
+    {
+      "path": "company-site/assets/media/archive/shutter/curved.jpg",
+      "status": 404
+    },
+    {
+      "path": "company-site/assets/downloads/shutter-certificates/FDS-OTS24-0807-1.pdf",
+      "status": 404
+    },
+    {
+      "path": "company-site/assets/images/certificates/shutter/FDS-OTS24-0807-1-page-1.webp",
+      "status": 404
+    },
+    {
+      "path": "company-site/assets/images/certificates/shutter/FDS-OTS24-0807-1-page-3.webp",
+      "status": 404
+    },
+    {
+      "path": "company-site/assets/downloads/shutter-certificates/FDS-OTS25-0721-1.pdf",
+      "status": 404
+    },
+    {
+      "path": "company-site/assets/images/certificates/shutter/FDS-OTS25-0721-1-page-1.webp",
+      "status": 404
+    },
+    {
+      "path": "company-site/assets/images/certificates/shutter/FDS-OTS25-0721-1-page-3.webp",
+      "status": 404
+    },
+    {
+      "path": "company-site/assets/downloads/shutter-certificates/FDS-OTS26-0630-2.pdf",
+      "status": 404
+    },
+    {
+      "path": "company-site/assets/images/certificates/shutter/FDS-OTS26-0630-2-page-1.webp",
+      "status": 404
+    },
+    {
+      "path": "company-site/assets/images/certificates/shutter/FDS-OTS26-0630-2-page-3.webp",
+      "status": 404
+    },
+    {
+      "path": "company-site/assets/downloads/shutter-certificates/FDS-NVS24-0611-1.pdf",
+      "status": 404
+    },
+    {
+      "path": "company-site/assets/images/certificates/shutter/FDS-NVS24-0611-1-page-1.webp",
+      "status": 404
+    },
+    {
+      "path": "company-site/assets/images/certificates/shutter/FDS-NVS24-0611-1-page-3.webp",
+      "status": 404
+    },
+    {
+      "path": "company-site/assets/downloads/shutter-certificates/FDS-NVS26-0309-1.pdf",
+      "status": 404
+    },
+    {
+      "path": "company-site/assets/images/certificates/shutter/FDS-NVS26-0309-1-page-1.webp",
+      "status": 404
+    },
+    {
+      "path": "company-site/assets/images/certificates/shutter/FDS-NVS26-0309-1-page-3.webp",
+      "status": 404
+    },
+    {
+      "path": "company-site/assets/media/archive/shutter/screen-shutter.mp4",
+      "status": 404
+    }
+  ]
+}
