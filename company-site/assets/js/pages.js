@@ -198,7 +198,7 @@
     panel.setAttribute("aria-busy", "true");
     panel.innerHTML = '<p class="empty">자료를 불러오는 중입니다…</p>';
 
-    getJSON("assets/data/archive.json?v=20261119c1").then(function (data) {
+    getJSON("assets/data/archive.json?v=20261119e1").then(function (data) {
       var previous = null;
       var pageSize = 10;
       function boardName(cat, board) { return cat.label + " " + board.name; }
