@@ -87,9 +87,21 @@
 .signature-category[data-current=true] .signature-category-trigger { color: #e9f4ff; }
 .signature-category[data-current=true] .signature-category-trigger::before { transform: scaleX(1); }
 .signature-submenu { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
-#signatureShutterMenu { grid-template-columns: 1fr; }
+/* Shutter menu: each group header has an arrow and opens its products right below it. */
+#signatureShutterMenu { display: flex; flex-direction: column; gap: 6px; }
+.signature-submenu .signature-shutter-group { min-height: 42px; justify-content: flex-start; gap: 8px; border-color: #5aa2f24d; background: #16314b; color: #c7dff4; font-size: 13px; font-weight: 650; }
+.signature-submenu .signature-shutter-group .signature-shutter-group-name { color: inherit; flex: none; white-space: nowrap; }
+.signature-shutter-arrow { position: relative; flex: none; width: 24px; height: 24px; margin-left: auto; border: 1px solid #ffffff38; border-radius: 50%; }
+.signature-shutter-arrow::before { content: ''; position: absolute; left: 50%; top: 45%; width: 6px; height: 6px; border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; transform: translate(-50%, -50%) rotate(45deg); transition: transform .25s, top .25s; }
+.signature-submenu .signature-shutter-group:hover .signature-shutter-arrow, .signature-submenu .signature-shutter-group:focus-visible .signature-shutter-arrow { border-color: #8caeca; }
+.signature-submenu .signature-shutter-group[aria-expanded=true] { border-color: #5aa2f2; background: #2b4a68; color: #fff; }
+.signature-shutter-group[aria-expanded=true] .signature-shutter-arrow { border-color: #5aa2f2; }
+.signature-shutter-group[aria-expanded=true] .signature-shutter-arrow::before { top: 58%; transform: translate(-50%, -50%) rotate(-135deg); }
+.signature-shutter-items { display: grid; grid-template-columns: 1fr; gap: 6px; margin-left: 10px; padding-left: 10px; border-left: 1px solid #3d5b78; animation: signature-shutter-open .25s ease; }
+.signature-shutter-items button { min-height: 38px; padding-block: 7px; }
+@keyframes signature-shutter-open { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
 @media (min-width: 900px) {
-  #signatureShutterMenu { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .signature-shutter-items { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 .signature-submenu button { min-width: 0; min-height: 44px; display: flex; align-items: center; justify-content: space-between; gap: 7px; padding: 9px 11px; border: 1px solid #ffffff25; color: #c0d1df; background: #112437; font: inherit; font-size: 12px; text-align: left; line-height: 1.5; word-break: keep-all; cursor: pointer; transition: color .2s, background .2s, border-color .2s; }
 .signature-submenu button span { color: #8cb4d7; flex-shrink: 0; }
@@ -181,4 +193,5 @@
 }
 @media (prefers-reduced-motion: reduce) {
   .signature-hero *, .signature-hero *::before { transition: none !important; }
+  .signature-shutter-items { animation: none; }
 }

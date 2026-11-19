@@ -18,6 +18,8 @@ from urllib.parse import unquote, urlsplit
 
 ROOT = Path(__file__).resolve().parents[2]
 PRIVATE_PATH = re.compile(r"^assets/(?:자료/|docs/)")
+DISPLAYED_HERO_PNGS = {'shutter-steel-photo.png', 'shutter-windload-photo.png',
+                       'shutter-insulated-photo.png', 'shutter-smoke-photo.png'}
 
 
 def private_url(value):
@@ -79,10 +81,10 @@ def main():
             if private_url(relative.as_posix()):
                 raise SystemExit('Private source unexpectedly tracked: ' + relative.as_posix())
             # Generated masters and prompts belong to source history, not runtime.
-            # This uploaded steel-shutter PNG is a displayed product photo.
+            # These shutter PNGs are displayed product photos (steel upload; doenc.com originals).
             if (relative.as_posix().startswith('assets/media/hero/')
                     and relative.suffix in ('.png', '.json')
-                    and relative.name != 'shutter-steel-photo.png'):
+                    and relative.name not in DISPLAYED_HERO_PNGS):
                 continue
             content = source.extractfile(member).read()
             if is_page:
