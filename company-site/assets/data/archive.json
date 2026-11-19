@@ -81,67 +81,6 @@
       "board": "other"
     },
     {
-      "cat": "shutter",
-      "title": "스크린 방화셔터 구동 영상",
-      "date": "2026-07-27",
-      "tag": "영상",
-      "body": "실제 스크린 방화셔터의 하강 구동 영상입니다. 크림색 유리섬유 직물 원단이 상부 소핏 슬롯에서 나와 개구부를 막습니다.",
-      "video": "assets/media/archive/shutter/screen-shutter.mp4",
-      "images": [
-        "assets/media/archive/shutter/screen-shutter-poster.jpg"
-      ],
-      "id": "shutter-operation",
-      "board": "promo"
-    },
-    {
-      "cat": "shutter",
-      "title": "무기둥 방화셔터 시공 유형",
-      "date": "2022-02-09",
-      "tag": "시공유형",
-      "body": "개구부 형상별 무기둥 방화셔터 시공 유형입니다.",
-      "images": [
-        "assets/media/archive/shutter/types.jpg"
-      ],
-      "id": "shutter-types",
-      "board": "other"
-    },
-    {
-      "cat": "shutter",
-      "title": "무기둥 방화셔터 시공 현장",
-      "date": "2022-02-09",
-      "tag": "시공현장",
-      "body": "무기둥 방화셔터가 설치된 현장 사진입니다.",
-      "images": [
-        "assets/media/archive/shutter/site.jpg"
-      ],
-      "id": "shutter-site",
-      "board": "other"
-    },
-    {
-      "cat": "shutter",
-      "title": "무기둥 각형 방화셔터 설명 및 시공 사진",
-      "date": "2022-02-09",
-      "tag": "각형",
-      "body": "중간 기둥 없이 각형 개구부를 한 번에 막는 무기둥 각형 방화셔터입니다.",
-      "images": [
-        "assets/media/archive/shutter/square.jpg"
-      ],
-      "id": "shutter-square",
-      "board": "other"
-    },
-    {
-      "cat": "shutter",
-      "title": "무기둥 곡선형 방화셔터 설명 및 시공사진",
-      "date": "2022-02-09",
-      "tag": "곡선형",
-      "body": "곡면 개구부에 대응하는 무기둥 곡선형 방화셔터입니다. 2010년 무기둥 곡면 방화스크린셔터 인증을 취득하고 2013년 무기둥 라운드셔터 특허를 등록했습니다.",
-      "images": [
-        "assets/media/archive/shutter/curved.jpg"
-      ],
-      "id": "shutter-curved",
-      "board": "other"
-    },
-    {
       "cat": "software",
       "title": "내화채움(충전)구조 자동 설계소프트웨어 DESkey 사용설명서",
       "date": "2022-03-03",
@@ -2310,36 +2249,72 @@
       ]
     },
     {
-      "id": "certificate-fds-ots24-0807-1",
+      "id": "certificate-fds-nvs24-0611-1",
       "cat": "shutter",
       "board": "recognition",
       "sourceNumber": 1,
-      "certificate": "FDS-OTS24-0807-1",
-      "title": "FDS-OTS24-0807-1 일반셔터 인정서",
-      "date": "2026-11-09",
+      "certificate": "FDS-NVS24-0611-1",
+      "model": "DO-FST60",
+      "title": "FDS-NVS24-0611-1 철재셔터 DO-FST60 인정서",
+      "date": "2026-11-19",
       "tag": "방화셔터",
       "body": [],
       "file": {
-        "name": "FDS-OTS24-0807-1 일반셔터 인정서.pdf",
-        "href": "assets/downloads/shutter-certificates/FDS-OTS24-0807-1.pdf",
-        "size": "2.08 MB",
+        "name": "1.품질인정서_철재셔터_갑지 DO-FST60_배포용.pdf",
+        "href": "assets/downloads/shutter-certificates/FDS-NVS24-0611-1-cover.pdf",
+        "size": "0.17 MB",
         "type": "application/pdf",
-        "pages": 18
+        "pages": 2
       },
       "previews": [
         {
           "page": 1,
-          "src": "assets/images/certificates/shutter/FDS-OTS24-0807-1-page-1.webp",
+          "src": "assets/images/certificates/shutter/FDS-NVS24-0611-1-cover-page-1.webp",
           "width": 1600,
-          "height": 2264,
-          "label": "인정서 · 1페이지"
+          "height": 2134,
+          "label": "인정서 갑지 · 1페이지"
         },
         {
-          "page": 3,
-          "src": "assets/images/certificates/shutter/FDS-OTS24-0807-1-page-3.webp",
+          "page": 2,
+          "src": "assets/images/certificates/shutter/FDS-NVS24-0611-1-cover-page-2.webp",
           "width": 1600,
-          "height": 2264,
-          "label": "구조설명도 · 3페이지"
+          "height": 2134,
+          "label": "인정서 갑지 · 2페이지"
+        }
+      ]
+    },
+    {
+      "id": "certificate-fds-ots24-0807-1",
+      "cat": "shutter",
+      "board": "recognition",
+      "sourceNumber": 2,
+      "certificate": "FDS-OTS24-0807-1",
+      "model": "DO-FSS60(S)",
+      "title": "FDS-OTS24-0807-1 일반 스크린셔터 DO-FSS60(S) 인정서",
+      "date": "2026-11-19",
+      "tag": "방화셔터",
+      "body": [],
+      "file": {
+        "name": "2.품질인정서_일반 스크린셔터_갑지 DO-FSS60(s)_배포용.pdf",
+        "href": "assets/downloads/shutter-certificates/FDS-OTS24-0807-1-cover.pdf",
+        "size": "0.46 MB",
+        "type": "application/pdf",
+        "pages": 2
+      },
+      "previews": [
+        {
+          "page": 1,
+          "src": "assets/images/certificates/shutter/FDS-OTS24-0807-1-cover-page-1.webp",
+          "width": 1600,
+          "height": 2134,
+          "label": "인정서 갑지 · 1페이지"
+        },
+        {
+          "page": 2,
+          "src": "assets/images/certificates/shutter/FDS-OTS24-0807-1-cover-page-2.webp",
+          "width": 1600,
+          "height": 2134,
+          "label": "인정서 갑지 · 2페이지"
         }
       ]
     },
@@ -2347,101 +2322,34 @@
       "id": "certificate-fds-ots25-0721-1",
       "cat": "shutter",
       "board": "recognition",
-      "sourceNumber": 2,
-      "certificate": "FDS-OTS25-0721-1",
-      "title": "FDS-OTS25-0721-1 대형셔터 인정서",
-      "date": "2026-11-09",
-      "tag": "방화셔터",
-      "body": [],
-      "file": {
-        "name": "FDS-OTS25-0721-1 대형셔터 인정서.pdf",
-        "href": "assets/downloads/shutter-certificates/FDS-OTS25-0721-1.pdf",
-        "size": "1.15 MB",
-        "type": "application/pdf",
-        "pages": 23
-      },
-      "previews": [
-        {
-          "page": 1,
-          "src": "assets/images/certificates/shutter/FDS-OTS25-0721-1-page-1.webp",
-          "width": 1600,
-          "height": 2262,
-          "label": "인정서 · 1페이지"
-        },
-        {
-          "page": 3,
-          "src": "assets/images/certificates/shutter/FDS-OTS25-0721-1-page-3.webp",
-          "width": 1600,
-          "height": 2262,
-          "label": "구조설명도 · 3페이지"
-        }
-      ]
-    },
-    {
-      "id": "certificate-fds-ots26-0630-2",
-      "cat": "shutter",
-      "board": "recognition",
       "sourceNumber": 3,
-      "certificate": "FDS-OTS26-0630-2",
-      "title": "FDS-OTS26-0630-2 와이어 권취형 대형셔터 인정서",
-      "date": "2026-11-09",
+      "certificate": "FDS-OTS25-0721-1",
+      "model": "DO-FSS60(L)",
+      "title": "FDS-OTS25-0721-1 대형 스크린셔터 DO-FSS60(L) 인정서",
+      "date": "2026-11-19",
       "tag": "방화셔터",
       "body": [],
       "file": {
-        "name": "FDS-OTS26-0630-2 와이어 권취형 대형셔터 인정서.pdf",
-        "href": "assets/downloads/shutter-certificates/FDS-OTS26-0630-2.pdf",
-        "size": "2.43 MB",
+        "name": "3.품질인정서_대형 스크린셔터_갑지 DO-FSS60(L)_배포용.pdf",
+        "href": "assets/downloads/shutter-certificates/FDS-OTS25-0721-1-cover.pdf",
+        "size": "0.57 MB",
         "type": "application/pdf",
-        "pages": 19
+        "pages": 2
       },
       "previews": [
         {
           "page": 1,
-          "src": "assets/images/certificates/shutter/FDS-OTS26-0630-2-page-1.webp",
+          "src": "assets/images/certificates/shutter/FDS-OTS25-0721-1-cover-page-1.webp",
           "width": 1600,
-          "height": 2264,
-          "label": "인정서 · 1페이지"
+          "height": 2134,
+          "label": "인정서 갑지 · 1페이지"
         },
         {
-          "page": 3,
-          "src": "assets/images/certificates/shutter/FDS-OTS26-0630-2-page-3.webp",
+          "page": 2,
+          "src": "assets/images/certificates/shutter/FDS-OTS25-0721-1-cover-page-2.webp",
           "width": 1600,
-          "height": 2264,
-          "label": "구조설명도 · 3페이지"
-        }
-      ]
-    },
-    {
-      "id": "certificate-fds-nvs24-0611-1",
-      "cat": "shutter",
-      "board": "recognition",
-      "sourceNumber": 4,
-      "certificate": "FDS-NVS24-0611-1",
-      "title": "FDS-NVS24-0611-1 철재셔터 인정서",
-      "date": "2026-11-09",
-      "tag": "방화셔터",
-      "body": [],
-      "file": {
-        "name": "FDS-NVS24-0611-1 철재셔터 인정서.pdf",
-        "href": "assets/downloads/shutter-certificates/FDS-NVS24-0611-1.pdf",
-        "size": "2.00 MB",
-        "type": "application/pdf",
-        "pages": 18
-      },
-      "previews": [
-        {
-          "page": 1,
-          "src": "assets/images/certificates/shutter/FDS-NVS24-0611-1-page-1.webp",
-          "width": 1600,
-          "height": 2264,
-          "label": "인정서 · 1페이지"
-        },
-        {
-          "page": 3,
-          "src": "assets/images/certificates/shutter/FDS-NVS24-0611-1-page-3.webp",
-          "width": 1600,
-          "height": 2264,
-          "label": "구조설명도 · 3페이지"
+          "height": 2134,
+          "label": "인정서 갑지 · 2페이지"
         }
       ]
     },
@@ -2449,35 +2357,138 @@
       "id": "certificate-fds-nvs26-0309-1",
       "cat": "shutter",
       "board": "recognition",
-      "sourceNumber": 5,
+      "sourceNumber": 4,
       "certificate": "FDS-NVS26-0309-1",
-      "title": "FDS-NVS26-0309-1 투시형 철재셔터 인정서",
-      "date": "2026-11-09",
+      "model": "DO-FST60(IG)",
+      "title": "FDS-NVS26-0309-1 투시형 철재셔터 DO-FST60(IG) 인정서",
+      "date": "2026-11-19",
       "tag": "방화셔터",
       "body": [],
       "file": {
-        "name": "FDS-NVS26-0309-1 투시형 철재셔터 인정서.pdf",
-        "href": "assets/downloads/shutter-certificates/FDS-NVS26-0309-1.pdf",
-        "size": "0.80 MB",
+        "name": "4.품질인정서_철재투시형_갑지 DO-FST60(IG)_배포용.pdf",
+        "href": "assets/downloads/shutter-certificates/FDS-NVS26-0309-1-cover.pdf",
+        "size": "0.34 MB",
         "type": "application/pdf",
-        "pages": 18
+        "pages": 2
       },
       "previews": [
         {
           "page": 1,
-          "src": "assets/images/certificates/shutter/FDS-NVS26-0309-1-page-1.webp",
+          "src": "assets/images/certificates/shutter/FDS-NVS26-0309-1-cover-page-1.webp",
           "width": 1600,
-          "height": 2262,
-          "label": "인정서 · 1페이지"
+          "height": 2134,
+          "label": "인정서 갑지 · 1페이지"
         },
         {
-          "page": 3,
-          "src": "assets/images/certificates/shutter/FDS-NVS26-0309-1-page-3.webp",
+          "page": 2,
+          "src": "assets/images/certificates/shutter/FDS-NVS26-0309-1-cover-page-2.webp",
           "width": 1600,
-          "height": 2262,
-          "label": "구조설명도 · 3페이지"
+          "height": 2134,
+          "label": "인정서 갑지 · 2페이지"
         }
       ]
+    },
+    {
+      "id": "certificate-fds-ots26-0630-2",
+      "cat": "shutter",
+      "board": "recognition",
+      "sourceNumber": 5,
+      "certificate": "FDS-OTS26-0630-2",
+      "model": "DO-FSS60(LW-UJ)",
+      "title": "FDS-OTS26-0630-2 대형 와이어권취식 셔터 DO-FSS60(LW-UJ) 인정서",
+      "date": "2026-11-19",
+      "tag": "방화셔터",
+      "body": [],
+      "file": {
+        "name": "5.품질인정서_대형 와이어권취식_갑지 DO-FSS60(LW-UJ)_배포용.pdf",
+        "href": "assets/downloads/shutter-certificates/FDS-OTS26-0630-2-cover.pdf",
+        "size": "0.37 MB",
+        "type": "application/pdf",
+        "pages": 2
+      },
+      "previews": [
+        {
+          "page": 1,
+          "src": "assets/images/certificates/shutter/FDS-OTS26-0630-2-cover-page-1.webp",
+          "width": 1600,
+          "height": 2134,
+          "label": "인정서 갑지 · 1페이지"
+        },
+        {
+          "page": 2,
+          "src": "assets/images/certificates/shutter/FDS-OTS26-0630-2-cover-page-2.webp",
+          "width": 1600,
+          "height": 2134,
+          "label": "인정서 갑지 · 2페이지"
+        }
+      ]
+    },
+    {
+      "id": "certificate-fds-ots26-0714-3",
+      "cat": "shutter",
+      "board": "recognition",
+      "sourceNumber": 6,
+      "certificate": "FDS-OTS26-0714-3",
+      "model": "DO-FSS120(I)",
+      "title": "FDS-OTS26-0714-3 대형 와이어권취식 셔터 DO-FSS120(I) 인정서",
+      "date": "2026-11-19",
+      "tag": "방화셔터",
+      "body": [],
+      "file": {
+        "name": "6.품질인정서_대형 와이어권취식_갑지 [DO-FSS120(I) ]_배포용.pdf",
+        "href": "assets/downloads/shutter-certificates/FDS-OTS26-0714-3-cover.pdf",
+        "size": "0.37 MB",
+        "type": "application/pdf",
+        "pages": 2
+      },
+      "previews": [
+        {
+          "page": 1,
+          "src": "assets/images/certificates/shutter/FDS-OTS26-0714-3-cover-page-1.webp",
+          "width": 1600,
+          "height": 2134,
+          "label": "인정서 갑지 · 1페이지"
+        },
+        {
+          "page": 2,
+          "src": "assets/images/certificates/shutter/FDS-OTS26-0714-3-cover-page-2.webp",
+          "width": 1600,
+          "height": 2134,
+          "label": "인정서 갑지 · 2페이지"
+        }
+      ]
+    },
+    {
+      "id": "shutter-maintenance-2026-daehan-motor",
+      "cat": "shutter",
+      "board": "other",
+      "title": "셔터 유지관리 매뉴얼 (2026년) — 대한모터",
+      "date": "2026-11-19",
+      "tag": "유지관리",
+      "body": [],
+      "file": {
+        "name": "셔터 유지관리 매뉴얼(2026년 )_대한모터.pdf",
+        "href": "assets/downloads/shutter-manuals/maintenance-2026-daehan-motor.pdf",
+        "size": "1.76 MB",
+        "type": "application/pdf",
+        "pages": 10
+      }
+    },
+    {
+      "id": "shutter-maintenance-2026-insung-kst",
+      "cat": "shutter",
+      "board": "other",
+      "title": "셔터 유지관리 매뉴얼 (2026년) — 인성 · KST",
+      "date": "2026-11-19",
+      "tag": "유지관리",
+      "body": [],
+      "file": {
+        "name": "셔터 유지관리 메뉴얼(2026년 )_인성,KST.pdf",
+        "href": "assets/downloads/shutter-manuals/maintenance-2026-insung-kst.pdf",
+        "size": "2.29 MB",
+        "type": "application/pdf",
+        "pages": 15
+      }
     }
   ],
   "boards": [

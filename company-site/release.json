@@ -1,9 +1,10 @@
 {
-  "source_commit": "9489287b32c2ed5d0cb54918628fd18d66db0c18",
+  "source_commit": "def06e3b83ca035a0176866045a411f60f8716de",
   "site": "company-site",
-  "files": 356,
-  "original_documents": "private source folders excluded; approved firestop, fireproof, and shutter certificate copies included",
+  "files": 355,
+  "original_documents": "private source folders excluded; approved firestop/fireproof certificates, shutter covers, and shutter manuals included",
   "published_firestop_certificates": 60,
   "published_fireproof_certificates": 1,
-  "published_shutter_certificates": 5
+  "published_shutter_certificates": 6,
+  "published_shutter_manuals": 2
 }
