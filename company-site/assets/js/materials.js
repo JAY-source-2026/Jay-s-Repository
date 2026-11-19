@@ -1,4 +1,4 @@
-import {PRODUCTS} from './product-data.js?v=20261116f1';
+import {PRODUCTS} from './product-data.js?v=20261119f3';
 const dialog=document.getElementById('materialDialog');
 if(dialog){
   const $=id=>document.getElementById(id),close=dialog.querySelector('.material-dialog-close');
@@ -21,13 +21,13 @@ if(dialog){
     const product=PRODUCTS[key];if(!product)return;
     opener=trigger;
     dialog.dataset.product=key;
-    $('materialDialogCode').textContent=product.code;
+    $('materialDialogCode').textContent=product.code;$('materialDialogCode').hidden=!product.code;
     $('materialDialogTitle').textContent=product.name;
     $('materialDialogSummary').textContent=product.summary;
     const image=$('materialDialogImage');image.src=product.image;image.alt=product.name+' 제품 이미지';image.width=product.width;image.height=product.height;
     $('materialDialogSpecs').replaceChildren(...product.specs.map(([label,value])=>{const row=document.createElement('div');row.append(element('dt',label),element('dd',value));return row;}));
     $('materialDialogDescription').replaceChildren(...product.description.map(text=>element('p',text)));
-    $('materialDialogNote').textContent=product.note;
+    $('materialDialogNote').textContent=product.note;$('materialDialogNote').hidden=!product.note;
     if(!dialog.open){
       resumeExplorer=Boolean(window.systemExplorer?.getState().running);if(resumeExplorer)window.systemExplorer.stop();
       lockScroll();dialog.showModal();

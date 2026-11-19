@@ -46,7 +46,10 @@ function createOrbit(scene, targets, keyAttribute, openingPair) {
       const y = depth * sceneHeight * .18;
       const z = depth * Math.min(sceneWidth * .24, 190);
       const turn = (degrees - Math.sign(degrees) * spread) * .48;
-      const opacity = clamp((58 + 22 * pairWeight - Math.abs(degrees)) / (36 - 4 * pairWeight));
+      // Product pair keeps its tuned fade; photo orbits fade by spacing so many photos never overlap.
+      const opacity = openingPair
+        ? clamp((58 + 22 * pairWeight - Math.abs(degrees)) / (36 - 4 * pairWeight))
+        : clamp((step * .64 - Math.abs(degrees)) / (step * .4));
       const front = opacity > .95 && (selectedKey ? target.dataset[keyAttribute] === selectedKey : Math.abs(degrees) <= frontAngle + .5);
       target.style.transform = `translateX(-50%) translate3d(${x}px, ${y}px, ${z}px) rotateY(${turn}deg)`;
       target.style.opacity = opacity;
@@ -144,9 +147,22 @@ function selectProduct(key) {
   document.getElementById('signatureProductCaption').textContent = `${names[key]} 단독 보기`;
   announcement.textContent = `${names[key]} 제품 이미지 단독 보기`;
 }
+const shutterGroups = [...document.querySelectorAll('[data-shutter-group]')];
+function shutterGroupOf(key) {
+  return document.querySelector(`[data-shutter-select="${key}"]`)?.closest('[data-shutter-items]')?.dataset.shutterItems;
+}
+// Opens the named group and closes the other; null closes both.
+function openShutterGroup(name) {
+  shutterGroups.forEach(toggle => {
+    const open = toggle.dataset.shutterGroup === name;
+    toggle.setAttribute('aria-expanded', String(open));
+    document.getElementById(toggle.getAttribute('aria-controls')).hidden = !open;
+  });
+}
 function selectShutter(key) {
   if (!Object.hasOwn(shutterNames, key)) return;
   selectedShutter = key;
+  openShutterGroup(shutterGroupOf(key));
   clearProductFocus();
   showScene('shutter');
   shutterOrbit.rotateTo(key);
@@ -155,15 +171,18 @@ function selectShutter(key) {
 }
 categories.forEach(group => {
   const trigger = group.querySelector('.signature-category-trigger');
-  const children = [...group.querySelectorAll('.signature-submenu button')];
+  // Only buttons in the open shutter group take part in arrow-key movement.
+  const visibleChildren = () => [...group.querySelectorAll('.signature-submenu button')].filter(button => !button.closest('[hidden]'));
   trigger.addEventListener('click', () => {
     if (group.dataset.category === 'firestop') { showScene('products'); clearProductFocus(); }
     else selectShutter(selectedShutter || 'standard');
   });
   trigger.addEventListener('keydown', event => {
-    if (event.key === 'ArrowDown') { event.preventDefault(); children[0].focus(); }
+    if (event.key === 'ArrowDown') { event.preventDefault(); visibleChildren()[0].focus(); }
   });
-  children.forEach((button, i) => button.addEventListener('keydown', event => {
+  group.querySelectorAll('.signature-submenu button').forEach(button => button.addEventListener('keydown', event => {
+    const children = visibleChildren();
+    const i = children.indexOf(button);
     let next;
     if (event.key === 'ArrowDown' || event.key === 'ArrowRight') next = (i + 1) % children.length;
     if (event.key === 'ArrowUp' || event.key === 'ArrowLeft') next = (i + children.length - 1) % children.length;
@@ -196,6 +215,10 @@ productTargets.forEach(target => {
   });
 });
 shutterButtons.forEach(button => button.addEventListener('click', () => selectShutter(button.dataset.shutterSelect)));
+// A group header only opens or closes its list (one list at a time); choosing a product changes the photo.
+shutterGroups.forEach(toggle => toggle.addEventListener('click', () => {
+  openShutterGroup(toggle.getAttribute('aria-expanded') === 'true' ? null : toggle.dataset.shutterGroup);
+}));
 shutterTargets.forEach(target => target.addEventListener('click', () => selectShutter(target.dataset.shutterPhoto)));
 document.addEventListener('pointerdown', event => {
   if (!event.target.closest('.signature-showcase')) clearProductFocus();

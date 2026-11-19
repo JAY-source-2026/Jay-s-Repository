@@ -1,5 +1,5 @@
 import { SYSTEMS, MATERIALS, SOURCES, CATEGORIES, loadCertificates, applyCertificate } from './systems.js?v=20261109r7';
-import { PRODUCTS } from './product-data.js?v=20261116f1';
+import { PRODUCTS } from './product-data.js?v=20261119f3';
 import { blanketPassesThrough } from './installation-blanket.js?v=20261109r10';
 const $=id=>document.getElementById(id);
 const buttons=[...document.querySelectorAll('[data-system]')];
@@ -119,11 +119,14 @@ function usedMaterials(data){
   jacket:/내화자켓|SFBA-200/,
   sealant:/내화실리콘실란트|SFS-100/,
   blanket:/세라믹섬유블랭킷/,
-  band:/내화밴드/
+  band:/내화밴드|단열밴드/
  }[key].test(text))).map(key=>({
   key,
-  name:key==='board'&&text.includes('SFB-100E')?'내화보드':key==='board'&&text.includes('내화채움보드M')?'내화채움보드M':MATERIALS[key].name,
-  exactCode:(data.record?.materials||[]).includes(MATERIALS[key].code)||text.includes(MATERIALS[key].code)
+  // Use the certificate's own wording: SFBI-120 certificates call the band 단열밴드.
+  name:key==='board'&&text.includes('SFB-100E')?'내화보드':key==='board'&&text.includes('내화채움보드M')?'내화채움보드M':key==='band'&&text.includes('단열밴드')?'단열밴드':MATERIALS[key].name,
+  // Link to the product popup only when the certificate names that popup's exact product code.
+  code:PRODUCTS[key].code,
+  exactCode:(data.record?.materials||[]).includes(PRODUCTS[key].code)||text.includes(PRODUCTS[key].code)
  }));
 }
 function details(id,mode=id?'install':'overview'){
@@ -145,10 +148,10 @@ function details(id,mode=id?'install':'overview'){
  $('systemKicker').textContent=data.certificate;$('systemTitle').textContent=(data.record?certificateTitle(data.record):data.title).replace(data.certificate,'').trim();
  $('heroMedia').setAttribute('aria-label',`${data.name} ${data.certificate} 시공 순서 모형`);
  $('systemDocuments').append(link('인정서 보기 ↗',SOURCES[id]+'#page=1'));
- for(const {key,name,exactCode} of usedMaterials(data)){
+ for(const {key,name,code,exactCode} of usedMaterials(data)){
   // Family photographs show the material type; open a product spec only for a confirmed matching code.
   const item=document.createElement(exactCode?'button':'div');item.className='mini-material';item.dataset.materialKind=key;
-  if(exactCode){item.type='button';item.dataset.material=key;item.setAttribute('aria-haspopup','dialog');item.setAttribute('aria-controls','materialDialog');item.setAttribute('aria-label',name+' '+MATERIALS[key].code+' 제품 상세 보기');}
+  if(exactCode){item.type='button';item.dataset.material=key;item.setAttribute('aria-haspopup','dialog');item.setAttribute('aria-controls','materialDialog');item.setAttribute('aria-label',name+' '+code+' 제품 상세 보기');}
   const img=document.createElement('img');img.src=PRODUCTS[key].image;img.alt=name+' 제품군 이미지';
   const caption=document.createElement('span');caption.textContent=name;item.append(img,caption);$('systemMaterials').append(item);
  }
