@@ -1,3 +1,14 @@
+# 2026-11-19 — 방화셔터 d1·e1·e2 커밋·공개 배포 완료
+
+**현재 공개 홈페이지는 이 상태다.** 아래 d1(인정서 보기 확대 버튼·파란 배경 삭제, 크게 표시), e1(스크린/철재 분류·사용자 번호 순서), e2(분류 제목 강조)를 사용자 지시로 `main`에 커밋·push, 기존 `gh-pages`로 공개 배포했다. 아래 세 기록의 ‘미리보기’, ‘커밋·공개 배포 전’은 당시의 과거 상태다.
+
+- **링크**: [메인 방화셔터](https://jay-source-2026.github.io/Jay-s-Repository/company-site/?intro=off&v=20261119e2#shutter), [자료실 스크린셔터](https://jay-source-2026.github.io/Jay-s-Repository/company-site/archive.html?v=20261119e1#shutter/recognition/screen), [자료실 철재셔터](https://jay-source-2026.github.io/Jay-s-Repository/company-site/archive.html?v=20261119e1#shutter/recognition/steel), [사업영역 방화셔터](https://jay-source-2026.github.io/Jay-s-Repository/company-site/business-shutter.html).
+- **커밋·배포**: 소스 `6cdf3b675ca2a4750a7b083803c866eb1a8ea14e`, 배포 `dc0237a47d91ba5816005b947730e38999ea6fad`, Actions `44441339527` 성공. gh-pages 변경은 HTML 5개·`home.css`·`archive.json`·`pages.js`·`shutter-videos.js`·`release.json`뿐.
+- **공개 확인**: 공개 `release.json`이 소스 커밋을 가리키고 대표 파일 6개 SHA-256이 소스와 같다. 공개 주소 PC 1366·모바일 390에서 인정서 6종 표시, 확대 버튼 없음, 배경 투명, 자료실 스크린셔터 4·철재셔터 2건, 가로 넘침·오류 없음(`concepts/shutter-e2-review/live-certificates-*.png`). 실제 기기는 미확인.
+- **남은 기존 사항**: 본사·공장 주소 표기 확인, 최신 ISO 인증서 수령.
+
+---
+
 # 2026-11-19 — 메인 셔터 메뉴 분류 제목 강조 (e2, 미리보기)
 
 **최신 편집 상태다. d1·e1 위에 이어서 했고 커밋·공개 배포 전이다(공개는 아직 c1).** 사용자가 메인 방화셔터의 두 메뉴 안 ‘스크린셔터/철재셔터’ 구분이 잘 안 보인다고 했다.
