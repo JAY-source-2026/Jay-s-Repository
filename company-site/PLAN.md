@@ -1,3 +1,16 @@
+# 2026-11-19 — f1~f4 커밋·공개 배포 완료 (셔터 메뉴 묶음·사진 5장·단열밴드·3D 밴드 표기)
+
+**현재 공개 홈페이지는 이 상태다.** 아래 f1(셔터 메뉴 스크린/기타 분류·사진 5장·이름 변경), f2(화살표 펼침 메뉴), f3(3종/6종 표시 삭제·단열밴드(SFBI-120)·자재 소개 문구 삭제), f4(3D 사용 자재 밴드 표기·연결을 인정서 기준으로)를 사용자 지시로 `main`에 커밋·push, 기존 `gh-pages`로 공개 배포했다. 아래 기록의 ‘미리보기’, ‘커밋·공개 배포 전’은 당시의 과거 상태다. 이번부터 사용자 PC(`C:\claude\Jay-s-Repository`, Windows)에서 배포했다.
+
+- **링크**: [메인](https://jay-source-2026.github.io/Jay-s-Repository/company-site/?intro=off&v=20261119f4), [3D 시공 설명](https://jay-source-2026.github.io/Jay-s-Repository/company-site/?intro=off&v=20261119f4#technology), [내화채움구조 자재](https://jay-source-2026.github.io/Jay-s-Repository/company-site/?intro=off&v=20261119f4#firestop).
+- **커밋·배포**: 소스 `08ed9ce43ee41c44f9e488c2e38aa4502e78720d`, 배포 `b3da971e026bad5d94a6577a90d868e013404303`. 패키지 360개 파일. gh-pages 변경은 `index.html`·`signature.css`·`signature.js`·`explorer.js`·`materials.js`·`product-data.js`·`release.json`, 추가는 셔터 사진 5장뿐.
+- **배포 스크립트**: `tools/prepare-pages.py`가 `assets/media/hero/`의 PNG를 철재셔터 사진 외에는 빼므로, 새로 표시하는 내풍압·단열·제연셔터 PNG 3장을 허용 목록(`DISPLAYED_HERO_PNGS`)에 추가했다.
+- **Windows 배포 참고**: 이 PC의 `git archive`는 패키지 텍스트 파일을 CRLF로 만든다. gh-pages 커밋 시 LF로 저장되어 공개 파일은 소스와 같다(줄바꿈 제외 비교로 HTML·JS·CSS 6개 일치, 사진 5장은 SHA-256 일치). 이 저장소 로컬 git 작성자는 `JAY-source-2026`로 설정했다.
+- **공개 확인**: 공개 `release.json`이 소스 커밋을 가리킨다. 공개 주소 PC 1366에서 스크린셔터/기타셔터 화살표 메뉴·기타셔터 6항목·제연셔터 사진 전환, 셔터 사진 9장 모두 로드, 단열밴드(SFBI-120) 메뉴·카드, 자재 소개 문구 없음. 3D에서 FS-MP25-0224-06·0625-03은 ‘내화밴드’ 표시만, FS-MP26-0507-14·15는 ‘단열밴드’ 버튼 → SFBI-120 단열밴드 창. 모바일 390 가로 넘침·글자 넘침 없음. 배포 직후 첫 로드에서 GitHub Pages가 바뀌지 않은 `installation-blanket.js`에 일시적으로 503을 줘 3D가 안 떴으나, 다시 불러오니 200·정상. 실제 기기는 미확인.
+- **남은 기존 사항**: 본사·공장 주소 표기 확인, 최신 ISO 인증서 수령.
+
+---
+
 # 2026-11-19 — 3D 시공 설명 ‘사용 자재’ 밴드 표기·연결을 인정서 기준으로 정리 (f4, 미리보기)
 
 **최신 편집 상태다. 아래 f1~f3 위에 이어서 했고 커밋·공개 배포 전이다(공개는 아직 e2).**
