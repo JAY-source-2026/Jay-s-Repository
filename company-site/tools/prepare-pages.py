@@ -3,7 +3,7 @@
 
 Only public application files are emitted. Private source folders stay local;
 their public links lead to the existing contact section. The user-approved
-firestop, fireproof, and shutter certificate copies under assets/downloads/ are included
+firestop, fireproof, and shutter certificate covers and shutter manuals under assets/downloads/ are included
 as ordinary public assets. Other original documents stay excluded.
 """
 import argparse
@@ -36,9 +36,6 @@ def public_html(html):
     html = html.replace('제품 카탈로그 PDF', '제품 카탈로그 문의')
     html = html.replace('기술자료 PDF', '기술자료 문의')
     html = html.replace('· 도면 및 시방서</p>', '· 도면·시방서 문의</p>')
-    # The existing public archive clip is the same full 47.29-second footage.
-    html = html.replace('src="assets/자료/%EC%85%94%ED%84%B0%20%EC%98%81%EC%83%81.mp4"',
-                        'src="assets/media/archive/shutter/screen-shutter.mp4"')
     return html
 
 
@@ -99,11 +96,13 @@ def main():
     certificates = [p for p in files if p.startswith('company-site/assets/downloads/firestop-certificates/') and p.endswith('.pdf')]
     fireproof_certificates = [p for p in files if p.startswith('company-site/assets/downloads/fireproof-certificates/') and p.endswith('.pdf')]
     shutter_certificates = [p for p in files if p.startswith('company-site/assets/downloads/shutter-certificates/') and p.endswith('.pdf')]
+    shutter_manuals = [p for p in files if p.startswith('company-site/assets/downloads/shutter-manuals/') and p.endswith('.pdf')]
     release = {'source_commit': sha, 'site': 'company-site', 'files': len(files),
-               'original_documents': 'private source folders excluded; approved firestop, fireproof, and shutter certificate copies included',
+               'original_documents': 'private source folders excluded; approved firestop/fireproof certificates, shutter covers, and shutter manuals included',
                'published_firestop_certificates': len(certificates),
                'published_fireproof_certificates': len(fireproof_certificates),
-               'published_shutter_certificates': len(shutter_certificates)}
+               'published_shutter_certificates': len(shutter_certificates),
+               'published_shutter_manuals': len(shutter_manuals)}
     (output / 'company-site/release.json').write_text(json.dumps(release, indent=2) + '\n')
     (output / '.nojekyll').write_text('')
     print(json.dumps({'output': str(output), **release}, ensure_ascii=False))

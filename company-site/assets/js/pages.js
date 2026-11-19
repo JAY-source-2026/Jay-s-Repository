@@ -198,7 +198,7 @@
     panel.setAttribute("aria-busy", "true");
     panel.innerHTML = '<p class="empty">자료를 불러오는 중입니다…</p>';
 
-    getJSON("assets/data/archive.json?v=20261116f3").then(function (data) {
+    getJSON("assets/data/archive.json?v=20261119c1").then(function (data) {
       var previous = null;
       var pageSize = 10;
       function boardName(cat, board) { return cat.label + " " + board.name; }
@@ -331,7 +331,7 @@
               '<img src="' + esc(preview.src) + '" width="' + preview.width + '" height="' + preview.height + '" alt="' + esc(it.certificate + ' ' + preview.label) + '" loading="lazy"></button>' +
               '<figcaption>' + esc(preview.label) + '</figcaption>');
             figure.querySelector("button").addEventListener("click", function () {
-              lbOpen({ title: it.title, desc: "PDF 원문의 1페이지와 3페이지", document: true, index: index, file: it.file,
+              lbOpen({ title: it.title, desc: "PDF 원문의 " + it.previews.map(function (p) { return p.page + "페이지"; }).join("와 "), document: true, index: index, file: it.file,
                 items: it.previews.map(function (p) { return { type: "image", src: p.src, label: it.certificate + " · " + p.label }; }) });
             });
             grid.appendChild(figure);

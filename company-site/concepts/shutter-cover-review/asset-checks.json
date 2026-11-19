@@ -1,0 +1,13 @@
+{
+  "passed": true,
+  "new_certificates": 6,
+  "all_certificates_two_pages": true,
+  "manuals": 2,
+  "manual_pages": [
+    10,
+    15
+  ],
+  "removed_public_files": 21,
+  "other_archive_items_unchanged": true,
+  "original_and_published_bytes_match": true
+}

@@ -1,0 +1,49 @@
+{
+  "passed": true,
+  "base": "http://127.0.0.1:8000/",
+  "results": [
+    {
+      "width": 1366,
+      "certificates": 6,
+      "sideBySide": true,
+      "zoom": true,
+      "videoSwitch": true,
+      "keyboard": true,
+      "archiveCounts": [
+        6,
+        0,
+        2
+      ],
+      "errors": []
+    },
+    {
+      "width": 390,
+      "certificates": 6,
+      "sideBySide": true,
+      "zoom": true,
+      "videoSwitch": true,
+      "keyboard": true,
+      "archiveCounts": [
+        6,
+        0,
+        2
+      ],
+      "errors": []
+    },
+    {
+      "width": 320,
+      "certificates": 6,
+      "sideBySide": true,
+      "zoom": true,
+      "videoSwitch": true,
+      "keyboard": true,
+      "archiveCounts": [
+        6,
+        0,
+        2
+      ],
+      "errors": []
+    }
+  ],
+  "racePassed": true
+}

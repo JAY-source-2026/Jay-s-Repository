@@ -1,0 +1,186 @@
+{
+  "removed_public_files": [
+    "assets/media/archive/shutter/screen-shutter-poster.jpg",
+    "assets/media/archive/shutter/types.jpg",
+    "assets/media/archive/shutter/site.jpg",
+    "assets/media/archive/shutter/square.jpg",
+    "assets/media/archive/shutter/curved.jpg",
+    "assets/downloads/shutter-certificates/FDS-OTS24-0807-1.pdf",
+    "assets/images/certificates/shutter/FDS-OTS24-0807-1-page-1.webp",
+    "assets/images/certificates/shutter/FDS-OTS24-0807-1-page-3.webp",
+    "assets/downloads/shutter-certificates/FDS-OTS25-0721-1.pdf",
+    "assets/images/certificates/shutter/FDS-OTS25-0721-1-page-1.webp",
+    "assets/images/certificates/shutter/FDS-OTS25-0721-1-page-3.webp",
+    "assets/downloads/shutter-certificates/FDS-OTS26-0630-2.pdf",
+    "assets/images/certificates/shutter/FDS-OTS26-0630-2-page-1.webp",
+    "assets/images/certificates/shutter/FDS-OTS26-0630-2-page-3.webp",
+    "assets/downloads/shutter-certificates/FDS-NVS24-0611-1.pdf",
+    "assets/images/certificates/shutter/FDS-NVS24-0611-1-page-1.webp",
+    "assets/images/certificates/shutter/FDS-NVS24-0611-1-page-3.webp",
+    "assets/downloads/shutter-certificates/FDS-NVS26-0309-1.pdf",
+    "assets/images/certificates/shutter/FDS-NVS26-0309-1-page-1.webp",
+    "assets/images/certificates/shutter/FDS-NVS26-0309-1-page-3.webp",
+    "assets/media/archive/shutter/screen-shutter.mp4"
+  ],
+  "certificates": [
+    {
+      "source": "assets/자료/방화셔터 인정서/1.품질인정서_철재셔터_갑지 DO-FST60_배포용.pdf",
+      "published": "assets/downloads/shutter-certificates/FDS-NVS24-0611-1-cover.pdf",
+      "sha256": "4ff93ebd637d5e8f0aa683394407e776284576e1622ef2d65491265ba4cddfda",
+      "pages": 2,
+      "certificate": "FDS-NVS24-0611-1",
+      "model": "DO-FST60",
+      "previews": [
+        {
+          "page": 1,
+          "src": "assets/images/certificates/shutter/FDS-NVS24-0611-1-cover-page-1.webp",
+          "width": 1600,
+          "height": 2134,
+          "label": "인정서 갑지 · 1페이지"
+        },
+        {
+          "page": 2,
+          "src": "assets/images/certificates/shutter/FDS-NVS24-0611-1-cover-page-2.webp",
+          "width": 1600,
+          "height": 2134,
+          "label": "인정서 갑지 · 2페이지"
+        }
+      ]
+    },
+    {
+      "source": "assets/자료/방화셔터 인정서/2.품질인정서_일반 스크린셔터_갑지 DO-FSS60(s)_배포용.pdf",
+      "published": "assets/downloads/shutter-certificates/FDS-OTS24-0807-1-cover.pdf",
+      "sha256": "029397db8a972cdbeacbabc20b17a220e2058977d46bbb59ce9d5ffac005005d",
+      "pages": 2,
+      "certificate": "FDS-OTS24-0807-1",
+      "model": "DO-FSS60(S)",
+      "previews": [
+        {
+          "page": 1,
+          "src": "assets/images/certificates/shutter/FDS-OTS24-0807-1-cover-page-1.webp",
+          "width": 1600,
+          "height": 2134,
+          "label": "인정서 갑지 · 1페이지"
+        },
+        {
+          "page": 2,
+          "src": "assets/images/certificates/shutter/FDS-OTS24-0807-1-cover-page-2.webp",
+          "width": 1600,
+          "height": 2134,
+          "label": "인정서 갑지 · 2페이지"
+        }
+      ]
+    },
+    {
+      "source": "assets/자료/방화셔터 인정서/3.품질인정서_대형 스크린셔터_갑지 DO-FSS60(L)_배포용.pdf",
+      "published": "assets/downloads/shutter-certificates/FDS-OTS25-0721-1-cover.pdf",
+      "sha256": "29ecb4e119b1b63e3fc727192f0eca63c0ef984e7e7fa68fb4ba52b9b865dfcf",
+      "pages": 2,
+      "certificate": "FDS-OTS25-0721-1",
+      "model": "DO-FSS60(L)",
+      "previews": [
+        {
+          "page": 1,
+          "src": "assets/images/certificates/shutter/FDS-OTS25-0721-1-cover-page-1.webp",
+          "width": 1600,
+          "height": 2134,
+          "label": "인정서 갑지 · 1페이지"
+        },
+        {
+          "page": 2,
+          "src": "assets/images/certificates/shutter/FDS-OTS25-0721-1-cover-page-2.webp",
+          "width": 1600,
+          "height": 2134,
+          "label": "인정서 갑지 · 2페이지"
+        }
+      ]
+    },
+    {
+      "source": "assets/자료/방화셔터 인정서/4.품질인정서_철재투시형_갑지 DO-FST60(IG)_배포용.pdf",
+      "published": "assets/downloads/shutter-certificates/FDS-NVS26-0309-1-cover.pdf",
+      "sha256": "e622ab2b3c3755ca86ada43e5f3372dceb6e04ceb5fe3d2bdfdbdfcbb9c74f8e",
+      "pages": 2,
+      "certificate": "FDS-NVS26-0309-1",
+      "model": "DO-FST60(IG)",
+      "previews": [
+        {
+          "page": 1,
+          "src": "assets/images/certificates/shutter/FDS-NVS26-0309-1-cover-page-1.webp",
+          "width": 1600,
+          "height": 2134,
+          "label": "인정서 갑지 · 1페이지"
+        },
+        {
+          "page": 2,
+          "src": "assets/images/certificates/shutter/FDS-NVS26-0309-1-cover-page-2.webp",
+          "width": 1600,
+          "height": 2134,
+          "label": "인정서 갑지 · 2페이지"
+        }
+      ]
+    },
+    {
+      "source": "assets/자료/방화셔터 인정서/5.품질인정서_대형 와이어권취식_갑지 DO-FSS60(LW-UJ)_배포용.pdf",
+      "published": "assets/downloads/shutter-certificates/FDS-OTS26-0630-2-cover.pdf",
+      "sha256": "ecb2c469bafc6775eeb1075c6ce5f76b3f867012161ddf60fe1383cd27c8b632",
+      "pages": 2,
+      "certificate": "FDS-OTS26-0630-2",
+      "model": "DO-FSS60(LW-UJ)",
+      "previews": [
+        {
+          "page": 1,
+          "src": "assets/images/certificates/shutter/FDS-OTS26-0630-2-cover-page-1.webp",
+          "width": 1600,
+          "height": 2134,
+          "label": "인정서 갑지 · 1페이지"
+        },
+        {
+          "page": 2,
+          "src": "assets/images/certificates/shutter/FDS-OTS26-0630-2-cover-page-2.webp",
+          "width": 1600,
+          "height": 2134,
+          "label": "인정서 갑지 · 2페이지"
+        }
+      ]
+    },
+    {
+      "source": "assets/자료/방화셔터 인정서/6.품질인정서_대형 와이어권취식_갑지 [DO-FSS120(I) ]_배포용.pdf",
+      "published": "assets/downloads/shutter-certificates/FDS-OTS26-0714-3-cover.pdf",
+      "sha256": "f2755219a2e7e86cf303428f13f712318eb320ee0a84b07ec28d370bcbbbb613",
+      "pages": 2,
+      "certificate": "FDS-OTS26-0714-3",
+      "model": "DO-FSS120(I)",
+      "previews": [
+        {
+          "page": 1,
+          "src": "assets/images/certificates/shutter/FDS-OTS26-0714-3-cover-page-1.webp",
+          "width": 1600,
+          "height": 2134,
+          "label": "인정서 갑지 · 1페이지"
+        },
+        {
+          "page": 2,
+          "src": "assets/images/certificates/shutter/FDS-OTS26-0714-3-cover-page-2.webp",
+          "width": 1600,
+          "height": 2134,
+          "label": "인정서 갑지 · 2페이지"
+        }
+      ]
+    }
+  ],
+  "manuals": [
+    {
+      "source": "assets/자료/방화셔터 자료/셔터 유지관리 매뉴얼(2026년 )_대한모터.pdf",
+      "published": "assets/downloads/shutter-manuals/maintenance-2026-daehan-motor.pdf",
+      "sha256": "f11363080ecdf4ed695079a0b57b3bb98ed6cbe2b3340a0fe4c1670f0578c397",
+      "pages": 10
+    },
+    {
+      "source": "assets/자료/방화셔터 자료/셔터 유지관리 메뉴얼(2026년 )_인성,KST.pdf",
+      "published": "assets/downloads/shutter-manuals/maintenance-2026-insung-kst.pdf",
+      "sha256": "5892ca836153d98dc80761a4972d8df2293b0964321021c2ba9cf819298c3496",
+      "pages": 15
+    }
+  ],
+  "backup": "/workspaces/Jay-s-Repository/.local-backups/doenc-shutter-20261119-before"
+}
