@@ -1,18 +1,19 @@
 // Existing operation footage is mapped only to its documented shutter type.
 const clips = {
   standard: {
-    title: '일반셔터', certificate: 'FDS-OTS24-0807-1', duration: '00:29',
+    title: '일반 스크린셔터', certificate: 'FDS-OTS24-0807-1 · DO-FSS60(S)', duration: '00:29',
     src: 'assets/media/archive/shutter/standard-shutter.mp4',
     poster: 'assets/media/archive/shutter/standard-shutter-poster.jpg',
   },
-  large: { title: '대형셔터', certificate: 'FDS-OTS25-0721-1' },
+  fab: { title: '일반 스크린셔터 FAB(팹) 2H', certificate: 'FDS-OTS26-0714-3 · DO-FSS120(I)' },
+  large: { title: '대형 스크린셔터', certificate: 'FDS-OTS25-0721-1 · DO-FSS60(L)' },
   wire: {
-    title: '와이어 권취형 대형셔터', certificate: 'FDS-OTS26-0630-2', duration: '02:20',
+    title: '대형 와이어권취식 셔터', certificate: 'FDS-OTS26-0630-2 · DO-FSS60(LW-UJ)', duration: '02:20',
     src: 'assets/media/hero/wire-shutter-operation.mp4',
     poster: 'assets/media/hero/wire-shutter-poster.jpg',
   },
-  steel: { title: '철재셔터', certificate: 'FDS-NVS24-0611-1' },
-  vision: { title: '투시형 철재셔터', certificate: 'FDS-NVS26-0309-1' },
+  steel: { title: '철재셔터', certificate: 'FDS-NVS24-0611-1 · DO-FST60' },
+  vision: { title: '철재 투시형 셔터', certificate: 'FDS-NVS26-0309-1 · DO-FST60(IG)' },
 };
 
 const player = document.getElementById('shutterPlayer');
@@ -28,8 +29,6 @@ const buttons = [...document.querySelectorAll('[data-shutter-video]')];
 const certificateButtons = [...document.querySelectorAll('[data-shutter-certificate]')];
 const certificateView = document.getElementById('shutterCertificateView');
 const certificatePages = document.getElementById('shutterCertificatePages');
-const certificateScroll = document.getElementById('shutterCertificateScroll');
-const zoom = document.getElementById('shutterCertificateZoom');
 let selected = 'standard';
 let selectedCertificate = '';
 let mode = 'video';
@@ -42,17 +41,9 @@ function bringPlayerIntoView() {
   }
 }
 
-function resetZoom() {
-  certificateView.classList.remove('is-zoomed');
-  zoom.setAttribute('aria-pressed', 'false');
-  zoom.textContent = '확대해서 보기';
-  certificateScroll.scrollLeft = 0;
-  certificateScroll.scrollTop = 0;
-}
-
 function loadCertificates() {
   if (!certificateRequest) {
-    certificateRequest = fetch('assets/data/archive.json?v=20261119c1')
+    certificateRequest = fetch('assets/data/archive.json?v=20261119e1')
       .then(response => {
         if (!response.ok) throw new Error('Certificate list unavailable');
         return response.json();
@@ -75,7 +66,6 @@ async function selectCertificate(id) {
   certificateView.hidden = false;
   certificateView.setAttribute('aria-busy', 'true');
   certificatePages.replaceChildren();
-  resetZoom();
   buttons.forEach(item => item.setAttribute('aria-pressed', 'false'));
   certificateButtons.forEach(item => item.setAttribute('aria-pressed', String(item === button)));
   title.textContent = `${button.firstElementChild.firstChild.textContent} 품질인정서`;
@@ -153,13 +143,6 @@ function selectClip(key) {
 
 buttons.forEach(button => button.addEventListener('click', () => selectClip(button.dataset.shutterVideo)));
 certificateButtons.forEach(button => button.addEventListener('click', () => selectCertificate(button.dataset.shutterCertificate)));
-zoom.addEventListener('click', () => {
-  const enlarged = certificateView.classList.toggle('is-zoomed');
-  zoom.setAttribute('aria-pressed', String(enlarged));
-  zoom.textContent = enlarged ? '두 장 함께 보기' : '확대해서 보기';
-  certificateScroll.scrollLeft = 0;
-  certificateScroll.scrollTop = 0;
-});
 retry.addEventListener('click', () => mode === 'certificate' ? selectCertificate(selectedCertificate) : selectClip(selected));
 video.addEventListener('error', () => {
   if (mode === 'video' && clips[selected].src && video.error) showNotice('영상을 불러오지 못했습니다. 다시 시도해 주세요.', true);
