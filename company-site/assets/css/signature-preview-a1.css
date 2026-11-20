@@ -43,16 +43,17 @@
 .signature-actions .signature-primary:hover { background: #fff; border-color: #fff; }
 /* 2026-11-20 a1: the 3D simulation link is the hero's main call to action. */
 .signature-actions { align-items: center; }
-.signature-actions .signature-sim { justify-content: flex-start; gap: 14px; min-height: 64px; padding: 8px 22px 8px 8px; font-size: 15px; font-weight: 700; letter-spacing: -.01em; background: #5aa2f2; border-color: #5aa2f2; color: #071321; box-shadow: 0 12px 32px -10px #5aa2f2b3; position: relative; transition: background .2s, border-color .2s, transform .2s; }
+.signature-actions .signature-sim { justify-content: flex-start; gap: 12px; min-height: 52px; padding: 6px 18px 6px 6px; font-size: 13px; font-weight: 700; letter-spacing: -.01em; background: #5aa2f2; border-color: #5aa2f2; color: #071321; box-shadow: 0 8px 22px -10px #5aa2f2a6; position: relative; transition: background .2s, border-color .2s, transform .2s; }
 .signature-sim::after { content: ''; position: absolute; inset: -1px; border: 2px solid #5aa2f2; opacity: 0; pointer-events: none; animation: signatureSimRing 2.8s ease-out infinite; }
 .signature-actions .signature-sim:hover { background: #8cc2ff; border-color: #8cc2ff; transform: translateY(-2px); }
-.signature-sim-icon { flex: none; display: grid; place-items: center; width: 48px; height: 48px; background: #071321; color: #8cc2ff; }
+.signature-sim-icon { flex: none; display: grid; place-items: center; width: 38px; height: 38px; background: #071321; color: #8cc2ff; }
+.signature-sim-icon svg { width: 16px; height: 16px; }
 .signature-sim-label { white-space: nowrap; }
-.signature-sim-arrow { margin-left: 6px; font-size: 16px; }
+.signature-sim-arrow { margin-left: 4px; font-size: 14px; }
 @keyframes signatureSimRing {
   0% { inset: -1px; opacity: .9; }
-  70% { inset: -12px; opacity: 0; }
-  100% { inset: -12px; opacity: 0; }
+  70% { inset: -9px; opacity: 0; }
+  100% { inset: -9px; opacity: 0; }
 }
 .signature-secondary { background: #0713216b; }
 .signature-secondary:hover { background: #ffffff12; border-color: #97acc0; }
@@ -141,8 +142,9 @@
   .signature-lead { font-size: 12px; }
   .signature-stage { height: calc(clamp(340px, 39vw, 450px) - 48px); }
   .signature-actions a { font-size: 11px; padding: 12px 14px; gap: 16px; }
-  .signature-actions .signature-sim { min-height: 56px; padding: 7px 16px 7px 7px; gap: 11px; font-size: 13px; }
-  .signature-sim-icon { width: 42px; height: 42px; }
+  .signature-actions .signature-sim { min-height: 48px; padding: 5px 14px 5px 5px; gap: 10px; font-size: 12px; }
+  .signature-sim-icon { width: 36px; height: 36px; }
+  .signature-sim-icon svg { width: 15px; height: 15px; }
   .signature-category-trigger { font-size: 15px; }
 
   .signature-categories { gap: 15px; }
@@ -183,9 +185,9 @@
   .signature-lead { font-size: 12px; margin-top: 18px; line-height: 1.85; }
   .signature-actions { margin-top: 22px; gap: 10px; }
   .signature-actions a { min-height: 44px; padding: 11px 15px; font-size: 11px; gap: 25px; }
-  .signature-actions .signature-sim { flex: 1 1 100%; min-height: 58px; padding: 7px 18px 7px 7px; gap: 12px; font-size: 14px; }
-  .signature-sim-icon { width: 44px; height: 44px; }
-  .signature-sim-arrow { margin-left: auto; }
+  .signature-actions .signature-sim { min-height: 48px; padding: 5px 14px 5px 5px; gap: 10px; font-size: 12px; }
+  .signature-sim-icon { width: 36px; height: 36px; }
+  .signature-sim-icon svg { width: 15px; height: 15px; }
   .signature-stage { height: calc(clamp(235px, 64vw, 380px) - 30px); }
   .signature-products { inset: 12px 0 32px; perspective: 700px; }
   .signature-shutter-photos { inset: 0; }
@@ -203,8 +205,8 @@
 }
 @media (max-width: 360px) {
   .signature-actions a { gap: 16px; padding-inline: 13px; }
-  .signature-actions .signature-sim { gap: 10px; padding-right: 14px; font-size: 13px; }
-  .signature-sim-icon { width: 40px; height: 40px; }
+  .signature-actions .signature-sim { gap: 8px; padding-right: 12px; }
+  .signature-sim-icon { width: 34px; height: 34px; }
   .signature-lead { font-size: 11px; }
   .signature-category-trigger { font-size: 13px; }
   .signature-submenu button { font-size: 10px; padding-inline: 8px; }
