@@ -1,3 +1,14 @@
+# 2026-11-20 — b1 커밋·공개 배포 완료 (품질인정제도 → 자료실 메뉴, 내화구조 기타자료 삭제, 내화구조 페이지 상단 삭제)
+
+**현재 공개 홈페이지는 이 상태다.** 아래 b1을 사용자 지시로 `main`에 합쳐(작업 브랜치 `claude/menu-archive-b1` fast-forward) push, 기존 `gh-pages`로 공개 배포했다. 아래 b1 기록의 ‘main 미반영·공개 배포 전’은 당시의 과거 상태다. 클라우드 세션에서 배포했다.
+
+- **링크**: [메인](https://jay-source-2026.github.io/Jay-s-Repository/company-site/), [사업영역 내화구조](https://jay-source-2026.github.io/Jay-s-Repository/company-site/business-fireproof.html), [자료실 내화구조](https://jay-source-2026.github.io/Jay-s-Repository/company-site/archive.html#fireproof), [품질인정제도](https://jay-source-2026.github.io/Jay-s-Repository/company-site/regulation.html).
+- **커밋·배포**: 소스 `e2d317016a1ee73b6ea7847783ac8629ea4194c9`, 배포 `0906bd99fb7137154a762d7e2b7fbd3fc7d3523f`. 패키지 360개 파일. gh-pages 변경은 HTML 9개·`archive.json`·`pages.js`·`shutter-videos.js`·`release.json`. `concepts/`는 그대로. 패키지와 배포 트리는 `concepts/` 외 동일.
+- **공개 확인**: 공개 `release.json`이 소스 커밋을 가리킴. 공개 주소 PC 1366·모바일 390에서 메뉴(사업영역 4개, 자료실 5개: 맨 아래 품질인정제도), 사업영역 탭 4개, 내화구조 페이지 첫 구간 ‘주요 시공 현장’(2002년 문구·tunnel-a 사진 없음, 가로 넘침 없음), 자료실 내화구조 기타자료 0건, 품질인정제도 위치 ‘HOME / 자료실 / 품질인정제도’, JS 오류 없음. 실제 기기는 미확인.
+- **남은 기존 사항**: 본사·공장 주소 표기 확인, 최신 ISO 인증서 수령. `regulation.html` 안내 카드의 ‘인정서별 시공방법’ 문구, 내화채움구조 페이지 본문의 ‘품질인정제도’ 바로가기 버튼은 그대로.
+
+---
+
 # 2026-11-20 — 품질인정제도 메뉴를 자료실로 이동·자료실 내화구조 기타자료 삭제·내화구조 페이지 상단 소개 삭제 (b1, 미리보기)
 
 **최신 편집 상태다. 작업 브랜치 `claude/menu-archive-b1`에만 커밋·push, `main` 미반영·공개 배포 전(공개는 a3).** 사용자 지시 3건.
