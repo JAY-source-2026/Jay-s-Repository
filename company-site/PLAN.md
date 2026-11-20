@@ -7,6 +7,8 @@
 - **파일**: `index.html`(버튼 마크업, signature.css 캐시 `20261120a1`), `assets/css/signature.css`. signature.js 등 다른 캐시는 그대로.
 - **검수**: 로컬 1440·1366·1180·1024·900·761·760·390·360·320px에서 버튼 글자 한 줄·버튼 안에 들어감·왼쪽 글 영역 안·가로 넘침 없음, JS 오류 없음. 실제 기기는 미확인.
 - **수정 전 로컬 백업**: `.local-backups/doenc-20261120-a1-before/`.
+- **공개 미리보기**(사용자 승인): [미리보기 링크](https://jay-source-2026.github.io/Jay-s-Repository/company-site/preview-a1.html?intro=off). `gh-pages`에 `company-site/preview-a1.html`(메인 index.html 공개용 패키지 사본, 스타일만 `signature-preview-a1.css`로 연결, 메인 링크는 preview-a1.html로, 검색 제외 noindex)과 `company-site/assets/css/signature-preview-a1.css` 2개만 추가(배포 커밋 `f1685cb`). 공개 메인 index.html·signature.css·release.json은 그대로(공개 메인 버튼은 아직 ‘인정서별 시공방법 보기’). 공개 주소에서 PC 1366·모바일 390 버튼 표시·클릭 시 #technology 이동·JS 오류 없음 확인. **다음 정식 배포 때 이 미리보기 파일 2개를 지운다.**
+- **작업 환경**: 공개 주소 확인용으로 이 저장소 전용 클라우드 환경 ‘Jay-s-Repository’(허용 호스트 `jay-source-2026.github.io`)를 만들어 사용.
 
 ---
 
