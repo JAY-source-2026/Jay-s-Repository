@@ -79,20 +79,6 @@
   ],
   "items": [
     {
-      "cat": "fireproof",
-      "title": "[목업] 지하 통신구 방화벽",
-      "date": "2022-02-09",
-      "tag": "목업",
-      "body": "지하 통신구 방화벽 목업. 통신구·전력구·공동구의 방화구획 설치 상세를 실물로 구현한 자료입니다. KT 통신구 방화벽 시범사업(2020)부터 1·2차 사업(2021~2022)까지 적용된 구조입니다.",
-      "images": [
-        "assets/media/archive/fireproof/telecom-mockup-1.jpg",
-        "assets/media/archive/fireproof/telecom-mockup-2.jpg",
-        "assets/media/archive/fireproof/telecom-mockup-3.jpg"
-      ],
-      "id": "fireproof-telecom-mockup",
-      "board": "other"
-    },
-    {
       "cat": "software",
       "title": "내화채움(충전)구조 자동 설계소프트웨어 DESkey 사용설명서",
       "date": "2022-03-03",

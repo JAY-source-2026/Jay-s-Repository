@@ -43,7 +43,7 @@ function bringPlayerIntoView() {
 
 function loadCertificates() {
   if (!certificateRequest) {
-    certificateRequest = fetch('assets/data/archive.json?v=20261119e1')
+    certificateRequest = fetch('assets/data/archive.json?v=20261120b1')
       .then(response => {
         if (!response.ok) throw new Error('Certificate list unavailable');
         return response.json();
