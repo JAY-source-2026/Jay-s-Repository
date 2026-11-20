@@ -1,3 +1,15 @@
+# 2026-11-20 — a1~a3 커밋·공개 배포 완료 (‘인정서별 시공 시뮬레이션 보기’ 버튼)
+
+**현재 공개 홈페이지는 이 상태다.** 아래 a1(문구 ‘인정서별 시공 시뮬레이션 보기’·밝은 파랑·재생 아이콘·테두리 퍼짐), a2·a3(크기 축소)을 사용자 지시로 `main`에 합쳐(작업 브랜치 `claude/hero-sim-button-a1` fast-forward) push, 기존 `gh-pages`로 공개 배포했다. 아래 기록의 ‘미리보기’, ‘main 미반영·공개 배포 전’은 당시의 과거 상태다. 이번은 클라우드 세션(`/home/user/jay-s-repository`)에서 배포했다.
+
+- **링크**: [메인](https://jay-source-2026.github.io/Jay-s-Repository/company-site/?intro=off&v=20261120a3), [3D 시공 설명](https://jay-source-2026.github.io/Jay-s-Repository/company-site/?intro=off&v=20261120a3#technology).
+- **커밋·배포**: 소스 `4ecdd952d691e30b092670bbc7051c914fd61018`, 배포 `4f6e93c0b4f42a0b25f9343a66b0f6e800ff8122`. 패키지 360개 파일(`tools/prepare-pages.py --ref main`). gh-pages 변경은 `index.html`·`signature.css`·`release.json`뿐이고, 미리보기 파일 `preview-a1.html`·`assets/css/signature-preview-a1.css`는 삭제(미리보기 주소는 이제 404). gh-pages에만 있는 `concepts/`는 그대로 둠. 패키지와 배포 트리는 `concepts/` 외 동일.
+- **공개 확인**: 공개 `release.json`이 소스 커밋을 가리킴. 공개 주소 PC 1366에서 버튼 ‘인정서별 시공 시뮬레이션 보기’(밝은 파랑, 높이 48px) 표시·누르면 #technology로 이동, 모바일 390 높이 44px, 인트로 켜진 기본 주소도 정상, JS 오류 없음. 실제 기기는 미확인.
+- **작업 환경**: 이 저장소 전용 클라우드 환경 ‘Jay-s-Repository’(허용 호스트 `jay-source-2026.github.io`)에서 공개 주소를 직접 확인할 수 있다.
+- **남은 기존 사항**: 본사·공장 주소 표기 확인, 최신 ISO 인증서 수령. `regulation.html` 안내 카드의 ‘인정서별 시공방법’ 문구는 그대로(필요하면 맞춤).
+
+---
+
 # 2026-11-20 — ‘인정서별 시공 시뮬레이션 보기’ 버튼 한 단계 더 축소 (a3, 미리보기)
 
 **최신 편집 상태다. a2 위에 이어서 했고 작업 브랜치 `claude/hero-sim-button-a1`에만 커밋·push, `main` 미반영·공개 배포 전(공개는 아직 f4).** 사용자 지시: 크기를 조금만 더 줄이기.
