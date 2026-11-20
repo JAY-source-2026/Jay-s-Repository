@@ -180,7 +180,7 @@
                         <p class="signature-lead">내화채움구조부터 내화벽체와 방화셔터까지.<br>공간의 안전을 위한 디오이엔씨의 화재차단 기술.</p>
                         <div class="signature-actions"><a class="signature-primary signature-sim" href="#technology"><span class="signature-sim-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20"><path d="M8 5.5v13l10.5-6.5z" fill="currentColor"/></svg></span><span class="signature-sim-label">인정서별 시공 시뮬레이션 보기</span><span class="signature-sim-arrow" aria-hidden="true">↓</span></a><a class="signature-secondary" href="about.html#ceo">회사소개 <span aria-hidden="true">↗</span></a></div>
                     </div>
-                    <div class="signature-showcase" id="signatureShowcase" role="region" aria-label="내화채움구조와 방화셔터 제품 둘러보기">
+                    <div class="signature-showcase" id="signatureShowcase" role="region" aria-label="내화채움구조와 셔터 제품 둘러보기">
                         <div class="signature-stage" id="signatureStage">
                             <figure class="signature-slide is-active" id="signatureProducts" aria-label="내화채움구조 제품 회전 보기">
                                 <div class="signature-products" id="signatureProductScene" data-mode="intro" role="group" aria-label="내화채움구조 제품" aria-roledescription="제품 캐러셀">
@@ -202,8 +202,8 @@
                                 </div>
                                 <figcaption class="sr-only"><span id="signatureProductCaption">내화보드 · 내화자켓</span>. 실제 제품 기반 연출 이미지</figcaption>
                             </figure>
-                            <figure class="signature-slide" id="signatureShutter" aria-label="방화셔터 사진 회전 보기" aria-hidden="true" inert>
-                                <div class="signature-products signature-shutter-photos" id="signatureShutterScene" data-mode="single" role="group" aria-label="방화셔터 제품" aria-roledescription="제품 캐러셀">
+                            <figure class="signature-slide" id="signatureShutter" aria-label="셔터 사진 회전 보기" aria-hidden="true" inert>
+                                <div class="signature-products signature-shutter-photos" id="signatureShutterScene" data-mode="single" role="group" aria-label="셔터 제품" aria-roledescription="제품 캐러셀">
                                     <button class="signature-product-target" data-shutter-photo="standard" type="button" aria-label="일반 스크린 방화셔터 사진 보기" aria-pressed="false" aria-controls="signatureShutterCaption">
                                         <img class="signature-product" src="assets/media/hero/shutter-standard-photo-v2.jpg" width="1672" height="941" alt="기둥 사이 개구부 전체를 막고 내려온 일반 스크린 방화셔터 현장 사진" decoding="async">
                                     </button>
@@ -251,19 +251,22 @@
                             </div>
                             <div class="signature-category" data-category="shutter" data-current="false">
                                 <div class="signature-category-heading">
-                                    <button class="signature-category-trigger" id="signatureShutterHeading" type="button" aria-pressed="false" aria-controls="signatureShutter">방화셔터</button>
+                                    <button class="signature-category-trigger" id="signatureShutterHeading" type="button" aria-pressed="false" aria-controls="signatureShutter">셔터</button>
                                     <a class="signature-category-link" href="#shutter">방화셔터 상세 페이지 보기 <span aria-hidden="true">↓</span></a>
                                 </div>
                                 <div class="signature-submenu" id="signatureShutterMenu" role="group" aria-labelledby="signatureShutterHeading">
-                                    <button class="signature-shutter-group" type="button" data-shutter-group="screen" aria-expanded="false" aria-controls="signatureShutterScreen"><span class="signature-shutter-group-name">스크린셔터</span><i class="signature-shutter-arrow" aria-hidden="true"></i></button>
-                                    <div class="signature-shutter-items" id="signatureShutterScreen" data-shutter-items="screen" role="group" aria-label="스크린셔터" hidden>
+                                    <button class="signature-shutter-group" type="button" data-shutter-group="screen" aria-expanded="false" aria-controls="signatureShutterScreen"><span class="signature-shutter-group-name">스크린 방화셔터</span><i class="signature-shutter-arrow" aria-hidden="true"></i></button>
+                                    <div class="signature-shutter-items" id="signatureShutterScreen" data-shutter-items="screen" role="group" aria-label="스크린 방화셔터" hidden>
                                         <button type="button" data-shutter-select="standard" aria-pressed="false" aria-controls="signatureShutter">일반 스크린 방화셔터</button>
                                         <button type="button" data-shutter-select="large" aria-pressed="false" aria-controls="signatureShutter">대형 스크린 방화셔터</button>
                                         <button type="button" data-shutter-select="wire" aria-pressed="false" aria-controls="signatureShutter">와이어 권취형 방화셔터</button>
                                     </div>
-                                    <button class="signature-shutter-group" type="button" data-shutter-group="other" aria-expanded="false" aria-controls="signatureShutterOther"><span class="signature-shutter-group-name">기타셔터</span><i class="signature-shutter-arrow" aria-hidden="true"></i></button>
-                                    <div class="signature-shutter-items" id="signatureShutterOther" data-shutter-items="other" role="group" aria-label="기타셔터" hidden>
+                                    <button class="signature-shutter-group" type="button" data-shutter-group="steel" aria-expanded="false" aria-controls="signatureShutterSteel"><span class="signature-shutter-group-name">철재 방화셔터</span><i class="signature-shutter-arrow" aria-hidden="true"></i></button>
+                                    <div class="signature-shutter-items" id="signatureShutterSteel" data-shutter-items="steel" role="group" aria-label="철재 방화셔터" hidden>
                                         <button type="button" data-shutter-select="steel" aria-pressed="false" aria-controls="signatureShutter">철재 방화셔터</button>
+                                    </div>
+                                    <button class="signature-shutter-group" type="button" data-shutter-group="other" aria-expanded="false" aria-controls="signatureShutterOther"><span class="signature-shutter-group-name">기타 셔터</span><i class="signature-shutter-arrow" aria-hidden="true"></i></button>
+                                    <div class="signature-shutter-items" id="signatureShutterOther" data-shutter-items="other" role="group" aria-label="기타 셔터" hidden>
                                         <button type="button" data-shutter-select="windload" aria-pressed="false" aria-controls="signatureShutter">내풍압셔터</button>
                                         <button type="button" data-shutter-select="insulated" aria-pressed="false" aria-controls="signatureShutter">단열셔터</button>
                                         <button type="button" data-shutter-select="security-pipe" aria-pressed="false" aria-controls="signatureShutter">방범셔터(파이프 이중)</button>
